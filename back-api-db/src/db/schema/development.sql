@@ -74,3 +74,27 @@ JOIN (
 ON a.rnum = s.rnum
 JOIN available_interviewers
 ON a.day_id = available_interviewers.day_id;
+
+INSERT INTO users (name)
+VALUES
+    ('Liam Martinez'),
+    ('Richard Wong'),
+    ('Lydia Miller-Jones'),
+    ('Archie Cohen'),
+    ('Chad Takahashi'),
+    ('Leopold Silvers'),
+    ('Maria Boucher'),
+    ('Jamal Jordan'),
+    ('Michael Chan-Montoya'),
+    ('Yuko Smith');
+
+INSERT INTO expenses (name, user_id, amount, type, date)
+VALUES
+    ('stuff', 1, 100, 'food', '11/11/2011')
+  
+  -- id SERIAL PRIMARY KEY NOT NULL,
+  -- name VARCHAR(255) NOT NULL,
+  -- user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
+  -- amount INTEGER NOT NULL,
+  -- type VARCHAR(255) NOT NULL,
+  -- date DATE NOT NULL
