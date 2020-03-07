@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import Dashboard from "views/Dashboard.jsx";
+import Dashboard from "views/Dashboard1.jsx";
 import UserProfile from "views/UserProfile.jsx";
 import TableList from "views/TableList.jsx";
 import Typography from "views/Typography.jsx";
@@ -26,8 +26,8 @@ import Upgrade from "views/Upgrade.jsx";
 
 const dashboardRoutes = [
   {
-    path: "/dashboard",
-    name: "Dashboard",
+    path: "/dashboard1",
+    name: "Dashboard1",
     icon: "pe-7s-graph",
     component: Dashboard,
     layout: "/admin"
