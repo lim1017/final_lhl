@@ -90,7 +90,21 @@ VALUES
 
 INSERT INTO expenses (name, user_id, amount, type, date)
 VALUES
-    ('stuff', 1, 100, 'food', '11/11/2011')
+    ('Coffee', 1, 2, 'food', '01/3/2020'),
+    ('Burger King', 1, 10, 'food', '01/5/2020'),
+    ('Groceries', 1, 28, 'food', '01/6/2020'),
+    ('Rotti King', 1, 15, 'food', '01/8/2020'),
+    ('Sushi', 1, 20, 'food', '01/11/2020'),
+    ('Coffee', 1, 2, 'food', '01/12/2020'),
+    ('Groceries', 1, 35, 'food', '01/16/2020'),
+    ('Coffee', 1, 2, 'food', '01/16/2020'),
+    ('Mcdonalds', 1, 12, 'food', '01/18/2020'),
+    ('Coffee', 1, 2, 'food', '01/19/2020'),
+    ('Coffee', 1, 2, 'food', '01/20/2020'),
+    ('Groceries', 1, 50, 'food', '01/20/2020'),
+    ('Coffee', 1, 2, 'food', '01/21/2020'),
+    ('Groceries', 1, 30.5, 'food', '01/25/2020')
+
   
   -- id SERIAL PRIMARY KEY NOT NULL,
   -- name VARCHAR(255) NOT NULL,
