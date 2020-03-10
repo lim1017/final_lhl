@@ -7,7 +7,7 @@ import reducerz, {
 export default function useAppData() {
  
   const [state, dispatch] = useReducer(reducerz, {
-    expenses: [{a: 'a'}],
+    expenses: [{id: 0, name: '', user_id: 0, amount: 0, type: '', date: ''}],
     users: [{a: 'a'}]
   });
 

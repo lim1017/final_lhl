@@ -266,7 +266,7 @@ var style = {
 // // // For tables
 // //
 //
-const thArray = ["ID", "Name", "Salary", "Country", "City"];
+const expensesTitle = ["Name", "Type", "Amount", "Date"];
 const tdArray = [
   ["1", "Dakota Rice", "$36,738", "Niger", "Oud-Turnhout"],
   ["2", "Minerva Hooper", "$23,789", "Curaçao", "Sinaai-Waas"],
@@ -600,7 +600,7 @@ var legendBar = {
 
 module.exports = {
   style, // For notifications (App container and Notifications view)
-  thArray,
+  expensesTitle,
   tdArray, // For tables (TableList view)
   iconsArray, // For icons (Icons view)
   dataPie,
