@@ -36,21 +36,26 @@ import {
 
 import cx from "classnames";
 import { reduceEachLeadingCommentRange } from "typescript";
+import useAppData from "../hooks/useAppData";
 
 const axios = require("axios").default;
 
 
 
 function Dashboard (props) {
+  const{
+    state
+  } = useAppData();
 
-  useEffect(() => {
-    Promise.all([
-      axios.get("http://localhost:8001/api/expenses")
-    ]).then(all => {
-      const [expenses] = all;
-      console.log(expenses.data)   
-    });
-  }, []);
+  console.log("a", state.expenses[0].name)
+  // useEffect(() => {
+  //   Promise.all([
+  //     axios.get("http://localhost:8001/api/expenses")
+  //   ]).then(all => {
+  //     const [expenses] = all;
+  //     console.log(expenses.data)   
+  //   });
+  // }, []);
 
   function createLegend(json) {
     var legend = [];
@@ -73,14 +78,18 @@ function Dashboard (props) {
 
    
     return (
-      
       <div className="content">
-       <p>dashboard</p>
-               
-       <div style={testing} >
-      
-       <Card title="asdas" content="bobobobbbbbbbbbbbbbbbo" hCenter="true"/>
-       <Card
+        <p>dashboard</p>
+                      
+          <Grid fluid>
+          <Row className="justify-content-md-center">
+            <Col lg={2} sm={6}><Card title="asdas" content="bobobobbbbbbbbbbbbbbbo" hCenter="true"/></Col>
+            <Col lg={3} sm={6}><Card title="asdas" content="bobobobbbbbbbbbbbbbbbo" hCenter="true"/></Col>
+            <Col lg={3} sm={6}><Card title="asdas" content="bobobobbbbbbbbbbbbbbbo" hCenter="true"/></Col>
+          </Row>
+          <Row>
+            <Col md={20}>           
+              <Card
                 statsIcon="fa fa-clock-o"
                 title="Email Statistics"
                 category="Last Campaign Performance"
@@ -98,16 +107,16 @@ function Dashboard (props) {
                 }
                 legend={
                   <div className="legend">{createLegend({
-                    names: ["Open", "Bounce", "Unsubscribe", "werid gray"],
+                    names: [state.expenses[0].name, "Bounce", "Unsubscribe", "werid gray"],
                     types: ["info", "danger", "warning", "success"]
                   })}</div>
                 }
               />
-       <Card />
-       </div > 
-
-      <StatsCard />
-
+              <Card />
+            </Col>
+          </Row>
+          </Grid>
+        <StatsCard />
       </div>
     );
   
