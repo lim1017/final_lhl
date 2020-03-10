@@ -42,7 +42,7 @@ const axios = require("axios").default;
 
 
 function Dashboard (props) {
-let expenses;
+
   useEffect(() => {
     Promise.all([
       axios.get("http://localhost:8001/api/expenses")
@@ -71,18 +71,15 @@ let expenses;
     
   });
 
-    
-
-
    
     return (
       
       <div className="content">
        <p>dashboard</p>
-       
+               
        <div style={testing} >
       
-       <Card title="2014" content="bobobobbbbbbbbbbbbbbbo" hCenter="true"/>
+       <Card title="asdas" content="bobobobbbbbbbbbbbbbbbo" hCenter="true"/>
        <Card
                 statsIcon="fa fa-clock-o"
                 title="Email Statistics"
