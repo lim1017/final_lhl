@@ -49,15 +49,8 @@ function Dashboard (props) {
     state
   } = useAppData();
 
-  console.log("a", state.expenses[0].name)
-  // useEffect(() => {
-  //   Promise.all([
-  //     axios.get("http://localhost:8001/api/expenses")
-  //   ]).then(all => {
-  //     const [expenses] = all;
-  //     console.log(expenses.data)   
-  //   });
-  // }, []);
+  console.log("a", state.totalExpenses)
+
 
   function createLegend(json) {
     var legend = [];
@@ -70,20 +63,31 @@ function Dashboard (props) {
     return legend;
   }
   
+  function nameList(data){
+    const finalOP=[]
+    data.forEach(element =>{
+      finalOP.push(element.type)
+    })
+    return finalOP
+  }
 
-  const testing = ({
-    backgroundColor: 'yellow',
-    display:'flex',
-    justifyContent:'space-between'
-    
-  });
+  function createPie(expensesTotal){
+    const finalOP={labels:[],
+            series:[]
+            }
+    let grandTotal=0
+    expensesTotal.forEach(element =>{
+      grandTotal+=parseInt(element.sum)
+    })
+    expensesTotal.forEach(element =>{
+      finalOP.labels.push(((parseInt(element.sum)/grandTotal)*100).toFixed(0) + "%")
+      finalOP.series.push(element.sum)
+    })
 
-  // let tableClass = cx({
-  //   position: relative;
-  //   height: 200px;
-  //   overflow: auto;
-  //   display: block;
-  // })
+    console.log(finalOP)
+    return finalOP
+
+  }
    
     return (
       <div className="content">
@@ -137,28 +141,6 @@ function Dashboard (props) {
                         }}
                       />
                     </div>
-                    // <Table scrollY striped hover>
-                    //   <thead>
-                    //     <tr>
-                    //       {expensesTitle.map((prop, key) => {
-                    //         return <th key={key}>{prop}</th>;
-                    //       })}
-                    //     </tr>
-                    //   </thead>
-                    //   <tbody>
-                    //     {state.expenses.map((prop, key) => {
-                    //       return (
-                    //         <tr key={key}>
-                    //           <td>{prop.name}</td>
-                    //           <td>{prop.type}</td>
-                    //           <td>{prop.amount}</td>
-                    //           <td>{prop.date}</td>
-                    //         </tr>
-                    //       );
-                    //     })}
-                    //   </tbody>
-                    // </Table>
-                    // </div>
                   }
                 />
               </Col>
@@ -167,7 +149,7 @@ function Dashboard (props) {
               <Col lg={5}>           
                 <Card
                   statsIcon="fa fa-clock-o"
-                  title="Email Statistics"
+                  title="Expenses"
                   category="Last Campaign Performance"
                   stats="Campaign sent 2 days ago"
                   content={
@@ -175,15 +157,12 @@ function Dashboard (props) {
                       id="chartPreferences"
                       className="ct-chart ct-perfect-fourth"
                     >
-                      <ChartistGraph data={{
-                                          labels: ["25%", "10%", "5%", "25", "10", "10", "10"],
-                                          series: [10, 20, 20, 20, 10, 10, 10]
-                                          }} type="Pie" />
+                      <ChartistGraph data={createPie(state.totalExpenses)} type="Pie" />
                     </div>
                   }
                   legend={
                     <div className="legend">{createLegend({
-                      names: [state.expenses[0].name, "Bounce", "Unsubscribe", "werid gray"],
+                      names: nameList(state.totalExpenses),
                       types: ["info", "danger", "warning", "success"]
                     })}</div>
                   }
@@ -215,12 +194,12 @@ function Dashboard (props) {
                     />
                     </div>
                   }
-                  legend={
-                    <div className="legend">{createLegend({
-                      names: [state.expenses[0].name, "Bounce", "Unsubscribe", "werid gray"],
-                      types: ["info", "danger", "warning", "success"]
-                    })}</div>
-                  }
+                  // legend={
+                  //   <div className="legend">{createLegend({
+                  //     names: [state.totalExpenses[0].type, "Bounce", "Unsubscribe", "werid gray"],
+                  //     types: ["info", "danger", "warning", "success"]
+                  //   })}</div>
+                  // }
                 />
               </Col>
             </Row>

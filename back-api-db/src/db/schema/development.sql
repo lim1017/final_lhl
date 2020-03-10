@@ -103,7 +103,14 @@ VALUES
     ('Coffee', 1, 2, 'food', '01/20/2020'),
     ('Groceries', 1, 50, 'food', '01/20/2020'),
     ('Coffee', 1, 2, 'food', '01/21/2020'),
-    ('Groceries', 1, 30.5, 'food', '01/25/2020')
+    ('Groceries', 1, 30.5, 'food', '01/25/2020'),
+    ('Rent', 1, 1200, 'home', '01/1/2020'),
+    ('Home Insurance', 1, 150, 'home', '01/3/2020'),
+    ('Hydro', 1, 200, 'home', '01/11/2020'),
+    ('Gas', 1, 50, 'home', '01/20/2020'),
+    ('Auto Insurance', 1, 200, 'transporation', '01/5/2020'),
+    ('Auto Lease', 1, 320, 'transporation', '01/5/2020')
+
 
   
   -- id SERIAL PRIMARY KEY NOT NULL,

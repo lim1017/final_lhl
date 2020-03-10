@@ -11,7 +11,8 @@ export default function reducerz(state, action) {
       console.log(action)
       return {
         ...state,
-        expenses: action.expenses
+        expenses: action.expenses,
+        totalExpenses: action.totalExpenses
       }
     default:
       throw new Error(

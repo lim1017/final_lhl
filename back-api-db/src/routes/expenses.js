@@ -6,8 +6,22 @@ module.exports = db => {
       `
       SELECT * FROM expenses
     `
-    ).then(({ rows: days }) => {
-      response.json(days);
+    ).then(({ rows: expenses }) => {
+      response.json(expenses);
+    });
+  });
+
+
+
+  router.get("/expensestotal", (request, response) => {
+    db.query(
+      `
+      SELECT type, Sum(amount) 
+      FROM expenses
+      GROUP BY type
+    `
+    ).then(({ rows: totalExpense }) => {
+      response.json(totalExpense);
     });
   });
 
