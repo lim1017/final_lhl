@@ -17,7 +17,7 @@
 */
 import Expenses from "views/Expenses.jsx";
 import UserProfile from "views/UserProfile.jsx";
-import TableList from "views/TableList.jsx";
+import Portfolio from "views/Portfolio.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
@@ -40,10 +40,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/table",
+    path: "/portfolio",
     name: "Portfolio",
     icon: "pe-7s-note2",
-    component: TableList,
+    component: Portfolio,
     layout: "/admin"
   },
   {
@@ -74,8 +74,6 @@ const dashboardRoutes = [
     component: Notifications,
     layout: "/admin"
   }
-
-
 ];
 
 export default dashboardRoutes;
