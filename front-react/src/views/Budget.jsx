@@ -39,6 +39,9 @@ function Budget(props) {
                 category="Here is a subtitle for this table"
                 ctTableFullWidth
                 ctTableResponsive
+<<<<<<< HEAD:front-react/src/views/TableList.jsx
+                content='asdasdfasdf'
+=======
                 content={
                   <Table striped hover>
                     <thead>
@@ -61,10 +64,14 @@ function Budget(props) {
                     </tbody>
                   </Table>
                 }
+>>>>>>> master:front-react/src/views/Budget.jsx
               />
             </Col>
 
             <Col md={12}>
+<<<<<<< HEAD:front-react/src/views/TableList.jsx
+              
+=======
               <Card
                 plain
                 title="Striped Table with Hover"
@@ -94,6 +101,7 @@ function Budget(props) {
                   </Table>
                 }
               />
+>>>>>>> master:front-react/src/views/Budget.jsx
             </Col>
           </Row>
         </Grid>

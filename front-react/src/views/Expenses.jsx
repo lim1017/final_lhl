@@ -20,6 +20,8 @@ import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
+import ExpenseUpdater from "components/ExpenseUpdater/ExpenseUpdater.jsx";
+
 import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
   dataPie,
@@ -39,8 +41,9 @@ import { reduceEachLeadingCommentRange } from "typescript";
 import useAppData from "../hooks/useAppData";
 import { expensesTitle, tdArray } from "variables/Variables.jsx";
 import { MDBDataTable } from 'mdbreact';
+import Button from '@material-ui/core/Button';
 
-const axios = require("axios").default;
+
 
 
 
@@ -84,7 +87,10 @@ function Dashboard (props) {
       finalOP.series.push(element.sum)
     })
 
+<<<<<<< HEAD
+=======
     console.log('this is output of createPie function: ', finalOP)
+>>>>>>> master
     return finalOP
 
   }
@@ -140,7 +146,13 @@ function Dashboard (props) {
                           rows: state.expenses
                         }}
                       />
+                      <Button variant="contained" color="primary">
+                        Primary
+                      </Button>
+                      <ExpenseUpdater />
+
                     </div>
+                  
                   }
                 />
               </Col>
