@@ -41,6 +41,8 @@ import { reduceEachLeadingCommentRange } from "typescript";
 import useAppData from "../hooks/useAppData";
 import { expensesTitle, tdArray } from "variables/Variables.jsx";
 import { MDBDataTable } from 'mdbreact';
+import Button from '@material-ui/core/Button';
+
 
 
 
@@ -85,7 +87,6 @@ function Dashboard (props) {
       finalOP.series.push(element.sum)
     })
 
-    console.log(finalOP)
     return finalOP
 
   }
@@ -141,6 +142,9 @@ function Dashboard (props) {
                           rows: state.expenses
                         }}
                       />
+                      <Button variant="contained" color="primary">
+                        Primary
+                      </Button>
                       <ExpenseUpdater />
 
                     </div>
