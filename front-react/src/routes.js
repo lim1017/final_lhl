@@ -17,7 +17,7 @@
 */
 import Expenses from "views/Expenses.jsx";
 import UserProfile from "views/UserProfile.jsx";
-import TableList from "views/TableList.jsx";
+import Budget from "views/Budget.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
@@ -40,15 +40,15 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/table",
-    name: "Portfolio",
+    path: "/budget",
+    name: "Budget",
     icon: "pe-7s-note2",
-    component: TableList,
+    component: Budget,
     layout: "/admin"
   },
   {
     path: "/typography",
-    name: "Budget",
+    name: "Typography",
     icon: "pe-7s-news-paper",
     component: Typography,
     layout: "/admin"

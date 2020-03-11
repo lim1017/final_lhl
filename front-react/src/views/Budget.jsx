@@ -19,10 +19,16 @@ import React, { Component } from "react";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 
 import Card from "components/Card/Card.jsx";
-import { thArray, tdArray } from "variables/Variables.jsx";
+import { expensesTitle, tdArray } from "variables/Variables.jsx";
+import useAppData from "../hooks/useAppData";
 
-class TableList extends Component {
-  render() {
+function Budget(props) {
+  const{
+    state
+  } = useAppData();
+
+  console.log('this is state in budget: ', state)
+
     return (
       <div className="content">
         <Grid fluid>
@@ -37,7 +43,7 @@ class TableList extends Component {
                   <Table striped hover>
                     <thead>
                       <tr>
-                        {thArray.map((prop, key) => {
+                        {expensesTitle.map((prop, key) => {
                           return <th key={key}>{prop}</th>;
                         })}
                       </tr>
@@ -69,7 +75,7 @@ class TableList extends Component {
                   <Table hover>
                     <thead>
                       <tr>
-                        {thArray.map((prop, key) => {
+                        {expensesTitle.map((prop, key) => {
                           return <th key={key}>{prop}</th>;
                         })}
                       </tr>
@@ -93,7 +99,7 @@ class TableList extends Component {
         </Grid>
       </div>
     );
-  }
+
 }
 
-export default TableList;
+export default Budget;
