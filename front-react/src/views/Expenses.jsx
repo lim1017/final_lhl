@@ -20,6 +20,8 @@ import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
+import ExpenseUpdater from "components/ExpenseUpdater/ExpenseUpdater.jsx";
+
 import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
   dataPie,
@@ -40,7 +42,6 @@ import useAppData from "../hooks/useAppData";
 import { expensesTitle, tdArray } from "variables/Variables.jsx";
 import { MDBDataTable } from 'mdbreact';
 
-const axios = require("axios").default;
 
 
 
@@ -140,7 +141,10 @@ function Dashboard (props) {
                           rows: state.expenses
                         }}
                       />
+                      <ExpenseUpdater />
+
                     </div>
+                  
                   }
                 />
               </Col>
