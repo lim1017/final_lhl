@@ -11,8 +11,6 @@ module.exports = db => {
     });
   });
 
-
-
   router.get("/expensestotal", (request, response) => {
     db.query(
       `
@@ -24,6 +22,42 @@ module.exports = db => {
       response.json(totalExpense);
     });
   });
+
+  router.put("/expenses/add/", (request, response) => {
+    if (process.env.TEST_ERROR) {
+      setTimeout(() => response.status(500).json({}), 1000);
+      return;
+    }
+
+    console.log("asdasdasdasdasdasdasd", request.body)
+
+    const { amount, name, type } = request.body;
+
+    db.query(
+      `
+      INSERT INTO expenses (name, user_id, amount, type, date)
+      VALUES
+      ($1, 1, $2, $3, '01/19/2020')
+
+      `,
+      [name, amount, type]
+    )
+      .then((x) => {
+        setTimeout(() => {
+          response.status(204).json({});
+        }, 1000);
+        console.log(x, 'xxxxxxxxxxxxxx')
+        console.log(response, 'responseee')
+
+      })
+      .catch(error => console.log(error));
+  });
+
+
+
+
+
+ 
 
   return router;
 };

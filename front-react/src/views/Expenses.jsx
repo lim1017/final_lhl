@@ -15,12 +15,14 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import ExpenseUpdater from "components/ExpenseUpdater/ExpenseUpdater.jsx";
+import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
+
 
 import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
@@ -36,12 +38,11 @@ import {
   legendBar,
 } from "variables/Variables.jsx";
 
-import cx from "classnames";
 import { reduceEachLeadingCommentRange } from "typescript";
 import useAppData from "../hooks/useAppData";
-import { expensesTitle, tdArray } from "variables/Variables.jsx";
 import { MDBDataTable } from 'mdbreact';
 import Button from '@material-ui/core/Button';
+import {Spring, Transition, animated} from 'react-spring/renderprops'
 
 
 
@@ -52,8 +53,15 @@ function Dashboard (props) {
     state
   } = useAppData();
 
-  console.log("this is state.totalExpenses in expenses: ", state.totalExpenses)
+  const [addExpense, setAddExpense] = useState(false);
 
+
+  function toggleState(state){
+    console.log('clicked')
+
+    setAddExpense(!addExpense)
+    console.log(addExpense)
+  }
 
   function createLegend(json) {
     var legend = [];
@@ -142,11 +150,32 @@ function Dashboard (props) {
                           rows: state.expenses
                         }}
                       />
-                      <Button variant="contained" color="primary">
+                      <Button variant="contained" color="primary" onClick={()=>toggleState()}>
                         Primary
                       </Button>
-                      <ExpenseUpdater />
+                    
+                        {addExpense === true &&(
+                            <ExpenseUpdater1 />
+                        )}
+                    
+                      {/* <Transition
+                        native
+                        items={{addExpense}}
+                        from={{ opacity: 0 }}
+                        to={{ opacity: 1 }}
+                        leave={{ opacity: 0 }}
+                      >
+                        {show => show && (props => (
 
+                          <animated.div style={props}>
+
+                              <ExpenseUpdater />
+
+
+                          </animated.div>
+
+                        ))}
+                      </Transition> */}
                     </div>
                   
                   }

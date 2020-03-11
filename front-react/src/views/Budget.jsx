@@ -39,69 +39,12 @@ function Budget(props) {
                 category="Here is a subtitle for this table"
                 ctTableFullWidth
                 ctTableResponsive
-<<<<<<< HEAD:front-react/src/views/TableList.jsx
                 content='asdasdfasdf'
-=======
-                content={
-                  <Table striped hover>
-                    <thead>
-                      <tr>
-                        {expensesTitle.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
->>>>>>> master:front-react/src/views/Budget.jsx
               />
             </Col>
 
             <Col md={12}>
-<<<<<<< HEAD:front-react/src/views/TableList.jsx
               
-=======
-              <Card
-                plain
-                title="Striped Table with Hover"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <Table hover>
-                    <thead>
-                      <tr>
-                        {expensesTitle.map((prop, key) => {
-                          return <th key={key}>{prop}</th>;
-                        })}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {tdArray.map((prop, key) => {
-                        return (
-                          <tr key={key}>
-                            {prop.map((prop, key) => {
-                              return <td key={key}>{prop}</td>;
-                            })}
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </Table>
-                }
-              />
->>>>>>> master:front-react/src/views/Budget.jsx
             </Col>
           </Row>
         </Grid>

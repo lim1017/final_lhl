@@ -34,6 +34,22 @@ export default function useAppData() {
     })
   }, []);
 
+  //reload expense table once a new expense is added
+  // useEffect(() => {
+  //   Promise.all([
+  //     axios.get("http://localhost:8001/api/expenses"),
+  //   ]).then(response => {
+  //     console.log('axios data recieved: ', response)
+  //     dispatch({
+  //       type: SET_DATA,
+  //       expenses: response[0].data
+  //     })
+  //   }).catch(error => {
+  //     console.log(error);
+  //   })
+  // }, []);
+
+
   useEffect(() => {
     console.log('state has been updated: ', state);
   }, state);

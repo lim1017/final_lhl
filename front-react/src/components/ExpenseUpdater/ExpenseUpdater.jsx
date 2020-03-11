@@ -1,10 +1,18 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
+import TextField from '@material-ui/core/TextField';
+
 
 function ExpenseUpdater(props) {
  
+  const formStyle = {
+    background: 'steelblue'
+  }
+  
+
  return(
-   <div>
+   <div style={formStyle}>
+
     <Form>
       <Form.Group widths='equal'>
         <Form.Field label='Name' control='input' />
@@ -27,6 +35,9 @@ function ExpenseUpdater(props) {
     </Form>
   </div>
  )
+
+
 }
+
 
 export default ExpenseUpdater;
