@@ -1,22 +1,135 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import {
   Grid,
   Row,
   Col,
+  Table,
   FormGroup,
   ControlLabel,
   FormControl
 } from "react-bootstrap";
 
+import ChartistGraph from "react-chartist";
 import { Card } from "components/Card/Card.jsx";
+import { StatsCard } from "components/StatsCard/StatsCard.jsx";
+import { Tasks } from "components/Tasks/Tasks.jsx";
+import {
+  dataPie,
+  legendPie,
+  dataSales,
+  optionsSales,
+  responsiveSales,
+  legendSales,
+  dataBar,
+  optionsBar,
+  responsiveBar,
+  legendBar
+} from "variables/Variables.jsx";
+
 import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
+import useAppData from "../hooks/useAppData";
 
-class Portfolio extends Component {
-  render() {
-    return (
-      // QUESTIONNAIRE PLACEHOLDER
+function portfolioDistribution(riskScore) {
+  // score will be from 5 - 20 for now
+
+  let investmentTypes = [
+    { type: "Stocks", sum: 0 },
+    { type: "Bonds", sum: 0 },
+    { type: "Cash", sum: 0 }
+  ];
+
+  //conservative portfolio
+  if (riskScore > 5 && riskScore < 10) {
+    investmentTypes = [
+      { type: "Stocks", sum: 20 },
+      { type: "Bonds", sum: 60 },
+      { type: "Cash", sum: 20 }
+    ];
+  }
+  // medimum portfolio
+  else if (riskScore >= 10 && riskScore < 15) {
+    investmentTypes = [
+      { type: "Stocks", sum: 50 },
+      { type: "Bonds", sum: 40 },
+      { type: "Cash", sum: 10 }
+    ];
+  }
+  // aggressive portfolio
+  else {
+    investmentTypes = [
+      { type: "Stocks", sum: 75 },
+      { type: "Bonds", sum: 20 },
+      { type: "Cash", sum: 5 }
+    ];
+  }
+  return investmentTypes;
+}
+
+function Portfolio(props) {
+  const { state } = useAppData();
+
+  function createLegend(json) {
+    var legend = [];
+    for (var i = 0; i < json["names"].length; i++) {
+      var type = "fa fa-circle text-" + json["types"][i];
+      legend.push(<i className={type} key={i} />);
+      legend.push(" ");
+      legend.push(json["names"][i]);
+    }
+    return legend;
+  }
+
+  function nameList(data) {
+    const finalOP = [];
+    data.forEach(element => {
+      finalOP.push(element.type);
+    });
+    return finalOP;
+  }
+
+  function createPie(expensesTotal) {
+    const finalOP = { labels: [], series: [] };
+    let grandTotal = 0;
+    expensesTotal.forEach(element => {
+      grandTotal += parseInt(element.sum);
+    });
+    expensesTotal.forEach(element => {
+      finalOP.labels.push(
+        ((parseInt(element.sum) / grandTotal) * 100).toFixed(0) + "%"
+      );
+      finalOP.series.push(element.sum);
+    });
+    return finalOP;
+  }
+
+  return (
+    <div>
+      <div>
+        <Card
+          statsIcon="fa fa-clock-o"
+          title="Portfolio Distribution"
+          content={
+            <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+              <ChartistGraph
+                data={createPie(portfolioDistribution(6))}
+                type="Pie"
+              />
+            </div>
+          }
+          legend={
+            <div className="legend">
+              {createLegend({
+                names: nameList(portfolioDistribution()),
+                types: ["info", "danger", "warning", "success"]
+              })}
+            </div>
+          }
+        />
+        <Card />
+      </div>
+      {/* QUESTIONNAIRE PLACEHOLDER */}
       <div class="risk-assessment-questionnaire">
         <h1>Risk Assessment Questionnaire</h1>
         {/* QUESTION ONE */}
@@ -26,47 +139,50 @@ class Portfolio extends Component {
             <ul>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q1"
+                    type="radio"
+                    value="4"
+                  ></input>
                   I like to take risks whenever possible if I can get rewarded
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="4"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q1"
+                    type="radio"
+                    value="3"
+                  ></input>
                   I like to take risks, but only if they’re logical and
                   calculated
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="3"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q1"
+                    type="radio"
+                    value="2"
+                  ></input>
                   I like to play it by the book but am occasionally open to
                   risks
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="2"
-                ></input>
               </li>
               <li>
-                <label>I like to play it safe and conservative</label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="1"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q1"
+                    type="radio"
+                    value="1"
+                    data-target="I like to play it safe and conservative"
+                  ></input>
+                  I like to play it safe and conservative
+                </label>
               </li>
             </ul>
           </li>
@@ -78,47 +194,47 @@ class Portfolio extends Component {
             <ul>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q2"
+                    type="radio"
+                    value="1"
+                  ></input>
                   A guaranteed return of $500 without risking anything
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="1"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q2"
+                    type="radio"
+                    value="2"
+                  ></input>
                   The potential of earning $1,000 but the risk of losing $750
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="2"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q2"
+                    type="radio"
+                    value="3"
+                  ></input>
                   The potential of earning $1,500 but the risk of losing $1,000
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="3"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q2"
+                    type="radio"
+                    value="4"
+                  ></input>
                   The potential of earning $2,500 but the risk of losing $1,750
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="4"
-                ></input>
               </li>
             </ul>
           </li>
@@ -132,50 +248,52 @@ class Portfolio extends Component {
             </h4>
             <ul>
               <li>
-                <label>I’d be very anxious if my investments fluctuated</label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="1"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q3"
+                    type="radio"
+                    value="1"
+                  ></input>
+                  I’d be very anxious if my investments fluctuated
+                </label>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q3"
+                    type="radio"
+                    value="2"
+                  ></input>
                   I would accept a lower, more predictable rate of return as
                   long as my fluctuations in the value of my investments are
                   small
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="2"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q3"
+                    type="radio"
+                    value="3"
+                  ></input>
                   I would accept a higher, slightly less predictable rate of
                   return with some fluctuations in the value of my investments
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="3"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q3"
+                    type="radio"
+                    value="4"
+                  ></input>
                   I do not care if my investments fluctuate and want the highest
                   return possible
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="4"
-                ></input>
               </li>
             </ul>
           </li>
@@ -189,40 +307,48 @@ class Portfolio extends Component {
             </h4>
             <ul>
               <li>
-                <label>Very Likely</label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="1"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q4"
+                    type="radio"
+                    value="1"
+                  ></input>
+                  Very Likely
+                </label>
               </li>
               <li>
-                <label>Somewhat Likely</label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="2"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q4"
+                    type="radio"
+                    value="2"
+                  ></input>
+                  Somewhat Likely
+                </label>
               </li>
               <li>
-                <label>Unlikely</label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="3"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q4"
+                    type="radio"
+                    value="3"
+                  ></input>
+                  Unlikely
+                </label>
               </li>
               <li>
-                <label>I won't need to access any of the money </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="4"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q4"
+                    type="radio"
+                    value="4"
+                  ></input>
+                  I won't need to access any of the money
+                </label>
               </li>
             </ul>
           </li>
@@ -237,77 +363,55 @@ class Portfolio extends Component {
             <ul>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q5"
+                    type="radio"
+                    value="1"
+                  ></input>
                   I lose my shit, stock up on mint milano cookies and cash out
                   my investment immediately
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="1"
-                ></input>
               </li>
               <li>
                 <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q5"
+                    type="radio"
+                    value="2"
+                  ></input>
                   I would make no changes but re-evaluate when the market
                   recovers
                 </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="2"
-                ></input>
               </li>
               <li>
-                <label>I do nothing</label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="3"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q5"
+                    type="radio"
+                    value="3"
+                  ></input>
+                  I do nothing
+                </label>
               </li>
               <li>
-                <label>Coronavirus is fake news - I'd invest more </label>
-                <input
-                  class="risk-assessment-input"
-                  name="q1"
-                  type="radio"
-                  value="4"
-                ></input>
+                <label>
+                  <input
+                    class="risk-assessment-input"
+                    name="q5"
+                    type="radio"
+                    value="4"
+                  ></input>
+                  Coronavirus is fake news - I'd invest more
+                </label>
               </li>
             </ul>
           </li>
         </ol>
       </div>
-      <Row>
-      <Col lg={5}>           
-        <Card
-          statsIcon="fa fa-clock-o"
-          title="Expenses"
-          category="Last Campaign Performance"
-          stats="Campaign sent 2 days ago"
-          content={
-            <div
-              id="chartPreferences"
-              className="ct-chart ct-perfect-fourth"
-            >
-              <ChartistGraph data={createPie(state.totalExpenses)} type="Pie" />
-            </div>
-          }
-          legend={
-            <div className="legend">{createLegend({
-              names: nameList(state.totalExpenses),
-              types: ["info", "danger", "warning", "success"]
-            })}</div>
-          }
-        />
-        <Card />
-      </Col>
-      </Row>
-    );
-  }
+    </div>
+  );
 }
-
 export default Portfolio;

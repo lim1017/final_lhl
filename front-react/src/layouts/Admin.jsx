@@ -33,7 +33,7 @@ import image from "assets/img/sidebar-3.jpg";
 class Admin extends Component {
   constructor(props) {
     super(props);
-    console.log('this is props in class Admin', props);
+    console.log("this is props in class Admin", props);
     this.state = {
       _notificationSystem: null,
       image: image,
@@ -42,7 +42,7 @@ class Admin extends Component {
       fixedClasses: "dropdown show-dropdown open"
     };
   }
-  
+
   getRoutes = routes => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
@@ -64,7 +64,6 @@ class Admin extends Component {
     });
   };
 
-  
   componentDidUpdate(e) {
     if (
       window.innerWidth < 993 &&
@@ -83,14 +82,15 @@ class Admin extends Component {
     return (
       <div className="wrapper">
         <NotificationSystem ref="notificationSystem" style={style} />
-        <Sidebar {...this.props} routes={routes} image={this.state.image}
-        color={this.state.color}
-        hasImage={this.state.hasImage}/>
+        <Sidebar
+          {...this.props}
+          routes={routes}
+          image={this.state.image}
+          color={this.state.color}
+          hasImage={this.state.hasImage}
+        />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          
           <Switch>{this.getRoutes(routes)}</Switch>
-          <Footer />
-          
         </div>
       </div>
     );
