@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS appointments CASCADE;
 DROP TABLE IF EXISTS days CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS expenses CASCADE;
+DROP TABLE IF EXISTS goals CASCADE;
+DROP TABLE IF EXISTS budget CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -20,32 +22,56 @@ CREATE TABLE expenses (
   date DATE NOT NULL
 );
 
-CREATE TABLE days (
+CREATE TABLE budget (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  income INTEGER,
+  c_hous INTEGER,
+  c_tran INTEGER,
+  c_food INTEGER,
+  c_util INTEGER,
+  c_entr INTEGER,
+  c_medi INTEGER,
+  c_debt INTEGER,
+  c_misc INTEGER
 );
 
-CREATE TABLE appointments (
-  id SERIAL PRIMARY KEY NOT NULL,
-  time VARCHAR(255) NOT NULL,
-  day_id INTEGER REFERENCES days(id) ON DELETE CASCADE
-);
-
-CREATE TABLE interviewers (
+CREATE TABLE goals (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  avatar VARCHAR(255) NOT NULL
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  type VARCHAR(255) NOT NULL,
+  amount INTEGER NOT NULL,
+  description VARCHAR(255),
+  date DATE NOT NULL
 );
 
-CREATE TABLE interviews (
-  id SERIAL PRIMARY KEY NOT NULL,
-  student VARCHAR(255) NOT NULL,
-  interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE,
-  appointment_id INTEGER UNIQUE REFERENCES appointments(id) ON DELETE CASCADE
-);
+-- CREATE TABLE days (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   name VARCHAR(255) NOT NULL
+-- );
 
-CREATE TABLE available_interviewers (
-  id SERIAL PRIMARY KEY NOT NULL,
-  day_id INTEGER REFERENCES days(id) ON DELETE CASCADE,
-  interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE
-);
+-- CREATE TABLE appointments (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   time VARCHAR(255) NOT NULL,
+--   day_id INTEGER REFERENCES days(id) ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE interviewers (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   name VARCHAR(255) NOT NULL,
+--   avatar VARCHAR(255) NOT NULL
+-- );
+
+-- CREATE TABLE interviews (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   student VARCHAR(255) NOT NULL,
+--   interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE,
+--   appointment_id INTEGER UNIQUE REFERENCES appointments(id) ON DELETE CASCADE
+-- );
+
+-- CREATE TABLE available_interviewers (
+--   id SERIAL PRIMARY KEY NOT NULL,
+--   day_id INTEGER REFERENCES days(id) ON DELETE CASCADE,
+--   interviewer_id INTEGER REFERENCES interviewers(id) ON DELETE CASCADE
+-- );

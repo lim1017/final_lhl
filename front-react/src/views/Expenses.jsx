@@ -52,7 +52,7 @@ function Dashboard (props) {
     state
   } = useAppData();
 
-  console.log("a", state.totalExpenses)
+  console.log("this is state.totalExpenses in expenses: ", state.totalExpenses)
 
 
   function createLegend(json) {
@@ -87,6 +87,10 @@ function Dashboard (props) {
       finalOP.series.push(element.sum)
     })
 
+<<<<<<< HEAD
+=======
+    console.log('this is output of createPie function: ', finalOP)
+>>>>>>> master
     return finalOP
 
   }
