@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import {
   Grid,
@@ -30,155 +13,299 @@ import { FormInputs } from "components/FormInputs/FormInputs.jsx";
 import { UserCard } from "components/UserCard/UserCard.jsx";
 import Button from "components/CustomButton/CustomButton.jsx";
 
-import avatar from "assets/img/faces/face-3.jpg";
-
 class Portfolio extends Component {
   render() {
     return (
-      <div className="content">
-        <Grid fluid>
-          <Row>
-            <Col md={8}>
-              <Card
-                title="Risk Assessment"
-                content={
-                  <form>
-                    <FormInputs
-                      ncols={["col-md-5", "col-md-3", "col-md-4"]}
-                      properties={[
-                        {
-                          label: "Company (disabled)",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Company",
-                          defaultValue: ""
-                        },
-                        {
-                          label: "Username",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Username",
-                          defaultValue: ""
-                        },
-                        {
-                          label: "Email address",
-                          type: "email",
-                          bsClass: "form-control",
-                          placeholder: "Email"
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-6", "col-md-6"]}
-                      properties={[
-                        {
-                          label: "First name",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "First name",
-                          defaultValue: ""
-                        },
-                        {
-                          label: "Last name",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Last name",
-                          defaultValue: ""
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-12"]}
-                      properties={[
-                        {
-                          label: "Adress",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Home Adress",
-                          defaultValue: ""
-                        }
-                      ]}
-                    />
-                    <FormInputs
-                      ncols={["col-md-4", "col-md-4", "col-md-4"]}
-                      properties={[
-                        {
-                          label: "City",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "City",
-                          defaultValue: ""
-                        },
-                        {
-                          label: "Country",
-                          type: "text",
-                          bsClass: "form-control",
-                          placeholder: "Country",
-                          defaultValue: ""
-                        },
-                        {
-                          label: "Postal Code",
-                          type: "number",
-                          bsClass: "form-control",
-                          placeholder: "ZIP Code"
-                        }
-                      ]}
-                    />
-
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup controlId="formControlsTextarea">
-                          <ControlLabel>About Me</ControlLabel>
-                          <FormControl
-                            rows="5"
-                            componentClass="textarea"
-                            bsClass="form-control"
-                            placeholder="Here can be your description"
-                          />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Button bsStyle="info" pullRight fill type="submit">
-                      Submit
-                    </Button>
-                    <div className="clearfix" />
-                  </form>
-                }
-              />
-            </Col>
-            <Col md={4}>
-              <UserCard
-                bgImage="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400"
-                avatar={avatar}
-                name="Carl Jung"
-                userName="Dr. Jung"
-                description={
-                  <span>
-                    And in fact I'll pose one idle question:
-                    <br />
-                    Which is better - cheap happiness or exalted suffering?
-                    <br />
-                    Tell me, which is better?
-                  </span>
-                }
-                socials={
-                  <div>
-                    <Button simple>
-                      <i className="fa fa-facebook-square" />
-                    </Button>
-                    <Button simple>
-                      <i className="fa fa-twitter" />
-                    </Button>
-                    <Button simple>
-                      <i className="fa fa-google-plus-square" />
-                    </Button>
-                  </div>
-                }
-              />
-            </Col>
-          </Row>
-        </Grid>
+      // QUESTIONNAIRE PLACEHOLDER
+      <div class="risk-assessment-questionnaire">
+        <h1>Risk Assessment Questionnaire</h1>
+        {/* QUESTION ONE */}
+        <ol class="risk-assessment-questions" start="1" tabindex="0">
+          <li>
+            <h4>How would you best describe your personality?</h4>
+            <ul>
+              <li>
+                <label>
+                  I like to take risks whenever possible if I can get rewarded
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="4"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  I like to take risks, but only if they’re logical and
+                  calculated
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="3"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  I like to play it by the book but am occasionally open to
+                  risks
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="2"
+                ></input>
+              </li>
+              <li>
+                <label>I like to play it safe and conservative</label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="1"
+                ></input>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        {/* QUESTION TWO */}
+        <ol class="risk-assessment-questions" start="2" tabindex="0">
+          <li>
+            <h4>Hypothetically, how would you invest $10,000?</h4>
+            <ul>
+              <li>
+                <label>
+                  A guaranteed return of $500 without risking anything
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="1"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  The potential of earning $1,000 but the risk of losing $750
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="2"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  The potential of earning $1,500 but the risk of losing $1,000
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="3"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  The potential of earning $2,500 but the risk of losing $1,750
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="4"
+                ></input>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        {/* QUESTION THREE */}
+        <ol class="risk-assessment-questions" start="3" tabindex="0">
+          <li>
+            <h4>
+              How comfortable are you with fluctuations in the value of your
+              investments?
+            </h4>
+            <ul>
+              <li>
+                <label>I’d be very anxious if my investments fluctuated</label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="1"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  I would accept a lower, more predictable rate of return as
+                  long as my fluctuations in the value of my investments are
+                  small
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="2"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  I would accept a higher, slightly less predictable rate of
+                  return with some fluctuations in the value of my investments
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="3"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  I do not care if my investments fluctuate and want the highest
+                  return possible
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="4"
+                ></input>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        {/* QUESTION FOUR */}
+        <ol class="risk-assessment-questions" start="4" tabindex="0">
+          <li>
+            <h4>
+              How likely is it that you’ll need access to a large portion of
+              this money earlier than expected?
+            </h4>
+            <ul>
+              <li>
+                <label>Very Likely</label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="1"
+                ></input>
+              </li>
+              <li>
+                <label>Somewhat Likely</label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="2"
+                ></input>
+              </li>
+              <li>
+                <label>Unlikely</label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="3"
+                ></input>
+              </li>
+              <li>
+                <label>I won't need to access any of the money </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="4"
+                ></input>
+              </li>
+            </ul>
+          </li>
+        </ol>
+        {/* QUESTION FIVE */}
+        <ol class="risk-assessment-questions" start="5" tabindex="0">
+          <li>
+            <h4>
+              Coronavirus hits - your investments drop by 20% - how do you
+              react?
+            </h4>
+            <ul>
+              <li>
+                <label>
+                  I lose my shit, stock up on mint milano cookies and cash out
+                  my investment immediately
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="1"
+                ></input>
+              </li>
+              <li>
+                <label>
+                  I would make no changes but re-evaluate when the market
+                  recovers
+                </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="2"
+                ></input>
+              </li>
+              <li>
+                <label>I do nothing</label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="3"
+                ></input>
+              </li>
+              <li>
+                <label>Coronavirus is fake news - I'd invest more </label>
+                <input
+                  class="risk-assessment-input"
+                  name="q1"
+                  type="radio"
+                  value="4"
+                ></input>
+              </li>
+            </ul>
+          </li>
+        </ol>
       </div>
+      <Row>
+      <Col lg={5}>           
+        <Card
+          statsIcon="fa fa-clock-o"
+          title="Expenses"
+          category="Last Campaign Performance"
+          stats="Campaign sent 2 days ago"
+          content={
+            <div
+              id="chartPreferences"
+              className="ct-chart ct-perfect-fourth"
+            >
+              <ChartistGraph data={createPie(state.totalExpenses)} type="Pie" />
+            </div>
+          }
+          legend={
+            <div className="legend">{createLegend({
+              names: nameList(state.totalExpenses),
+              types: ["info", "danger", "warning", "success"]
+            })}</div>
+          }
+        />
+        <Card />
+      </Col>
+      </Row>
     );
   }
 }
