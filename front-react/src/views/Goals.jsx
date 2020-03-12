@@ -36,21 +36,26 @@ import { MDBDataTable } from 'mdbreact';
 
 import avatar from "assets/img/faces/face-3.jpg";
 
-function UserProfile(props) {
+function Goals(props) {
   const{
-    state
+    state,
+    setGoal,
+    deleteGoal
   } = useAppData();
 
   const GoalsInList = state.goals.map(goal => {
     return (
       <Goal
         key={goal.id}
+        id={goal.id}
         name={goal.name}
         category="Here is a subtitle for this table"
         type={goal.type}
         amount={goal.amount}
         description={goal.description}
         date={goal.date}
+        setGoal={setGoal}
+        deleteGoal={deleteGoal}
       />
     );
   });
@@ -70,6 +75,14 @@ function UserProfile(props) {
                 content={
                   <div>
                     {GoalsInList}
+                    <Goal
+                      mode="new"
+                      key={state.goals.length + 1}
+                      id={state.goals.length + 1}
+                      category="Here is a subtitle for this table"
+                      date={`2020-01-05T05:00:00.000Z`}
+                      setGoal={setGoal}
+                    />
                   </div>
 
                   // <div>
@@ -121,4 +134,4 @@ function UserProfile(props) {
 
 }
 
-export default UserProfile;
+export default Goals;

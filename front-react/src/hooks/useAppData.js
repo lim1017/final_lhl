@@ -64,9 +64,63 @@ export default function useAppData() {
   //   })
   // }, []);
 
+  const setGoal = (id, goal) => {
+    return new Promise((res, rej) => {
+      // const appointment = {
+      //   ...state.appointments[id],
+      //   interview: { ...interview }
+      // };
+
+      console.log("sending goal: ", goal);
+      axios
+        .put(`http://localhost:8001/api/goals/${id}`, goal)
+        .then(res1 => {
+          console.log("getting result 1: ", res1);
+          axios.get("http://localhost:8001/api/goals").then(res2 => {
+            console.log(res2);
+            dispatch({
+              type: SET_DATA,
+              goals: res2.data
+            });
+            res(res2);
+          });
+        })
+        .catch(error => {
+          rej(error);
+        });
+    });
+  };
+
+  const deleteGoal = id => {
+    return new Promise((res, rej) => {
+      // const appointment = {
+      //   ...state.appointments[id],
+      //   interview: { ...interview }
+      // };
+
+      console.log("sending goal: ", id);
+      axios
+        .delete(`http://localhost:8001/api/goals/${id}`)
+        .then(res1 => {
+          console.log("getting result 1: ", res1);
+          axios.get("http://localhost:8001/api/goals").then(res2 => {
+            console.log(res2);
+            dispatch({
+              type: SET_DATA,
+              goals: res2.data
+            });
+            res(res2);
+          });
+        })
+        .catch(error => {
+          rej(error);
+        });
+    });
+  };
+
   useEffect(() => {
     console.log("state has been updated: ", state);
   }, state);
 
-  return { state, dispatch };
+  return { state, setGoal, deleteGoal };
 }

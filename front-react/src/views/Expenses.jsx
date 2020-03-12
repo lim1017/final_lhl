@@ -9,12 +9,13 @@
 =========================================================
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col, Table } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
+import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
+
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import ExpenseUpdater from "components/ExpenseUpdater/ExpenseUpdater.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
 
 import { Tasks } from "components/Tasks/Tasks.jsx";
@@ -32,23 +33,22 @@ import {
 } from "variables/Variables.jsx";
 
 import { reduceEachLeadingCommentRange } from "typescript";
-import useAppData from "../hooks/useAppData";
+import appDataContext from "../hooks/reducers/useContext";
 import { MDBDataTable } from "mdbreact";
 import Button from "@material-ui/core/Button";
 import { Spring, Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
 import reducerz, { SET_DATA } from "../hooks/reducers/app";
 
+
+
 function Dashboard(props) {
-  const { state, dispatch } = useAppData();
+  const { state, dispatch } = useContext(appDataContext)
 
   const [addExpense, setAddExpense] = useState(false);
 
   function toggleState(state) {
-    console.log("clicked");
-
     setAddExpense(!addExpense);
-    console.log(addExpense);
   }
 
   function createLegend(json) {
@@ -104,6 +104,7 @@ function Dashboard(props) {
   }
 
   return (
+
     <div className="content">
       <p>dashboard</p>
 
@@ -116,8 +117,8 @@ function Dashboard(props) {
               ctTableFullWidth
               ctTableResponsive
               content={
-                // <div className="my-custom-scrollbar table-wrapper-scroll-y">
                 <div>
+                  <MonthPicker />
                   <MDBDataTable
                     scrollY
                     maxHeight="300px"
