@@ -10,7 +10,9 @@ DROP TABLE IF EXISTS budget CASCADE;
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL,
+  riskScore INTEGER,
+  portfolioReturn INTEGER
 );
 
 CREATE TABLE expenses (
