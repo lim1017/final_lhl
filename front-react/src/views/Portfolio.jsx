@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import {
   Grid,
   Row,
@@ -33,7 +33,6 @@ import useAppData from "../hooks/useAppData";
 
 function portfolioDistribution(riskScore) {
   // score will be from 5 - 20 for now
-
   let investmentTypes = [
     { type: "Stocks", sum: 0 },
     { type: "Bonds", sum: 0 },
@@ -41,7 +40,7 @@ function portfolioDistribution(riskScore) {
   ];
 
   //conservative portfolio
-  if (riskScore > 5 && riskScore < 10) {
+  if (riskScore >= 5 && riskScore < 10) {
     investmentTypes = [
       { type: "Stocks", sum: 20 },
       { type: "Bonds", sum: 60 },
@@ -68,7 +67,45 @@ function portfolioDistribution(riskScore) {
 }
 
 function Portfolio(props) {
-  const { state } = useAppData();
+  const [state, setState] = useState({
+    riskScore: 0,
+    questionOne: 0,
+    questionTwo: 0,
+    questionThree: 0,
+    questionFour: 0,
+    questionFive: 0
+  });
+
+  function setQuestionOne(riskValue) {
+    setState({ ...state, questionOne: riskValue });
+  }
+
+  function setQuestionTwo(riskValue) {
+    setState({ ...state, questionTwo: riskValue });
+  }
+  function setQuestionThree(riskValue) {
+    setState({ ...state, questionThree: riskValue });
+  }
+
+  function setQuestionFour(riskValue) {
+    setState({ ...state, questionFour: riskValue });
+  }
+
+  function setQuestionFive(riskValue) {
+    setState({ ...state, questionFive: riskValue });
+  }
+
+  function onSubmit(e) {
+    const totalScore =
+      parseInt(state.questionOne) +
+      parseInt(state.questionTwo) +
+      parseInt(state.questionThree) +
+      parseInt(state.questionFour) +
+      parseInt(state.questionFive);
+    console.log("RISK SCORE", totalScore);
+    e.preventDefault();
+    setState({ ...state, riskScore: totalScore });
+  }
 
   function createLegend(json) {
     var legend = [];
@@ -106,44 +143,22 @@ function Portfolio(props) {
 
   return (
     <div>
-      <div>
-        <Card
-          statsIcon="fa fa-clock-o"
-          title="Portfolio Distribution"
-          content={
-            <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-              <ChartistGraph
-                data={createPie(portfolioDistribution(6))}
-                type="Pie"
-              />
-            </div>
-          }
-          legend={
-            <div className="legend">
-              {createLegend({
-                names: nameList(portfolioDistribution()),
-                types: ["info", "danger", "warning", "success"]
-              })}
-            </div>
-          }
-        />
-        <Card />
-      </div>
       {/* QUESTIONNAIRE PLACEHOLDER */}
-      <div class="risk-assessment-questionnaire">
+      <div className="risk-assessment-questionnaire">
         <h1>Risk Assessment Questionnaire</h1>
         {/* QUESTION ONE */}
-        <ol class="risk-assessment-questions" start="1" tabindex="0">
+        <ol className="risk-assessment-questions" start="1" tabIndex="0">
           <li>
             <h4>How would you best describe your personality?</h4>
             <ul>
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q1"
                     type="radio"
                     value="4"
+                    onChange={e => setQuestionOne(e.target.value)}
                   ></input>
                   I like to take risks whenever possible if I can get rewarded
                 </label>
@@ -151,10 +166,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q1"
                     type="radio"
                     value="3"
+                    onChange={e => setQuestionOne(e.target.value)}
                   ></input>
                   I like to take risks, but only if they’re logical and
                   calculated
@@ -163,10 +179,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q1"
                     type="radio"
                     value="2"
+                    onChange={e => setQuestionOne(e.target.value)}
                   ></input>
                   I like to play it by the book but am occasionally open to
                   risks
@@ -175,11 +192,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q1"
                     type="radio"
                     value="1"
-                    data-target="I like to play it safe and conservative"
+                    onChange={e => setQuestionOne(e.target.value)}
                   ></input>
                   I like to play it safe and conservative
                 </label>
@@ -188,17 +205,18 @@ function Portfolio(props) {
           </li>
         </ol>
         {/* QUESTION TWO */}
-        <ol class="risk-assessment-questions" start="2" tabindex="0">
+        <ol className="risk-assessment-questions" start="2" tabIndex="0">
           <li>
             <h4>Hypothetically, how would you invest $10,000?</h4>
             <ul>
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q2"
                     type="radio"
                     value="1"
+                    onChange={e => setQuestionTwo(e.target.value)}
                   ></input>
                   A guaranteed return of $500 without risking anything
                 </label>
@@ -206,10 +224,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q2"
                     type="radio"
                     value="2"
+                    onChange={e => setQuestionTwo(e.target.value)}
                   ></input>
                   The potential of earning $1,000 but the risk of losing $750
                 </label>
@@ -217,10 +236,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q2"
                     type="radio"
                     value="3"
+                    onChange={e => setQuestionTwo(e.target.value)}
                   ></input>
                   The potential of earning $1,500 but the risk of losing $1,000
                 </label>
@@ -228,10 +248,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q2"
                     type="radio"
                     value="4"
+                    onChange={e => setQuestionTwo(e.target.value)}
                   ></input>
                   The potential of earning $2,500 but the risk of losing $1,750
                 </label>
@@ -240,7 +261,7 @@ function Portfolio(props) {
           </li>
         </ol>
         {/* QUESTION THREE */}
-        <ol class="risk-assessment-questions" start="3" tabindex="0">
+        <ol className="risk-assessment-questions" start="3" tabIndex="0">
           <li>
             <h4>
               How comfortable are you with fluctuations in the value of your
@@ -250,10 +271,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q3"
                     type="radio"
                     value="1"
+                    onChange={e => setQuestionThree(e.target.value)}
                   ></input>
                   I’d be very anxious if my investments fluctuated
                 </label>
@@ -261,10 +283,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q3"
                     type="radio"
                     value="2"
+                    onChange={e => setQuestionThree(e.target.value)}
                   ></input>
                   I would accept a lower, more predictable rate of return as
                   long as my fluctuations in the value of my investments are
@@ -274,10 +297,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q3"
                     type="radio"
                     value="3"
+                    onChange={e => setQuestionThree(e.target.value)}
                   ></input>
                   I would accept a higher, slightly less predictable rate of
                   return with some fluctuations in the value of my investments
@@ -286,10 +310,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q3"
                     type="radio"
                     value="4"
+                    onChange={e => setQuestionThree(e.target.value)}
                   ></input>
                   I do not care if my investments fluctuate and want the highest
                   return possible
@@ -299,7 +324,7 @@ function Portfolio(props) {
           </li>
         </ol>
         {/* QUESTION FOUR */}
-        <ol class="risk-assessment-questions" start="4" tabindex="0">
+        <ol className="risk-assessment-questions" start="4" tabIndex="0">
           <li>
             <h4>
               How likely is it that you’ll need access to a large portion of
@@ -309,10 +334,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q4"
                     type="radio"
                     value="1"
+                    onChange={e => setQuestionFour(e.target.value)}
                   ></input>
                   Very Likely
                 </label>
@@ -320,10 +346,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q4"
                     type="radio"
                     value="2"
+                    onChange={e => setQuestionFour(e.target.value)}
                   ></input>
                   Somewhat Likely
                 </label>
@@ -331,10 +358,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q4"
                     type="radio"
                     value="3"
+                    onChange={e => setQuestionFour(e.target.value)}
                   ></input>
                   Unlikely
                 </label>
@@ -342,10 +370,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q4"
                     type="radio"
                     value="4"
+                    onChange={e => setQuestionFour(e.target.value)}
                   ></input>
                   I won't need to access any of the money
                 </label>
@@ -354,7 +383,7 @@ function Portfolio(props) {
           </li>
         </ol>
         {/* QUESTION FIVE */}
-        <ol class="risk-assessment-questions" start="5" tabindex="0">
+        <ol className="risk-assessment-questions" start="5" tabIndex="0">
           <li>
             <h4>
               Coronavirus hits - your investments drop by 20% - how do you
@@ -364,10 +393,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q5"
                     type="radio"
                     value="1"
+                    onChange={e => setQuestionFive(e.target.value)}
                   ></input>
                   I lose my shit, stock up on mint milano cookies and cash out
                   my investment immediately
@@ -376,10 +406,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q5"
                     type="radio"
                     value="2"
+                    onChange={e => setQuestionFive(e.target.value)}
                   ></input>
                   I would make no changes but re-evaluate when the market
                   recovers
@@ -388,10 +419,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q5"
                     type="radio"
                     value="3"
+                    onChange={e => setQuestionFive(e.target.value)}
                   ></input>
                   I do nothing
                 </label>
@@ -399,10 +431,11 @@ function Portfolio(props) {
               <li>
                 <label>
                   <input
-                    class="risk-assessment-input"
+                    className="risk-assessment-input"
                     name="q5"
                     type="radio"
                     value="4"
+                    onChange={e => setQuestionFive(e.target.value)}
                   ></input>
                   Coronavirus is fake news - I'd invest more
                 </label>
@@ -411,6 +444,41 @@ function Portfolio(props) {
           </li>
         </ol>
       </div>
+
+      {/* SUBMIT QUESTIONNAIRE */}
+      <div className="risk-assessment-submission">
+        <h4>Submit and view my investment profile</h4>
+        <a
+          rel="Submit"
+          href="#"
+          className="risk-assessment-submit-button"
+          onClick={e => onSubmit(e)}
+        >
+          Submit
+        </a>
+      </div>
+
+      {/* RENDER PORTFOLIO DISTRIBUTION */}
+      <Card
+        title="Portfolio Distribution"
+        content={
+          <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+            <ChartistGraph
+              data={createPie(portfolioDistribution(state.riskScore))}
+              type="Pie"
+            />
+          </div>
+        }
+        legend={
+          <div className="legend">
+            {createLegend({
+              names: nameList(portfolioDistribution()),
+              types: ["info", "danger", "warning", "success"]
+            })}
+          </div>
+        }
+      />
+      <Card />
     </div>
   );
 }
