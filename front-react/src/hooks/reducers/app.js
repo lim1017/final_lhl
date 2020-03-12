@@ -7,12 +7,13 @@ export {
 export default function reducerz(state, action) {
   switch (action.type) {
     case SET_DATA:
-      console.log('running SET_DATA')
-      console.log(action)
+      console.log('running SET_DATA: ', action)
       return {
         ...state,
         expenses: action.expenses,
-        totalExpenses: action.totalExpenses
+        totalExpenses: action.totalExpenses,
+        budget: action.budget,
+        goals: action.goals
       }
     default:
       throw new Error(
