@@ -7,9 +7,9 @@ function portfolioDistribution(riskScore) {
   let portfolioReturn = 1;
   // score will be from 5 - 20 for now
   let investmentTypes = [
-    { type: "Stocks", sum: 40 },
-    { type: "Bonds", sum: 30 },
-    { type: "Cash", sum: 30 }
+    { type: "Stocks", sum: 0 },
+    { type: "Bonds", sum: 0 },
+    { type: "Cash", sum: 100 }
   ];
 
   //conservative portfolio
@@ -51,7 +51,8 @@ function Portfolio(props) {
     questionThree: 0,
     questionFour: 0,
     questionFive: 0,
-    portfolioReturn: 1
+    portfolioReturn: 1,
+    showGraph: false
   });
 
   function setQuestionOne(riskValue) {
@@ -84,7 +85,8 @@ function Portfolio(props) {
     setState({
       ...state,
       riskScore: totalScore,
-      portfolioReturn: state.portfolioReturn
+      portfolioReturn: state.portfolioReturn,
+      showGraph: true
     });
   }
 
@@ -440,29 +442,32 @@ function Portfolio(props) {
       </div>
 
       {/* RENDER PORTFOLIO DISTRIBUTION */}
-      <Card
-        title="Portfolio Distribution"
-        content={
-          <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-            <ChartistGraph
-              data={createPie(
-                portfolioDistribution(state.riskScore).investmentTypes
-              )}
-              type="Pie"
-            />
-          </div>
-        }
-        legend={
-          <div className="legend">
-            {createLegend({
-              names: nameList(portfolioDistribution().investmentTypes),
-              types: ["info", "danger", "warning", "success"]
-            })}
-          </div>
-        }
-      />
-      <Card />
-      <div>{portfolioDistribution(state.riskScore).portfolioReturn}</div>
+      {state.showGraph ? (
+        <Card
+          title="Portfolio Distribution"
+          content={
+            <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
+              {`Your expected return is ${
+                portfolioDistribution(state.riskScore).portfolioReturn
+              }`}
+              <ChartistGraph
+                data={createPie(
+                  portfolioDistribution(state.riskScore).investmentTypes
+                )}
+                type="Pie"
+              />
+            </div>
+          }
+          legend={
+            <div className="legend">
+              {createLegend({
+                names: nameList(portfolioDistribution().investmentTypes),
+                types: ["info", "danger", "warning", "success"]
+              })}
+            </div>
+          }
+        />
+      ) : null}
     </div>
   );
 }
