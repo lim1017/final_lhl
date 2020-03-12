@@ -15,9 +15,10 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import Budget from "views/Budget.jsx";
 import Expenses from "views/Expenses.jsx";
 import UserProfile from "views/UserProfile.jsx";
-import Budget from "views/Budget.jsx";
+import Portfolio from "views/Portfolio.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
@@ -37,6 +38,13 @@ const dashboardRoutes = [
     name: "Goals",
     icon: "pe-7s-user",
     component: UserProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/portfolio",
+    name: "Portfolio",
+    icon: "pe-7s-note2",
+    component: Portfolio,
     layout: "/admin"
   },
   {
@@ -74,8 +82,6 @@ const dashboardRoutes = [
     component: Notifications,
     layout: "/admin"
   }
-
-
 ];
 
 export default dashboardRoutes;
