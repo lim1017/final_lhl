@@ -38,11 +38,11 @@ CREATE TABLE budget (
 
 CREATE TABLE goals (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL,
+  name TEXT NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   type VARCHAR(255) NOT NULL,
   amount INTEGER NOT NULL,
-  description VARCHAR(255),
+  description TEXT,
   date DATE NOT NULL
 );
 
