@@ -17,7 +17,7 @@
 */
 import Budget from "views/Budget.jsx";
 import Expenses from "views/Expenses.jsx";
-import UserProfile from "views/UserProfile.jsx";
+import Goals from "views/Goals.jsx";
 import Portfolio from "views/Portfolio.jsx";
 import Typography from "views/Typography.jsx";
 import Icons from "views/Icons.jsx";
@@ -34,10 +34,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/user",
+    path: "/goals",
     name: "Goals",
     icon: "pe-7s-user",
-    component: UserProfile,
+    component: Goals,
     layout: "/admin"
   },
   {

@@ -4,33 +4,66 @@ module.exports = db => {
   router.get("/goals", (request, response) => {
     db.query(
       `
-      SELECT * FROM goals
-    `
+      SELECT * FROM goals ORDER BY id
+      `
     ).then(({ rows: goals }) => {
       response.json(goals);
     });
   });
 
-  router.put("/goals/add", (request, response) => {
+  router.put("/goals/:id", (request, response) => {
 
-    const { name, user_id, type, amount, description, date } = request.body.goal;
+    // console.log('receiving goal: ', request.params.id, request.body)
+    const { name, user_id, type, amount, description, date } = request.body;
+    console.log('current id: ', request.params.id)
 
     db.query(
       `
-      INSERT INTO interviews (name, user_id, type, amount, description, date) VALUES ($1::text, $2::integer, $3::text, $4::integer, $5::text, $6::date)
-    `,
-      [name, user_id, type, amount, description, date]
-    )
-      .then(() => {
-        setTimeout(() => {
-          response.status(204).json({});
-          // updateAppointment(Number(request.params.id), request.body.interview);
-        }, 1000);
-      })
-      .catch(error => console.log(error));
+      SELECT * FROM goals WHERE id = $1::integer
+     `,
+     [request.params.id]
+    ).then(({ rows: result }) => {
+      console.log(result)
+      if (result.length !== 0) {
+        console.log('running if')
+        db.query(
+          `
+          UPDATE goals SET 
+          name = $1::text,
+          user_id = $2::integer,
+          type = $3::text,
+          amount = $4::integer,
+          description = $5::text,
+          date = $6::date 
+          WHERE id = $7::integer
+          `,
+          [name, user_id, type, amount, description, date, request.params.id]
+        ).then(() => {
+          response.json(`database:goal ${request.params.id} updated`);
+        }).catch(error => console.log(error));
+      } else {
+        console.log('running else')
+        db.query(
+          `
+          INSERT INTO goals (name, user_id, type, amount, description, date)
+            VALUES ($1::text, $2::integer, $3::text, $4::integer, $5::text, $6::date)
+          `,
+          [name, user_id, type, amount, description, date]
+        ).then(() => {
+          response.json(`database:goal ${request.params.id} updated`);
+        }).catch(error => console.log(error));  
+      }
+    })
   });
 
-  ('goal01', 1, 'SFP', 5000, 'description', '01/5/2020');
+  router.delete("/goals/:id", (request, response) => {
+
+    db.query(`DELETE FROM goals WHERE id = $1::integer`,
+    [request.params.id]
+    ).then(() => {
+        response.json(`database:goal ${request.params.id} updated`);
+    }).catch(error => console.log(error));
+  });
 
   return router;
 };

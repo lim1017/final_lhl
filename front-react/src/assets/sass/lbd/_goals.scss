@@ -306,6 +306,17 @@
       background: none;
     }
 
+    .inputAmount{
+      font-size: 20px;
+      width: 200px;
+      height: 30px;
+      border-color: rgb(150, 186, 218);
+      border-radius: 10px;
+      resize: none;
+      background: none;
+      overflow: hidden;
+    }
+
     .icons{
       text-align: right;
       font-size: 20px;
@@ -337,4 +348,24 @@
         margin: 5px;
       }
     }
+}
+
+.goalNew{
+  width: 96%;
+  margin: auto;
+  border-radius: 20px;
+  background-color: rgb(150, 186, 218);
+  margin-bottom: 10px;
+
+    .icons{
+      padding-top: 10px;
+      text-align: center;
+      font-size: 50px;
+
+      .icon{
+        &:hover {
+          font-size: 55px;
+        }
+      }
+  }
 }

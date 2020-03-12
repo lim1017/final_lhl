@@ -9,8 +9,6 @@ export default function Show(props) {
         return type
     }
   }
-  
-  console.log('ShowGoal props: ', props)
 
   return (
     <article className="goal">
@@ -21,10 +19,13 @@ export default function Show(props) {
             className="icon pe-7s-pen"
             onClick={props.onEdit}
           />
-          <i className="icon pe-7s-trash" />
+          <i className="icon pe-7s-trash"
+            onClick={props.onDelete}
+          />
         </div>
         <div className="content">
           <div>Type of Goal: {typeDetailer(props.type)}</div>
+          <div>Amount: ${props.amount}</div>
           <div>Date: {props.date}</div>
         </div>
       </div>
