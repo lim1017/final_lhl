@@ -4,7 +4,9 @@ import CustomButton from "../CustomButton/CustomButton";
 export default function Form(props) {
   const [name, setName] = useState(props.name || "")
   const [type, setType] = useState(props.type || "")
+  const [amount, setAmount] = useState(props.amount || "")
   const [description, setDescription] = useState(props.description || "")
+  const [error, setError] = useState("");
 
   const typeCheck = function(value) {
     if (value !== type) {
@@ -14,21 +16,41 @@ export default function Form(props) {
   }
 
   const validate = function() {
-    // if (name === "") {
-    //   setError("Student name cannot be blank");
-    //   return;
-    // }
+    if (name === "") {
+      setError("Goal name cannot be blank");
+      return;
+    } else if (type === "") {
+      setError("Type of goal must be selected");
+      return;
+    } else if (amount === "" || isNaN(amount)) {
+      setError("Amount cannot be blank or not a number");
+      return;
+    }
 
-    // setError("");
-    // props.onSave(name, interviewer);
+    // console.log('===')
+    // console.log(name)
+    // console.log(type)
+    // console.log(amount)
+    // console.log(description)
+    // console.log('===')
+
+    setError("");
+    props.onSave(name, type, amount, description, props.date);
   }
 
   const cancel = function() {
     // reset();
     props.onCancel();
   }
-  
-  console.log('ShowGoal props: ', props)
+
+  // function onlyNumberKey(evt) { 
+          
+  //   // Only ASCII charactar in that range allowed 
+  //   var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
+  //   if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
+  //       return false; 
+  //   return true; 
+  // } 
 
   return (
     <article className="goalForm">
@@ -70,6 +92,19 @@ export default function Form(props) {
                 onClick={() => typeCheck("LE")}
               />
             Limit Expenses</div>
+            <div>Amount: $
+            <textarea
+              className="inputAmount"
+              type="number"
+              value={amount}
+              onChange={(e) => {
+                setAmount(e.target.value)
+                // e.target.style.height = 25 + "px"
+                // e.target.style.height = e.target.scrollHeight + "px"
+              }}
+              // onkeypress="return isNumberKey(event)"
+            />
+            </div>
             <div>Date: {props.date}</div>
             <div>
               <textarea
@@ -85,6 +120,7 @@ export default function Form(props) {
             </div>
           </div>
           <div className="buttons">
+            {error}
             <CustomButton
               className="button"
               bsStyle="info"
