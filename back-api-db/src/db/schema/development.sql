@@ -88,10 +88,12 @@ VALUES
     ('Michael Chan-Montoya'),
     ('Yuko Smith');
 
+SET datestyle = "ISO, MDY";
+
 INSERT INTO expenses (name, user_id, amount, type, date)
 VALUES
-    ('Coffee', 1, 2, 'food', '01/3/2020'),
-    ('Burger King', 1, 10, 'food', '01/5/2020'),
+    ('Coffee', 1, 3, 'food', '01/03/2020'),
+    ('Burger King', 1, 10, 'food', '01/05/2020'),
     ('Groceries', 1, 28, 'food', '01/6/2020'),
     ('Rotti King', 1, 15, 'food', '01/8/2020'),
     ('Sushi', 1, 20, 'food', '01/11/2020'),
@@ -109,7 +111,29 @@ VALUES
     ('Hydro', 1, 200, 'home', '01/11/2020'),
     ('Gas', 1, 50, 'home', '01/20/2020'),
     ('Auto Insurance', 1, 200, 'transporation', '01/5/2020'),
-    ('Auto Lease', 1, 320, 'transporation', '01/5/2020');
+    ('Auto Lease', 1, 320, 'transporation', '01/5/2020'),
+    ('Coffee', 1, 2, 'food', '02/03/2020'),
+    ('Burger King', 1, 10, 'food', '02/05/2020'),
+    ('Groceries', 1, 28, 'food', '02/6/2020'),
+    ('Rotti King', 1, 15, 'food', '02/8/2020'),
+    ('Sushi', 1, 20, 'food', '02/11/2020'),
+    ('Coffee', 1, 2, 'food', '02/12/2020'),
+    ('Groceries', 1, 35, 'food', '02/16/2020'),
+    ('Coffee', 1, 2, 'food', '02/16/2020'),
+    ('Mcdonalds', 1, 12, 'food', '02/18/2020'),
+    ('Coffee', 1, 2, 'food', '02/19/2020'),
+    ('Coffee', 1, 2, 'food', '02/20/2020'),
+    ('Groceries', 1, 50, 'food', '02/20/2020'),
+    ('Coffee', 1, 2, 'food', '02/21/2020'),
+    ('Groceries', 1, 30.5, 'food', '02/25/2020'),
+    ('Rent', 1, 1500, 'home', '02/1/2020'),
+    ('Home Insurance', 1, 150, 'home', '02/3/2020'),
+    ('Hydro', 1, 300, 'home', '02/11/2020'),
+    ('Gas', 1, 80, 'home', '02/20/2020'),
+    ('Auto Insurance', 1, 200, 'transporation', '02/5/2020'),
+    ('Auto Lease', 1, 320, 'transporation', '02/5/2020'),
+    ('Fancy Sushi', 1, 500, 'food', '02/11/2020');
+
 
 INSERT INTO budget (user_id, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc)
 VALUES (1, 1000, 10, 20, 30, 40, 50, 60, 70, 80);
