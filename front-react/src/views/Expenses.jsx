@@ -46,8 +46,10 @@ function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext)
 
   const [addExpense, setAddExpense] = useState(false);
+  const [month, setMonth] = useState(1);
 
-  function toggleState(state) {
+
+  function toggleState() {
     setAddExpense(!addExpense);
   }
 
@@ -60,6 +62,13 @@ function Dashboard(props) {
       legend.push(json["names"][i]);
     }
     return legend;
+  }
+
+  function chgMonth(date){
+    console.log('changing month@@@', date.month)
+    setMonth(date.month)
+
+    console.log(date.month)
   }
 
   function nameList(data) {
@@ -118,7 +127,7 @@ function Dashboard(props) {
               ctTableResponsive
               content={
                 <div>
-                  <MonthPicker />
+                  <MonthPicker chgMonth={chgMonth} />
                   <MDBDataTable
                     scrollY
                     maxHeight="300px"
