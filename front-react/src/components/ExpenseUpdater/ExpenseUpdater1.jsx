@@ -52,15 +52,15 @@ function ExpenseUpdater1(props) {
 
   function submitExpense () {
     const expenseObj={amount, name, type}
-    
+    console.log('hello')
     Promise.all([
       axios.put(`http://localhost:8001/api/expenses/add`, expenseObj)
     ]).then(response => {
       console.log('axios data recieved: ', response)
+      props.onExpenseSubmit()
     }).catch(error => {
       console.log('no go');
     })
-
 
   };
 

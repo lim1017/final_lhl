@@ -43,14 +43,18 @@ import useAppData from "../hooks/useAppData";
 import { MDBDataTable } from 'mdbreact';
 import Button from '@material-ui/core/Button';
 import {Spring, Transition, animated} from 'react-spring/renderprops'
-
+import axios from "axios";
+import reducerz, {
+  SET_DATA
+} from "../hooks/reducers/app";
 
 
 
 
 function Dashboard (props) {
   const{
-    state
+    state,
+    dispatch
   } = useAppData();
 
   const [addExpense, setAddExpense] = useState(false);
@@ -97,6 +101,23 @@ function Dashboard (props) {
 
     return finalOP
 
+  }
+
+
+  function refreshExpenses(){
+      Promise.all([
+        axios.get("http://localhost:8001/api/expenses"),
+        axios.get("http://localhost:8001/api/expensestotal")
+
+      ]).then(response => {
+        dispatch({
+          type: SET_DATA,
+          expenses: response[0].data,
+          totalExpenses: response[1].data
+        })
+      }).catch(error => {
+        console.log(error);
+      })
   }
    
     return (
@@ -155,7 +176,7 @@ function Dashboard (props) {
                       </Button>
                     
                         {addExpense === true &&(
-                            <ExpenseUpdater1 />
+                            <ExpenseUpdater1 onExpenseSubmit={refreshExpenses}/>
                         )}
                     
                       {/* <Transition
@@ -204,7 +225,6 @@ function Dashboard (props) {
                     })}</div>
                   }
                 />
-                <Card />
               </Col>
               <Col lg={7}>
                 <Card
@@ -231,22 +251,12 @@ function Dashboard (props) {
                     />
                     </div>
                   }
-                  // legend={
-                  //   <div className="legend">{createLegend({
-                  //     names: [state.totalExpenses[0].type, "Bounce", "Unsubscribe", "werid gray"],
-                  //     types: ["info", "danger", "warning", "success"]
-                  //   })}</div>
-                  // }
+               
                 />
               </Col>
             </Row>
-            <Row>
-              <Col lg={4} sm={6}><Card title="asdas" content="aaaaa" hCenter="true"/></Col>
-              <Col lg={4} sm={6}><Card title="asdas" content="bbbbb" hCenter="true"/></Col>
-              <Col lg={4} sm={6}><Card title="asdas" content="ccccc" hCenter="true"/></Col>
-            </Row>
+            
           </Grid>
-        <StatsCard />
       </div>
     );
   

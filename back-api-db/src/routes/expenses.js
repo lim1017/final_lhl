@@ -29,15 +29,13 @@ module.exports = db => {
       return;
     }
 
-    console.log("asdasdasdasdasdasdasd", request.body)
-
     const { amount, name, type } = request.body;
 
     db.query(
       `
       INSERT INTO expenses (name, user_id, amount, type, date)
       VALUES
-      ($1, 1, $2, $3, '01/19/2020')
+      ($1, 1, $2, $3, current_date)
 
       `,
       [name, amount, type]

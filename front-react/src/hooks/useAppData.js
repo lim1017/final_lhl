@@ -54,5 +54,5 @@ export default function useAppData() {
     console.log('state has been updated: ', state);
   }, state);
 
-  return { state };
+  return { state, dispatch };
 }
