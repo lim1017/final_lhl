@@ -53,24 +53,22 @@ function Portfolio(props) {
     questionFive: 0,
     portfolioReturn: 1,
     showGraph: false,
-    showQuestionnaire: false
+    showQuestionnaire: false,
+    showInformation: false
   });
 
   function setQuestionOne(riskValue) {
     setState({ ...state, questionOne: riskValue });
   }
-
   function setQuestionTwo(riskValue) {
     setState({ ...state, questionTwo: riskValue });
   }
   function setQuestionThree(riskValue) {
     setState({ ...state, questionThree: riskValue });
   }
-
   function setQuestionFour(riskValue) {
     setState({ ...state, questionFour: riskValue });
   }
-
   function setQuestionFive(riskValue) {
     setState({ ...state, questionFive: riskValue });
   }
@@ -88,7 +86,8 @@ function Portfolio(props) {
       riskScore: totalScore,
       portfolioReturn: state.portfolioReturn,
       showGraph: true,
-      showQuestionnaire: false
+      showQuestionnaire: false,
+      showInformation: true
     });
   }
 
@@ -96,7 +95,8 @@ function Portfolio(props) {
     setState({
       ...state,
       showQuestionnaire: true,
-      showGraph: false
+      showGraph: false,
+      showInformation: false
     });
   }
 
@@ -133,6 +133,27 @@ function Portfolio(props) {
     });
     return finalOP;
   }
+
+  const portfolioReturnData = {
+    labels: ["Now", "1 Year", "2 Years", "5 Years", "10 Years"],
+    series: [
+      [1, 1, 1, 1, 1],
+      [3, 3, 3, 3, 3],
+      [6, 10, 8, 16, 20]
+    ]
+  };
+  const biPolarLineChartOptions = {
+    width: 1000,
+    high: 20,
+    low: 0,
+    showArea: true,
+    showLine: false,
+    showPoint: false,
+    axisX: {
+      showLabel: false,
+      showGrid: false
+    }
+  };
 
   return (
     <div>
@@ -455,14 +476,13 @@ function Portfolio(props) {
 
           {/* SUBMIT QUESTIONNAIRE */}
           <div className="risk-assessment-submission">
-            <h4>Submit and view my investment profile</h4>
             <a
               rel="Submit"
               href="#"
               className="risk-assessment-submit-button"
               onClick={e => onSubmit(e)}
             >
-              Submit
+              Submit and view my investment portfolio
             </a>
           </div>
         </div>
@@ -489,11 +509,26 @@ function Portfolio(props) {
             <div className="legend">
               {createLegend({
                 names: nameList(portfolioDistribution().investmentTypes),
-                types: ["info", "danger", "warning", "success"]
+                types: ["primary", "success", "info"]
               })}
             </div>
           }
         />
+      ) : null}
+      {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
+      {state.showInformation ? (
+        <div>
+          <ChartistGraph
+            data={portfolioReturnData}
+            options={biPolarLineChartOptions}
+            type={"Line"}
+          />
+          <p>
+            CASH: CASH RULES EVERYTHING AROUND ME CREAM. DOLLA DOLLA BILLS YALL
+          </p>
+          <p>BONDS: VODKA MARTINI, SHAKEN NOT STIRRED</p>
+          <p>STOCKS: GROWTH GROWTH GROWTH FUCK YES</p>
+        </div>
       ) : null}
     </div>
   );
