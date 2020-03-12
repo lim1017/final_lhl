@@ -1,42 +1,15 @@
-import React, { Component, useEffect, useState } from "react";
-import {
-  Grid,
-  Row,
-  Col,
-  Table,
-  FormGroup,
-  ControlLabel,
-  FormControl
-} from "react-bootstrap";
+import React, { useState } from "react";
 
 import ChartistGraph from "react-chartist";
 import { Card } from "components/Card/Card.jsx";
-import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
-import {
-  dataPie,
-  legendPie,
-  dataSales,
-  optionsSales,
-  responsiveSales,
-  legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
-} from "variables/Variables.jsx";
-
-import { FormInputs } from "components/FormInputs/FormInputs.jsx";
-import { UserCard } from "components/UserCard/UserCard.jsx";
-import Button from "components/CustomButton/CustomButton.jsx";
-import useAppData from "../hooks/useAppData";
 
 function portfolioDistribution(riskScore) {
+  let portfolioReturn = 1;
   // score will be from 5 - 20 for now
   let investmentTypes = [
-    { type: "Stocks", sum: 0 },
-    { type: "Bonds", sum: 0 },
-    { type: "Cash", sum: 0 }
+    { type: "Stocks", sum: 40 },
+    { type: "Bonds", sum: 30 },
+    { type: "Cash", sum: 30 }
   ];
 
   //conservative portfolio
@@ -46,6 +19,7 @@ function portfolioDistribution(riskScore) {
       { type: "Bonds", sum: 60 },
       { type: "Cash", sum: 20 }
     ];
+    portfolioReturn = 1.05;
   }
   // medimum portfolio
   else if (riskScore >= 10 && riskScore < 15) {
@@ -54,18 +28,21 @@ function portfolioDistribution(riskScore) {
       { type: "Bonds", sum: 40 },
       { type: "Cash", sum: 10 }
     ];
+    portfolioReturn = 1.07;
   }
   // aggressive portfolio
-  else {
+  else if (riskScore >= 15) {
     investmentTypes = [
       { type: "Stocks", sum: 75 },
       { type: "Bonds", sum: 20 },
       { type: "Cash", sum: 5 }
     ];
+    portfolioReturn = 1.09;
   }
-  return investmentTypes;
+  return { investmentTypes, portfolioReturn };
 }
 
+// SETS STATE OF THE PORTFOLIO BASED ON ANSWERS
 function Portfolio(props) {
   const [state, setState] = useState({
     riskScore: 0,
@@ -73,7 +50,8 @@ function Portfolio(props) {
     questionTwo: 0,
     questionThree: 0,
     questionFour: 0,
-    questionFive: 0
+    questionFive: 0,
+    portfolioReturn: 1
   });
 
   function setQuestionOne(riskValue) {
@@ -102,9 +80,12 @@ function Portfolio(props) {
       parseInt(state.questionThree) +
       parseInt(state.questionFour) +
       parseInt(state.questionFive);
-    console.log("RISK SCORE", totalScore);
     e.preventDefault();
-    setState({ ...state, riskScore: totalScore });
+    setState({
+      ...state,
+      riskScore: totalScore,
+      portfolioReturn: state.portfolioReturn
+    });
   }
 
   function createLegend(json) {
@@ -464,7 +445,9 @@ function Portfolio(props) {
         content={
           <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
             <ChartistGraph
-              data={createPie(portfolioDistribution(state.riskScore))}
+              data={createPie(
+                portfolioDistribution(state.riskScore).investmentTypes
+              )}
               type="Pie"
             />
           </div>
@@ -472,13 +455,14 @@ function Portfolio(props) {
         legend={
           <div className="legend">
             {createLegend({
-              names: nameList(portfolioDistribution()),
+              names: nameList(portfolioDistribution().investmentTypes),
               types: ["info", "danger", "warning", "success"]
             })}
           </div>
         }
       />
       <Card />
+      <div>{portfolioDistribution(state.riskScore).portfolioReturn}</div>
     </div>
   );
 }
