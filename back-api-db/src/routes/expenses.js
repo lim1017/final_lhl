@@ -3,7 +3,10 @@ const router = require("express").Router();
 module.exports = db => {
   router.get("/expenses/:date", (req, response) => {
 
+    
       date= req.params.date.split('+')
+
+      console.log(date)
     db.query(
       `
       Select * from expenses 

@@ -47,7 +47,7 @@ function Dashboard(props) {
 
   const [addExpense, setAddExpense] = useState(false);
 
-
+console.log(state)
 
   function toggleState() {
     setAddExpense(!addExpense);

@@ -11,8 +11,8 @@ export default function reducerz(state, action) {
         expenses: action.expenses,
         totalExpenses: action.totalExpenses,
         budget: action.budget,
-        goals: action.goals
-      
+        goals: action.goals,
+        users: action.users
       };
     case SET_DATE:
       console.log(action, 'actionzz')
