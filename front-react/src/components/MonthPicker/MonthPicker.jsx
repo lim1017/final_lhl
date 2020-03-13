@@ -95,8 +95,11 @@ class List extends Component {
                             lang={pickerLang.months}
                             onChange={this.handleAMonthChange}
                             onDismiss={this.handleAMonthDissmis}
+                            chgMonth={this.props.chgMonth}
                         >
-                            <MonthBox value={makeText(mvalue)} onClick={this.handleClickMonthBox} />
+                            <MonthBox value={makeText(mvalue)}
+                             chgMonth={this.props.chgMonth}
+                             onClick={this.handleClickMonthBox} />
                         </Picker>
                     </div>
                 </li>
@@ -109,10 +112,11 @@ class List extends Component {
         this.refs.pickAMonth.show()
     }
     handleAMonthChange(e, value, text) {
-      console.log(value)
+      
     }
     handleAMonthDissmis(value) {
         this.setState( {mvalue: value} )
+        this.props.chgMonth(value)
     }
 
     handleClickMonthBox2(e) {
@@ -162,10 +166,9 @@ class Main extends Component {
     }
 
     render() {
-
         return (
             <div className="list-area">
-                <List />
+                <List chgMonth={this.props.chgMonth} />
             </div>
         )
     }
@@ -173,8 +176,8 @@ class Main extends Component {
 
 
 
-export default () => {
-  
-  return (<Main/>);
+export default (props) => {
+  console.log(props)
+  return (<Main chgMonth={props.chgMonth}/>);
 
 }

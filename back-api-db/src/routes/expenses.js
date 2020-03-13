@@ -1,15 +1,33 @@
 const router = require("express").Router();
 
 module.exports = db => {
-  router.get("/expenses", (request, response) => {
+  router.get("/expenses/:date", (req, response) => {
+
+    
+      date= req.params.date.split('+')
+
+      console.log(date)
     db.query(
       `
-      SELECT * FROM expenses
-    `
+      Select * from expenses 
+      where extract(month from date)=$1 and extract(year from date)=$2;  
+      `,
+      [date[0], date[1]]
     ).then(({ rows: expenses }) => {
       response.json(expenses);
     });
+    
   });
+
+  // router.get("/expenses", (request, response) => {
+  //   db.query(
+  //     `
+  //     SELECT * FROM expenses
+  //   `
+  //   ).then(({ rows: expenses }) => {
+  //     response.json(expenses);
+  //   });
+  // });
 
   router.get("/expensestotal", (request, response) => {
     db.query(
