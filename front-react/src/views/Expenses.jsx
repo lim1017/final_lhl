@@ -38,16 +38,50 @@ import { MDBDataTable } from "mdbreact";
 import Button from "@material-ui/core/Button";
 import { Spring, Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
-import reducerz, { SET_DATA } from "../hooks/reducers/app";
+import reducerz, { SET_DATA, SET_DATE } from "../hooks/reducers/app";
 
 
 
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext)
-
   const [addExpense, setAddExpense] = useState(false);
+  
+  console.log(state.totalExpenses)
+ 
 
-  function toggleState(state) {
+
+  function formatDataForBarChart(data){
+    const finalOP=[]
+    data.forEach(ele =>{
+      finalOP.push(ele.sum)
+    })
+    return finalOP
+  }
+
+
+
+  function returnMonthText(number){
+      
+    switch (number) {
+
+      case 1:
+        return "January"
+        break;
+      case 2:
+        return "Febuary"
+        break;
+      case 3:
+        return "March"
+        break;    
+    
+      default:
+        // code block
+    }
+  }
+
+
+  function toggleState() {
+    console.log('toggle state function')
     setAddExpense(!addExpense);
   }
 
@@ -56,10 +90,29 @@ function Dashboard(props) {
     for (var i = 0; i < json["names"].length; i++) {
       var type = "fa fa-circle text-" + json["types"][i];
       legend.push(<i className={type} key={i} />);
-      legend.push(" ");
+      legend.push(" ")
       legend.push(json["names"][i]);
     }
     return legend;
+  }
+
+  function chgMonth(date){
+    console.log(state)
+    console.log(date)
+    const datez = {
+      month:date.month,
+      year:date.year
+    }
+    
+    dispatch({
+      type: SET_DATE,
+      date:datez
+    })
+    console.log(state.date)
+    
+    refreshExpenses(date)
+
+
   }
 
   function nameList(data) {
@@ -86,10 +139,13 @@ function Dashboard(props) {
     return finalOP;
   }
 
-  function refreshExpenses() {
+  function refreshExpenses(date) {
+
+    let datez= `${date.month}+${date.year}`
+
     Promise.all([
-      axios.get("http://localhost:8001/api/expenses"),
-      axios.get("http://localhost:8001/api/expensestotal")
+      axios.get(`http://localhost:8001/api/expenses/${datez}`),
+      axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
         dispatch({
@@ -107,7 +163,7 @@ function Dashboard(props) {
 
     <div className="content">
       <p>dashboard</p>
-
+    
       <Grid fluid>
         <Row>
           <Col md={12}>
@@ -118,7 +174,7 @@ function Dashboard(props) {
               ctTableResponsive
               content={
                 <div>
-                  <MonthPicker />
+                  <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
                   <MDBDataTable
                     scrollY
                     maxHeight="300px"
@@ -163,9 +219,9 @@ function Dashboard(props) {
                     Primary
                   </Button>
 
-                  {addExpense === true && (
-                    <ExpenseUpdater1 onExpenseSubmit={refreshExpenses} />
-                  )}
+                  {addExpense ? (
+                    <ExpenseUpdater1 onExpenseSubmit={() => refreshExpenses(state.date)} />
+                  ): null}
 
                   {/* <Transition
                         native
@@ -216,8 +272,8 @@ function Dashboard(props) {
           <Col lg={7}>
             <Card
               statsIcon="fa fa-clock-o"
-              title="Email Statistics"
-              category="Last Campaign Performance"
+              title={returnMonthText(state.date.month)}
+              category="Expense Comparison To National Average"
               stats="Campaign sent 2 days ago"
               content={
                 <div
@@ -227,54 +283,42 @@ function Dashboard(props) {
                   <ChartistGraph
                     data={{
                       labels: [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "Mai",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec"
+                        "Debt",
+                        "Entertainment",
+                        "Food",
+                        "Home",
+                        "Medical",
+                        "Misc",
+                        "Transporation",
+                        "Utilities"
                       ],
                       series: [
+                        formatDataForBarChart(state.totalExpenses),
                         [
-                          542,
-                          443,
-                          320,
-                          780,
-                          553,
-                          453,
-                          326,
-                          434,
-                          568,
-                          610,
-                          756,
-                          895
-                        ],
-                        [
-                          412,
-                          243,
-                          280,
-                          580,
-                          453,
-                          353,
-                          300,
-                          364,
-                          368,
-                          410,
-                          636,
-                          695
+                          315,
+                          180,
+                          533,
+                          1700,
+                          79,
+                          172,
+                          558,
+                          300
                         ]
                       ]
                     }}
                     type="Bar"
                     options={optionsBar}
                     responsiveOptions={responsiveBar}
+                    
                   />
+                </div>
+              }
+              legend={
+                <div className="legend">
+                  {createLegend({
+                    names: ['You', 'Average'],
+                    types: ["info", "danger", "warning", "success"]
+                  })}
                 </div>
               }
             />
