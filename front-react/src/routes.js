@@ -19,7 +19,7 @@ import Budget from "views/Budget.jsx";
 import Expenses from "views/Expenses.jsx";
 import Goals from "views/Goals.jsx";
 import Portfolio from "views/Portfolio.jsx";
-import Typography from "views/Typography.jsx";
+import Youtube from "views/Youtube.jsx";
 import Icons from "views/Icons.jsx";
 import Maps from "views/Maps.jsx";
 import Notifications from "views/Notifications.jsx";
@@ -55,10 +55,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/typography",
-    name: "Typography",
+    path: "/youtube",
+    name: "Youtube",
     icon: "pe-7s-news-paper",
-    component: Typography,
+    component: Youtube,
     layout: "/admin"
   },
   {

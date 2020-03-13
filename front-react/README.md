@@ -131,7 +131,7 @@ light-bootstrap-dashboard-react
         ├── Maps.jsx
         ├── Notifications.jsx
         ├── Portfolio.jsx
-        ├── Typography.jsx
+        ├── Youtube.jsx
         ├── Upgrade.jsx
         └── UserProfile.jsx
 ```
