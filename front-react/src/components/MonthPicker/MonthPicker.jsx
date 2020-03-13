@@ -38,7 +38,7 @@ class List extends Component {
         super(props, context)
 
         this.state = {
-            mvalue: {year: 2020, month: 1},
+            mvalue: props.currentMonth,
             // mvalue2: {year: 2020, month: 12},
             mrange: {from: {year: 2019, month: 8}, to: {year: 2021, month: 12}},
             // mrange2: {from: {year: 2013, month: 11}, to: {year: 2016, month: 3}},
@@ -168,7 +168,7 @@ class Main extends Component {
     render() {
         return (
             <div className="list-area">
-                <List chgMonth={this.props.chgMonth} />
+                <List {...this.props} />
             </div>
         )
     }
@@ -178,6 +178,6 @@ class Main extends Component {
 
 export default (props) => {
   console.log(props)
-  return (<Main chgMonth={props.chgMonth}/>);
+  return (<Main {...props} />);
 
 }

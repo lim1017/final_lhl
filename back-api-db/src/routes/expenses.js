@@ -8,7 +8,7 @@ module.exports = db => {
 console.log(date, 'expenses')
     db.query(
       `
-      Select * from expenses 
+      Select *, to_char( date, 'DD-MON-YYYY') as date from expenses 
       where extract(month from date)=$1 and extract(year from date)=$2;  
       `,
       [date[0], date[1]]
@@ -65,8 +65,6 @@ console.log(date, 'expenses')
         setTimeout(() => {
           response.status(204).json({});
         }, 1000);
-        console.log(x, "xxxxxxxxxxxxxx");
-        console.log(response, "responseee");
       })
       .catch(error => console.log(error));
   });
