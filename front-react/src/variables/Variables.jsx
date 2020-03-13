@@ -574,7 +574,7 @@ var dataBar = {
   ]
 };
 var optionsBar = {
-  seriesBarDistance: 5,
+  seriesBarDistance: 10,
   axisX: {
     showGrid: true
   },

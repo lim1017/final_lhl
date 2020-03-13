@@ -39,7 +39,6 @@ class List extends Component {
 
         this.state = {
             mvalue: props.currentMonth,
-            // mvalue2: {year: 2020, month: 12},
             mrange: {from: {year: 2019, month: 8}, to: {year: 2021, month: 12}},
             // mrange2: {from: {year: 2013, month: 11}, to: {year: 2016, month: 3}},
         }
@@ -48,17 +47,10 @@ class List extends Component {
         this.handleAMonthChange = this.handleAMonthChange.bind(this)
         this.handleAMonthDissmis = this.handleAMonthDissmis.bind(this)
 
-        this.handleClickMonthBox2 = this.handleClickMonthBox2.bind(this)
-        this.handleAMonthChange2 = this.handleAMonthChange2.bind(this)
-        this.handleAMonthDissmis2 = this.handleAMonthDissmis2.bind(this)
-
         this._handleClickRangeBox = this._handleClickRangeBox.bind(this)
         this.handleRangeChange = this.handleRangeChange.bind(this)
         this.handleRangeDissmis = this.handleRangeDissmis.bind(this)
 
-        this._handleClickRangeBox2 = this._handleClickRangeBox2.bind(this)
-        this.handleRangeChange2 = this.handleRangeChange2.bind(this)
-        this.handleRangeDissmis2 = this.handleRangeDissmis2.bind(this)
     }
 
     componentWillReceiveProps(nextProps){
@@ -74,9 +66,7 @@ class List extends Component {
             from: 'From', to: 'To',
         }
         const mvalue = this.state.mvalue
-            , mvalue2 = this.state.mvalue2
             , mrange = this.state.mrange
-            , mrange2 = this.state.mrange2
 
         const makeText = m => {
             if (m && m.year && m.month) return (pickerLang.months[m.month-1] + '. ' + m.year)
@@ -86,7 +76,7 @@ class List extends Component {
         return (
             <ul>
                 <li>
-                    <label>Change Month</label>
+                    <h4>Change Month</h4>
                     <div className="edit">
                         <Picker
                             ref="pickAMonth"
@@ -119,16 +109,6 @@ class List extends Component {
         this.props.chgMonth(value)
     }
 
-    handleClickMonthBox2(e) {
-        this.refs.pickAMonth2.show()
-    }
-    handleAMonthChange2(value, text) {
-        //
-    }
-    handleAMonthDissmis2(value) {
-        this.setState( {mvalue2: value} )
-    }
-
     _handleClickRangeBox(e) {
         this.refs.pickRange.show()
     }
@@ -139,15 +119,6 @@ class List extends Component {
         this.setState( {mrange: value} )
     }
 
-    _handleClickRangeBox2(e) {
-        this.refs.pickRange2.show()
-    }
-    handleRangeChange2(value, text, listIndex) {
-        //
-    }
-    handleRangeDissmis2(value) {
-        this.setState( {mrange2: value} )
-    }
 }
 
 class Main extends Component {
@@ -177,7 +148,5 @@ class Main extends Component {
 
 
 export default (props) => {
-  console.log(props)
   return (<Main {...props} />);
-
 }
