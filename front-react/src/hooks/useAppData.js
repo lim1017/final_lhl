@@ -5,7 +5,7 @@ import reducerz, { SET_DATA } from "./reducers/app";
 export default function useAppData() {
   const [state, dispatch] = useReducer(reducerz, {
     expenses: [{id: 0, name: '', user_id: 0, amount: 0, type: '', date: ''}],
-    totalExpenses:[{type:'', sum:0}],
+    totalExpenses:[{type:'', sum:0},{type:'', sum:0},{type:'', sum:0}],
     budget: [{id: 0, user_id: 0, income: 0, c_hous: 0, c_tran: 0, c_food: 0, c_util: 0, c_entr: 0, c_medi: 0, c_debt: 0, c_misc: 0}],
     goals: [{id:0, name: '', type: '', amount: 0, description: 0, date: ''}],
     users: [{a: 'a', riskScore: 0, portfolioReturn: 0}],
@@ -20,7 +20,7 @@ export default function useAppData() {
 
       Promise.all([
         axios.get(`http://localhost:8001/api/expenses/${datez}`),
-        axios.get("http://localhost:8001/api/expensestotal"),
+        axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
         axios.get("http://localhost:8001/api/budget"),
         axios.get("http://localhost:8001/api/goals"),
         axios.get("http://localhost:8001/api/users")
