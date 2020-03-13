@@ -55,22 +55,14 @@ module.exports = db => {
       `,
       [name, amount, type]
     )
-      .then((x) => {
+      .then(x => {
         setTimeout(() => {
           response.status(204).json({});
         }, 1000);
-        console.log(x, 'xxxxxxxxxxxxxx')
-        console.log(response, 'responseee')
-
+        console.log(x, "xxxxxxxxxxxxxx");
+        console.log(response, "responseee");
       })
       .catch(error => console.log(error));
   });
-
-
-
-
-
- 
-
   return router;
 };

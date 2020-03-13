@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-
+import React, { useState, useContext } from "react";
+import appDataContext from "../hooks/reducers/useContext";
 import ChartistGraph from "react-chartist";
 import { Card } from "components/Card/Card.jsx";
+import axios from "axios";
+import { SET_DATA } from "hooks/reducers/app";
 
 function portfolioDistribution(riskScore) {
   let portfolioReturn = 1;
@@ -42,9 +44,10 @@ function portfolioDistribution(riskScore) {
   return { investmentTypes, portfolioReturn };
 }
 
-// SETS STATE OF THE PORTFOLIO BASED ON ANSWERS
+// SETS localState OF THE PORTFOLIO BASED ON ANSWERS
 function Portfolio(props) {
-  const [state, setState] = useState({
+  const { state, dispatch } = useContext(appDataContext);
+  const [localState, setLocalState] = useState({
     riskScore: 0,
     questionOne: 0,
     questionTwo: 0,
@@ -58,42 +61,58 @@ function Portfolio(props) {
   });
 
   function setQuestionOne(riskValue) {
-    setState({ ...state, questionOne: riskValue });
+    setLocalState({ ...localState, questionOne: riskValue });
   }
   function setQuestionTwo(riskValue) {
-    setState({ ...state, questionTwo: riskValue });
+    setLocalState({ ...localState, questionTwo: riskValue });
   }
   function setQuestionThree(riskValue) {
-    setState({ ...state, questionThree: riskValue });
+    setLocalState({ ...localState, questionThree: riskValue });
   }
   function setQuestionFour(riskValue) {
-    setState({ ...state, questionFour: riskValue });
+    setLocalState({ ...localState, questionFour: riskValue });
   }
   function setQuestionFive(riskValue) {
-    setState({ ...state, questionFive: riskValue });
+    setLocalState({ ...localState, questionFive: riskValue });
   }
 
   function onSubmit(e) {
     const totalScore =
-      parseInt(state.questionOne) +
-      parseInt(state.questionTwo) +
-      parseInt(state.questionThree) +
-      parseInt(state.questionFour) +
-      parseInt(state.questionFive);
-    e.preventDefault();
-    setState({
-      ...state,
+      parseInt(localState.questionOne) +
+      parseInt(localState.questionTwo) +
+      parseInt(localState.questionThree) +
+      parseInt(localState.questionFour) +
+      parseInt(localState.questionFive);
+
+    const userPortfolio = {
+      user: 1,
       riskScore: totalScore,
-      portfolioReturn: state.portfolioReturn,
+      portfolioReturn: portfolioDistribution(totalScore).portfolioReturn
+    };
+
+    e.preventDefault();
+    setLocalState({
+      ...localState,
+      riskScore: totalScore,
+      portfolioReturn: portfolioDistribution(totalScore).portfolioReturn,
       showGraph: true,
       showQuestionnaire: false,
       showInformation: true
     });
+    Promise.all([
+      axios.put(`http://localhost:8001/api/users/add`, userPortfolio)
+    ]).then(() => {
+      dispatch({
+        ...state,
+        user: userPortfolio,
+        type: SET_DATA
+      });
+    });
   }
 
   function start(e) {
-    setState({
-      ...state,
+    setLocalState({
+      ...localState,
       showQuestionnaire: true,
       showGraph: false,
       showInformation: false
@@ -166,7 +185,7 @@ function Portfolio(props) {
         Start Risk Assessment
       </a>
       {/* QUESTIONNAIRE PLACEHOLDER */}
-      {state.showQuestionnaire ? (
+      {localState.showQuestionnaire ? (
         <div>
           <div className="risk-assessment-questionnaire">
             <h1>Risk Assessment Questionnaire</h1>
@@ -489,17 +508,17 @@ function Portfolio(props) {
       ) : null}
 
       {/* RENDER PORTFOLIO DISTRIBUTION */}
-      {state.showGraph ? (
+      {localState.showGraph ? (
         <Card
           title="Portfolio Distribution"
           content={
             <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
               {`Your expected return is ${
-                portfolioDistribution(state.riskScore).portfolioReturn
+                portfolioDistribution(localState.riskScore).portfolioReturn
               }`}
               <ChartistGraph
                 data={createPie(
-                  portfolioDistribution(state.riskScore).investmentTypes
+                  portfolioDistribution(localState.riskScore).investmentTypes
                 )}
                 type="Pie"
               />
@@ -509,14 +528,14 @@ function Portfolio(props) {
             <div className="legend">
               {createLegend({
                 names: nameList(portfolioDistribution().investmentTypes),
-                types: ["primary", "success", "info"]
+                types: ["info", "primary", "success"]
               })}
             </div>
           }
         />
       ) : null}
       {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
-      {state.showInformation ? (
+      {localState.showInformation ? (
         <div>
           <ChartistGraph
             data={portfolioReturnData}
