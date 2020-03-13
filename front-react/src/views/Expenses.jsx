@@ -44,12 +44,44 @@ import reducerz, { SET_DATA, SET_DATE } from "../hooks/reducers/app";
 
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext)
-
   const [addExpense, setAddExpense] = useState(false);
+  
+  console.log(state.totalExpenses)
+ 
 
-console.log(state)
+
+  function formatDataForBarChart(data){
+    const finalOP=[]
+    data.forEach(ele =>{
+      finalOP.push(ele.sum)
+    })
+    return finalOP
+  }
+
+
+
+  function returnMonthText(number){
+      
+    switch (number) {
+
+      case 1:
+        return "January"
+        break;
+      case 2:
+        return "Febuary"
+        break;
+      case 3:
+        return "March"
+        break;    
+    
+      default:
+        // code block
+    }
+  }
+
 
   function toggleState() {
+    console.log('toggle state function')
     setAddExpense(!addExpense);
   }
 
@@ -113,7 +145,7 @@ console.log(state)
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
-      axios.get("http://localhost:8001/api/expensestotal")
+      axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
         dispatch({
@@ -187,9 +219,9 @@ console.log(state)
                     Primary
                   </Button>
 
-                  {addExpense === true && (
-                    <ExpenseUpdater1 onExpenseSubmit={refreshExpenses(state.date)} />
-                  )}
+                  {addExpense ? (
+                    <ExpenseUpdater1 onExpenseSubmit={() => refreshExpenses(state.date)} />
+                  ): null}
 
                   {/* <Transition
                         native
@@ -240,8 +272,8 @@ console.log(state)
           <Col lg={7}>
             <Card
               statsIcon="fa fa-clock-o"
-              title="Email Statistics"
-              category="Last Campaign Performance"
+              title={returnMonthText(state.date.month)}
+              category="Expense Comparison To National Average"
               stats="Campaign sent 2 days ago"
               content={
                 <div
@@ -251,54 +283,42 @@ console.log(state)
                   <ChartistGraph
                     data={{
                       labels: [
-                        "Jan",
-                        "Feb",
-                        "Mar",
-                        "Apr",
-                        "Mai",
-                        "Jun",
-                        "Jul",
-                        "Aug",
-                        "Sep",
-                        "Oct",
-                        "Nov",
-                        "Dec"
+                        "Debt",
+                        "Entertainment",
+                        "Food",
+                        "Home",
+                        "Medical",
+                        "Misc",
+                        "Transporation",
+                        "Utilities"
                       ],
                       series: [
+                        formatDataForBarChart(state.totalExpenses),
                         [
-                          542,
-                          443,
-                          320,
-                          780,
-                          553,
-                          453,
-                          326,
-                          434,
-                          568,
-                          610,
-                          756,
-                          895
-                        ],
-                        [
-                          412,
-                          243,
-                          280,
-                          580,
-                          453,
-                          353,
-                          300,
-                          364,
-                          368,
-                          410,
-                          636,
-                          695
+                          315,
+                          180,
+                          533,
+                          1700,
+                          79,
+                          172,
+                          558,
+                          300
                         ]
                       ]
                     }}
                     type="Bar"
                     options={optionsBar}
                     responsiveOptions={responsiveBar}
+                    
                   />
+                </div>
+              }
+              legend={
+                <div className="legend">
+                  {createLegend({
+                    names: ['You', 'Average'],
+                    types: ["info", "danger", "warning", "success"]
+                  })}
                 </div>
               }
             />

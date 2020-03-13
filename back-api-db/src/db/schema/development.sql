@@ -102,6 +102,14 @@ VALUES
     ('Hydro', 1, 200, 'home', '01/11/2020'),
     ('Gas', 1, 50, 'home', '01/20/2020'),
     ('Auto Insurance', 1, 200, 'transporation', '01/5/2020'),
+    ('Hydro', 1, 250, 'utilities', '01/5/2020'),
+    ('Movies', 1, 550, 'entertainment', '01/11/2020'),
+    ('Viagara', 1, 1000, 'medical', '01/5/2020'),
+    ('Debt', 1, 666, 'debt', '01/5/2020'),
+    ('Flying Pony', 1, 1250, 'misc', '01/5/2020'),
+
+
+
     ('Auto Lease', 1, 320, 'transporation', '01/5/2020'),
     ('Coffee', 1, 2, 'food', '02/03/2020'),
     ('Burger King', 1, 10, 'food', '02/05/2020'),
@@ -123,7 +131,11 @@ VALUES
     ('Gas', 1, 80, 'home', '02/20/2020'),
     ('Auto Insurance', 1, 200, 'transporation', '02/5/2020'),
     ('Auto Lease', 1, 320, 'transporation', '02/5/2020'),
-    ('Fancy Sushi', 1, 500, 'food', '02/11/2020');
+    ('Fancy Sushi', 1, 500, 'food', '02/11/2020'),('Hydro', 1, 250, 'utilities', '02/5/2020'),
+    ('Movies', 1, 550, 'entertainment', '02/11/2020'),
+    ('Viagara', 1, 1000, 'medical', '02/5/2020'),
+    ('Debt', 1, 666, 'debt', '02/5/2020'),
+    ('Flying Pony', 1, 1250, 'misc', '02/5/2020');
 
 
 INSERT INTO budget (user_id, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc)
