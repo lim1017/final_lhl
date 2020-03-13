@@ -75,18 +75,9 @@
 -- JOIN available_interviewers
 -- ON a.day_id = available_interviewers.day_id;
 
-INSERT INTO users (name)
+INSERT INTO users (name, riskScore, portfolioReturn)
 VALUES
-    ('Liam Martinez'),
-    ('Richard Wong'),
-    ('Lydia Miller-Jones'),
-    ('Archie Cohen'),
-    ('Chad Takahashi'),
-    ('Leopold Silvers'),
-    ('Maria Boucher'),
-    ('Jamal Jordan'),
-    ('Michael Chan-Montoya'),
-    ('Yuko Smith');
+    ('Yuko Shimada', 0, 0.01);
 
 SET datestyle = "ISO, MDY";
 
