@@ -60,6 +60,24 @@ function Portfolio(props) {
     showInformation: false
   });
 
+  console.log(state.users[0].portfolioreturn);
+
+  // RENDER CHART IF USER ALREADY SUBMITTED ASSESSMENT
+  if (
+    state.users[0].riskscore >= 1 &&
+    localState.showGraph === false &&
+    localState.showQuestionnaire === false
+  ) {
+    setLocalState({
+      ...localState,
+      riskScore: state.users[0].riskscore,
+      portfolioReturn: state.users[0].portfolioreturn,
+      showGraph: true,
+      showQuestionnaire: false,
+      showInformation: true
+    });
+  }
+
   function setQuestionOne(riskValue) {
     setLocalState({ ...localState, questionOne: riskValue });
   }
