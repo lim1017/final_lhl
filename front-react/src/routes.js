@@ -21,7 +21,7 @@ import Goals from "views/Goals.jsx";
 import Portfolio from "views/Portfolio.jsx";
 import Youtube from "views/Youtube.jsx";
 import News from "views/News.jsx";
-import Maps from "views/Maps.jsx";
+import Quiz from "views/Quiz.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 
@@ -69,10 +69,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/maps",
+    path: "/Quiz",
     name: "Quiz",
     icon: "pe-7s-map-marker",
-    component: Maps,
+    component: Quiz,
     layout: "/admin"
   },
   {

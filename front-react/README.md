@@ -128,7 +128,7 @@ light-bootstrap-dashboard-react
     └── views
         ├── Dashboard.jsx
         ├── Icons.jsx
-        ├── Maps.jsx
+        ├── Quiz.jsx
         ├── Notifications.jsx
         ├── Portfolio.jsx
         ├── Youtube.jsx
