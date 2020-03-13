@@ -116,9 +116,6 @@ class List extends Component {
     }
     handleAMonthDissmis(value) {
         this.setState( {mvalue: value} )
-        console.log(value)
-        console.log(this.state)
-        console.log(this.props)
         this.props.chgMonth(value)
     }
 

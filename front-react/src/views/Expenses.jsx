@@ -38,7 +38,7 @@ import { MDBDataTable } from "mdbreact";
 import Button from "@material-ui/core/Button";
 import { Spring, Transition, animated } from "react-spring/renderprops";
 import axios from "axios";
-import reducerz, { SET_DATA } from "../hooks/reducers/app";
+import reducerz, { SET_DATA, SET_DATE } from "../hooks/reducers/app";
 
 
 
@@ -46,7 +46,7 @@ function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext)
 
   const [addExpense, setAddExpense] = useState(false);
-  const [month, setMonth] = useState(1);
+
 
 
   function toggleState() {
@@ -58,17 +58,29 @@ function Dashboard(props) {
     for (var i = 0; i < json["names"].length; i++) {
       var type = "fa fa-circle text-" + json["types"][i];
       legend.push(<i className={type} key={i} />);
-      legend.push(" ");
+      legend.push(" ")
       legend.push(json["names"][i]);
     }
     return legend;
   }
 
   function chgMonth(date){
-    console.log('changing month@@@', date.month)
-    setMonth(date.month)
+    console.log(state)
+    console.log(date)
+    const datez = {
+      month:date.month,
+      year:date.year
+    }
+    
+    dispatch({
+      type: SET_DATE,
+      date:datez
+    })
+    console.log(state.date)
+    
+    refreshExpenses(date)
 
-    console.log(date.month)
+
   }
 
   function nameList(data) {
@@ -95,9 +107,12 @@ function Dashboard(props) {
     return finalOP;
   }
 
-  function refreshExpenses() {
+  function refreshExpenses(date) {
+
+    let datez= `${date.month}+${date.year}`
+
     Promise.all([
-      axios.get("http://localhost:8001/api/expenses"),
+      axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get("http://localhost:8001/api/expensestotal")
     ])
       .then(response => {
@@ -173,7 +188,7 @@ function Dashboard(props) {
                   </Button>
 
                   {addExpense === true && (
-                    <ExpenseUpdater1 onExpenseSubmit={refreshExpenses} />
+                    <ExpenseUpdater1 onExpenseSubmit={refreshExpenses(state.date)} />
                   )}
 
                   {/* <Transition
