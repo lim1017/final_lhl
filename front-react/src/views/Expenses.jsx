@@ -163,7 +163,7 @@ function Dashboard(props) {
 
     <div className="content">
       <p>dashboard</p>
-
+    
       <Grid fluid>
         <Row>
           <Col md={12}>
@@ -174,7 +174,7 @@ function Dashboard(props) {
               ctTableResponsive
               content={
                 <div>
-                  <MonthPicker chgMonth={chgMonth} />
+                  <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
                   <MDBDataTable
                     scrollY
                     maxHeight="300px"

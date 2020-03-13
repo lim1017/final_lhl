@@ -83,7 +83,7 @@ SET datestyle = "ISO, MDY";
 
 INSERT INTO expenses (name, user_id, amount, type, date)
 VALUES
-    ('Coffee', 1, 3, 'food', '01/03/2020'),
+    ('Coffee', 1, 333, 'food', '2020-01-28'),
     ('Burger King', 1, 10, 'food', '01/05/2020'),
     ('Groceries', 1, 28, 'food', '01/6/2020'),
     ('Rotti King', 1, 15, 'food', '01/8/2020'),
