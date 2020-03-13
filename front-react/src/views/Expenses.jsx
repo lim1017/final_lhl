@@ -80,6 +80,7 @@ function Dashboard(props) {
 
   function createPie(expensesTotal) {
     const finalOP = { labels: [], series: [] };
+    
     let grandTotal = 0;
     expensesTotal.forEach(element => {
       grandTotal += parseInt(element.sum);
