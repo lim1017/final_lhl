@@ -15,12 +15,18 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useContext } from "react";
 import CardImg from "components/Card/CardImg.jsx";
 import { ProgressBar } from "react-bootstrap";
 import { articles } from "variables/EducationArticles.jsx";
+import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
+
+
 import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
 
+
+import appDataContext from "../hooks/reducers/useContext";
+import reducerz, { SET_EDU_ANSWERS, SET_EDU_PROGRESS } from "../hooks/reducers/app";
 
 
 
@@ -28,10 +34,62 @@ import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVe
 
 
 function Maps({ ...prop }) {
-  const [modalShow, setModalShow] = React.useState(0);
+  const { state, dispatch } = useContext(appDataContext);
 
-  function setQuestionOne(){
+  const [modalShow, setModalShow] = React.useState(0);
+  const [progress, setProgress] = React.useState(0);
+
+  const [allAnswers, setallAnswers] = React.useState({
+    1:0,
+    2:0,
+    3:0,
+    4:0,
+    5:0
+  });
+
+
+  function getAnswer(answer, id){
+    console.log(id)
+    console.log(`the answer is ${answer}`)
+    setallAnswers({...allAnswers, [`${id}`]:parseInt(answer)})
+    console.log(allAnswers)
+
+  }
+
+  function verifyAnswer(id){
+    console.log(`the question is ${id}, tne answer selected is ${allAnswers[id]}`)
+
+    if (articles[id-1].answer===allAnswers[id]){
+      console.log('correct@!!')
+
+      const isCorrect={...state.educationAnswers, 
+        [`${id}`]:1 }
+
+      dispatch({
+        type: SET_EDU_ANSWERS,
+        educationAnswers: isCorrect
+      })
+   
+      console.log(state.educationAnswers)
+      updateProgressBar(state.educationAnswers)
+      
+    } else{
+      console.log('incorrect')
+    }
+  }
+
+  function updateProgressBar(answers){
+    const arrAnswers= Object.values(answers)
+    const totalQuestions=Object.keys(answers).length
+    let totalScore=arrAnswers.reduce((a, b) => a + b, 0)
+
     
+    const score=(totalScore/totalQuestions)*100
+    dispatch({
+      type: SET_EDU_PROGRESS,
+      eduProgress: score
+    })
+
   }
 
   const progressBar = {
@@ -42,7 +100,7 @@ function Maps({ ...prop }) {
     border: 'solid 5px'
   };
 
-  let progress = 100
+  
 
   return (
     <div>
@@ -52,7 +110,9 @@ function Maps({ ...prop }) {
         
         { 
          articles.map( element =>{
-           const {title, link, image, id} =element
+           const {title, link, image, id, question, a1, a2, a3, a4} =element
+
+           
            return (
              <div className="article">
             <CardImg title={title} link={link} image={image} id={id} readArticle={()=>{
@@ -62,111 +122,31 @@ function Maps({ ...prop }) {
             
 
             <MyVerticallyCenteredModal
-            show={modalShow==={id}}
+            show={modalShow===id}
+            id={id}
             onHide={() => setModalShow(false)}
-            content={id}
+            verifyAnswer={verifyAnswer}
+            content={ <QuizQuestion
+              id={id}
+              question={question}
+              a1={a1}
+              a2={a2}
+              a3={a3}
+              a4={a4}
+              getAnswer={getAnswer}
+            />}
             />
             </div>
 
            )
           
         })}
-        
-      <MyVerticallyCenteredModal
-        show={modalShow===1}
-        onHide={() => setModalShow(false)}
-        content={
-          <ol className="risk-assessment-questions" start="1" tabIndex="0">
-          <li>
-            <h4>How would you best describe your personality?</h4>
-            <ul>
-              <li>
-                <label>
-                  <input
-                    className="risk-assessment-input"
-                    name="q1"
-                    type="radio"
-                    value="4"
-                    onChange={e => setQuestionOne(e.target.value)}
-                  ></input>
-                  I like to take risks whenever possible if I can get
-                  rewarded
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input
-                    className="risk-assessment-input"
-                    name="q1"
-                    type="radio"
-                    value="3"
-                    onChange={e => setQuestionOne(e.target.value)}
-                  ></input>
-                  I like to take risks, but only if they’re logical and
-                  calculated
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input
-                    className="risk-assessment-input"
-                    name="q1"
-                    type="radio"
-                    value="2"
-                    onChange={e => setQuestionOne(e.target.value)}
-                  ></input>
-                  I like to play it by the book but am occasionally open to
-                  risks
-                </label>
-              </li>
-              <li>
-                <label>
-                  <input
-                    className="risk-assessment-input"
-                    name="q1"
-                    type="radio"
-                    value="1"
-                    onChange={e => setQuestionOne(e.target.value)}
-                  ></input>
-                  I like to play it safe and conservative
-                </label>
-              </li>
-            </ul>
-          </li>
-        </ol>
-        }
-      />
-
-      <MyVerticallyCenteredModal
-        show={modalShow===2}
-        onHide={() => setModalShow(false)}
-        content='test 2'
-      />
-       <MyVerticallyCenteredModal
-        show={modalShow===3}
-        onHide={() => setModalShow(false)}
-        content='test 3'
-      />
-       <MyVerticallyCenteredModal
-        show={modalShow===4}
-        onHide={() => setModalShow(false)}
-        content='test 4'
-      />
-       <MyVerticallyCenteredModal
-        show={modalShow===5}
-        onHide={() => setModalShow(false)}
-        content='test 5'
-      />
-
-
+    
        
       </div>
-      <br />
-      <br />
-      <br />
-      <br />
+    
       <div >
-        <ProgressBar style={progressBar} now={progress} label={progress} />
+        <ProgressBar style={progressBar} now={state.eduProgress} label={state.eduProgress} />
       </div>
 
 
