@@ -30,20 +30,9 @@ import Card from "components/Card/Card.jsx";
 import { Grid, Row, Col } from "react-bootstrap";
 import ChartistGraph from "react-chartist";
 import {
-  optionsBar,
   responsiveBar,
-  optionsSales,
   responsiveSales
 } from "variables/Variables.jsx";
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import BudgetPlannerA from "components/BudgetPlanner/budgetplannerA";
 import { budgetSetGraphData } from "helpers/budgetCalc";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
@@ -121,7 +110,13 @@ function Budget(props) {
 
   // Render Contents
   return (
-    <div className="content">
+  <div>
+    <div className="budgetNav">
+      <div className="budgetNavA">
+        <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+      </div>
+    </div>
+    <div className="content top100px">
       <Grid fluid>
         <Row>
           <Col>
@@ -130,19 +125,6 @@ function Budget(props) {
               updateBudgetLocal={updateBudgetLocal}
             />
           </Col>
-        </Row>
-        <Row>
-          <Card
-            title="Plan vs Actual Total Expenses"
-            category="compare planned expenses vs expenses in given month"
-            ctTableFullWidth
-            ctTableResponsive
-            content={
-              <div>
-                <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
-              </div>
-            }
-          />
         </Row>
         <Row>
           <Col lg={4}>
@@ -310,8 +292,8 @@ function Budget(props) {
         </Row>
       </Grid>
     </div>
+  </div>
   );
-
 }
 
 export default Budget;
