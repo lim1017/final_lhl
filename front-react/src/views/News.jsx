@@ -1,5 +1,5 @@
 import React, { Component, useState } from "react";
-import CardImg from "components/Card/CardImg.jsx";
+import CardNews from "components/Card/CardNews.jsx";
 import { ProgressBar } from "react-bootstrap";
 import { articles } from "variables/EducationArticles.jsx";
 import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
@@ -15,7 +15,6 @@ class News extends Component {
   constructor() {
     super();
     this.state = {};
-    // this code gets run when its created
   }
 
   componentDidMount = () => {
@@ -40,7 +39,7 @@ class News extends Component {
 
     req.end(res => {
       if (res.error) throw new Error(res.error);
-      console.log({ state: res.body });
+
       this.setState(res.body);
     });
   };
@@ -48,12 +47,13 @@ class News extends Component {
   render() {
     return (
       <div>
-        {this.state.items &&
-          this.state.items.result.map(element => {
-            const { uuid, title, link, main_image } = element;
-            return (
-              <div className="news-article">
-                <CardImg
+        HI
+        <div>
+          {this.state.items &&
+            this.state.items.result.map(element => {
+              const { uuid, title, link, main_image } = element;
+              return (
+                <CardNews
                   key={uuid}
                   title={title}
                   link={link}
@@ -63,9 +63,9 @@ class News extends Component {
                       : noimage
                   }
                 />
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
     );
   }
