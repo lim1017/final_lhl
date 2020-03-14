@@ -1,4 +1,10 @@
-.education {
+.article-list {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 8rem;
+
+  .article{
+    flex: 0 0 calc(33% - 2rem); //3 on each line
+    margin: 2rem 1rem;
+  }
 }
