@@ -1,23 +1,18 @@
 import React, { Component } from "react";
+import CardNews from "components/Card/CardNews.jsx";
 
-const unirest = require("unirest");
+import noimage from "assets/img/sadpig.png";
+
+require("dotenv").config();
 
 const API_URL = "apidojo-yahoo-finance-v1.p.rapidapi.com";
-const API_KEY = "5c656d3d98msh2cf09c036ca1041p1fc345jsn2f46d65f1498";
-
-unirest
-  .post(API_URL)
-  .header("X-RapidAPI-Key", API_KEY)
-  .end(function(result) {
-    console.log(result.status, result.headers, result.body);
-  });
+const API_KEY = process.env.REACT_APP_YAHOO_API_KEY;
+const unirest = require("unirest");
 
 class News extends Component {
   constructor() {
     super();
-
     this.state = {};
-    // this code gets run when its created
   }
 
   componentDidMount = () => {
@@ -36,13 +31,13 @@ class News extends Component {
     });
 
     req.headers({
-      "X-RapidAPI-Host": "apidojo-yahoo-finance-v1.p.rapidapi.com",
-      "X-RapidAPI-Key": "5c656d3d98msh2cf09c036ca1041p1fc345jsn2f46d65f1498"
+      "X-RapidAPI-Host": API_URL,
+      "X-RapidAPI-Key": API_KEY
     });
 
     req.end(res => {
       if (res.error) throw new Error(res.error);
-      console.log({ state: res.body });
+
       this.setState(res.body);
     });
   };
@@ -50,16 +45,25 @@ class News extends Component {
   render() {
     return (
       <div>
-        <p>
-          {this.state.items && this.state.items.result.map(item => item.title)}
-        </p>
-        <p>
-          {this.state.items && this.state.items.result.map(item => item.link)}
-        </p>
-        <p>
+        HI
+        <div>
           {this.state.items &&
-            this.state.items.result.map(item => item.main_image.original_url)}
-        </p>
+            this.state.items.result.map(element => {
+              const { uuid, title, link, main_image } = element;
+              return (
+                <CardNews
+                  key={uuid}
+                  title={title}
+                  link={link}
+                  image={
+                    main_image && main_image.original_url
+                      ? main_image.original_url
+                      : noimage
+                  }
+                />
+              );
+            })}
+        </div>
       </div>
     );
   }
