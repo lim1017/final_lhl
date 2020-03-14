@@ -60,7 +60,6 @@ function Portfolio(props) {
     showInformation: false
   });
 
-  console.log(state.users[0].portfolioreturn);
 
   // RENDER CHART IF USER ALREADY SUBMITTED ASSESSMENT
   if (
