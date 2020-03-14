@@ -20,9 +20,12 @@
 /* Initialization / Imports */
 /* ------------------------ */
 
-/* Import Global State */ 
-import React, { useContext, useState } from "react";
+/* Import Global State/Hooks */ 
+import React, { useContext, useReducer } from "react";
 import appDataContext from "../hooks/reducers/useContext";
+import budgetReducer, {
+  DEFAULT, INCOME, C_HOUS, C_TRAN, C_FOOD, C_UTIL, C_ENTR, C_MEDI, C_DEBT, C_MISC
+} from "../hooks/reducers/budget";
 
 /* Import Components */
 import Card from "components/Card/Card.jsx";
@@ -44,42 +47,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import BudgetPlannerA from "components/BudgetPlanner/budgetplannerA";
+import { budgetSetGraphData } from "helpers/budgetCalc";
 
 // Outer Functions
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 80,
-    },
-  },
-  tableHead: {
-    fontSize: '12pt',
-  },
-  tableCell: {
-    fontSize: '10pt',
-  },
-}));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49,
-  <TextField
-    id="standard-number"
-    label="Number"
-    type="number"
-    InputLabelProps={{
-      shrink: true,
-    }}
-  />)
-];
 
 /* --------------- */
 /* Budget Function */
@@ -88,13 +59,27 @@ function Budget(props) {
 
   // States & Variables
   const{ state, dispatch } = useContext(appDataContext);
-  const [ localState, setLocalState ] = useState({
-    localContent: 0
+  const [ budget, dispatchBudget ] = useReducer( budgetReducer, {
+    id: 0,
+    user_id: 0,
+    default: 100000,
+    income: 1000,
+    c_hous: 10,
+    c_tran: 20,
+    c_food: 30,
+    c_util: 40,
+    c_entr: 50,
+    c_medi: 60,
+    c_debt: 70,
+    c_misc: 80
   });
-  const classes = useStyles();
 
   // Inner Functions
-  console.log('this is state in budget: ', state)
+  console.log('this is budgetSetGraphData: ', budgetSetGraphData(budget, null));
+
+  function updateBudgetLocal(data) {
+    dispatchBudget(data)
+  }
 
   // Render Contents
   return (
@@ -102,28 +87,33 @@ function Budget(props) {
       <Grid fluid>
         <Row>
           <Col>
-            <BudgetPlannerA />
+            <BudgetPlannerA
+              budget={budget}
+              updateBudgetLocal={updateBudgetLocal}
+            />
           </Col>
         </Row>
         <Row>
-          <Col lg={5}>
+          <Col lg={4}>
             <Card
-              title="Plan vs Actual Spending"
+              title="Plan vs Actual Total Expenses"
               category="compare planned expenses vs expenses in given month"
               ctTableFullWidth
               ctTableResponsive
               content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
+                <div>
                   <ChartistGraph
                     data={{
                       labels: ['Plan', 'Month'],
                       series: [
-                        [800, 1200],
-                        [200, 400],
-                        [100, 200]
+                        [budget.c_hous, 1200],
+                        [budget.c_tran, 400],
+                        [budget.c_food, 200],
+                        [budget.c_util, 200],
+                        [budget.c_entr, 200],
+                        [budget.c_medi, 200],
+                        [budget.c_debt, 200],
+                        [budget.c_misc, 200]
                       ]
                     }}
                     targetLine= {{
@@ -145,34 +135,59 @@ function Budget(props) {
               }
             />
           </Col>
-          <Col lg={7}>
+          <Col lg={8}>
+            <Card
+              title="Plan vs Actual Expenses by Category"
+              category="compare planned expenses vs expenses in given month"
+              ctTableFullWidth
+              ctTableResponsive
+              content={
+                <div>
+                  <ChartistGraph
+                    data={{
+                      labels: ['Housing', 'Transportation', 'Food', 'Utility', 'Entertainment', 'Medical', 'Debt', 'Misc'],
+                      series: [
+                        [budget.c_hous, budget.c_tran, budget.c_food, budget.c_util, budget.c_entr, budget.c_medi, budget.c_debt, budget.c_misc],
+                        [200, 400, 200, 100, 300, 200, 100, 400]
+                      ]
+                    }}
+                    type="Bar"
+                    options={{
+                      seriesBarDistance: 10,
+                      height: "240px",
+                      stackBars: false
+                    }}
+                    responsiveOptions={responsiveBar}
+                    // listener={{
+                    //   draw: e => onDrawHandler(e)
+                    // }}
+                  />
+                </div>
+              }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={12}>
             <Card
               title="Budget Plan summary"
               category="insert other budget informations here"
               ctTableFullWidth
               ctTableResponsive
               content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
+                <div>
                   <ChartistGraph
-                    data={{
-                      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                      series: [
-                        [12, 9, 7, 8, 5],
-                        [2, 1, 3.5, 7, 3],
-                        [1, 3, 4, 5, 6]
-                      ]
-                    }}
+                    data={
+                      budgetSetGraphData(budget, null)
+                    }
                     targetLine={{
                       value: 400,
                       class: 'ct-target-line'
                     }}
                     type="Line"
                     options={{
-                      low: 0,
-                      high: 12,
+                      low: parseInt(budget.default || 0),
+                      high: parseInt(budget.default || 0) + budget.income * 12,
                       showArea: false,
                       height: "245px",
                       axisX: {
@@ -204,10 +219,10 @@ function Budget(props) {
                         var targetLineY = projectY(context.chartRect, context.bounds, 10);
                         var targetLineX = projectX(context.chartRect, context.axisX, 3.5);
 
-                        console.log('this is context: ', context)
-                        console.log('this is context.bound: ', context.bounds)
-                        console.log("chartRect: ", context.chartRect.height())
-                        console.log(context.chartRect.height())
+                        // console.log('this is context: ', context)
+                        // console.log('this is context.bound: ', context.bounds)
+                        // console.log("chartRect: ", context.chartRect.height())
+                        // console.log(context.chartRect.height())
 
                         context.svg.elem('line', {
                           x1: context.chartRect.x1,
