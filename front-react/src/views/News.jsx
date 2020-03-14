@@ -13,10 +13,17 @@ unirest
   });
 
 class News extends Component {
-  componentDidMount() {
+  constructor() {
+    super();
+
+    this.state = {};
+    // this code gets run when its created
+  }
+
+  componentDidMount = () => {
     const req = unirest(
       "GET",
-      "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-charts"
+      "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-newsfeed"
     );
 
     req.query({
@@ -35,12 +42,26 @@ class News extends Component {
 
     req.end(res => {
       if (res.error) throw new Error(res.error);
-
+      console.log({ state: res.body });
       this.setState(res.body);
     });
-  }
+  };
+
   render() {
-    return <p>{console.log(this.state)}</p>;
+    return (
+      <div>
+        <p>
+          {this.state.items && this.state.items.result.map(item => item.title)}
+        </p>
+        <p>
+          {this.state.items && this.state.items.result.map(item => item.link)}
+        </p>
+        <p>
+          {this.state.items &&
+            this.state.items.result.map(item => item.main_image.original_url)}
+        </p>
+      </div>
+    );
   }
 }
 
