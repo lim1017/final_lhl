@@ -1,8 +1,6 @@
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import CardNews from "components/Card/CardNews.jsx";
-import { ProgressBar } from "react-bootstrap";
-import { articles } from "variables/EducationArticles.jsx";
-import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
+
 import noimage from "assets/img/sadpig.png";
 
 require("dotenv").config();
