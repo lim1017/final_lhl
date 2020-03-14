@@ -1,5 +1,10 @@
 import React from 'react';
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
+import Button from '@material-ui/core/Button';
+import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
+import { articles } from "variables/EducationArticles.jsx";
+
+
 
 
 
@@ -13,7 +18,7 @@ function MyVerticallyCenteredModal(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
+          Question Time!
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -23,7 +28,18 @@ function MyVerticallyCenteredModal(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button variant="contained" 
+                color="primary"  
+                onClick={props.onHide}
+        >
+        Cancel</Button>
+        
+        <Button variant="contained" 
+                color="primary"  
+                onClick={()=>props.verifyAnswer(props.id)}
+                style={{marginLeft:'2rem'}}
+        >
+        Submit</Button>      
       </Modal.Footer>
     </Modal>
   );

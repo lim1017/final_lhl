@@ -9,7 +9,9 @@ export default function useAppData() {
     budget: [{id: 0, user_id: 0, income: 0, c_hous: 0, c_tran: 0, c_food: 0, c_util: 0, c_entr: 0, c_medi: 0, c_debt: 0, c_misc: 0}],
     goals: [{id:0, name: '', type: '', amount: 0, description: 0, date: ''}],
     users: [{a: 'a', riskScore: 0, portfolioReturn: 0}],
-    date: {month: 1, year: 2020}
+    date: {month: 1, year: 2020},
+    educationAnswers:{1:0, 2:0, 3:0, 4:0, 5:0},
+    eduProgress:0
   });
 
 
