@@ -9,42 +9,49 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
+
 });
+
+function complete(id){
+  console.log(`clicked ${id}`)
+}
 
 export default function CardImg(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
+     
+    <Card style={{maxWidth: 345}}>
+      {/* <CardActionArea> */}
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
+          alt={props.title}
           height="140"
-          image="https://i.ytimg.com/vi/4N1ayk-Xba4/maxresdefault.jpg"
-          title="Contemplative Reptile"
+          image={props.image}
+          title={props.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {props.description}
+          <Typography gutterBottom variant="h5" component="h2"><a href={props.link}>
+            {props.title}</a>
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-           {props.description}
+           {props.title}
           </Typography>
+          
+          <Button
+            style={{marginTop: '1rem'}}
+            variant="contained"
+            color="primary"
+            onClick={() => props.readArticle()}
+          >
+            Mark Read
+          </Button>
+          
         </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
+      {/* </CardActionArea> */}
     </Card>
+    
+    
   );
 }
 
