@@ -17,14 +17,16 @@
 */
 import React, { Component } from "react";
 
-export class Card extends Component {
+export class CardExpTable extends Component {
   render() {
     return (
       <div
         className={"card" + (this.props.plain ? " card-plain" : "")}>
         <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
-          <h4 className="title">{this.props.title}</h4>
-          <p className="category">{this.props.category}</p>
+          <h3 className="title">{this.props.category} {this.props.title}</h3>
+          <br />
+          <p className="category">{this.props.content2}</p>
+          
         </div>
         <div
           className={
@@ -50,4 +52,4 @@ export class Card extends Component {
   }
 }
 
-export default Card;
+export default CardExpTable;

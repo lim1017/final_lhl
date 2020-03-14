@@ -20,13 +20,7 @@ import { Route, Switch } from "react-router-dom";
 import NotificationSystem from "react-notification-system";
 import appDataContext from "../hooks/reducers/useContext";
 import useAppData from "../hooks/useAppData";
-
-
-import AdminNavbar from "components/Navbars/AdminNavbar";
-import Footer from "components/Footer/Footer";
 import Sidebar from "components/Sidebar/Sidebar";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
-
 import { style } from "variables/Variables.jsx";
 import routes from "routes.js";
 import image from "assets/img/sidebar-3.jpg";
@@ -45,7 +39,6 @@ const Admin = props =>{
 class Admin2 extends Component {
   constructor(props) {
     super(props);
-    console.log("this is props in class Admin", props);
     this.state = {
       _notificationSystem: null,
       image: image,

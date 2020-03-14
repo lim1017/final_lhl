@@ -1,3 +1,9 @@
+.ct-target-line {
+  stroke: blue;
+  stroke-width: 2px;
+  stroke-dasharray: 4px;
+}
+
 @mixin ct-responsive-svg-container($width: 100%, $ratio: $ct-container-ratio) {
   display: block;
   position: relative;

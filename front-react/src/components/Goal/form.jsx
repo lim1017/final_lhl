@@ -10,7 +10,6 @@ export default function Form(props) {
 
   const typeCheck = function(value) {
     if (value !== type) {
-      console.log(value)
       setType(value)
     }
   }
@@ -26,13 +25,6 @@ export default function Form(props) {
       setError("Amount cannot be blank or not a number");
       return;
     }
-
-    // console.log('===')
-    // console.log(name)
-    // console.log(type)
-    // console.log(amount)
-    // console.log(description)
-    // console.log('===')
 
     setError("");
     props.onSave(name, type, amount, description, props.date);
