@@ -9,10 +9,6 @@ const C_MEDI = "C_MEDI";
 const C_DEBT = "C_DEBT";
 const C_MISC = "C_MISC";
 
-export {
-  DEFAULT, INCOME, C_HOUS, C_TRAN, C_FOOD, C_UTIL, C_ENTR, C_MEDI, C_DEBT, C_MISC
-};
-
 export default function budgetReducer(state, action) {
   switch (action.type) {
     case DEFAULT:

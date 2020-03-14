@@ -23,9 +23,7 @@
 /* Import Global State/Hooks */ 
 import React, { useContext, useReducer } from "react";
 import appDataContext from "../hooks/reducers/useContext";
-import budgetReducer, {
-  DEFAULT, INCOME, C_HOUS, C_TRAN, C_FOOD, C_UTIL, C_ENTR, C_MEDI, C_DEBT, C_MISC
-} from "../hooks/reducers/budget";
+import budgetReducer from "../hooks/reducers/budget";
 
 /* Import Components */
 import Card from "components/Card/Card.jsx";
@@ -48,6 +46,8 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import BudgetPlannerA from "components/BudgetPlanner/budgetplannerA";
 import { budgetSetGraphData } from "helpers/budgetCalc";
+import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
+import axios from "axios";
 
 // Outer Functions
 
@@ -75,10 +75,48 @@ function Budget(props) {
   });
 
   // Inner Functions
-  console.log('this is budgetSetGraphData: ', budgetSetGraphData(budget, null));
+  console.log('this is budget: ', budget);
+  console.log(state)
+
+  function chgMonth(date) {
+    const dateA = {
+      month: date.month,
+      year: date.year
+    };
+
+    dispatch({
+      type: "SET_DATE",
+      date: dateA
+    });
+
+    refreshExpenses(date);
+  }
+
+  function refreshExpenses(date) {
+    let datez = `${date.month}+${date.year}`;
+
+    Promise.all([
+      axios.get(`http://localhost:8001/api/expenses/${datez}`),
+      axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
+    ])
+      .then(response => {
+        dispatch({
+          type: "SET_DATA",
+          expenses: response[0].data,
+          totalExpenses: response[1].data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   function updateBudgetLocal(data) {
     dispatchBudget(data)
+  }
+
+  function getActualExpenses(n) {
+    return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
   }
 
   // Render Contents
@@ -94,6 +132,19 @@ function Budget(props) {
           </Col>
         </Row>
         <Row>
+          <Card
+            title="Plan vs Actual Total Expenses"
+            category="compare planned expenses vs expenses in given month"
+            ctTableFullWidth
+            ctTableResponsive
+            content={
+              <div>
+                <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+              </div>
+            }
+          />
+        </Row>
+        <Row>
           <Col lg={4}>
             <Card
               title="Plan vs Actual Total Expenses"
@@ -106,14 +157,14 @@ function Budget(props) {
                     data={{
                       labels: ['Plan', 'Month'],
                       series: [
-                        [budget.c_hous, 1200],
-                        [budget.c_tran, 400],
-                        [budget.c_food, 200],
-                        [budget.c_util, 200],
-                        [budget.c_entr, 200],
-                        [budget.c_medi, 200],
-                        [budget.c_debt, 200],
-                        [budget.c_misc, 200]
+                        [budget.c_hous, getActualExpenses(5)],
+                        [budget.c_tran, getActualExpenses(4)],
+                        [budget.c_food, getActualExpenses(6)],
+                        [budget.c_util, getActualExpenses(7)],
+                        [budget.c_entr, getActualExpenses(0)],
+                        [budget.c_medi, getActualExpenses(1)],
+                        [budget.c_debt, getActualExpenses(2)],
+                        [budget.c_misc, getActualExpenses(3)],
                       ]
                     }}
                     targetLine= {{
@@ -148,7 +199,16 @@ function Budget(props) {
                       labels: ['Housing', 'Transportation', 'Food', 'Utility', 'Entertainment', 'Medical', 'Debt', 'Misc'],
                       series: [
                         [budget.c_hous, budget.c_tran, budget.c_food, budget.c_util, budget.c_entr, budget.c_medi, budget.c_debt, budget.c_misc],
-                        [200, 400, 200, 100, 300, 200, 100, 400]
+                        [
+                          getActualExpenses(5),
+                          getActualExpenses(4),
+                          getActualExpenses(6),
+                          getActualExpenses(7),
+                          getActualExpenses(0),
+                          getActualExpenses(1),
+                          getActualExpenses(2),
+                          getActualExpenses(3)
+                        ]
                       ]
                     }}
                     type="Bar"
@@ -198,6 +258,7 @@ function Budget(props) {
                       showPoint: true,
                       fullWidth: true,
                       chartPadding: {
+                        left: 50,
                         right: 50
                       }
                     }}
@@ -238,7 +299,7 @@ function Budget(props) {
                           y2: context.chartRect.y2
                         }, 'ct-target-line');
 
-                        console.log(context.chartRect.x1, context.chartRect.x2, targetLineY, targetLineY)
+                        // console.log(context.chartRect.x1, context.chartRect.x2, targetLineY, targetLineY)
                       }
                     }}
                   />
