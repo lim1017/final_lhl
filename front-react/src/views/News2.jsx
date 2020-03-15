@@ -74,7 +74,25 @@ const News2 = () => {
         <div className="ticker-wrapper">
           {stockTickers &&
             stockTickers.map((stockTicker, index) => {
-              console.log("stock ticker", stockTicker);
+              return (
+                <div key={index} className="ticker">
+                  {stockTicker.shortName || stockTicker.symbol} -{" "}
+                  {stockTicker.regularMarketPrice.fmt}
+                  <div
+                    className={
+                      stockTicker.regularMarketChangePercent.raw >= 0
+                        ? "stock-direction stock-up"
+                        : "stock-direction stock-down"
+                    }
+                  />
+                </div>
+              );
+            })}
+        </div>
+
+        <div className="ticker-wrapper delayed">
+          {stockTickers &&
+            stockTickers.map((stockTicker, index) => {
               return (
                 <div key={index} className="ticker">
                   {stockTicker.shortName || stockTicker.symbol} -{" "}
