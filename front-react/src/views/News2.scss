@@ -12,15 +12,18 @@ $duration: 30s;
 }
 
 .ticker-wrapper-outer {
+  position: fixed;
+  display: flex;
   width: 100%;
   overflow: hidden;
   height: 4rem;
   background-color: rgba(#000, 0.9);
-  padding-left: 100%;
+  padding: 0 0 0 100%;
   box-sizing: content-box;
 
   .ticker-wrapper {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     height: 4rem;
     line-height: 4rem;
     white-space: nowrap;
@@ -33,7 +36,9 @@ $duration: 30s;
     animation-duration: $duration;
 
     .ticker {
-      display: inline-block;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
       padding: 0 2rem;
       font-size: 2rem;
       color: white;
@@ -41,7 +46,22 @@ $duration: 30s;
   }
 }
 
-// .ticker-wrapper {
-//   display: flex;
-//   flex-direction: row;
-// }
+.card-news-wrapper {
+  margin: 60px 0 0;
+}
+
+.stock-direction {
+  margin: 0 0 0 10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 5px 0;
+
+  &.stock-down {
+    border-color: #ff433d transparent transparent;
+  }
+  &.stock-up {
+    border-color: #1ecd93 transparent transparent;
+    transform: rotate(180deg);
+  }
+}
