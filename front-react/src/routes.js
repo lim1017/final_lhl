@@ -21,6 +21,7 @@ import Goals from "views/Goals.jsx";
 import Portfolio from "views/Portfolio.jsx";
 import Youtube from "views/Youtube.jsx";
 import News from "views/News.jsx";
+import News2 from "views/News2.jsx";
 import Education from "views/Education.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
@@ -65,7 +66,7 @@ const dashboardRoutes = [
     path: "/news",
     name: "News",
     icon: "pe-7s-science",
-    component: News,
+    component: News2,
     layout: "/admin"
   },
   {
