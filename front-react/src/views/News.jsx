@@ -2,20 +2,23 @@ import React, { Component } from "react";
 import CardNews from "components/Card/CardNews.jsx";
 
 import noimage from "assets/img/sadpig.png";
+import unirest from "unirest";
 
 require("dotenv").config();
 
 const API_URL = "apidojo-yahoo-finance-v1.p.rapidapi.com";
 const API_KEY = process.env.REACT_APP_YAHOO_API_KEY;
-const unirest = require("unirest");
 
 class News extends Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {
+      newsItems: null,
+      stockTickers: null
+    };
   }
 
-  componentDidMount = () => {
+  fetchFeed = () => {
     const req = unirest(
       "GET",
       "https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-newsfeed"
@@ -38,8 +41,39 @@ class News extends Component {
     req.end(res => {
       if (res.error) throw new Error(res.error);
 
-      this.setState(res.body);
+      this.setState({ newsItems: res.body.items });
     });
+  };
+
+  fetchTickers = () => {
+    const req = unirest(
+      "GET",
+      "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary"
+    );
+
+    req.query({
+      region: "US",
+      lang: "en"
+    });
+
+    req.headers({
+      "X-RapidAPI-Host": API_URL,
+      "X-RapidAPI-Key": API_KEY
+    });
+
+    req.end(res => {
+      if (res.error) throw new Error(res.error);
+
+      this.setState(
+        { stockTickers: res.body.marketSummaryResponse.result },
+        () => console.log("test", this.state)
+      );
+    });
+  };
+
+  componentDidMount = () => {
+    this.fetchFeed();
+    this.fetchTickers();
   };
 
   render() {
@@ -47,8 +81,8 @@ class News extends Component {
       <div>
         HI
         <div>
-          {this.state.items &&
-            this.state.items.result.map(element => {
+          {this.state.newsItems &&
+            this.state.newsItems.result.map(element => {
               const { uuid, title, link, main_image } = element;
               return (
                 <CardNews
