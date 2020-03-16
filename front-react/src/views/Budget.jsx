@@ -20,65 +20,26 @@
 /* Initialization / Imports */
 /* ------------------------ */
 
-/* Import Global State */ 
-import React, { useContext, useState } from "react";
+/* Import Global State/Hooks */ 
+import React, { useContext, useReducer } from "react";
 import appDataContext from "../hooks/reducers/useContext";
+import budgetReducer from "../hooks/reducers/budget";
 
 /* Import Components */
 import Card from "components/Card/Card.jsx";
 import { Grid, Row, Col } from "react-bootstrap";
 import ChartistGraph from "react-chartist";
 import {
-  optionsBar,
   responsiveBar,
-  optionsSales,
   responsiveSales
 } from "variables/Variables.jsx";
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import BudgetPlannerA from "components/BudgetPlanner/budgetplannerA";
+import { budgetSetGraphData } from "helpers/budgetCalc";
+import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
+import axios from "axios";
 
 // Outer Functions
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: 80,
-    },
-  },
-  tableHead: {
-    fontSize: '12pt',
-  },
-  tableCell: {
-    fontSize: '10pt',
-  },
-}));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49,
-  <TextField
-    id="standard-number"
-    label="Number"
-    type="number"
-    InputLabelProps={{
-      shrink: true,
-    }}
-  />)
-];
 
 /* --------------- */
 /* Budget Function */
@@ -87,162 +48,105 @@ function Budget(props) {
 
   // States & Variables
   const{ state, dispatch } = useContext(appDataContext);
-  const [ localState, setLocalState ] = useState({
-    localContent: 0
+  const [ budget, dispatchBudget ] = useReducer( budgetReducer, {
+    id: 0,
+    user_id: 0,
+    default: 100000,
+    income: 1000,
+    c_hous: 10,
+    c_tran: 20,
+    c_food: 30,
+    c_util: 40,
+    c_entr: 50,
+    c_medi: 60,
+    c_debt: 70,
+    c_misc: 80
   });
-  const classes = useStyles();
 
   // Inner Functions
-  console.log('this is state in budget: ', state)
+  console.log('this is budget: ', budget);
+  console.log(state)
+
+  function chgMonth(date) {
+    const dateA = {
+      month: date.month,
+      year: date.year
+    };
+
+    dispatch({
+      type: "SET_DATE",
+      date: dateA
+    });
+
+    refreshExpenses(date);
+  }
+
+  function refreshExpenses(date) {
+    let datez = `${date.month}+${date.year}`;
+
+    Promise.all([
+      axios.get(`http://localhost:8001/api/expenses/${datez}`),
+      axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
+    ])
+      .then(response => {
+        dispatch({
+          type: "SET_DATA",
+          expenses: response[0].data,
+          totalExpenses: response[1].data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  function updateBudgetLocal(data) {
+    dispatchBudget(data)
+  }
+
+  function getActualExpenses(n) {
+    return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
+  }
 
   // Render Contents
   return (
-    <div className="content">
+  <div>
+    <div className="budgetNav">
+      <div className="budgetNavA">
+        <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+      </div>
+    </div>
+    <div className="content top100px">
       <Grid fluid>
         <Row>
-          <Col sm={12} md={12} lg={6}>
-            <Card
-              title="Budget Planner"
-              category="insert your monthly budget by categories here"
-              ctTableFullWidth
-              ctTableResponsive
-              content={
-                <form className={classes.root} noValidate autoComplete="off">
-                  <TableContainer component={Paper}>
-                    <Table className={classes.table} aria-label="simple table">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell className={classes.tableHead}>Expenses</TableCell>
-                          <TableCell className={classes.tableHead} align="right"></TableCell>
-                          <TableCell className={classes.tableHead} align="right"></TableCell>
-                          <TableCell className={classes.tableHead} align="right"></TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        <TableRow key={1}>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Housing'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                          </TableCell>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Transportation'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                            </TableCell>
-                        </TableRow>
-                          <TableRow key={2}>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Food'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                          </TableCell>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Util/Phone/Internet'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                            </TableCell>
-                        </TableRow>
-                        <TableRow key={3}>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Entertainment'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                          </TableCell>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Medical/Health'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                            </TableCell>
-                        </TableRow>
-                          <TableRow key={4}>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Debt'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                          </TableCell>
-                          <TableCell component="th" scope="row" className={classes.tableCell}>
-                            {'Misc'}
-                          </TableCell>
-                          <TableCell align="right">
-                            {
-                              <TextField
-                              type="number"
-                            />
-                            }
-                            </TableCell>
-                        </TableRow>
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                </form>
-              }
-            />
-          </Col>
-          <Col lg={6}>
-            <Card
-              title="Budget Plan summary"
-              category="insert other budget informations here"
-              ctTableFullWidth
-              ctTableResponsive
-              content='asdasdfasdf'
+          <Col>
+            <BudgetPlannerA
+              budget={budget}
+              updateBudgetLocal={updateBudgetLocal}
             />
           </Col>
         </Row>
         <Row>
-          <Col lg={5}>
+          <Col lg={4}>
             <Card
-              title="Plan vs Actual Spending"
+              title="Plan vs Actual Total Expenses"
               category="compare planned expenses vs expenses in given month"
               ctTableFullWidth
               ctTableResponsive
               content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
+                <div>
                   <ChartistGraph
                     data={{
                       labels: ['Plan', 'Month'],
                       series: [
-                        [800, 1200],
-                        [200, 400],
-                        [100, 200]
+                        [budget.c_hous, getActualExpenses(5)],
+                        [budget.c_tran, getActualExpenses(4)],
+                        [budget.c_food, getActualExpenses(6)],
+                        [budget.c_util, getActualExpenses(7)],
+                        [budget.c_entr, getActualExpenses(0)],
+                        [budget.c_medi, getActualExpenses(1)],
+                        [budget.c_debt, getActualExpenses(2)],
+                        [budget.c_misc, getActualExpenses(3)],
                       ]
                     }}
                     targetLine= {{
@@ -264,34 +168,68 @@ function Budget(props) {
               }
             />
           </Col>
-          <Col lg={7}>
+          <Col lg={8}>
+            <Card
+              title="Plan vs Actual Expenses by Category"
+              category="compare planned expenses vs expenses in given month"
+              ctTableFullWidth
+              ctTableResponsive
+              content={
+                <div>
+                  <ChartistGraph
+                    data={{
+                      labels: ['Housing', 'Transportation', 'Food', 'Utility', 'Entertainment', 'Medical', 'Debt', 'Misc'],
+                      series: [
+                        [budget.c_hous, budget.c_tran, budget.c_food, budget.c_util, budget.c_entr, budget.c_medi, budget.c_debt, budget.c_misc],
+                        [
+                          getActualExpenses(5),
+                          getActualExpenses(4),
+                          getActualExpenses(6),
+                          getActualExpenses(7),
+                          getActualExpenses(0),
+                          getActualExpenses(1),
+                          getActualExpenses(2),
+                          getActualExpenses(3)
+                        ]
+                      ]
+                    }}
+                    type="Bar"
+                    options={{
+                      seriesBarDistance: 10,
+                      height: "240px",
+                      stackBars: false
+                    }}
+                    responsiveOptions={responsiveBar}
+                    // listener={{
+                    //   draw: e => onDrawHandler(e)
+                    // }}
+                  />
+                </div>
+              }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={12}>
             <Card
               title="Budget Plan summary"
               category="insert other budget informations here"
               ctTableFullWidth
               ctTableResponsive
               content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
+                <div>
                   <ChartistGraph
-                    data={{
-                      labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                      series: [
-                        [12, 9, 7, 8, 5],
-                        [2, 1, 3.5, 7, 3],
-                        [1, 3, 4, 5, 6]
-                      ]
-                    }}
+                    data={
+                      budgetSetGraphData(budget, null)
+                    }
                     targetLine={{
                       value: 400,
                       class: 'ct-target-line'
                     }}
                     type="Line"
                     options={{
-                      low: 0,
-                      high: 12,
+                      low: parseInt(budget.default || 0),
+                      high: parseInt(budget.default || 0) + budget.income * 12,
                       showArea: false,
                       height: "245px",
                       axisX: {
@@ -302,6 +240,7 @@ function Budget(props) {
                       showPoint: true,
                       fullWidth: true,
                       chartPadding: {
+                        left: 50,
                         right: 50
                       }
                     }}
@@ -323,10 +262,10 @@ function Budget(props) {
                         var targetLineY = projectY(context.chartRect, context.bounds, 10);
                         var targetLineX = projectX(context.chartRect, context.axisX, 3.5);
 
-                        console.log('this is context: ', context)
-                        console.log('this is context.bound: ', context.bounds)
-                        console.log("chartRect: ", context.chartRect.height())
-                        console.log(context.chartRect.height())
+                        // console.log('this is context: ', context)
+                        // console.log('this is context.bound: ', context.bounds)
+                        // console.log("chartRect: ", context.chartRect.height())
+                        // console.log(context.chartRect.height())
 
                         context.svg.elem('line', {
                           x1: context.chartRect.x1,
@@ -342,7 +281,7 @@ function Budget(props) {
                           y2: context.chartRect.y2
                         }, 'ct-target-line');
 
-                        console.log(context.chartRect.x1, context.chartRect.x2, targetLineY, targetLineY)
+                        // console.log(context.chartRect.x1, context.chartRect.x2, targetLineY, targetLineY)
                       }
                     }}
                   />
@@ -353,8 +292,8 @@ function Budget(props) {
         </Row>
       </Grid>
     </div>
+  </div>
   );
-
 }
 
 export default Budget;

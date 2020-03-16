@@ -1,0 +1,25 @@
+.budgetNav {
+ height: 65px;
+ width: 100%;
+ background-color: white;
+ border: solid;
+ border-width: 1px;
+ border-color: rgb(160, 160, 160);
+ position: fixed;
+ z-index: 1;
+
+ display: grid;
+ grid-template-columns: 180px 1fr;
+ grid-template-rows: 1fr;
+
+ .budgetNavA {
+  position: relative;
+  display: grid;
+  grid-column: 1/2;
+  grid-row: 1/2;
+ }
+}
+
+.top100px {
+  padding-top: 100px;
+}
