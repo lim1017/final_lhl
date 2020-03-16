@@ -72,7 +72,8 @@ function Maps({ ...prop }) {
    
       console.log(state.educationAnswers)
       updateProgressBar(state.educationAnswers)
-      
+      setModalShow(false)
+
     } else{
       console.log('incorrect')
     }
@@ -90,12 +91,13 @@ function Maps({ ...prop }) {
       eduProgress: score
     })
 
+
   }
 
   const progressBar = {
     width: '70%',
     height: '35px',
-    marginBottom: '0px',
+    marginBottom: '30px',
     margin: 'auto',
     border: 'solid 5px'
   };
