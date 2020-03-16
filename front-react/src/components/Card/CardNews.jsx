@@ -7,32 +7,35 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import { blue } from "@material-ui/core/colors";
+import Grid from "@material-ui/core/Grid";
 
 export default function CardNews(props) {
   return (
-    <Card
-      style={{
-        maxWidth: 800,
-        margin: "auto",
-        marginBottom: 20,
-        marginTop: 20,
-        padding: 20,
-        backgroundColor: "#e9f5eb"
-      }}
-    >
-      {/* <CardActionArea> */}
-      <CardContent>
-        <Typography gutterBottom variant="h3">
-          <a href={props.link}>{props.title}</a>
-        </Typography>
-      </CardContent>
-      <CardMedia
-        component="img"
-        alt={props.title}
-        height="500"
-        image={props.image}
-        title={props.title}
-      />
-    </Card>
+    <Grid item xs={6}>
+      <Card
+        style={{
+          maxWidth: 800,
+          margin: "auto",
+          marginBottom: 20,
+          marginTop: 20,
+          padding: 20,
+          backgroundColor: "white"
+        }}
+      >
+        {/* <CardActionArea> */}
+        <CardContent>
+          <Typography gutterBottom variant="h3">
+            <a href={props.link}>{props.title}</a>
+          </Typography>
+        </CardContent>
+        <CardMedia
+          component="img"
+          alt={props.title}
+          height="500"
+          image={props.image}
+          title={props.title}
+        />
+      </Card>
+    </Grid>
   );
 }
