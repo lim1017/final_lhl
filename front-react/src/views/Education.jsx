@@ -20,24 +20,15 @@ import CardImg from "components/Card/CardImg.jsx";
 import { ProgressBar } from "react-bootstrap";
 import { articles } from "variables/EducationArticles.jsx";
 import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
-
-
 import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
-
-
 import appDataContext from "../hooks/reducers/useContext";
 import reducerz, { SET_EDU_ANSWERS, SET_EDU_PROGRESS } from "../hooks/reducers/app";
-
-
-
-
 
 
 function Maps({ ...prop }) {
   const { state, dispatch } = useContext(appDataContext);
 
   const [modalShow, setModalShow] = React.useState(0);
-  const [progress, setProgress] = React.useState(0);
 
   const [allAnswers, setallAnswers] = React.useState({
     1:0,
@@ -48,20 +39,22 @@ function Maps({ ...prop }) {
   });
 
 
-  function getAnswer(answer, id){
-    console.log(id)
-    console.log(`the answer is ${answer}`)
-    setallAnswers({...allAnswers, [`${id}`]:parseInt(answer)})
-    console.log(allAnswers)
 
+
+  function getAnswer(answer, id){
+    setallAnswers({...allAnswers, [`${id}`]:parseInt(answer)})
+    // const submitedAnswers={...state.educationAnswers, id[1]=parseInt(answer)}
+
+    // dispatch({
+    //   type: SET_EDU_PROGRESS
+    //   eduProgress: submitedAnswers
+    // })
   }
 
+  console.log(state.educationAnswers[1][2], 'shoukd be false')
+
   function verifyAnswer(id){
-    console.log(`the question is ${id}, tne answer selected is ${allAnswers[id]}`)
-
     if (articles[id-1].answer===allAnswers[id]){
-      console.log('correct@!!')
-
       const isCorrect={...state.educationAnswers, 
         [`${id}`]:1 }
 
@@ -69,13 +62,14 @@ function Maps({ ...prop }) {
         type: SET_EDU_ANSWERS,
         educationAnswers: isCorrect
       })
-   
-      console.log(state.educationAnswers)
-      updateProgressBar(state.educationAnswers)
+      //dispatch goes into eventloop and runs after verifyAnswer
+      updateProgressBar(isCorrect)
       setModalShow(false)
+      state.educationAnsweredYet[id]=true
 
     } else{
-      console.log('incorrect')
+      state.educationAnsweredYet[id]=true
+
     }
   }
 
@@ -86,6 +80,7 @@ function Maps({ ...prop }) {
 
     
     const score=(totalScore/totalQuestions)*100
+    
     dispatch({
       type: SET_EDU_PROGRESS,
       eduProgress: score
@@ -106,7 +101,9 @@ function Maps({ ...prop }) {
 
   return (
     <div>
-      <h1>🅔🅓🅤🅒🅐🅣🅘🅞🅝</h1>
+      <h1>🅔🅓🅤🅒🅐🅣🅘🅞🅝 {state.eduProgress=== 100 ? (
+            <img src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg" width="40" height="40"></img>
+                  ) : null}</h1>
  
       <div className="article-list">
         
@@ -139,19 +136,13 @@ function Maps({ ...prop }) {
             />}
             />
             </div>
-
            )
-          
         })}
-    
-       
       </div>
     
-      <div >
+      <div>
         <ProgressBar style={progressBar} now={state.eduProgress} label={state.eduProgress} />
       </div>
-
-
 
     </div>
   );
