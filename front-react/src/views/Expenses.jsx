@@ -4,6 +4,8 @@ import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
 import { CardExpTable } from "components/Card/CardExpTable.jsx";
 
+import FileUpload from "components/FileUpload/FileUpload.jsx";
+
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
 import { optionsBar, responsiveBar } from "variables/Variables.jsx";
@@ -17,6 +19,21 @@ import reducerz, { SET_DATA, SET_DATE } from "../hooks/reducers/app";
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
   const [addExpense, setAddExpense] = useState(false);
+  const [fileUploaded, setFileUploaded] = useState(false);
+
+
+  function handleFile(file){
+
+    console.log(file.target.files[0])
+
+  }
+
+  function sendFileBack(){
+  
+    const data = new FormData() 
+    data.append('file', state.fileUploaded)
+  
+  }  
 
 
   function formatDataForBarChart(data) {
@@ -178,6 +195,8 @@ function Dashboard(props) {
                       onExpenseSubmit={() => refreshExpenses(state.date)}
                     />
                   ) : null}
+
+                    <FileUpload handleFile={handleFile} sendFileBack={sendFileBack}  />
 
                 </div>
               }
