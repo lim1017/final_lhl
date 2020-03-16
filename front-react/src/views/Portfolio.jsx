@@ -60,7 +60,6 @@ function Portfolio(props) {
     showInformation: false
   });
 
-
   // RENDER CHART IF USER ALREADY SUBMITTED ASSESSMENT
   if (
     state.users[0].riskscore >= 1 &&
