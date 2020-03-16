@@ -521,7 +521,7 @@ var dataSales = {
 };
 var optionsSales = {
   low: 0,
-  high: 800,
+  high: 12,
   showArea: false,
   height: "245px",
   axisX: {
@@ -576,7 +576,7 @@ var dataBar = {
 var optionsBar = {
   seriesBarDistance: 10,
   axisX: {
-    showGrid: false
+    showGrid: true
   },
   height: "245px"
 };

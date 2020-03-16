@@ -19,9 +19,9 @@ import Budget from "views/Budget.jsx";
 import Expenses from "views/Expenses.jsx";
 import Goals from "views/Goals.jsx";
 import Portfolio from "views/Portfolio.jsx";
-import Typography from "views/Typography.jsx";
-import Icons from "views/Icons.jsx";
-import Maps from "views/Maps.jsx";
+import Youtube from "views/Youtube.jsx";
+import News from "views/News.jsx";
+import Education from "views/Education.jsx";
 import Notifications from "views/Notifications.jsx";
 import Upgrade from "views/Upgrade.jsx";
 
@@ -55,24 +55,24 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/typography",
-    name: "Typography",
+    path: "/youtube",
+    name: "Youtube",
     icon: "pe-7s-news-paper",
-    component: Typography,
+    component: Youtube,
     layout: "/admin"
   },
   {
-    path: "/icons",
+    path: "/news",
     name: "News",
     icon: "pe-7s-science",
-    component: Icons,
+    component: News,
     layout: "/admin"
   },
   {
-    path: "/maps",
-    name: "Quiz",
+    path: "/Education",
+    name: "Education",
     icon: "pe-7s-map-marker",
-    component: Maps,
+    component: Education,
     layout: "/admin"
   },
   {

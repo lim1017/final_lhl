@@ -10,7 +10,7 @@
 - Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/Maps.jsx`
 - Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/Notifications.jsx`
 - Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/Portfolio.jsx`
-- Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/Typography.jsx`
+- Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/Youtube.jsx`
 - Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/Upgrade.jsx`
 - Renamed `src/views/Dashboard/Dashboard.jsx` to `src/views/UserProfile.jsx`
 - Renamed `src/components/Header` to `src/components/Navbars`

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import useVisualMode from "../../hooks/useVisualMode";
 
 import Show from "./show"
@@ -15,7 +15,6 @@ export default function Goal(props) {
     !props.mode ? SHOW : NEW
   );
 
-  console.log(props.mode)
 
   function saveGoal(name, type, amount, description, date) {
 
