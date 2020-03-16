@@ -14,9 +14,7 @@ const useStyles = makeStyles({
 
 });
 
-function complete(id){
-  console.log(`clicked ${id}`)
-}
+
 
 export default function CardImg(props) {
   const classes = useStyles();
