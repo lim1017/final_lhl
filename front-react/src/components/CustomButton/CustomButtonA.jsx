@@ -17,31 +17,22 @@
 */
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
-import cx from "classnames";
+// import cx from "classnames";
 import PropTypes from "prop-types";
 
-export class CustomButton extends Component {
-  render() {
-    const { fill, simple, pullRight, round, block, ...rest } = this.props;
+export const CustomButton = function(props) {
 
-    const btnClasses = cx({
-      "btn-fill": fill,
-      "btn-simple": simple,
-      "pull-right": pullRight,
-      "btn-block": block,
-      "btn-round": round
-    });
+    return (
+      <div>
+        <div 
+          className={"budgetPlanToggle" + (props.toggle ? " budgetPlanOn" : "")}
+          onClick={() => {
+            props.dispatch({ type: props.type})
+          }}
+        >{props.text}</div>
+      </div>
+    )
 
-    return <Button className={btnClasses} {...rest} />;
-  }
 }
-
-CustomButton.propTypes = {
-  fill: PropTypes.bool,
-  simple: PropTypes.bool,
-  pullRight: PropTypes.bool,
-  block: PropTypes.bool,
-  round: PropTypes.bool
-};
 
 export default CustomButton;

@@ -18,8 +18,35 @@
   grid-column: 1/2;
   grid-row: 1/2;
  }
+
+ .budgetNavB {
+  position: relative;
+  display: grid;
+  grid-column: 2/3;
+  grid-row: 1/2;
+ }
+
+  .budgetPlanToggle {
+    margin-top: 15px;
+    margin-left: 5px;
+    height: 30px;
+    width: 120px;
+    border: solid 1px black;
+    border-radius: 20px;
+    padding: 4px;
+    text-align: center;
+    background-color: red;
+  }
+
+  .budgetPlanOn {
+    background-color: green;
+  }
 }
 
 .top100px {
   padding-top: 100px;
+}
+
+.budgetButtons {
+  display: flex;
 }

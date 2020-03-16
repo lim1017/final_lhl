@@ -24,6 +24,7 @@
 import React, { useContext, useReducer } from "react";
 import appDataContext from "../hooks/reducers/useContext";
 import budgetReducer from "../hooks/reducers/budget";
+import budgetToggleReducer from "../hooks/reducers/budgetToggle";
 
 /* Import Components */
 import Card from "components/Card/Card.jsx";
@@ -34,6 +35,8 @@ import {
   responsiveSales
 } from "variables/Variables.jsx";
 import BudgetPlannerA from "components/BudgetPlanner/budgetplannerA";
+import BudgetPlannerB from "components/BudgetPlanner/budgetplannerB";
+import BudgetNavButtonA from "components/CustomButton/CustomButtonA";
 import { budgetSetGraphData } from "helpers/budgetCalc";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import axios from "axios";
@@ -62,6 +65,10 @@ function Budget(props) {
     c_debt: 70,
     c_misc: 80
   });
+  const [ toggle, dispatchToggle ] = useReducer ( budgetToggleReducer, {
+    planner: true,
+    goal: false
+  })
 
   // Inner Functions
   console.log('this is budget: ', budget);
@@ -100,10 +107,6 @@ function Budget(props) {
       });
   }
 
-  function updateBudgetLocal(data) {
-    dispatchBudget(data)
-  }
-
   function getActualExpenses(n) {
     return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
   }
@@ -115,15 +118,42 @@ function Budget(props) {
       <div className="budgetNavA">
         <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
       </div>
+      <div className="budgetButtons">
+        <BudgetNavButtonA
+          toggle={toggle.planner}
+          dispatch={dispatchToggle}
+          type={"PLANNER"}
+          text={"Budget Planner"}
+        />
+        <BudgetNavButtonA
+          toggle={toggle.goal}
+          dispatch={dispatchToggle}
+          type={"GOAL"}
+          text={"Goals"}
+        />
+      </div>
     </div>
     <div className="content top100px">
       <Grid fluid>
         <Row>
           <Col>
+            {toggle.planner ?
             <BudgetPlannerA
               budget={budget}
-              updateBudgetLocal={updateBudgetLocal}
+              updateBudgetLocal={dispatchBudget}
             />
+            : null}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            {toggle.goal ?
+            <BudgetPlannerB
+              budget={budget}
+              goals={state.goals}
+              updateBudgetLocal={dispatchBudget}
+            />
+            : null}
           </Col>
         </Row>
         <Row>
