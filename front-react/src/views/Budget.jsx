@@ -1,45 +1,25 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-/* ------------------------ */
-/* Initialization / Imports */
-/* ------------------------ */
-
 /* Import Global State/Hooks */ 
 import React, { useContext, useReducer } from "react";
 import appDataContext from "../hooks/reducers/useContext";
+import axios from "axios";
 import budgetReducer from "../hooks/reducers/budget";
 import budgetToggleReducer from "../hooks/reducers/budgetToggle";
+import budgetGoalsReducer from "../hooks/reducers/budgetGoals";
 
 /* Import Components */
 import Card from "components/Card/Card.jsx";
+import BudgetGraphCard from "components/Budget/BudgetGraphCard.jsx";
 import { Grid, Row, Col } from "react-bootstrap";
 import ChartistGraph from "react-chartist";
 import {
   responsiveBar,
   responsiveSales
 } from "variables/Variables.jsx";
-import BudgetPlannerA from "components/BudgetPlanner/budgetplannerA";
-import BudgetPlannerB from "components/BudgetPlanner/budgetplannerB";
-import BudgetNavButtonA from "components/CustomButton/CustomButtonA";
-import { budgetSetGraphData } from "helpers/budgetCalc";
+import BudgetPlanner from "components/Budget/BudgetPlanner";
+import BudgetGoals from "components/Budget/BudgetGoals";
+import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
+import { budgetSetGraphData } from "helpers/budget";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
-import axios from "axios";
 
 // Outer Functions
 
@@ -51,7 +31,7 @@ function Budget(props) {
 
   // States & Variables
   const{ state, dispatch } = useContext(appDataContext);
-  const [ budget, dispatchBudget ] = useReducer( budgetReducer, {
+  const [ budget, dispatchBudget ] = useReducer(budgetReducer, {
     id: 0,
     user_id: 0,
     default: 100000,
@@ -65,14 +45,19 @@ function Budget(props) {
     c_debt: 70,
     c_misc: 80
   });
-  const [ toggle, dispatchToggle ] = useReducer ( budgetToggleReducer, {
+  const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
+    select: []
+  });
+  const [ toggle, dispatchToggle ] = useReducer(budgetToggleReducer, {
     planner: true,
     goal: false
-  })
+  });
+  const [range, setRange] = React.useState('');
 
   // Inner Functions
-  console.log('this is budget: ', budget);
-  console.log(state)
+  console.log('this is budgetGoal: ', goal);
+  console.log('this is state: ', state);
+  console.log('this is range', range);
 
   function chgMonth(date) {
     const dateA = {
@@ -136,9 +121,9 @@ function Budget(props) {
     <div className="content top100px">
       <Grid fluid>
         <Row>
-          <Col>
+          <Col lg={12}>
             {toggle.planner ?
-            <BudgetPlannerA
+            <BudgetPlanner
               budget={budget}
               updateBudgetLocal={dispatchBudget}
             />
@@ -146,11 +131,13 @@ function Budget(props) {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col lg={12}>
             {toggle.goal ?
-            <BudgetPlannerB
-              budget={budget}
+            <BudgetGoals
+              goal={goal}
+              selectGoal={dispatchGoal}
               goals={state.goals}
+              budget={budget}
               updateBudgetLocal={dispatchBudget}
             />
             : null}
@@ -269,16 +256,18 @@ function Budget(props) {
         </Row>
         <Row>
           <Col lg={12}>
-            <Card
+            <BudgetGraphCard
               title="Budget Plan summary"
               category="insert other budget informations here"
               ctTableFullWidth
               ctTableResponsive
+              range={range}
+              setRange={setRange}
               content={
                 <div>
                   <ChartistGraph
                     data={
-                      budgetSetGraphData(budget, null)
+                      budgetSetGraphData(budget, 12)
                     }
                     targetLine={{
                       value: 400,
@@ -287,11 +276,11 @@ function Budget(props) {
                     type="Line"
                     options={{
                       low: parseInt(budget.default || 0),
-                      high: parseInt(budget.default || 0) + budget.income * 12,
+                      high: parseInt(budget.default || 0) + budget.income * 60,
                       showArea: false,
                       height: "245px",
                       axisX: {
-                        showGrid: false
+                        showGrid: true
                       },
                       lineSmooth: true,
                       showLine: true,
@@ -304,6 +293,25 @@ function Budget(props) {
                     }}
                     responsiveOptions={responsiveSales}
                     listener={{
+                      draw: data => {
+                        if(data.type === 'label') {
+    
+                          // We just offset the label X position to be in the middle between the current and next axis grid
+                          if (data.text < 10) {
+                            data.element.attr({
+                              x: data.x - data.width / 2 + 12
+                            });
+                          } else if (data.text < 100) {
+                            data.element.attr({
+                              x: data.x - data.width / 2 + 6
+                            });
+                          } else {
+                            data.element.attr({
+                              x: data.x - data.width / 2
+                            });
+                          }
+                        }
+                      },
                       created: context => {
 
                         function projectY(chartRect, bounds, value) {

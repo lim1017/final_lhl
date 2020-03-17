@@ -1,22 +1,57 @@
 
-import React, { Component } from "react";
-import {
-  Grid,
-  Row,
-  Col
-} from "react-bootstrap";
+import React, { useContext, useEffect } from "react";
+import axios from "axios";
+import { Grid, Row, Col } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
 import Goal from "components/Goal/index.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import useAppData from "../hooks/useAppData";
+import appDataContext from "../hooks/reducers/useContext";
 
 function Goals(props) {
-  const{
-    state,
-    setGoal,
-    deleteGoal
-  } = useAppData();
+  const{ state, dispatch } = useContext(appDataContext);
+
+  const setGoal = (id, goal) => {
+    return new Promise((res, rej) => {
+     
+      axios
+        .put(`http://localhost:8001/api/goals/${id}`, goal)
+        .then(res1 => {
+          axios.get("http://localhost:8001/api/goals").then(res2 => {
+            dispatch({
+              ...state,
+              type: "SET_DATA",
+              goals: res2.data
+            });
+            res(res2);
+          });
+        })
+        .catch(error => {
+          rej(error);
+        });
+    });
+  };
+
+  const deleteGoal = id => {
+    return new Promise((res, rej) => {
+
+      axios
+        .delete(`http://localhost:8001/api/goals/${id}`)
+        .then(res1 => {
+          axios.get("http://localhost:8001/api/goals").then(res2 => {
+            dispatch({
+              ...state,
+              type: "SET_DATA",
+              goals: res2.data
+            });
+            res(res2);
+          });
+        })
+        .catch(error => {
+          rej(error);
+        });
+    });
+  };
 
   const GoalsInList = state.goals.map(goal => {
     return (

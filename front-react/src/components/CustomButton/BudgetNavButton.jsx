@@ -22,17 +22,16 @@ import PropTypes from "prop-types";
 
 export const CustomButton = function(props) {
 
-    return (
-      <div>
-        <div 
-          className={"budgetPlanToggle" + (props.toggle ? " budgetPlanOn" : "")}
-          onClick={() => {
-            props.dispatch({ type: props.type})
-          }}
-        >{props.text}</div>
-      </div>
-    )
-
+  return (
+    <div>
+      <div 
+        className={"budgetPlanToggle" + (props.toggle ? " budgetPlanOn" : "")}
+        onClick={() => {
+          props.dispatch({ type: props.type })
+        }}
+      >{props.text}</div>
+    </div>
+  )
 }
 
 export default CustomButton;

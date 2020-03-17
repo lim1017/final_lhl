@@ -10,8 +10,6 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { budgetCalc } from "helpers/budgetCalc";
-
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,9 +26,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function BudgetPlannerA(props) {
+export default function BudgetGoals(props) {
   const classes = useStyles();
-  console.log('this is props.goals in budgetplannerB: ', props.goals)
+  console.log('this is props.goals in budgetGoals: ', props.goals)
+
   const GoalsInList = props.goals.map(goal => {
     return (
       // <Goal
@@ -44,7 +43,9 @@ export default function BudgetPlannerA(props) {
       // />
       <TableRow key={goal.id}>
         <TableCell component="th" scope="row" className={classes.tableCell}>
-          <Checkbox />
+          <Checkbox
+            onChange={() => props.selectGoal({ type: "SELECT", id: goal.id })}
+          />
         </TableCell>
         <TableCell component="th" scope="row" className={classes.tableCell}>
           {goal.name}
@@ -74,9 +75,7 @@ export default function BudgetPlannerA(props) {
             <Table className={classes.table} size="small" aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell className={classes.tableHead}>
-                    <Checkbox />
-                  </TableCell>
+                  <TableCell className={classes.tableHead}></TableCell>
                   <TableCell className={classes.tableHead}>Title</TableCell>
                   <TableCell className={classes.tableHead}>Type</TableCell>
                   <TableCell className={classes.tableHead}>Amount</TableCell>

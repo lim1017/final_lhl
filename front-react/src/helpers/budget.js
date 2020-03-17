@@ -18,24 +18,38 @@ const budgetCalc = function(budget) {
 const budgetSetGraphData = function(budget, range) {
   let result = {
     labels: [],
-    series: [
-      []
-    ]
+    series: [ [] ]
   }
 
   let monthlyGain = budgetCalc(budget);
   let currentDate = new Date();
   let base = budget.default || 0;
+  let searchRange = range || 12;
 
-  if (range === null || range >= 12) {
-    let searchRange = 12;
-    for (let month = 0; month < searchRange; month++) {
-      let node = currentDate.getMonth()+month+1;
-      if (node > 12) node -= 12;
+  for (let month = 0; month < searchRange; month++) {
+    let node = (currentDate.getMonth()+month) % 12 + 1;
+    let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
+    
+    if (range <= 12) {
       result.labels.push(node);
-      let number = parseInt(base) + monthlyGain * month;
-      result.series[0].push(parseInt(number));
+    } else if (range <= 60) {
+      if (node % 3 === 1) {
+        if (node === 1) {
+          result.labels.push(yearNode);
+        } else {
+          result.labels.push(node);
+        }
+      } else {
+        result.labels.push("");
+      }
+    } else {
+      if (node % 12 === 1) {
+        result.labels.push(yearNode);
+      }
     }
+    
+    let number = parseInt(base) + monthlyGain * month;
+    result.series[0].push(parseInt(number));
   }
 
   return result;

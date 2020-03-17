@@ -26,6 +26,11 @@
   grid-row: 1/2;
  }
 
+ .budgetButtons {
+  display: flex;
+  max-width: 100%;
+  }
+
   .budgetPlanToggle {
     margin-top: 15px;
     margin-left: 5px;
@@ -45,8 +50,4 @@
 
 .top100px {
   padding-top: 100px;
-}
-
-.budgetButtons {
-  display: flex;
 }
