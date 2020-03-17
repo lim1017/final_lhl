@@ -22,17 +22,45 @@ function Dashboard(props) {
   const [fileUploaded, setFileUploaded] = useState(false);
 
 
-  function handleFile(file){
+  function handleFile(event){
 
-    console.log(file.target.files[0])
+    console.log(event.target.files[0])
+    setFileUploaded({
+      selectedFile: event.target.files[0],
+      loaded: 0,
+    })
 
   }
 
   function sendFileBack(){
-  
+    console.log('sending?')
+    
+    
     const data = new FormData() 
-    data.append('file', state.fileUploaded)
+    data.append('file', fileUploaded)
+
+    const reader = new FileReader()
+
+    reader.onloadend = (e) => {
+      const textData = e.target.result
+      console.log(textData)
+      axios.post("http://localhost:8001/api/expenses/file/", {textData}, { // receive two parameter endpoint url ,form data 
+    })
+    .then(res => { // then print response status
+      console.log('done inserting!!!!')
+      refreshExpenses(state.date)
+    })    }
+
+    reader.readAsText(fileUploaded.selectedFile)
+
+
+
+    console.log("this is file uploaded", fileUploaded)
+    console.log("this is the data from expenses", data)
   
+    
+
+
   }  
 
 
