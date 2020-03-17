@@ -30,12 +30,12 @@ export const BudgetGraphCard = function(props) {
 
   return (
     <div
-      className={"card" + (props.plain ? " card-plain" : "")}>
+      className={"card budgetGraphCardGrid" + (props.plain ? " card-plain" : "")}>
       <div className={"header" + (props.hCenter ? " text-center" : "")}>
         <h4 className="title">{props.title}</h4>
         <p className="category">{props.category}</p>
       </div>
-      <div>
+      <div className="budgetGraphCardRange">
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
             Range
@@ -47,17 +47,15 @@ export const BudgetGraphCard = function(props) {
             onChange={handleChange}
             labelWidth={labelWidth}
           >
-            <MenuItem value="">
-            </MenuItem>
             <MenuItem value={12}>1 Year</MenuItem>
             <MenuItem value={60}>5 Years</MenuItem>
-            <MenuItem value={300}>10 Years</MenuItem>
+            <MenuItem value={120}>10 Years</MenuItem>
           </Select>
         </FormControl>
       </div>
       <div
         className={
-          "content" +
+          "content budgetGraphCardGraph" +
           (props.ctAllIcons ? " all-icons" : "") +
           (props.ctTableFullWidth ? " table-full-width" : "") +
           (props.ctTableResponsive ? " table-responsive" : "") +

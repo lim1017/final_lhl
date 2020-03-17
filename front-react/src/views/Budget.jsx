@@ -19,6 +19,7 @@ import BudgetPlanner from "components/Budget/BudgetPlanner";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
 import { budgetSetGraphData } from "helpers/budget";
+import useWindowDimensions from "helpers/windowDimensions";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
 // Outer Functions
@@ -52,12 +53,11 @@ function Budget(props) {
     planner: true,
     goal: false
   });
-  const [range, setRange] = React.useState('');
+  const [range, setRange] = React.useState(12);
+  const { height: winHeight, width: winWidth } = useWindowDimensions();
 
   // Inner Functions
   console.log('this is budgetGoal: ', goal);
-  console.log('this is state: ', state);
-  console.log('this is range', range);
 
   function chgMonth(date) {
     const dateA = {
@@ -267,7 +267,7 @@ function Budget(props) {
                 <div>
                   <ChartistGraph
                     data={
-                      budgetSetGraphData(budget, 12)
+                      budgetSetGraphData(budget, range)
                     }
                     targetLine={{
                       value: 400,
@@ -276,7 +276,7 @@ function Budget(props) {
                     type="Line"
                     options={{
                       low: parseInt(budget.default || 0),
-                      high: parseInt(budget.default || 0) + budget.income * 60,
+                      high: parseInt(budget.default || 0) + budget.income * range,
                       showArea: false,
                       height: "245px",
                       axisX: {
@@ -295,19 +295,17 @@ function Budget(props) {
                     listener={{
                       draw: data => {
                         if(data.type === 'label') {
-    
-                          // We just offset the label X position to be in the middle between the current and next axis grid
                           if (data.text < 10) {
                             data.element.attr({
-                              x: data.x - data.width / 2 + 12
+                              x: data.x - (winWidth / 300)
                             });
                           } else if (data.text < 100) {
                             data.element.attr({
-                              x: data.x - data.width / 2 + 6
+                              x: data.x - (winWidth / 150)
                             });
                           } else {
                             data.element.attr({
-                              x: data.x - data.width / 2
+                              x: data.x - (winWidth / 80)
                             });
                           }
                         }
@@ -326,7 +324,7 @@ function Budget(props) {
                           return chartRect.x1 + (axisX.stepLength * value);
                         }
                         var targetLineY = projectY(context.chartRect, context.bounds, 10);
-                        var targetLineX = projectX(context.chartRect, context.axisX, 3.5);
+                        var targetLineX = projectX(context.chartRect, context.axisX, 5);
 
                         // console.log('this is context: ', context)
                         // console.log('this is context.bound: ', context.bounds)

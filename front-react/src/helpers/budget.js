@@ -29,27 +29,30 @@ const budgetSetGraphData = function(budget, range) {
   for (let month = 0; month < searchRange; month++) {
     let node = (currentDate.getMonth()+month) % 12 + 1;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
+    let number = parseInt(base) + monthlyGain * month;
     
     if (range <= 12) {
-      result.labels.push(node);
+      result.labels.push(node);       
+      result.series[0].push(parseInt(number));
     } else if (range <= 60) {
       if (node % 3 === 1) {
         if (node === 1) {
           result.labels.push(yearNode);
+          result.series[0].push(parseInt(number));
         } else {
-          result.labels.push(node);
+          result.labels.push("");
+          result.series[0].push(parseInt(number));
         }
-      } else {
-        result.labels.push("");
       }
-    } else {
+    } else if (range <= 120) {
       if (node % 12 === 1) {
         result.labels.push(yearNode);
+        result.series[0].push(parseInt(number));
+      } else if (node % 3 === 1) {
+        result.labels.push("");
+        result.series[0].push(parseInt(number));
       }
     }
-    
-    let number = parseInt(base) + monthlyGain * month;
-    result.series[0].push(parseInt(number));
   }
 
   return result;

@@ -11,7 +11,6 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { budgetCalc } from "helpers/budget";
 
-
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {

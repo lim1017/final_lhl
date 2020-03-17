@@ -48,6 +48,25 @@
   }
 }
 
+// offset first card position in budget page to compensate for top nav bar
 .top100px {
   padding-top: 100px;
+}
+
+.budgetGraphCardGrid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 60px 1fr;
+
+}
+
+.budgetGraphCardRange {
+  text-align: right;
+}
+
+.budgetGraphCardGraph {
+  position: relative;
+  display: grid;
+  grid-column: 1/3;
+  grid-row: 2/3;
 }
