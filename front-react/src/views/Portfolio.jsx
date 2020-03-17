@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import appDataContext from "../hooks/reducers/useContext";
 import ChartistGraph from "react-chartist";
+import Grid from "@material-ui/core/Grid";
 import { Card } from "components/Card/Card.jsx";
 import axios from "axios";
 import { SET_DATA } from "hooks/reducers/app";
+import CardExplained from "components/Card/CardExplained.jsx";
 
 function portfolioDistribution(riskScore) {
   let portfolioReturn = 1;
@@ -553,16 +555,17 @@ function Portfolio(props) {
       {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
       {localState.showInformation ? (
         <div>
-          <ChartistGraph
+          {/* <ChartistGraph
             data={portfolioReturnData}
             options={biPolarLineChartOptions}
             type={"Line"}
-          />
-          <p>
-            CASH: CASH RULES EVERYTHING AROUND ME CREAM. DOLLA DOLLA BILLS YALL
-          </p>
-          <p>BONDS: VODKA MARTINI, SHAKEN NOT STIRRED</p>
-          <p>STOCKS: GROWTH GROWTH GROWTH FUCK YES</p>
+          /> */}
+          <h2>Types of Assets: </h2>
+          <div className="stocks-bonds-cash-explained">
+            <Grid container spacing={3}>
+              <CardExplained></CardExplained>
+            </Grid>
+          </div>
         </div>
       ) : null}
     </div>
