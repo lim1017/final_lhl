@@ -90,5 +90,5 @@ export default function useAppData() {
     console.log("state has been updated: ", state);
   }, state);
 
-  return { state, dispatch, setGoal, deleteGoal };
+  return { state, dispatch };
 }

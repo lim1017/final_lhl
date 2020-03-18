@@ -5,6 +5,10 @@ export default function Show(props) {
     switch (type) {
       case "SFP":
         return "saving for purchase"
+      case "SPW":
+        return "save per week"
+      case "LE":
+        return "limit expenses"
       default:
         return type
     }

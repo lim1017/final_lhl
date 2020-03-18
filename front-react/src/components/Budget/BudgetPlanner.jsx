@@ -9,8 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { budgetCalc } from "helpers/budgetCalc";
-
+import { budgetCalc } from "helpers/budget";
 
 const useStyles = makeStyles(theme => ({
   root: {

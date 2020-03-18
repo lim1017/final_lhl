@@ -1,0 +1,72 @@
+.budgetNav {
+ height: 65px;
+ width: 100%;
+ background-color: white;
+ border: solid;
+ border-width: 1px;
+ border-color: rgb(160, 160, 160);
+ position: fixed;
+ z-index: 1;
+
+ display: grid;
+ grid-template-columns: 180px 1fr;
+ grid-template-rows: 1fr;
+
+ .budgetNavA {
+  position: relative;
+  display: grid;
+  grid-column: 1/2;
+  grid-row: 1/2;
+ }
+
+ .budgetNavB {
+  position: relative;
+  display: grid;
+  grid-column: 2/3;
+  grid-row: 1/2;
+ }
+
+ .budgetButtons {
+  display: flex;
+  max-width: 100%;
+  }
+
+  .budgetPlanToggle {
+    margin-top: 15px;
+    margin-left: 5px;
+    height: 30px;
+    width: 120px;
+    border: solid 1px black;
+    border-radius: 20px;
+    padding: 4px;
+    text-align: center;
+    background-color: red;
+  }
+
+  .budgetPlanOn {
+    background-color: green;
+  }
+}
+
+// offset first card position in budget page to compensate for top nav bar
+.top100px {
+  padding-top: 100px;
+}
+
+.budgetGraphCardGrid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: 60px 1fr;
+
+}
+
+.budgetGraphCardRange {
+  text-align: right;
+}
+
+.budgetGraphCardGraph {
+  position: relative;
+  display: grid;
+  grid-column: 1/3;
+  grid-row: 2/3;
+}
