@@ -46,7 +46,6 @@ function Budget(props) {
   const [error, setError] = useState("");
 
   // Inner Functions
-
   if (state.users && state.users.length > 0) {
     for (const user of state.users) {
       if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
