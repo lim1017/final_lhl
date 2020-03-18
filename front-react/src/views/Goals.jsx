@@ -55,6 +55,7 @@ function Goals(props) {
 
   const GoalsInList = state.goals.map(goal => {
     return (
+
       <Goal
         key={goal.id}
         id={goal.id}
@@ -72,8 +73,12 @@ function Goals(props) {
 
   return (
     <div className="content">
-      <p>Goals</p>
-                    
+      <h3>Goals</h3>
+
+      {/* {state.goals.length===0 ? (
+        <p>SET UP A GOAL</p>
+      ) : null} */}
+
         <Grid fluid>
           <Row>
             <Col md={12}>

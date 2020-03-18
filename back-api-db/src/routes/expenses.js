@@ -28,8 +28,9 @@ function addExpenseToDB(expense) {
 
 function formatExpenses(data){
   finalOP=[]
-  
+
   arr=data.textData.split('\n')
+  arr.shift()
   arr.pop()
 
   arr.forEach(element => {
@@ -37,7 +38,7 @@ function formatExpenses(data){
     finalOP.push(x)
   });
 
-  console.log(finalOP)
+  // console.log(finalOP)
   return finalOP
 }
 
@@ -81,7 +82,7 @@ module.exports = db => {
       return res.status(200).send(req.file)
     })
 
-    console.log(req.body, 'from upload@@!!')
+    // console.log(req.body, 'from upload@@!!')
 
     Promise.all(formatExpenses(req.body).map(element =>{
        return db.query(
@@ -96,7 +97,7 @@ module.exports = db => {
       )
         
     })).then(x => {
-      console.log(x)
+      // console.log(x)
       // setTimeout(() => {
       //   res.status(204).json({});
       // }, 1000);
@@ -113,7 +114,7 @@ module.exports = db => {
 
     
     date= req.params.date.split('+')
-  console.log(date, 'expenses')
+  // console.log(date, 'expenses')
   db.query(
     `
     Select *, to_char( date, 'DD-MON-YYYY') as date from expenses 
@@ -138,7 +139,7 @@ module.exports = db => {
 
 router.get("/expensestotal/:date", (req, response) => {
   date= req.params.date.split('+')
-  console.log(date)
+  // console.log(date)
 
   db.query(
     `

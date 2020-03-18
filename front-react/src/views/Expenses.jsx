@@ -34,7 +34,9 @@ function Dashboard(props) {
   }
 
   function sendFileBack(){
-    
+
+    if (fileUploaded && fileUploaded.selectedFile.name.includes('.csv')){
+      console.log(fileUploaded)
     const data = new FormData() 
     data.append('file', fileUploaded)
 
@@ -42,20 +44,33 @@ function Dashboard(props) {
 
     reader.onloadend = (e) => {
       const textData = e.target.result
-      console.log(textData)
       axios.post("http://localhost:8001/api/expenses/file/", {textData}, { // receive two parameter endpoint url ,form data 
     })
     .then(res => { // then print response status
-      console.log('done inserting!!!!')
       refreshExpenses(state.date)
-    })    }
+    })}
 
     reader.readAsText(fileUploaded.selectedFile)
 
     // console.log("this is file uploaded", fileUploaded)
     // console.log("this is the data from expenses", data)
+    }else{
+      console.log('upload a csv file')
+    }
   }  
 
+  function formatDataForExpenseTable(data){
+    const finalOP=[]
+    
+    data.forEach(ele =>{
+      console.log(ele)
+      if (ele.amount!==0){
+        finalOP.push(ele)
+      }
+    })
+
+    return finalOP
+  }
 
   function formatDataForBarChart(data) {
     const finalOP = [];
@@ -167,6 +182,7 @@ function Dashboard(props) {
               content={
                 <div>
                   <MDBDataTable
+                    
                     scrollY
                     maxHeight="300px"
                     striped
@@ -199,7 +215,7 @@ function Dashboard(props) {
                           width: 150
                         }
                       ],
-                      rows: state.expenses
+                      rows: formatDataForExpenseTable(state.expenses)
                     }}
                   />
                   <div className="addExpenseDiv">
@@ -218,7 +234,7 @@ function Dashboard(props) {
                   ) : null}
 
 
-                    <FileUpload handleFile={handleFile} sendFileBack={sendFileBack}  />
+                    <FileUpload handleFile={handleFile} sendFileBack={sendFileBack} />
                   </div>
                 </div>
               }
@@ -241,49 +257,50 @@ function Dashboard(props) {
                     data={createPie(state.totalExpenses)}
                     type="Pie"
                     
-                    listener={{
-                      draw: function (data) {
+  //                   listener={{
+  //                     draw: function (data) {
 
-                        console.log('data is: ', data);
+  //                       console.log('data is: ', data);
                          
-                        if (data.type === 'slice') {
+  //                       if (data.type === 'slice') {
                       
-                          var pathLength = data.element._node.getTotalLength();
-                          console.log(pathLength)
-    // Set a dasharray that matches the path length as prerequisite to animate dashoffset
-    data.element.attr({
-      'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
-    });
+  //                         var pathLength = data.element._node.getTotalLength();
+  //                         console.log(pathLength)
+  //   // Set a dasharray that matches the path length as prerequisite to animate dashoffset
+  //   data.element.attr({
+  //     'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+  //   });
 
-    // Create animation definition while also assigning an ID to the animation for later sync usage
-    var animationDefinition = {
-      'stroke-dashoffset': {
-        id: 'anim' + data.index,
-        dur: 1000,
-        from: -pathLength + 'px',
-        to:  '0px',
-        // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
-        fill: 'freeze'
-      }
-    };
+  //   // Create animation definition while also assigning an ID to the animation for later sync usage
+  //   var animationDefinition = {
+  //     'stroke-dashoffset': {
+  //       id: 'anim' + data.index,
+  //       dur: 1000,
+  //       from: -pathLength + 'px',
+  //       to:  '0px',
+  //       // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+  //       fill: 'freeze'
+  //     }
+  //   };
 
-    // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
-    if(data.index !== 0) {
-      animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
-    }
+  //   // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
+  //   if(data.index !== 0) {
+  //     animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+  //   }
 
-    // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
-    data.element.attr({
-      'stroke-dashoffset': -pathLength + 'px'
-    });
+  //   // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
+  //   data.element.attr({
+  //     'stroke-dashoffset': -pathLength + 'px'
+  //   });
 
-    // We can't use guided mode as the animations need to rely on setting begin manually
-    // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
-    data.element.animate(animationDefinition, false);
-  }
-                        }
-                      }
-                    } />
+  //   // We can't use guided mode as the animations need to rely on setting begin manually
+  //   // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
+  //   data.element.animate(animationDefinition, false);
+  // }
+  //                       }
+  //                     }
+  //                   } 
+                    />
                 </div>
               }
               legend={
