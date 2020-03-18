@@ -146,14 +146,14 @@ VALUES
 
 
 
-INSERT INTO budget (user_id, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc)
-VALUES (1, 1000, 10, 20, 30, 40, 50, 60, 70, 80);
+INSERT INTO budget (user_id, base, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc)
+VALUES (1, 100000, 1000, 10, 20, 30, 40, 50, 60, 70, 80);
   
 INSERT INTO goals (name, user_id, type, amount, description, date)
 VALUES
     ('goal01', 1, 'SFP', 5000, 'description', '01/5/2020'),
     ('goal02 long name -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------',
-    1, 'SPW', 500,
+    1, 'SPM', 500,
     'description description description description description description description description description description description description description description description description description description description description description description description description description description description',
     '01/5/2020');
 

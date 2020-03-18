@@ -33,7 +33,6 @@ export default function Form(props) {
       return;
     } else if (date  === "" || isNaN(date.getTime())) {
       setError("Valid target date must be selected");
-      console.log(date);
       return;
     }
 
@@ -104,10 +103,10 @@ export default function Form(props) {
                   <input
                     name="type"
                     type="radio"
-                    value="SPW"
-                    onClick={() => typeCheck("SPW")}
+                    value="SPM"
+                    onClick={() => typeCheck("SPM")}
                   />
-                Save per Week</div>
+                Save per Month</div>
                 <div>
                   <input
                     name="type"

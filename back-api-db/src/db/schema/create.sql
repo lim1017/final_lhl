@@ -27,6 +27,7 @@ CREATE TABLE expenses (
 CREATE TABLE budget (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  base INTEGER,
   income INTEGER,
   c_hous INTEGER,
   c_tran INTEGER,
