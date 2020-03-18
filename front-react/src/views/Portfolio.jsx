@@ -206,28 +206,6 @@ function Portfolio(props) {
     return finalOP;
   }
 
-  // RENDERS LINE CHART - DON'T NEED NOW
-  // const portfolioReturnData = {
-  //   labels: ["Now", "1 Year", "2 Years", "5 Years", "10 Years"],
-  //   series: [
-  //     [1, 1, 1, 1, 1],
-  //     [3, 3, 3, 3, 3],
-  //     [6, 10, 8, 16, 20]
-  //   ]
-  // };
-  // const biPolarLineChartOptions = {
-  //   width: 1000,
-  //   high: 20,
-  //   low: 0,
-  //   showArea: true,
-  //   showLine: false,
-  //   showPoint: false,
-  //   axisX: {
-  //     showLabel: false,
-  //     showGrid: false
-  //   }
-  // };
-
   return (
     <div className="risk-assessment-start-div">
       {!localState.showQuestionnaire ? (
@@ -245,8 +223,8 @@ function Portfolio(props) {
       ) : null}
       {/* QUESTIONNAIRE PLACEHOLDER */}
       {localState.showQuestionnaire ? (
-        <div>
-          <div className="risk-assessment-questionnaire">
+        <div className="risk-assessment-questionnaire-container">
+          <div className="questionnaire-background-image">
             <h1 className="risk-assessment-title">
               Risk Assessment Questionnaire
             </h1>
