@@ -11,7 +11,7 @@
 
 #main-panel {
   display: flex;
-  height: 100%;
+  min-height: 100%;
 }
 
 .risk-assessment-start-div {
@@ -125,9 +125,12 @@
 }
 
 .risk-assessment-questionnaire-container .risk-assessment-submission {
-  position: absolute;
-  top: 85%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  margin-bottom: 2rem;
 }
+
+// .risk-assessment-questions {
+//   display: flex;
+//   justify-content: center;
+//   background: white;
+//   opacity: 0.5;
+// }
