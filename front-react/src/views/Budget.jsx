@@ -95,6 +95,7 @@ function Budget(props) {
     ])
       .then(response => {
         dispatch({
+          ...state,
           type: "SET_DATA",
           expenses: response[0].data,
           totalExpenses: response[1].data
@@ -144,10 +145,13 @@ function Budget(props) {
       ...budget
     };
 
+    console.log('sending to database: ', newBud)
+
     axios
       .put(`http://localhost:8001/api/budget`, newBud)
       .then(res1 => {
-        axios.get("http://localhost:8001/api/budget").then(res2 => {
+        axios.get("http://localhost:8001/api/budget")
+        .then(res2 => {
           dispatch({
             ...state,
             type: "SET_DATA",

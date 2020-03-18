@@ -30,6 +30,8 @@ const useStyles = makeStyles(theme => ({
 export default function BudgetPlannerA(props) {
   const classes = useStyles();
 
+  console.log('this is current base value: ', props.budget.base);
+
   return (
     <Card
       title="Budget Planner"
@@ -59,7 +61,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.base : 0}
+                      value = {props ? props.budget.base : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "BASE", amount: e.target.value})
@@ -76,7 +78,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.income : 0}
+                      value={props ? props.budget.income : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "INCOME", amount: e.target.value})
@@ -101,7 +103,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_hous : 0}
+                      value={props ? props.budget.c_hous : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_HOUS", amount: e.target.value})
@@ -118,7 +120,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_tran : 0}
+                      value={props ? props.budget.c_tran : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_TRAN", amount: e.target.value})
@@ -137,7 +139,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_food : 0}
+                      value={props ? props.budget.c_food : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_FOOD", amount: e.target.value})
@@ -154,7 +156,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_util : 0}
+                      value={props ? props.budget.c_util : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_UTIL", amount: e.target.value})
@@ -173,7 +175,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_entr : 0}
+                      value={props ? props.budget.c_entr : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_ENTR", amount: e.target.value})
@@ -190,7 +192,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_medi : 0}
+                      value={props ? props.budget.c_medi : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_MEDI", amount: e.target.value})
@@ -209,7 +211,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_debt : 0}
+                      value={props ? props.budget.c_debt : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_DEBT", amount: e.target.value})
@@ -226,7 +228,7 @@ export default function BudgetPlannerA(props) {
                       type="number"
                       inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
                       style = {{width: 100}}
-                      defaultValue={props ? props.budget.c_misc : 0}
+                      value={props ? props.budget.c_misc : 0}
                       onInput={(e)=>{ 
                         e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
                         props.updateBudgetLocal({ type: "C_MISC", amount: e.target.value})

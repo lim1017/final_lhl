@@ -11,6 +11,7 @@ const C_MISC = "C_MISC";
 const ALL = "ALL";
 
 export default function budgetReducer(state, action) {
+  console.log('updating in budget reducer: ', action.amount)
   switch (action.type) {
     case BASE:
       return {

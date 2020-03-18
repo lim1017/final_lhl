@@ -14,7 +14,8 @@ module.exports = db => {
   router.put("/budget", (request, response) => {
 
     const { user_id, base, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc } = request.body;
-  
+    console.log(request.body)
+
     db.query(
       `
       SELECT * FROM budget WHERE user_id = $1::integer
@@ -22,7 +23,6 @@ module.exports = db => {
      [user_id]
     )
     .then(({ rows: result }) => {
-      console.log(result)
       if (result.length !== 0) {
         console.log('running if')
         db.query(
