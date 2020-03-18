@@ -77,7 +77,7 @@
 
 INSERT INTO users (name, riskScore, portfolioReturn)
 VALUES
-    ('Yuko Shimada', 0, 0.01);
+    ('YukoShimada', 0, 0.01);
 
 SET datestyle = "ISO, MDY";
 
