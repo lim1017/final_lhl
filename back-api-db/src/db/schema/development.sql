@@ -136,13 +136,16 @@ VALUES
     ('Viagara', 1, 1000, 'medical', '02/5/2020'),
     ('Debt', 1, 666, 'debt', '02/5/2020'),
     ('Flying Pony', 1, 1250, 'misc', '02/5/2020'),
-    ('Auto Lease', 1, 1, 'transporation', '03/5/2020'),
-    ('Fancy Sushi', 1, 500, 'food', '03/11/2020'),('Hydro', 1, 1, 'utilities', '03/5/2020'),
-    ('Movies', 1, 1, 'entertainment', '03/11/2020'),
-    ('Viagara', 1, 1, 'medical', '03/5/2020'),
-    ('Debt', 1, 1, 'debt', '03/5/2020'),
-    ('Flying Pony', 1, 1, 'misc', '03/5/2020'),
-    ('home', 1, 1, 'home', '03/5/2020');
+
+
+    ('Auto Lease', 1, 0, 'transporation', '03/5/2020'),
+    ('Fancy Sushi', 1, 0, 'food', '03/11/2020'),
+    ('Hydro', 1, 0, 'utilities', '03/5/2020'),
+    ('Movies', 1, 0, 'entertainment', '03/11/2020'),
+    ('Viagara', 1, 0, 'medical', '03/5/2020'),
+    ('Debt', 1, 0, 'debt', '03/5/2020'),
+    ('Flying Pony', 1, 0, 'misc', '03/5/2020'),
+    ('home', 1, 0, 'home', '03/5/2020');
 
 
 
