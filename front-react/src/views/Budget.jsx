@@ -224,15 +224,14 @@ function Budget(props) {
                     listener={{"draw" : function(data) { if(data.type === 'bar') {
                       data.element.animate({
                         y2: {
-                            begin: 0,
-                            dur: 500,
-                            from: data.y1,
-                            to: data.y2
-                            // easing: Chartist.Svg.Easing.easeOutSine,
-                        }});
-                      }}}}/>
-
-
+                          begin: 0,
+                          dur: 500,
+                          from: data.y1,
+                          to: data.y2
+                          // easing: Chartist.Svg.Easing.easeOutSine,
+                        }
+                      });
+                    }}}}
                   />
                 </div>
               }
@@ -277,17 +276,14 @@ function Budget(props) {
                     listener={{"draw" : function(data) { if(data.type === 'bar') {
                       data.element.animate({
                         y2: {
-                            begin: 0,
-                            dur: 500,
-                            from: data.y1,
-                            to: data.y2
-                            // easing: Chartist.Svg.Easing.easeOutSine,
-                        }});
-                      }}}}/>
-
-                    
-
-
+                          begin: 0,
+                          dur: 500,
+                          from: data.y1,
+                          to: data.y2
+                          // easing: Chartist.Svg.Easing.easeOutSine,
+                        }
+                      });
+                    }}}}
                   />
                 </div>
               }
@@ -415,19 +411,19 @@ function Budget(props) {
 
                       }
                     }}
-                    listener={{"draw" : function(data) {
-                      if(data.type === 'line' || data.type === 'area') {
-                        data.element.animate({
-                          d: {
-                            begin: 2000 * data.index,
-                            dur: 1000,
-                            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                            to: data.path.clone().stringify()
-                            // easing: Chartist.Svg.Easing.easeOutQuint
-                          }
-                        });
-                      } } }}/>
-                    
+                    // listener={{"draw" : function(data) {
+                    //   if(data.type === 'line' || data.type === 'area') {
+                    //     data.element.animate({
+                    //       d: {
+                    //         begin: 1 * data.index,
+                    //         dur: 500,
+                    //         from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                    //         to: data.path.clone().stringify()
+                    //         // easing: Chartist.Svg.Easing.easeOutQuint
+                    //       }
+                    //     });
+                    //   }
+                    // }}}
                   />
                 </div>
               }
