@@ -22,9 +22,10 @@ const budgetCalcPortfolio = function(def, inc, port, period) {
   //   result += inc + result * (port - 1);
   // }
   const rate = port - 1;
-  const defaultInterest = def * Math.pow((1 + (rate / 12)), period);
+  const baseInterest = def * Math.pow((1 + (rate / 12)), period);
   const incomeInterest = inc*12*((Math.pow((1+rate/period), (rate*period))-1)/(rate/period));
-  const result = defaultInterest + incomeInterest;
+  const income = inc * period;
+  const result = baseInterest + incomeInterest + income;
 
   return result;
 }
@@ -37,7 +38,7 @@ const budgetSetGraphData = function(budget, range, port) {
 
   let monthlyGain = budgetCalc(budget);
   let currentDate = new Date();
-  let base = budget.default || 0;
+  let base = budget.base || 0;
   let searchRange = range || 12;
   let portCheck = (port > 1)
 
@@ -78,4 +79,31 @@ const budgetSetGraphData = function(budget, range, port) {
   return result;
 };
 
-module.exports = { budgetCalc, budgetCalcPortfolio, budgetSetGraphData };
+const findUserBudget = function(state, id) {
+  let result = {
+    id: 0,
+    user_id: 0,
+    base: 0,
+    income: 0,
+    c_hous: 0,
+    c_tran: 0,
+    c_food: 0,
+    c_util: 0,
+    c_entr: 0,
+    c_medi: 0,
+    c_debt: 0,
+    c_misc: 0
+  };
+
+  if (state.budget) {
+    for (const budget of state.budget) {
+      if (budget.user_id && budget.user_id === id) {
+        result = budget;
+      }
+    }
+  }
+
+  return result;
+}
+
+module.exports = { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget };

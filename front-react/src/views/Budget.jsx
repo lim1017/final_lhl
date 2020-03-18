@@ -1,5 +1,5 @@
 /* Import Global State/Hooks */ 
-import React, { useContext, useReducer, useEffect } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
 import budgetReducer from "../hooks/reducers/budget";
@@ -13,17 +13,18 @@ import { Grid, Row, Col } from "react-bootstrap";
 import ChartistGraph from "react-chartist";
 import {
   responsiveBar,
-  responsiveSales
+  responsiveSales 
 } from "variables/Variables.jsx";
 import BudgetPlanner from "components/Budget/BudgetPlanner";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
-import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData } from "helpers/budget";
+import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
 // Outer Functions
-
+let initPort = 0;
+let initUserBudget = 0;
 
 /* --------------- */
 /* Budget Function */
@@ -32,20 +33,7 @@ function Budget(props) {
 
   // States & Variables
   const{ state, dispatch } = useContext(appDataContext);
-  const [ budget, dispatchBudget ] = useReducer(budgetReducer, {
-    id: 0,
-    user_id: 0,
-    default: 100000,
-    income: 1000,
-    c_hous: 10,
-    c_tran: 20,
-    c_food: 30,
-    c_util: 40,
-    c_entr: 50,
-    c_medi: 60,
-    c_debt: 70,
-    c_misc: 80
-  });
+  const [ budget, dispatchBudget ] = useReducer(budgetReducer, findUserBudget(state, 1));
   const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
     id: [],
     select: []
@@ -54,18 +42,34 @@ function Budget(props) {
     planner: true,
     goal: false
   });
-  const [range, setRange] = React.useState(12);
-  const [portfolio, setPortfolio] = React.useState(1);
-  const { height: winHeight, width: winWidth } = useWindowDimensions();
+  const [range, setRange] = useState(12);
+  const [portfolio, setPortfolio] = useState(1);
+  const { /*height: winHeight,*/ width: winWidth } = useWindowDimensions();
+  const [error, setError] = useState("");
 
   // Inner Functions
 
-  if (state) {
+  console.log('state in budget: ', state);
+
+  if (state.users && state.users.length > 0 && initPort === 0) {
     for (const user of state.users) {
       if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
         setPortfolio(user.portfolioreturn);
+        initPort = 1;
       }
     }
+  }
+
+  if (state.budget && state.budget.length > 0 && initUserBudget === 0) {
+    for (const bud of state.budget) {
+      if (bud.user_id === 1 && bud !== budget) {
+        dispatchBudget({
+          type: "ALL",
+          budget: findUserBudget(state, 1)
+          });
+        initUserBudget = 1;
+      }
+    } 
   }
 
   function chgMonth(date) {
@@ -91,6 +95,7 @@ function Budget(props) {
     ])
       .then(response => {
         dispatch({
+          ...state,
           type: "SET_DATA",
           expenses: response[0].data,
           totalExpenses: response[1].data
@@ -107,13 +112,13 @@ function Budget(props) {
 
   function setGraphDisplayRange(bud, goal, range, port) {
     const res = {
-      yMin : parseInt(bud.default) || 0,
-      yMax : (parseInt(bud.default) || 0) + budgetCalc(bud) * range
+      yMin : parseInt(bud.base) || 0,
+      yMax : (parseInt(bud.base) || 0) + budgetCalc(bud) * range
     }
 
     if (budgetCalc(bud) * range < 0) {
-      res.yMin = (parseInt(bud.default) || 0) + budgetCalc(bud) * range;
-      res.yMax = parseInt(bud.default) || 0;
+      res.yMin = (parseInt(bud.base) || 0) + budgetCalc(bud) * range;
+      res.yMax = parseInt(bud.base) || 0;
     }
 
     for (const g of goal.select) {
@@ -124,7 +129,7 @@ function Budget(props) {
     }
 
     if (port > 1) {
-      let portGain = budgetCalcPortfolio(budget.default, budget.income, port, range);
+      let portGain = budgetCalcPortfolio(budget.base, budget.income, port, range);
       if (portGain > res.yMax) res.yMax = portGain;
     }
 
@@ -134,7 +139,45 @@ function Budget(props) {
     return res;
   }
 
-  console.log('this is setGraphDisplayRange: ', setGraphDisplayRange(budget, goal, range).yMax, setGraphDisplayRange(budget, goal, range).yMin);
+  function savePlanner() {
+
+    const newBud = {
+      ...budget
+    };
+
+    axios
+      .put(`http://localhost:8001/api/budget`, newBud)
+      .then(res1 => {
+        axios.get("http://localhost:8001/api/budget")
+        .then(res2 => {
+          dispatch({
+            ...state,
+            type: "SET_DATA",
+            goals: res2.data
+          });
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  const validatePlanner = function() {
+    if (isNaN(budget.base)) { setError("base required"); return;
+    } else if (isNaN(budget.income)) { setError("income required"); return;
+    } else if (isNaN(budget.c_hous)) { setError("housing expenses required"); return;
+    } else if (isNaN(budget.c_tran)) { setError("transport expenses required"); return;
+    } else if (isNaN(budget.c_food)) { setError("food expenses required"); return;
+    } else if (isNaN(budget.c_util)) { setError("utility expenses required"); return;
+    } else if (isNaN(budget.c_entr)) { setError("entertainment expenses required"); return;
+    } else if (isNaN(budget.c_medi)) { setError("medical expenses required"); return;
+    } else if (isNaN(budget.c_debt)) { setError("debt expenses required"); return;
+    } else if (isNaN(budget.c_misc)) { setError("misc expenses required"); return;
+    }
+
+    setError("");
+    savePlanner();
+  }
 
   // Render Contents
   return (
@@ -166,6 +209,8 @@ function Budget(props) {
             <BudgetPlanner
               budget={budget}
               updateBudgetLocal={dispatchBudget}
+              validate={validatePlanner}
+              error={error}
             />
             : null}
           </Col>
@@ -345,6 +390,17 @@ function Budget(props) {
                             });
                           }
                         }
+                        if(data.type === 'line' || data.type === 'area') {
+                          data.element.animate({
+                            d: {
+                              begin: 1 * data.index,
+                              dur: 500,
+                              from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+                              to: data.path.clone().stringify()
+                              // easing: Chartist.Svg.Easing.easeOutQuint
+                            }
+                          });
+                        }
                       },
                       created: context => {
 
@@ -372,7 +428,6 @@ function Budget(props) {
                           
                           totalMonth = (goalYear - currentDate.getFullYear()) * 12 + goalMonth - (currentDate.getMonth() + 1)
                           if (context.axisX.ticks.length > 12) totalMonth = totalMonth / 3;
-                          console.log(totalMonth, goalMonthText, (currentDate.getMonth() + 1));
 
                           if (g.type === "SFP") {
 
@@ -394,8 +449,6 @@ function Budget(props) {
                               y1: targetLineY1,
                               y2: targetLineY2
                             }, 'ct-target-line');
-
-                            console.log(totalMonth)
                             
                             if (totalMonth > 0 && totalMonth <= context.axisX.ticks.length) {
                               context.svg.elem('line', {

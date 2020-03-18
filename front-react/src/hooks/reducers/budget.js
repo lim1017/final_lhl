@@ -1,4 +1,4 @@
-const DEFAULT = "DEFAULT";
+const BASE = "BASE";
 const INCOME = "INCOME";
 const C_HOUS = "C_HOUS";
 const C_TRAN = "C_TRAN";
@@ -8,13 +8,14 @@ const C_ENTR = "C_ENTR";
 const C_MEDI = "C_MEDI";
 const C_DEBT = "C_DEBT";
 const C_MISC = "C_MISC";
+const ALL = "ALL";
 
 export default function budgetReducer(state, action) {
   switch (action.type) {
-    case DEFAULT:
+    case BASE:
       return {
         ...state,
-        default: action.amount
+        base: action.amount
       };
     case INCOME:
       return {
@@ -60,6 +61,10 @@ export default function budgetReducer(state, action) {
       return {
         ...state,
         c_misc: action.amount
+      };
+    case ALL:
+      return {
+        ...action.budget
       };
     default:
       throw new Error(
