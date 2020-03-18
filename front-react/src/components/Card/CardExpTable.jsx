@@ -25,7 +25,7 @@ export class CardExpTable extends Component {
         <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
           <h3 className="title">{this.props.category} {this.props.title}</h3>
           <br />
-          <p className="category">{this.props.content2}</p>
+          <div className="category">{this.props.content2}</div>
           
         </div>
         <div
