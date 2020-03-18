@@ -23,7 +23,6 @@ import useWindowDimensions from "helpers/windowDimensions";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
 // Outer Functions
-let initPort = 0;
 let initUserBudget = 0;
 
 /* --------------- */
@@ -51,11 +50,10 @@ function Budget(props) {
 
   console.log('state in budget: ', state);
 
-  if (state.users && state.users.length > 0 && initPort === 0) {
+  if (state.users && state.users.length > 0) {
     for (const user of state.users) {
       if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
         setPortfolio(user.portfolioreturn);
-        initPort = 1;
       }
     }
   }
