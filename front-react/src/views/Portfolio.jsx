@@ -2,44 +2,79 @@ import React, { useState, useContext } from "react";
 import appDataContext from "../hooks/reducers/useContext";
 import ChartistGraph from "react-chartist";
 import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/Grid";
 import { Card } from "components/Card/Card.jsx";
 import axios from "axios";
 import { SET_DATA } from "hooks/reducers/app";
 import CardExplained from "components/Card/CardExplained.jsx";
+import risk_portfolio_bg from "../assets/img/risk_portfolio_bg.jpg";
 
 function portfolioDistribution(riskScore) {
   let portfolioReturn = 1;
   // score will be from 5 - 20 for now
   let investmentTypes = [
-    { type: "Stocks", sum: 0 },
-    { type: "Bonds", sum: 0 },
+    { type: "Emerging Market Index", sum: 0 },
+    { type: "S&P/TSX Index", sum: 0 },
+    { type: "Low Volatility Index", sum: 0 },
+    { type: "Corporate Bonds", sum: 0 },
+    { type: "Government Bonds", sum: 0 },
     { type: "Cash", sum: 100 }
   ];
 
   //conservative portfolio
-  if (riskScore >= 5 && riskScore < 10) {
+  if (riskScore < 8) {
     investmentTypes = [
-      { type: "Stocks", sum: 20 },
-      { type: "Bonds", sum: 60 },
-      { type: "Cash", sum: 20 }
+      { type: "Emerging Market Index", sum: 5 },
+      { type: "S&P/TSX Index", sum: 10 },
+      { type: "Low Volatility Index", sum: 20 },
+      { type: "Corporate Bonds", sum: 30 },
+      { type: "Government Bonds", sum: 30 },
+      { type: "Cash", sum: 5 }
     ];
     portfolioReturn = 1.05;
   }
-  // medimum portfolio
-  else if (riskScore >= 10 && riskScore < 15) {
+  // low risk portfolio
+  else if (riskScore >= 8 && riskScore < 11) {
     investmentTypes = [
-      { type: "Stocks", sum: 50 },
-      { type: "Bonds", sum: 40 },
-      { type: "Cash", sum: 10 }
+      { type: "Emerging Market Index", sum: 10 },
+      { type: "S&P/TSX Index", sum: 15 },
+      { type: "Low Volatility Index", sum: 25 },
+      { type: "Corporate Bonds", sum: 25 },
+      { type: "Government Bonds", sum: 25 }
+      // { type: "Cash", sum: 0 }
+    ];
+    portfolioReturn = 1.06;
+  }
+  // medium risk portfolio
+  else if (riskScore >= 11 && riskScore < 14) {
+    investmentTypes = [
+      { type: "Emerging Market Index", sum: 10 },
+      { type: "S&P/TSX Index", sum: 25 },
+      { type: "Low Volatility Index", sum: 25 },
+      { type: "Corporate Bonds", sum: 20 },
+      { type: "Government Bonds", sum: 20 }
     ];
     portfolioReturn = 1.07;
   }
-  // aggressive portfolio
-  else if (riskScore >= 15) {
+  // strong risk portfolio
+  else if (riskScore >= 14 && riskScore < 17) {
     investmentTypes = [
-      { type: "Stocks", sum: 75 },
-      { type: "Bonds", sum: 20 },
-      { type: "Cash", sum: 5 }
+      { type: "Emerging Market Index", sum: 15 },
+      { type: "S&P/TSX Index", sum: 35 },
+      { type: "Low Volatility Index", sum: 20 },
+      { type: "Corporate Bonds", sum: 15 },
+      { type: "Government Bonds", sum: 15 }
+    ];
+    portfolioReturn = 1.08;
+  }
+  // maximum risk portfolio
+  else if (riskScore >= 17) {
+    investmentTypes = [
+      { type: "Emerging Market Index", sum: 20 },
+      { type: "S&P/TSX Index", sum: 40 },
+      { type: "Low Volatility Index", sum: 25 },
+      { type: "Corporate Bonds", sum: 10 },
+      { type: "Government Bonds", sum: 5 }
     ];
     portfolioReturn = 1.09;
   }
@@ -171,47 +206,56 @@ function Portfolio(props) {
     return finalOP;
   }
 
-  const portfolioReturnData = {
-    labels: ["Now", "1 Year", "2 Years", "5 Years", "10 Years"],
-    series: [
-      [1, 1, 1, 1, 1],
-      [3, 3, 3, 3, 3],
-      [6, 10, 8, 16, 20]
-    ]
-  };
-  const biPolarLineChartOptions = {
-    width: 1000,
-    high: 20,
-    low: 0,
-    showArea: true,
-    showLine: false,
-    showPoint: false,
-    axisX: {
-      showLabel: false,
-      showGrid: false
-    }
-  };
+  // RENDERS LINE CHART - DON'T NEED NOW
+  // const portfolioReturnData = {
+  //   labels: ["Now", "1 Year", "2 Years", "5 Years", "10 Years"],
+  //   series: [
+  //     [1, 1, 1, 1, 1],
+  //     [3, 3, 3, 3, 3],
+  //     [6, 10, 8, 16, 20]
+  //   ]
+  // };
+  // const biPolarLineChartOptions = {
+  //   width: 1000,
+  //   high: 20,
+  //   low: 0,
+  //   showArea: true,
+  //   showLine: false,
+  //   showPoint: false,
+  //   axisX: {
+  //     showLabel: false,
+  //     showGrid: false
+  //   }
+  // };
 
   return (
-    <div>
-      <a
-        rel="Submit"
-        href="#"
-        className="risk-assessment-start-button"
-        onClick={e => start(e)}
-      >
-        Start Risk Assessment
-      </a>
+    <div className="risk-assessment-start-div">
+      {!localState.showQuestionnaire ? (
+        <div className="risk-assessment-button-image-container">
+          <div className="risk-assessment-background-image"></div>
+          <button
+            rel="Submit"
+            href="#"
+            className="risk-assessment-start-button"
+            onClick={e => start(e)}
+          >
+            Start Risk Assessment
+          </button>
+        </div>
+      ) : null}
       {/* QUESTIONNAIRE PLACEHOLDER */}
       {localState.showQuestionnaire ? (
         <div>
           <div className="risk-assessment-questionnaire">
-            <h1>Risk Assessment Questionnaire</h1>
+            <h1 className="risk-assessment-title">
+              Risk Assessment Questionnaire
+            </h1>
             {/* QUESTION ONE */}
+
             <ol className="risk-assessment-questions" start="1" tabIndex="0">
               <li>
                 <h4>How would you best describe your personality?</h4>
-                <ul>
+                <ul style={{ "list-style-type": "none" }}>
                   <li>
                     <label>
                       <input
@@ -266,11 +310,12 @@ function Portfolio(props) {
                 </ul>
               </li>
             </ol>
+
             {/* QUESTION TWO */}
             <ol className="risk-assessment-questions" start="2" tabIndex="0">
               <li>
                 <h4>Hypothetically, how would you invest $10,000?</h4>
-                <ul>
+                <ul style={{ "list-style-type": "none" }}>
                   <li>
                     <label>
                       <input
@@ -280,7 +325,7 @@ function Portfolio(props) {
                         value="1"
                         onChange={e => setQuestionTwo(e.target.value)}
                       ></input>
-                      A guaranteed return of $500 without risking anything
+                      A guaranteed smaller return without risking anything
                     </label>
                   </li>
                   <li>
@@ -292,8 +337,8 @@ function Portfolio(props) {
                         value="2"
                         onChange={e => setQuestionTwo(e.target.value)}
                       ></input>
-                      The potential of earning $1,000 but the risk of losing
-                      $750
+                      The potential of earning moderate returns with the risk of
+                      losing some of your initial investment
                     </label>
                   </li>
                   <li>
@@ -305,8 +350,8 @@ function Portfolio(props) {
                         value="3"
                         onChange={e => setQuestionTwo(e.target.value)}
                       ></input>
-                      The potential of earning $1,500 but the risk of losing
-                      $1,000
+                      The potential of earning strong returns with the risk of
+                      losing a large amount of your initial investment
                     </label>
                   </li>
                   <li>
@@ -318,8 +363,8 @@ function Portfolio(props) {
                         value="4"
                         onChange={e => setQuestionTwo(e.target.value)}
                       ></input>
-                      The potential of earning $2,500 but the risk of losing
-                      $1,750
+                      The potential of earning maximum returns with the risk of
+                      losing up to half of your initial investment
                     </label>
                   </li>
                 </ul>
@@ -332,7 +377,7 @@ function Portfolio(props) {
                   How comfortable are you with fluctuations in the value of your
                   investments?
                 </h4>
-                <ul>
+                <ul style={{ "list-style-type": "none" }}>
                   <li>
                     <label>
                       <input
@@ -396,7 +441,7 @@ function Portfolio(props) {
                   How likely is it that you’ll need access to a large portion of
                   this money earlier than expected?
                 </h4>
-                <ul>
+                <ul style={{ "list-style-type": "none" }}>
                   <li>
                     <label>
                       <input
@@ -452,10 +497,10 @@ function Portfolio(props) {
             <ol className="risk-assessment-questions" start="5" tabIndex="0">
               <li>
                 <h4>
-                  Coronavirus hits - your investments drop by 20% - how do you
+                  Coronavirus hits - your investments drop by 25% - how do you
                   react?
                 </h4>
-                <ul>
+                <ul style={{ "list-style-type": "none" }}>
                   <li>
                     <label>
                       <input
@@ -465,8 +510,8 @@ function Portfolio(props) {
                         value="1"
                         onChange={e => setQuestionFive(e.target.value)}
                       ></input>
-                      I lose my shit, stock up on mint milano cookies and cash
-                      out my investment immediately
+                      I panic, stock up on mint milano cookies and cash out my
+                      investment immediately
                     </label>
                   </li>
                   <li>
@@ -513,44 +558,86 @@ function Portfolio(props) {
 
           {/* SUBMIT QUESTIONNAIRE */}
           <div className="risk-assessment-submission">
-            <a
+            <button
               rel="Submit"
               href="#"
               className="risk-assessment-submit-button"
               onClick={e => onSubmit(e)}
             >
               Submit and view my investment portfolio
-            </a>
+            </button>
           </div>
         </div>
       ) : null}
 
       {/* RENDER PORTFOLIO DISTRIBUTION */}
       {localState.showGraph ? (
-        <Card
-          title="Portfolio Distribution"
-          content={
-            <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-              {`Your expected return is ${
-                portfolioDistribution(localState.riskScore).portfolioReturn
-              }`}
-              <ChartistGraph
-                data={createPie(
-                  portfolioDistribution(localState.riskScore).investmentTypes
-                )}
-                type="Pie"
+        <>
+          <Grid container spacing={1}>
+            <Grid item xs={6}>
+              <Card
+                title="Portfolio Distribution"
+                content={
+                  <div
+                    id="chartPreferences"
+                    className="ct-chart ct-perfect-fourth"
+                  >
+                    {`Your expected return is ${
+                      portfolioDistribution(localState.riskScore)
+                        .portfolioReturn
+                    }`}
+                    <ChartistGraph
+                      data={createPie(
+                        portfolioDistribution(localState.riskScore)
+                          .investmentTypes
+                      )}
+                      type="Pie"
+                    />
+                  </div>
+                }
+                legend={
+                  <div className="legend">
+                    {createLegend({
+                      names: nameList(portfolioDistribution().investmentTypes),
+                      types: ["info", "primary", "success"]
+                    })}
+                  </div>
+                }
               />
-            </div>
-          }
-          legend={
-            <div className="legend">
-              {createLegend({
-                names: nameList(portfolioDistribution().investmentTypes),
-                types: ["info", "primary", "success"]
-              })}
-            </div>
-          }
-        />
+            </Grid>
+            <Grid item xs={6}>
+              <Card
+                title="Portfolio Distribution"
+                content={
+                  <div
+                    id="chartPreferences"
+                    className="ct-chart ct-perfect-fourth"
+                  >
+                    {`Your expected return is ${
+                      portfolioDistribution(localState.riskScore)
+                        .portfolioReturn
+                    }`}
+                    <ChartistGraph
+                      data={createPie(
+                        portfolioDistribution(localState.riskScore)
+                          .investmentTypes
+                      )}
+                      type="Pie"
+                    />
+                  </div>
+                }
+                legend={
+                  <div className="legend">
+                    {createLegend({
+                      names: nameList(portfolioDistribution().investmentTypes),
+                      types: ["info", "primary", "success"]
+                    })}
+                  </div>
+                }
+              ></Card>
+            </Grid>
+          </Grid>
+        </>
       ) : null}
       {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
       {localState.showInformation ? (
@@ -562,7 +649,7 @@ function Portfolio(props) {
           /> */}
           <h2>Types of Assets: </h2>
           <div className="stocks-bonds-cash-explained">
-            <Grid container spacing={3}>
+            <Grid container spacing={1}>
               <CardExplained></CardExplained>
             </Grid>
           </div>
