@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import ReactDOM from 'react-dom'
 import CustomButton from "../CustomButton/CustomButton";
-import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import TextField from '@material-ui/core/TextField';
 
 export default function Form(props) {

@@ -82,17 +82,17 @@ const budgetSetGraphData = function(budget, range, port) {
 const findUserBudget = function(state, id) {
   let result = {
     id: 0,
-    user_id: 1,
-    base: 100000,
-    income: 1000,
-    c_hous: 10,
-    c_tran: 20,
-    c_food: 30,
-    c_util: 40,
-    c_entr: 50,
-    c_medi: 60,
-    c_debt: 70,
-    c_misc: 80
+    user_id: 0,
+    base: 0,
+    income: 0,
+    c_hous: 0,
+    c_tran: 0,
+    c_food: 0,
+    c_util: 0,
+    c_entr: 0,
+    c_medi: 0,
+    c_debt: 0,
+    c_misc: 0
   };
 
   if (state.budget) {

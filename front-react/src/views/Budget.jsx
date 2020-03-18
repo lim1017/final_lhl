@@ -44,7 +44,7 @@ function Budget(props) {
   });
   const [range, setRange] = useState(12);
   const [portfolio, setPortfolio] = useState(1);
-  const { height: winHeight, width: winWidth } = useWindowDimensions();
+  const { /*height: winHeight,*/ width: winWidth } = useWindowDimensions();
   const [error, setError] = useState("");
 
   // Inner Functions
@@ -144,8 +144,6 @@ function Budget(props) {
     const newBud = {
       ...budget
     };
-
-    console.log('sending to database: ', newBud)
 
     axios
       .put(`http://localhost:8001/api/budget`, newBud)

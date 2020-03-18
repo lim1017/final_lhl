@@ -30,8 +30,6 @@ const useStyles = makeStyles(theme => ({
 export default function BudgetPlannerA(props) {
   const classes = useStyles();
 
-  console.log('this is current base value: ', props.budget.base);
-
   return (
     <Card
       title="Budget Planner"

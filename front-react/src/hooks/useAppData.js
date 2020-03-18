@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import axios from "axios";
 import reducerz, { SET_DATA } from "./reducers/app";
 
@@ -14,8 +14,6 @@ export default function useAppData() {
     educationAnsweredYet:{1:false, 2:false, 3:false, 4:false, 5:false},
     eduProgress:0
   });
-
-
 
   useEffect(() => {
 
@@ -43,52 +41,7 @@ export default function useAppData() {
       });
   }, []);
 
-
-
-  const setGoal = (id, goal) => {
-    return new Promise((res, rej) => {
-     
-      axios
-        .put(`http://localhost:8001/api/goals/${id}`, goal)
-        .then(res1 => {
-          axios.get("http://localhost:8001/api/goals").then(res2 => {
-            dispatch({
-              type: SET_DATA,
-              goals: res2.data
-            });
-            res(res2);
-          });
-        })
-        .catch(error => {
-          rej(error);
-        });
-    });
-  };
-
-  const deleteGoal = id => {
-    return new Promise((res, rej) => {
-  
-
-      axios
-        .delete(`http://localhost:8001/api/goals/${id}`)
-        .then(res1 => {
-          axios.get("http://localhost:8001/api/goals").then(res2 => {
-            dispatch({
-              type: SET_DATA,
-              goals: res2.data
-            });
-            res(res2);
-          });
-        })
-        .catch(error => {
-          rej(error);
-        });
-    });
-  };
-
-  useEffect(() => {
-    console.log("state has been updated: ", state);
-  }, state);
+  console.log("state has been updated: ", state);
 
   return { state, dispatch };
 }
