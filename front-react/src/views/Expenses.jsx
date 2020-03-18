@@ -2,9 +2,11 @@ import React, { useState, useContext } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
 import { Card } from "components/Card/Card.jsx";
+
 import { CardExpTable } from "components/Card/CardExpTable.jsx";
 
 import FileUpload from "components/FileUpload/FileUpload.jsx";
+import TomNav from "components/TomNav/TomNav.jsx";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
@@ -16,6 +18,7 @@ import Button from "@material-ui/core/Button";
 import axios from "axios";
 import reducerz, { SET_DATA, SET_DATE } from "../hooks/reducers/app";
 
+
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
   const [addExpense, setAddExpense] = useState(false);
@@ -23,8 +26,6 @@ function Dashboard(props) {
 
 
   function handleFile(event){
-
-    console.log(event.target.files[0])
     setFileUploaded({
       selectedFile: event.target.files[0],
       loaded: 0,
@@ -33,8 +34,6 @@ function Dashboard(props) {
   }
 
   function sendFileBack(){
-    console.log('sending?')
-    
     
     const data = new FormData() 
     data.append('file', fileUploaded)
@@ -53,14 +52,8 @@ function Dashboard(props) {
 
     reader.readAsText(fileUploaded.selectedFile)
 
-
-
-    console.log("this is file uploaded", fileUploaded)
-    console.log("this is the data from expenses", data)
-  
-    
-
-
+    // console.log("this is file uploaded", fileUploaded)
+    // console.log("this is the data from expenses", data)
   }  
 
 
@@ -160,9 +153,8 @@ function Dashboard(props) {
   }
 
   return (
-    <div className="content">
-      <p>dashboard</p>
-
+    <div className="content" style={{padding:'0'}}>
+      <TomNav fixed="top"   />
       <Grid fluid>
         <Row>
           <Col md={12}>
@@ -210,6 +202,7 @@ function Dashboard(props) {
                       rows: state.expenses
                     }}
                   />
+                  <div className="addExpenseDiv">
                   <Button
                     variant="contained"
                     color="primary"
@@ -224,8 +217,9 @@ function Dashboard(props) {
                     />
                   ) : null}
 
-                    <FileUpload handleFile={handleFile} sendFileBack={sendFileBack}  />
 
+                    <FileUpload handleFile={handleFile} sendFileBack={sendFileBack}  />
+                  </div>
                 </div>
               }
             />
@@ -246,7 +240,55 @@ function Dashboard(props) {
                   <ChartistGraph
                     data={createPie(state.totalExpenses)}
                     type="Pie"
-                  />
+                    
+                    listener={{
+                      draw: function (data) {
+
+                        console.log('data is: ', data);
+                         
+                        if (data.type === 'slice') {
+                      
+                          let pathLength = data.element._node.getTotalLength();
+
+                          console.log('pathLength: ', pathLength);
+
+                          data.element.attr({
+                            'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
+                          });
+                          
+                          // console.log('data: ', data);
+                          
+                          var animationDefinition = {
+                              "stroke-dashoffset": {
+                                id: "anim" + data.index,
+                                dur: 2000,
+                                from: -pathLength + "px",
+                                to: "0px",
+                                // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
+                                fill: "freeze"
+                              }
+                          };
+
+                          // console.log('animationDefinition', animationDefinition);
+
+                          // if (data.index !== 0) {
+                          //   animationDefinition()['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
+                          // }
+
+                          console.log('data again: ', data);
+                        
+                          data.element.attr({
+                            'stroke-dashoffset': -pathLength + 'px'
+                          });
+
+                          console.log('data last time: ', data);
+
+                          console.log('animate function: ', data.element.animate);
+                        
+                          data.element.animate(animationDefinition);
+                        }
+                      }
+                    }} />
                 </div>
               }
               legend={
@@ -266,10 +308,7 @@ function Dashboard(props) {
               category="Expense Comparison To National Average"
               stats="Campaign sent 2 days ago"
               content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
+                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
                   <ChartistGraph
                     data={{
                       labels: [
@@ -290,6 +329,20 @@ function Dashboard(props) {
                     type="Bar"
                     options={optionsBar}
                     responsiveOptions={responsiveBar}
+
+                    listener={{"draw" : function(data) { if(data.type === 'bar') {
+                      data.element.animate({
+                        y2: {
+                            begin: 0,
+                            dur: 500,
+                            from: data.y1,
+                            to: data.y2
+                            // easing: Chartist.Svg.Easing.easeOutSine,
+                        }});
+                      }}}}
+
+                    
+                    
                   />
                 </div>
               }
@@ -297,7 +350,7 @@ function Dashboard(props) {
                 <div className="legend">
                   {createLegend({
                     names: ["You", "Average"],
-                    types: ["info", "danger", "warning", "success"]
+                    types: ["piggy-green", "piggy-pink"]
                   })}
                 </div>
               }
@@ -305,8 +358,14 @@ function Dashboard(props) {
           </Col>
         </Row>
       </Grid>
+
+
+
+
+      
     </div>
   );
 }
 
 export default Dashboard;
+
