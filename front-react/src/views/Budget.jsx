@@ -1,5 +1,5 @@
 /* Import Global State/Hooks */ 
-import React, { useContext, useReducer, useState } from "react";
+import React, { useContext, useReducer, useState, useEffect } from "react";
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
 import budgetReducer from "../hooks/reducers/budget";
@@ -23,7 +23,6 @@ import useWindowDimensions from "helpers/windowDimensions";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
 // Outer Functions
-let initUserBudget = 0;
 
 /* --------------- */
 /* Budget Function */
@@ -47,9 +46,6 @@ function Budget(props) {
   const [error, setError] = useState("");
 
   // Inner Functions
-
-  console.log('state in budget: ', state);
-
   if (state.users && state.users.length > 0) {
     for (const user of state.users) {
       if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
@@ -58,17 +54,17 @@ function Budget(props) {
     }
   }
 
-  if (state.budget && state.budget.length > 0 && initUserBudget === 0) {
+  useEffect(() => {
     for (const bud of state.budget) {
       if (bud.user_id === 1 && bud !== budget) {
         dispatchBudget({
           type: "ALL",
           budget: findUserBudget(state, 1)
-          });
-        initUserBudget = 1;
+        });
       }
     } 
-  }
+    console.log('state.budget has changed! ', state.budget)
+  }, state.budget);
 
   function chgMonth(date) {
     const dateA = {
@@ -148,10 +144,11 @@ function Budget(props) {
       .then(res1 => {
         axios.get("http://localhost:8001/api/budget")
         .then(res2 => {
+          console.log('refreshing state.budget')
           dispatch({
             ...state,
             type: "SET_DATA",
-            goals: res2.data
+            budget: res2.data
           });
         });
       })
