@@ -1,6 +1,6 @@
 .budgetNav {
  height: 65px;
- width: 100%;
+ width: calc(100% - 260px);
  background-color: white;
  border: solid;
  border-width: 1px;
@@ -69,4 +69,10 @@
   display: grid;
   grid-column: 1/3;
   grid-row: 2/3;
+}
+
+@media only screen and (max-width: 991px) {
+  .budgetNav {
+    width: 100%;
+  }
 }

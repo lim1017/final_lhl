@@ -133,6 +133,24 @@ function Budget(props) {
     return res;
   }
 
+  function setBarGraphDisplayRange(bud) {
+    const res = {
+      yMin : 0,
+      yMax : budgetCalc(bud)
+    }
+
+    for (const g of goal.select) {
+      if (g.type === "LE") {
+        if (g.amount > res.yMax) res.yMax = g.amount;
+      }
+    }
+
+    res.yMax *= 1.1;
+    if (res.yMax < 2000) res.yMax = 2000;
+
+    return res;
+  }
+
   function savePlanner() {
 
     const newBud = {
@@ -194,6 +212,24 @@ function Budget(props) {
           type={"GOAL"}
           text={"Goals"}
         />
+        <BudgetNavButtonA
+          // toggle={toggle.goal}
+          // dispatch={dispatchToggle}
+          // type={"GOAL"}
+          text={"New"}
+        />
+        <BudgetNavButtonA
+          // toggle={toggle.goal}
+          // dispatch={dispatchToggle}
+          // type={"GOAL"}
+          text={"New"}
+        />
+        <BudgetNavButtonA
+          // toggle={toggle.goal}
+          // dispatch={dispatchToggle}
+          // type={"GOAL"}
+          text={"New"}
+        />
       </div>
     </div>
     <div className="content top100px">
@@ -246,12 +282,10 @@ function Budget(props) {
                         [budget.c_misc, getActualExpenses(3)],
                       ]
                     }}
-                    targetLine= {{
-                      value: 400,
-                      class: 'ct-target-line'
-                    }}
                     type="Bar"
                     options={{
+                      low: 0,
+                      high: setBarGraphDisplayRange(budget).yMax || 0,
                       seriesBarDistance: 5,
                       height: "240px",
                       stackBars: true
@@ -261,17 +295,48 @@ function Budget(props) {
                     //   draw: e => onDrawHandler(e)
                     // }}
 
-                    listener={{"draw" : function(data) { if(data.type === 'bar') {
-                      data.element.animate({
-                        y2: {
-                          begin: 0,
-                          dur: 500,
-                          from: data.y1,
-                          to: data.y2
-                          // easing: Chartist.Svg.Easing.easeOutSine,
+                    listener={{
+                      draw: data => {
+                         if(data.type === 'bar') {
+                          data.element.animate({
+                            y2: {
+                              begin: 0,
+                              dur: 500,
+                              from: data.y1,
+                              to: data.y2
+                              // easing: Chartist.Svg.Easing.easeOutSine,
+                            }
+                          });
                         }
-                      });
-                    }}}}
+                      },
+                      created: context => {
+
+                        console.log('this is goal.select ', goal.select)
+
+                        for (const g of goal.select) {
+                          console.log(g.type)
+                          if (g.type === "LE") {
+                            console.log("LE activate")
+
+                            function projectY(chartRect, bounds, value) {
+                              return chartRect.y1 - 
+                                (chartRect.height() * (value - bounds.min) / (bounds.range/* + bounds.step*/));
+                            }
+
+                            let targetLineY = projectY(context.chartRect, context.bounds, g.amount);
+
+                            context.svg.elem('line', {
+                              x1: context.chartRect.x1,
+                              x2: context.chartRect.x2,
+                              y1: targetLineY,
+                              y2: targetLineY
+                            }, 'ct-target-line');
+
+                          }
+                        }
+
+                      }
+                    }}
                   />
                 </div>
               }
@@ -313,17 +378,21 @@ function Budget(props) {
                     //   draw: e => onDrawHandler(e)
                     // }}
                     
-                    listener={{"draw" : function(data) { if(data.type === 'bar') {
-                      data.element.animate({
-                        y2: {
-                          begin: 0,
-                          dur: 500,
-                          from: data.y1,
-                          to: data.y2
-                          // easing: Chartist.Svg.Easing.easeOutSine,
+                    listener={{
+                      draw: data => {
+                         if(data.type === 'bar') {
+                          data.element.animate({
+                            y2: {
+                              begin: 0,
+                              dur: 500,
+                              from: data.y1,
+                              to: data.y2
+                              // easing: Chartist.Svg.Easing.easeOutSine,
+                            }
+                          });
                         }
-                      });
-                    }}}}
+                      }
+                    }}
                   />
                 </div>
               }
