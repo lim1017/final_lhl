@@ -47,6 +47,7 @@ function Budget(props) {
     c_misc: 80
   });
   const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
+    id: [],
     select: []
   });
   const [ toggle, dispatchToggle ] = useReducer(budgetToggleReducer, {
@@ -58,6 +59,7 @@ function Budget(props) {
 
   // Inner Functions
   console.log('this is budgetGoal: ', goal);
+  console.log('this is range in budget: ', range)
 
   function chgMonth(date) {
     const dateA = {
@@ -94,6 +96,10 @@ function Budget(props) {
 
   function getActualExpenses(n) {
     return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
+  }
+
+  function getGraphGoalData() {
+    return range;
   }
 
   // Render Contents
@@ -312,40 +318,60 @@ function Budget(props) {
                       },
                       created: context => {
 
-                        function projectY(chartRect, bounds, value) {
-                          // height of chart top
-                          return chartRect.y1 - 
-                            // height of chart base to line
-                            (chartRect.height() * (value - bounds.min) / (bounds.range/* + bounds.step*/));
+                        for (const g of goal.select) {
+                          const currentDate = new Date();
+                          const goalYear = g.date.split('-')[2];
+                          const goalMonthText = g.date.split('-')[1];
+                          let goalMonth = 0;
+                          let totalMonth = 0;
+                          
+                          if (goalMonthText) {
+                            if (goalMonthText === "Jan") goalMonth = 1;
+                            if (goalMonthText === "Feb") goalMonth = 2;
+                            if (goalMonthText === "Mar") goalMonth = 3;
+                            if (goalMonthText === "Apr") goalMonth = 4;
+                            if (goalMonthText === "May") goalMonth = 5;
+                            if (goalMonthText === "Jun") goalMonth = 6;
+                            if (goalMonthText === "Jul") goalMonth = 7;
+                            if (goalMonthText === "Aug") goalMonth = 8;
+                            if (goalMonthText === "Sep") goalMonth = 9;
+                            if (goalMonthText === "Oct") goalMonth = 10;
+                            if (goalMonthText === "Nov") goalMonth = 11;
+                            if (goalMonthText === "Dec") goalMonth = 12;
+                          }
+                          
+                          totalMonth = (goalYear - currentDate.getFullYear()) * 12 + goalMonth - (currentDate.getMonth() + 1)
+                          if (context.axisX.ticks.length > 12) totalMonth = totalMonth / 3;
+
+                          if (goal.select.includes(g)) {
+
+                            function projectY(chartRect, bounds, value) {
+                              return chartRect.y1 - 
+                                (chartRect.height() * (value - bounds.min) / (bounds.range/* + bounds.step*/));
+                            }
+                            function projectX(chartRect, axisX, value) {
+                              return chartRect.x1 + (axisX.stepLength * value);
+                            }
+                            var targetLineY = projectY(context.chartRect, context.bounds, g.amount);
+                            var targetLineX = projectX(context.chartRect, context.axisX, totalMonth);
+    
+                            context.svg.elem('line', {
+                              x1: context.chartRect.x1,
+                              x2: context.chartRect.x2,
+                              y1: targetLineY,
+                              y2: targetLineY
+                            }, 'ct-target-line');
+    
+                            context.svg.elem('line', {
+                              x1: targetLineX,
+                              x2: targetLineX,
+                              y1: context.chartRect.y1,
+                              y2: context.chartRect.y2
+                            }, 'ct-target-line');
+
+                          }
                         }
-                        function projectX(chartRect, axisX, value) {
-                          // height of chart top
-                          // return chartRect.x1 + (chartRect.width()/* / bounds.max * value*/);
-                          return chartRect.x1 + (axisX.stepLength * value);
-                        }
-                        var targetLineY = projectY(context.chartRect, context.bounds, 10);
-                        var targetLineX = projectX(context.chartRect, context.axisX, 5);
 
-                        // console.log('this is context: ', context)
-                        // console.log('this is context.bound: ', context.bounds)
-                        // console.log("chartRect: ", context.chartRect.height())
-                        // console.log(context.chartRect.height())
-
-                        context.svg.elem('line', {
-                          x1: context.chartRect.x1,
-                          x2: context.chartRect.x2,
-                          y1: targetLineY,
-                          y2: targetLineY
-                        }, 'ct-target-line');
-
-                        context.svg.elem('line', {
-                          x1: targetLineX,
-                          x2: targetLineX,
-                          y1: context.chartRect.y1,
-                          y2: context.chartRect.y2
-                        }, 'ct-target-line');
-
-                        // console.log(context.chartRect.x1, context.chartRect.x2, targetLineY, targetLineY)
                       }
                     }}
                     listener={{"draw" : function(data) {

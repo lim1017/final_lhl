@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function BudgetGoals(props) {
   const classes = useStyles();
-  console.log('this is props.goals in budgetGoals: ', props.goals)
+  // console.log('this is props.goals in budgetGoals: ', props.goals)
 
   const GoalsInList = props.goals.map(goal => {
     return (
@@ -44,7 +44,7 @@ export default function BudgetGoals(props) {
       <TableRow key={goal.id}>
         <TableCell component="th" scope="row" className={classes.tableCell}>
           <Checkbox
-            onChange={() => props.selectGoal({ type: "SELECT", id: goal.id })}
+            onChange={() => props.selectGoal({ type: "SELECT", id: goal.id, goal })}
           />
         </TableCell>
         <TableCell component="th" scope="row" className={classes.tableCell}>

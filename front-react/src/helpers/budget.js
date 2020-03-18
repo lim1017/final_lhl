@@ -40,7 +40,7 @@ const budgetSetGraphData = function(budget, range) {
           result.labels.push(yearNode);
           result.series[0].push(parseInt(number));
         } else {
-          result.labels.push("");
+          result.labels.push(node);
           result.series[0].push(parseInt(number));
         }
       }

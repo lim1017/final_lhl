@@ -3,20 +3,28 @@ const SELECT = "SELECT";
 export default function budgetGoals(state, action) {
   switch (action.type) {
     case SELECT:
-      const newState = state.select;
+      const id = state.id;
+      const select = state.select;
 
-      if (!newState.includes(action.id)) {
-        newState.push(action.id)
+      if (!id.includes(action.id)) {
+        id.push(action.id)
+        select.push(action.goal)
       } else {
-        for (let i = 0; i < newState.length; i++) {
-          if (newState[i] === action.id) {
-            newState.splice(i, 1);
+        for (let i = 0; i < select.length; i++) {
+          if (select[i].id === action.id) {
+            select.splice(i, 1);
+          }
+        }
+        for (let i = 0; i < id.length; i++) {
+          if (id[i] === action.id) {
+            id.splice(i, 1);
           }
         }
       }
 
       return {
-        select: newState.sort()
+        id: id.sort((a, b) => (a.id > b.id) ? 1 : -1),
+        select: select.sort((a, b) => (a.id > b.id) ? 1 : -1)
       }
     default:
       throw new Error(

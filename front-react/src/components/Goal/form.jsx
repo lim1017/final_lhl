@@ -122,7 +122,7 @@ export default function Form(props) {
                   <TextField
                     type="number"
                     inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
-                    style = {{width: 100}}
+                    style = {{width: 80}}
                     defaultValue={amount}
                     onInput={(e)=>{ 
                       e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
@@ -133,11 +133,11 @@ export default function Form(props) {
               </div>
               <div>
                 <div>
-                  Month:
+                  <div>Month:</div>
                   <TextField
                     type="number"
                     inputProps={{ min: "1", max: "12", step: "1", width: "100px" }}
-                    style = {{width: 100}}
+                    style = {{width: 30}}
                     defaultValue={month}
                     onInput={(e)=>{ 
                       e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,2))
@@ -146,11 +146,11 @@ export default function Form(props) {
                   />
                 </div>
                 <div>
-                  Year:
+                  <div>Year:</div>
                   <TextField
                     type="number"
                     inputProps={{ min: "2020", max: "2120", step: "10", width: "100px" }}
-                    style = {{width: 100}}
+                    style = {{width: 50}}
                     defaultValue={year}
                     onInput={(e)=>{ 
                       e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,4))
