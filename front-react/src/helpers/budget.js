@@ -15,16 +15,31 @@ const budgetCalc = function(budget) {
   return  result;
 };
 
-const budgetSetGraphData = function(budget, range) {
+const budgetCalcPortfolio = function(def, inc, port, period) {
+
+  // let result = def;
+  // for (let i = 0; i < period; i++) {
+  //   result += inc + result * (port - 1);
+  // }
+  const rate = port - 1;
+  const defaultInterest = def * Math.pow((1 + (rate / 12)), period);
+  const incomeInterest = inc*12*((Math.pow((1+rate/period), (rate*period))-1)/(rate/period));
+  const result = defaultInterest + incomeInterest;
+
+  return result;
+}
+
+const budgetSetGraphData = function(budget, range, port) {
   let result = {
     labels: [],
-    series: [ [] ]
+    series: [ [], [] ]
   }
 
   let monthlyGain = budgetCalc(budget);
   let currentDate = new Date();
   let base = budget.default || 0;
   let searchRange = range || 12;
+  let portCheck = (port > 1)
 
   for (let month = 0; month < searchRange; month++) {
     let node = (currentDate.getMonth()+month) % 12 + 1;
@@ -34,23 +49,28 @@ const budgetSetGraphData = function(budget, range) {
     if (range <= 12) {
       result.labels.push(node);       
       result.series[0].push(parseInt(number));
+      if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
     } else if (range <= 60) {
       if (node % 3 === 1) {
         if (node === 1) {
           result.labels.push(yearNode);
           result.series[0].push(parseInt(number));
+          if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
         } else {
           result.labels.push(node);
           result.series[0].push(parseInt(number));
+          if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
         }
       }
     } else if (range <= 120) {
       if (node % 12 === 1) {
         result.labels.push(yearNode);
         result.series[0].push(parseInt(number));
+        if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
       } else if (node % 3 === 1) {
         result.labels.push("");
         result.series[0].push(parseInt(number));
+        if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
       }
     }
   }
@@ -58,4 +78,4 @@ const budgetSetGraphData = function(budget, range) {
   return result;
 };
 
-module.exports = { budgetCalc, budgetSetGraphData };
+module.exports = { budgetCalc, budgetCalcPortfolio, budgetSetGraphData };

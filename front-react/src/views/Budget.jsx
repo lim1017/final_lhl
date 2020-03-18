@@ -1,5 +1,5 @@
 /* Import Global State/Hooks */ 
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useEffect } from "react";
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
 import budgetReducer from "../hooks/reducers/budget";
@@ -18,7 +18,7 @@ import {
 import BudgetPlanner from "components/Budget/BudgetPlanner";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
-import { budgetSetGraphData } from "helpers/budget";
+import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
@@ -55,11 +55,18 @@ function Budget(props) {
     goal: false
   });
   const [range, setRange] = React.useState(12);
+  const [portfolio, setPortfolio] = React.useState(1);
   const { height: winHeight, width: winWidth } = useWindowDimensions();
 
   // Inner Functions
-  console.log('this is budgetGoal: ', goal);
-  console.log('this is range in budget: ', range)
+
+  if (state) {
+    for (const user of state.users) {
+      if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
+        setPortfolio(user.portfolioreturn);
+      }
+    }
+  }
 
   function chgMonth(date) {
     const dateA = {
@@ -98,9 +105,36 @@ function Budget(props) {
     return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
   }
 
-  function getGraphGoalData() {
-    return range;
+  function setGraphDisplayRange(bud, goal, range, port) {
+    const res = {
+      yMin : parseInt(bud.default) || 0,
+      yMax : (parseInt(bud.default) || 0) + budgetCalc(bud) * range
+    }
+
+    if (budgetCalc(bud) * range < 0) {
+      res.yMin = (parseInt(bud.default) || 0) + budgetCalc(bud) * range;
+      res.yMax = parseInt(bud.default) || 0;
+    }
+
+    for (const g of goal.select) {
+      if (g.type === "SFP") {
+        if (g.amount > res.yMax) res.yMax = g.amount;
+        if (g.amount < res.yMin) res.yMin = g.amount;
+      }
+    }
+
+    if (port > 1) {
+      let portGain = budgetCalcPortfolio(budget.default, budget.income, port, range);
+      if (portGain > res.yMax) res.yMax = portGain;
+    }
+
+    res.yMax *= 1.1;
+    if (res.yMax < 10000) res.yMax = 10000;
+
+    return res;
   }
+
+  console.log('this is setGraphDisplayRange: ', setGraphDisplayRange(budget, goal, range).yMax, setGraphDisplayRange(budget, goal, range).yMin);
 
   // Render Contents
   return (
@@ -273,16 +307,16 @@ function Budget(props) {
                 <div>
                   <ChartistGraph
                     data={
-                      budgetSetGraphData(budget, range)
+                      budgetSetGraphData(budget, range, portfolio)
                     }
-                    targetLine={{
-                      value: 400,
-                      class: 'ct-target-line'
-                    }}
+                    // targetLine={{
+                    //   value: 400,
+                    //   class: 'ct-target-line'
+                    // }}
                     type="Line"
                     options={{
-                      low: parseInt(budget.default || 0),
-                      high: parseInt(budget.default || 0) + budget.income * range,
+                      low: setGraphDisplayRange(budget, goal, range, portfolio).yMin || 0,
+                      high: setGraphDisplayRange(budget, goal, range, portfolio).yMax || 0,
                       showArea: false,
                       height: "245px",
                       axisX: {
@@ -326,24 +360,25 @@ function Budget(props) {
                           let totalMonth = 0;
                           
                           if (goalMonthText) {
-                            if (goalMonthText === "Jan") goalMonth = 1;
-                            if (goalMonthText === "Feb") goalMonth = 2;
-                            if (goalMonthText === "Mar") goalMonth = 3;
-                            if (goalMonthText === "Apr") goalMonth = 4;
-                            if (goalMonthText === "May") goalMonth = 5;
-                            if (goalMonthText === "Jun") goalMonth = 6;
-                            if (goalMonthText === "Jul") goalMonth = 7;
-                            if (goalMonthText === "Aug") goalMonth = 8;
-                            if (goalMonthText === "Sep") goalMonth = 9;
-                            if (goalMonthText === "Oct") goalMonth = 10;
-                            if (goalMonthText === "Nov") goalMonth = 11;
-                            if (goalMonthText === "Dec") goalMonth = 12;
+                            if (goalMonthText === "JAN") goalMonth = 1;
+                            if (goalMonthText === "FEB") goalMonth = 2;
+                            if (goalMonthText === "MAR") goalMonth = 3;
+                            if (goalMonthText === "APR") goalMonth = 4;
+                            if (goalMonthText === "MAY") goalMonth = 5;
+                            if (goalMonthText === "JUN") goalMonth = 6;
+                            if (goalMonthText === "JUL") goalMonth = 7;
+                            if (goalMonthText === "AUG") goalMonth = 8;
+                            if (goalMonthText === "SEP") goalMonth = 9;
+                            if (goalMonthText === "OCT") goalMonth = 10;
+                            if (goalMonthText === "NOV") goalMonth = 11;
+                            if (goalMonthText === "DEC") goalMonth = 12;
                           }
                           
                           totalMonth = (goalYear - currentDate.getFullYear()) * 12 + goalMonth - (currentDate.getMonth() + 1)
                           if (context.axisX.ticks.length > 12) totalMonth = totalMonth / 3;
+                          console.log(totalMonth, goalMonthText, (currentDate.getMonth() + 1));
 
-                          if (goal.select.includes(g)) {
+                          if (g.type === "SFP") {
 
                             function projectY(chartRect, bounds, value) {
                               return chartRect.y1 - 
@@ -352,22 +387,28 @@ function Budget(props) {
                             function projectX(chartRect, axisX, value) {
                               return chartRect.x1 + (axisX.stepLength * value);
                             }
-                            var targetLineY = projectY(context.chartRect, context.bounds, g.amount);
-                            var targetLineX = projectX(context.chartRect, context.axisX, totalMonth);
-    
+
+                            let targetLineY1 = projectY(context.chartRect, context.bounds, g.amount);
+                            let targetLineY2 = projectY(context.chartRect, context.bounds, g.amount);
+                            let targetLineX = projectX(context.chartRect, context.axisX, totalMonth);
+
                             context.svg.elem('line', {
                               x1: context.chartRect.x1,
                               x2: context.chartRect.x2,
-                              y1: targetLineY,
-                              y2: targetLineY
+                              y1: targetLineY1,
+                              y2: targetLineY2
                             }, 'ct-target-line');
-    
-                            context.svg.elem('line', {
-                              x1: targetLineX,
-                              x2: targetLineX,
-                              y1: context.chartRect.y1,
-                              y2: context.chartRect.y2
-                            }, 'ct-target-line');
+
+                            console.log(totalMonth)
+                            
+                            if (totalMonth > 0 && totalMonth <= context.axisX.ticks.length) {
+                              context.svg.elem('line', {
+                                x1: targetLineX,
+                                x2: targetLineX,
+                                y1: context.chartRect.y1,
+                                y2: context.chartRect.y2
+                              }, 'ct-target-line');
+                            }
 
                           }
                         }
