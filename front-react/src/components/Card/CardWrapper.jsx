@@ -7,12 +7,12 @@ const containerStyles = {
 };
 
 const cardStyles = {
-  width: "500px",
-  border: "1px solid gray",
+  width: "550px",
+  border: "1px solid #b3898e",
   borderRadius: "5px",
   position: "relative",
   background: "white",
-  opacity: "0.75"
+  opacity: "0.9"
 };
 
 function CardWrapper(props) {

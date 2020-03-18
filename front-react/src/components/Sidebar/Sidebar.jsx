@@ -93,6 +93,26 @@ class Sidebar extends Component {
                     </NavLink>
                   </li>
                 );
+              else if (prop.name == "Portfolio")
+                return (
+                  <li
+                    className={
+                      prop.upgrade
+                        ? "active active-pro"
+                        : this.activeRoute(prop.layout + prop.path)
+                    }
+                    key={key}
+                  >
+                    <NavLink
+                      to={prop.layout + prop.path + "/start"}
+                      className="nav-link"
+                      activeClassName="active"
+                    >
+                      <i className={prop.icon} />
+                      <p>{prop.name}</p>
+                    </NavLink>
+                  </li>
+                );
               return null;
             })}
           </ul>

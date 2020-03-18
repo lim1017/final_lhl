@@ -45,7 +45,8 @@ const dashboardRoutes = [
     name: "Portfolio",
     icon: "pe-7s-note2",
     component: Portfolio,
-    layout: "/admin"
+    layout: "/admin",
+    redirect: "/portfolio/start"
   },
   {
     path: "/budget",
