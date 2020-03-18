@@ -41,18 +41,17 @@ function TomNav(props) {
 
     return(
       <Navbar bg="light" expand="lg">
-      <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse className="ml-auto" id="basic-navbar-nav">
-       
-        <Form inline>
-          <FormControl type="text" placeholder="Login" className="mr-sm-2"             onChange={handleChangeName}
-          />
-          <Button variant="outline-success" onClick={()=>login()}>Login</Button>
-        </Form>
-        
-      </Navbar.Collapse>
-    </Navbar>
+        {/* <Navbar.Collapse className="ml-auto" id="basic-navbar-nav"> */}
+        <div className="nav-login-div textAlignRight">
+          <Form inline>
+            <FormControl type="text" placeholder="Login" className="mr-sm-2"
+              onChange={handleChangeName}
+            />
+            <Button variant="outline-success" onClick={()=>login()}>Login</Button>
+          </Form>
+        </div>        
+        {/* </Navbar.Collapse> */}
+      </Navbar>
     )
 }
 

@@ -154,11 +154,13 @@ VALUES (1, 100000, 1000, 10, 20, 30, 40, 50, 60, 70, 80);
   
 INSERT INTO goals (name, user_id, type, amount, description, date)
 VALUES
-    ('goal01', 1, 'SFP', 5000, 'description', '01/5/2020'),
-    ('goal02 long name -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------',
+    ('goal01 save for purchase', 1, 'SFP', 500000, 'description', '01/5/2027'),
+    ('goal02 long name example + save per month -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------',
     1, 'SPM', 500,
     'description description description description description description description description description description description description description description description description description description description description description description description description description description description',
-    '01/5/2020');
+    '01/5/2020'),
+    ('goal03 limit expenses', 1, 'LE', 400, 'description', '01/5/2020'),
+    ('goal04 limit expenses high value', 1, 'LE', 10000, 'description', '01/5/2020');
 
   -- id SERIAL PRIMARY KEY NOT NULL,
   -- name VARCHAR(255) NOT NULL,

@@ -170,7 +170,7 @@ function Dashboard(props) {
   return (
     
     <div className="content" style={{padding:'0'}}>
-
+    <div className="top35px">
       <Grid fluid>
         <Row>
           <Col md={12}>
@@ -372,7 +372,7 @@ function Dashboard(props) {
           </Col>
         </Row>
       </Grid>
-
+    </div>
 
 
 

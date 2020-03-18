@@ -36,7 +36,7 @@ export const BudgetGraphCard = function(props) {
         <h4 className="title">{props.title}</h4>
         <p className="category">{props.category}</p>
       </div>
-      <div className="budgetGraphCardRange">
+      <div className="textAlignRight">
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
             Range
