@@ -23,22 +23,18 @@ import useAppData from "../hooks/useAppData";
 import Sidebar from "components/Sidebar/Sidebar";
 import { style } from "variables/Variables.jsx";
 import routes from "routes.js";
-import image from "assets/img/sidebar-3.jpg";
+import image from "assets/img/sidebar-5.jpg";
 import TomNav from "../components/TomNav/TomNav.jsx";
 
-
-
-const Admin = props =>{
+const Admin = props => {
   const { state, dispatch } = useAppData();
 
   return (
-    <appDataContext.Provider value={{state, dispatch}} >
-         
-
+    <appDataContext.Provider value={{ state, dispatch }}>
       <Admin2 {...props} />
-    </appDataContext.Provider> 
-  )
-}
+    </appDataContext.Provider>
+  );
+};
 
 class Admin2 extends Component {
   constructor(props) {
@@ -81,7 +77,7 @@ class Admin2 extends Component {
     ) {
       document.documentElement.classList.toggle("nav-open");
     }
-    if (e.history.action === "PUSH") {
+    if (e.history.action === "PUSH" && this.refs.mainPanel) {
       document.documentElement.scrollTop = 0;
       document.scrollingElement.scrollTop = 0;
       this.refs.mainPanel.scrollTop = 0;
@@ -99,7 +95,7 @@ class Admin2 extends Component {
           hasImage={this.state.hasImage}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <TomNav />
+          {/* <TomNav /> */}
           <Switch>{this.getRoutes(routes)}</Switch>
         </div>
       </div>
