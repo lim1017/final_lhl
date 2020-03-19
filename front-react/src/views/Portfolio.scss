@@ -31,6 +31,9 @@
   border-color: #c4d2c7;
 }
 
+.risk-assessment-start-button:hover {
+  background-color: #c4d2c7;
+}
 .risk-assessment-questions label {
   font-weight: 500;
 }
@@ -126,4 +129,25 @@
 
 .risk-assessment-questionnaire-container .risk-assessment-submission {
   margin-bottom: 2rem;
+}
+
+.risk-assessment-review-container .risk-assessment-start-button {
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+.review-background-image {
+  height: 100%;
+  width: 100%;
+  background: url("../assets/img/HongKong.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

@@ -184,9 +184,6 @@ function Portfolio(props) {
         <Route path={`${match.url}/review`}>
           <RenderPortfolio
             portfolioDistribution={portfolioDistribution}
-            riskScore={localState.riskScore}
-            localState={localState}
-            setLocalState={setLocalState}
             state={state}
           />
         </Route>

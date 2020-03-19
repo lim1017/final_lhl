@@ -16,7 +16,8 @@ export default function CardExplained(props) {
       <Grid item xs={6}>
         <Card
           style={{
-            maxWidth: 800,
+            maxWidth: 500,
+            opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -35,7 +36,8 @@ export default function CardExplained(props) {
       <Grid item xs={6}>
         <Card
           style={{
-            maxWidth: 800,
+            maxWidth: 500,
+            opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -54,7 +56,8 @@ export default function CardExplained(props) {
       <Grid item xs={6}>
         <Card
           style={{
-            maxWidth: 800,
+            maxWidth: 500,
+            opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -74,7 +77,8 @@ export default function CardExplained(props) {
       <Grid item xs={6}>
         <Card
           style={{
-            maxWidth: 800,
+            maxWidth: 500,
+            opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -93,7 +97,8 @@ export default function CardExplained(props) {
       <Grid item xs={6}>
         <Card
           style={{
-            maxWidth: 800,
+            maxWidth: 500,
+            opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -113,7 +118,8 @@ export default function CardExplained(props) {
       <Grid item xs={6}>
         <Card
           style={{
-            maxWidth: 800,
+            maxWidth: 500,
+            opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,

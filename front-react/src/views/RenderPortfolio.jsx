@@ -45,9 +45,10 @@ function RenderPortfolio(props) {
   let match = useRouteMatch();
 
   return (
-    <>
-      {/* RENDER PORTFOLIO DISTRIBUTION */}
-      <>
+    <div className="risk-assessment-review-container">
+      <div className="review-background-image">
+        {/* RENDER PORTFOLIO DISTRIBUTION */}
+
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Card
@@ -82,27 +83,26 @@ function RenderPortfolio(props) {
             />
           </Grid>
         </Grid>
-      </>
-      {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
-      <div>
-        <h2>Types of Assets: </h2>
-        <div className="stocks-bonds-cash-explained">
-          <Grid container spacing={1}>
-            <CardExplained></CardExplained>
 
-            <Link to={`/admin/portfolio/start`}>
-              <button
-                rel="Submit"
-                href="#"
-                className="risk-assessment-start-button"
-              >
-                Re-Do Risk Assessment
-              </button>
-            </Link>
-          </Grid>
+        {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
+        <div>
+          <div className="stocks-bonds-cash-explained">
+            <Grid container spacing={1}>
+              <CardExplained></CardExplained>
+            </Grid>
+          </div>
         </div>
+        <Link to={`/admin/portfolio/start`} c>
+          <button
+            rel="Submit"
+            href="#"
+            className="risk-assessment-start-button"
+          >
+            Re-Do Risk Assessment
+          </button>
+        </Link>
       </div>
-    </>
+    </div>
   );
 }
 
