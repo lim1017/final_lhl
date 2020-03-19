@@ -33,6 +33,7 @@
 
 .risk-assessment-start-button:hover {
   background-color: #c4d2c7;
+  color: #b3898e;
 }
 .risk-assessment-questions label {
   font-weight: 500;
@@ -134,6 +135,7 @@
 .review-start-button-div {
   display: flex;
   justify-content: center;
+  padding-bottom: 2rem;
 }
 .risk-assessment-review-container .risk-assessment-start-button {
   // position: absolute;

@@ -24,28 +24,13 @@ function createPie(portfolioTypes) {
   return finalOP;
 }
 
-const containerStyles = {
-  display: "flex",
-  justifyContent: "center",
-  marginBottom: "10px"
-};
-
-const cardStyles = {
-  width: "550px",
-  border: "1px solid #b3898e",
-  borderRadius: "5px",
-  position: "relative",
-  background: "white",
-  opacity: "0.9"
-};
-
 const colors = [
-  "#c4d2c7",
+  "#f6c1fd",
+  "#fbe8fd",
   "#ffe7ea",
-  "#f87f8d",
-  "#8a708d",
-  "#d0fdab",
-  "435a30"
+  "#c5e6ab",
+  "#c4d2c7",
+  "#d4f3bb"
 ];
 
 function CardPortfolio(props) {
@@ -58,7 +43,7 @@ function CardPortfolio(props) {
     //   >
     //     {`Your expected return is ${props.state.users[0].portfolioreturn}
     // `}
-    <PieChart width={730} height={350}>
+    <PieChart width={730} height={500}>
       <Pie
         data={createPie(
           props.portfolioDistribution(props.state.users[0].riskscore)
@@ -79,12 +64,7 @@ function CardPortfolio(props) {
           <Cell fill={colors[index % colors.length]} />
         ))}
       </Pie>
-      <Legend
-        verticalAlign="bottom"
-        layout="horizontal"
-        height={35}
-        width={355}
-      />
+      <Legend verticalAlign="bottom" layout="vertical" height={0} width={250} />
     </PieChart>
     // </div>
     // }
