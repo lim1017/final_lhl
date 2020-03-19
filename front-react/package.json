@@ -24,6 +24,7 @@
     "react-spring": "^8.0.27",
     "react-toggle": "4.0.2",
     "react-youtube": "^7.9.0",
+    "recharts": "^1.8.5",
     "semantic-ui-react": "^0.88.2",
     "tough-cookie": "^3.0.1",
     "unirest": "^0.6.0"

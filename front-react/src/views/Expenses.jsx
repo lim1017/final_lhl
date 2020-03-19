@@ -1,12 +1,14 @@
 import React, { useState, useContext } from "react";
 import ChartistGraph from "react-chartist";
 import { Grid, Row, Col } from "react-bootstrap";
+import { PieChart, Pie, Legend, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, } from 'recharts';
+
+
 import { Card } from "components/Card/Card.jsx";
 
 import { CardExpTable } from "components/Card/CardExpTable.jsx";
 
 import FileUpload from "components/FileUpload/FileUpload.jsx";
-import TomNav from "components/TomNav/TomNav.jsx";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
@@ -23,6 +25,8 @@ function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
   const [addExpense, setAddExpense] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
+
+  const COLORS = ['#c4d2c7', '#ffe7ea', '#f87f8d', '#FF8042'];
 
 
   function handleFile(event){
@@ -63,7 +67,6 @@ function Dashboard(props) {
     const finalOP=[]
     
     data.forEach(ele =>{
-      console.log(ele)
       if (ele.amount!==0){
         finalOP.push(ele)
       }
@@ -74,9 +77,19 @@ function Dashboard(props) {
 
   function formatDataForBarChart(data) {
     const finalOP = [];
+    const avg=[315, 180, 533, 1700, 79, 172, 558, 300]
+    console.log(data)
     data.forEach(ele => {
-      finalOP.push(ele.sum);
+      let i =0
+      const bar={
+        name:ele.type,
+        Personal:ele.sum,
+        Average:avg[0]
+      }
+      finalOP.push(bar);
+      i++
     });
+    console.log(finalOP)
     return finalOP;
   }
 
@@ -132,20 +145,30 @@ function Dashboard(props) {
   }
 
   function createPie(expensesTotal) {
-    const finalOP = { labels: [], series: [] };
+    // const finalOP = { labels: [], series: [] };
     
-    let grandTotal = 0;
-    expensesTotal.forEach(element => {
-      grandTotal += parseInt(element.sum);
-    });
-    expensesTotal.forEach(element => {
-      finalOP.labels.push(
-        ((parseInt(element.sum) / grandTotal) * 100).toFixed(0) + "%"
-      );
-      finalOP.series.push(element.sum);
-    });
+    // let grandTotal = 0;
+    // expensesTotal.forEach(element => {
+    //   grandTotal += parseInt(element.sum);
+    // });
+    // expensesTotal.forEach(element => {
+    //   finalOP.labels.push(
+    //     ((parseInt(element.sum) / grandTotal) * 100).toFixed(0) + "%"
+    //   );
+    //   finalOP.series.push(element.sum);
+    // });
+    // console.log(finalOP)
+    // return finalOP;
 
-    return finalOP;
+    const finalOP=[]
+    expensesTotal.forEach(element =>{
+      const slice={
+        name:element.type,
+        value:parseInt(element.sum)
+      }
+      finalOP.push(slice)
+    })
+    return finalOP
   }
 
   function refreshExpenses(date) {
@@ -250,68 +273,16 @@ function Dashboard(props) {
               title="Expenses"
               category={returnMonthText(state.date.month)}
               stats="Campaign sent 2 days ago"
-              content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
-                  <ChartistGraph
-                    data={createPie(state.totalExpenses)}
-                    type="Pie"
-                    
-                    listener={{
-                      draw: function (data) {
+              content={ 
+                <PieChart width={730} height={350}>
+                  <Pie data={createPie(state.totalExpenses)} dataKey="value" nameKey="name" cx="40%" cy="40%" outerRadius={70} fill="#8884d8" label>
 
-                        console.log('data is: ', data);
-                         
-                        if (data.type === 'slice') {
-                      
-                          var pathLength = data.element._node.getTotalLength();
-                          console.log(pathLength)
-    // Set a dasharray that matches the path length as prerequisite to animate dashoffset
-    data.element.attr({
-      'stroke-dasharray': pathLength + 'px ' + pathLength + 'px'
-    });
-
-    // Create animation definition while also assigning an ID to the animation for later sync usage
-    var animationDefinition = {
-      'stroke-dashoffset': {
-        id: 'anim' + data.index,
-        dur: 1000,
-        from: -pathLength + 'px',
-        to:  '0px',
-        // We need to use `fill: 'freeze'` otherwise our animation will fall back to initial (not visible)
-        fill: 'freeze'
-      }
-    };
-
-    // If this was not the first slice, we need to time the animation so that it uses the end sync event of the previous animation
-    if(data.index !== 0) {
-      animationDefinition['stroke-dashoffset'].begin = 'anim' + (data.index - 1) + '.end';
-    }
-
-    // We need to set an initial value before the animation starts as we are not in guided mode which would do that for us
-    data.element.attr({
-      'stroke-dashoffset': -pathLength + 'px'
-    });
-
-    // We can't use guided mode as the animations need to rely on setting begin manually
-    // See http://gionkunz.github.io/chartist-js/api-documentation.html#chartistsvg-function-animate
-    data.element.animate(animationDefinition, false);
-  }
-                        }
-                      }
-                    } 
-                    />
-                </div>
-              }
-              legend={
-                <div className="legend">
-                  {createLegend({
-                    names: nameList(state.totalExpenses),
-                    types: ["info", "danger", "warning", "success"]
-                  })}
-                </div>
+                  {
+                    createPie(state.totalExpenses).map((entry, index) => <Cell fill={COLORS[index % COLORS.length]}/>)
+                  }
+                  </Pie>
+                  <Legend verticalAlign="bottom" layout='horizontal' height={35} width={355}/>
+                </PieChart>
               }
             />
           </Col>
@@ -322,51 +293,15 @@ function Dashboard(props) {
               category="Expense Comparison To National Average"
               stats="Campaign sent 2 days ago"
               content={
-                <div id="chartPreferences" className="ct-chart ct-perfect-fourth">
-                  <ChartistGraph
-                    data={{
-                      labels: [
-                        "Debt",
-                        "Entertainment",
-                        "Food",
-                        "Home",
-                        "Medical",
-                        "Misc",
-                        "Transporation",
-                        "Utilities"
-                      ],
-                      series: [
-                        formatDataForBarChart(state.totalExpenses),
-                        [315, 180, 533, 1700, 79, 172, 558, 300]
-                      ]
-                    }}
-                    type="Bar"
-                    options={optionsBar}
-                    responsiveOptions={responsiveBar}
-
-                    listener={{"draw" : function(data) { if(data.type === 'bar') {
-                      data.element.animate({
-                        y2: {
-                            begin: 0,
-                            dur: 500,
-                            from: data.y1,
-                            to: data.y2
-                            // easing: Chartist.Svg.Easing.easeOutSine,
-                        }});
-                      }}}}
-
-                    
-                    
-                  />
-                </div>
-              }
-              legend={
-                <div className="legend">
-                  {createLegend({
-                    names: ["You", "Average"],
-                    types: ["piggy-green", "piggy-pink"]
-                  })}
-                </div>
+                <BarChart width={730} height={350} data={formatDataForBarChart(state.totalExpenses)}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="Personal" fill="#c4d2c7" />
+                  <Bar dataKey="Average" fill="#ffe7ea" />
+                </BarChart>
               }
             />
           </Col>
