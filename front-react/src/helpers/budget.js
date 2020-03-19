@@ -45,6 +45,7 @@ const budgetSetGraphData = function(budget, range, port) {
     labels: [],
     series: [ [], [] ]
   }
+  let data = []
 
   let monthlyGain = budgetCalc(budget);
   let currentDate = new Date();
@@ -56,37 +57,23 @@ const budgetSetGraphData = function(budget, range, port) {
     let node = (currentDate.getMonth()+month) % 12 + 1;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
     let number = parseInt(base) + monthlyGain * month;
+    const dataNode = {};
     
     if (range <= 12) {
-      result.labels.push(node);       
-      result.series[0].push(parseInt(number));
-      if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
-    } else if (range <= 60) {
-      if (node % 3 === 1) {
-        if (node === 1) {
-          result.labels.push(yearNode);
-          result.series[0].push(parseInt(number));
-          if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
-        } else {
-          result.labels.push(node);
-          result.series[0].push(parseInt(number));
-          if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
-        }
-      }
-    } else if (range <= 120) {
-      if (node % 12 === 1) {
-        result.labels.push(yearNode);
-        result.series[0].push(parseInt(number));
-        if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
-      } else if (node % 3 === 1) {
-        result.labels.push("");
-        result.series[0].push(parseInt(number));
-        if (portCheck) result.series[1].push(budgetCalcPortfolio(parseInt(base), monthlyGain, port, month));
-      }
-    }
+      dataNode.name = node;
+      dataNode.budget = parseInt(number);
+      if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month);
+    } else {
+      dataNode.name = `${node} / ${yearNode}`;
+      dataNode.budget = parseInt(number);
+      if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month);
+    } 
+    data.push(dataNode);
   }
 
-  return result;
+  console.log('budgetSetGraphData', data)
+
+  return data;
 };
 
 const findUserBudget = function(state, id) {
