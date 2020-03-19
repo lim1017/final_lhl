@@ -245,7 +245,7 @@ export default function BudgetPlannerA(props) {
             </Table>
           </TableContainer>
           <div>
-            <div>
+            <div className="budgetPlannerError">
               {props.error}
             </div>
             <div className="budgetPlannerButtons">

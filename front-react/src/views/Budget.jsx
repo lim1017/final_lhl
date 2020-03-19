@@ -60,6 +60,32 @@ function Budget(props) {
   }
 
   useEffect(() => {
+
+    let datez= `${state.date.month}+${state.date.year}`
+
+      Promise.all([
+        axios.get(`http://localhost:8001/api/expenses/${datez}`),
+        axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
+        axios.get("http://localhost:8001/api/budget"),
+        axios.get("http://localhost:8001/api/goals"),
+        axios.get("http://localhost:8001/api/users")
+
+      ]).then(response => {
+        dispatch({
+          type: "SET_DATA",
+          expenses: response[0].data,
+          totalExpenses: response[1].data,
+          budget: response[2].data,
+          goals: response[3].data,
+          users: response[4].data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
     for (const bud of state.budget) {
       if (bud.user_id === 1 && bud !== budget) {
         dispatchBudget({
@@ -67,8 +93,7 @@ function Budget(props) {
           budget: findUserBudget(state, 1)
         });
       }
-    } 
-    console.log('state.budget has changed! ', state.budget)
+    }
   }, state.budget);
 
   function chgMonth(date) {
@@ -167,7 +192,6 @@ function Budget(props) {
       .then(res1 => {
         axios.get("http://localhost:8001/api/budget")
         .then(res2 => {
-          console.log('refreshing state.budget')
           dispatch({
             ...state,
             type: "SET_DATA",
@@ -212,24 +236,6 @@ function Budget(props) {
         <BudgetChartMenu
           toggle={toggle}
           dispatch={dispatchToggle}
-        />
-        <BudgetNavButtonA
-          // toggle={toggle.goal}
-          // dispatch={dispatchToggle}
-          // type={"GOAL"}
-          text={"New"}
-        />
-        <BudgetNavButtonA
-          // toggle={toggle.goal}
-          // dispatch={dispatchToggle}
-          // type={"GOAL"}
-          text={"New"}
-        />
-        <BudgetNavButtonA
-          // toggle={toggle.goal}
-          // dispatch={dispatchToggle}
-          // type={"GOAL"}
-          text={"New"}
         />
       </div>
     </div>
@@ -315,9 +321,7 @@ function Budget(props) {
                       created: context => {
 
                         for (const g of goal.select) {
-                          console.log(g.type)
                           if (g.type === "LE") {
-                            console.log("LE activate")
 
                             function projectY(chartRect, bounds, value) {
                               return chartRect.y1 - 
