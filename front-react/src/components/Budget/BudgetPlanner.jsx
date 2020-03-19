@@ -248,7 +248,7 @@ export default function BudgetPlannerA(props) {
             <div>
               {props.error}
             </div>
-            <div>
+            <div className="budgetPlannerButtons">
               <CustomButton
                 className="button"
                 bsStyle="success"

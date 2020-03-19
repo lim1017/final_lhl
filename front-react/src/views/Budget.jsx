@@ -17,6 +17,8 @@ import {
 } from "variables/Variables.jsx";
 import BudgetPlanner from "components/Budget/BudgetPlanner";
 import BudgetGoals from "components/Budget/BudgetGoals";
+import BudgetInputMenu from "components/Budget/BudgetInputMenu";
+import BudgetChartMenu from "components/Budget/BudgetChartMenu";
 import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
 import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
@@ -38,7 +40,10 @@ function Budget(props) {
   });
   const [ toggle, dispatchToggle ] = useReducer(budgetToggleReducer, {
     planner: true,
-    goal: false
+    goal: false,
+    pvat: true,
+    pvac: true,
+    botg: true
   });
   const [range, setRange] = useState(12);
   const [portfolio, setPortfolio] = useState(1);
@@ -199,18 +204,14 @@ function Budget(props) {
       <div className="budgetNavA">
         <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
       </div>
-      <div className="budgetButtons">
-        <BudgetNavButtonA
-          toggle={toggle.planner}
+      <div className="budgetNavB budgetButtons">
+        <BudgetInputMenu
+          toggle={toggle}
           dispatch={dispatchToggle}
-          type={"PLANNER"}
-          text={"Budget Planner"}
         />
-        <BudgetNavButtonA
-          toggle={toggle.goal}
+        <BudgetChartMenu
+          toggle={toggle}
           dispatch={dispatchToggle}
-          type={"GOAL"}
-          text={"Goals"}
         />
         <BudgetNavButtonA
           // toggle={toggle.goal}
@@ -261,6 +262,7 @@ function Budget(props) {
         </Row>
         <Row>
           <Col lg={4}>
+            {toggle.pvat ?
             <Card
               title="Plan vs Actual Total Expenses"
               category="compare planned expenses vs expenses in given month"
@@ -307,11 +309,10 @@ function Budget(props) {
                               // easing: Chartist.Svg.Easing.easeOutSine,
                             }
                           });
+
                         }
                       },
                       created: context => {
-
-                        console.log('this is goal.select ', goal.select)
 
                         for (const g of goal.select) {
                           console.log(g.type)
@@ -341,8 +342,10 @@ function Budget(props) {
                 </div>
               }
             />
+          : null}
           </Col>
           <Col lg={8}>
+            {toggle.pvac ?
             <Card
               title="Plan vs Actual Expenses by Category"
               category="compare planned expenses vs expenses in given month"
@@ -397,10 +400,12 @@ function Budget(props) {
                 </div>
               }
             />
+          : null}
           </Col>
         </Row>
         <Row>
           <Col lg={12}>
+            {toggle.botg ?
             <BudgetGraphCard
               title="Budget Plan summary"
               category="insert other budget informations here"
@@ -545,6 +550,7 @@ function Budget(props) {
                 </div>
               }
             />
+          : null}
           </Col>
         </Row>
       </Grid>
