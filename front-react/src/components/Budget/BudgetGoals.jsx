@@ -44,6 +44,7 @@ export default function BudgetGoals(props) {
       <TableRow key={goal.id}>
         <TableCell component="th" scope="row" className={classes.tableCell}>
           <Checkbox
+            checked={props.goal.id.includes(goal.id)}
             onChange={() => props.selectGoal({ type: "SELECT", id: goal.id, goal })}
           />
         </TableCell>

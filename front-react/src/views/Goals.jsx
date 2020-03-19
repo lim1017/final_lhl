@@ -71,39 +71,41 @@ function Goals(props) {
   });
 
   return (
-    <div className="content top70px">
-      <h3>Goals</h3>
+    <div className="content">
+      <div className="top60px">
+        <h3>Goals</h3>
 
-      {/* {state.goals.length===0 ? (
-        <p>SET UP A GOAL</p>
-      ) : null} */}
+        {/* {state.goals.length===0 ? (
+          <p>SET UP A GOAL</p>
+        ) : null} */}
 
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
-              <Card
-                title="Goals"
-                category="Here is a subtitle for this table"
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <div>
-                    {GoalsInList}
-                    <Goal
-                      mode="new"
-                      key={state.goals.length + 1}
-                      id={state.goals.length + 1}
-                      category="Here is a subtitle for this table"
-                      date={`2020-01-05T05:00:00.000Z`}
-                      setGoal={setGoal}
-                    />
-                  </div>
-                }
-              />
-            </Col>
-          </Row>
-        </Grid>
-      <StatsCard />
+          <Grid fluid>
+            <Row>
+              <Col md={12}>
+                <Card
+                  title="Goals"
+                  category="Here is a subtitle for this table"
+                  ctTableFullWidth
+                  ctTableResponsive
+                  content={
+                    <div>
+                      {GoalsInList}
+                      <Goal
+                        mode="new"
+                        key={state.goals.length + 1}
+                        id={state.goals.length + 1}
+                        category="Here is a subtitle for this table"
+                        date={`2020-01-05T05:00:00.000Z`}
+                        setGoal={setGoal}
+                      />
+                    </div>
+                  }
+                />
+              </Col>
+            </Row>
+          </Grid>
+        <StatsCard />
+      </div>
     </div>
   );
 
