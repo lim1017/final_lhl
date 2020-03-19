@@ -20,8 +20,7 @@ import BudgetPlanner from "components/Budget/BudgetPlanner";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetInputMenu from "components/Budget/BudgetInputMenu";
 import BudgetChartMenu from "components/Budget/BudgetChartMenu";
-import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
-import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget } from "helpers/budget";
+import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, expensesCalc } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
@@ -167,11 +166,16 @@ function Budget(props) {
     return res;
   }
 
-  function setBarGraphDisplayRange(bud) {
+  function setBarGraphDisplayRange(bud, expenses) {
     const res = {
       yMin : 0,
-      yMax : budgetCalc(bud)
+      yMax : 0
     }
+
+    const budgetMax = bud.c_hous + bud.c_tran + bud.c_food + bud.c_util + bud.c_entr + bud.c_medi + bud.c_debt + bud.c_misc;
+    const expensesMax = expensesCalc(expenses);
+    if (expensesMax > budgetMax) res.yMax = expensesMax;
+    else res.yMax = budgetMax;
 
     for (const g of goal.select) {
       if (g.type === "LE") {
@@ -233,16 +237,16 @@ function Budget(props) {
         <div className="budgetNavA">
           <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
         </div>
-      </div>
-      <div className="budgetNavB budgetButtons">
-        <BudgetInputMenu
-          toggle={toggle}
-          dispatch={dispatchToggle}
-        />
-        <BudgetChartMenu
-          toggle={toggle}
-          dispatch={dispatchToggle}
-        />
+        <div className="budgetNavB budgetButtons">
+          <BudgetInputMenu
+            toggle={toggle}
+            dispatch={dispatchToggle}
+          />
+          <BudgetChartMenu
+            toggle={toggle}
+            dispatch={dispatchToggle}
+          />
+        </div>
       </div>
     </div>
     <div className="content top100px">
@@ -273,7 +277,7 @@ function Budget(props) {
           </Col>
         </Row>
         <Row>
-          <Col lg={4}>
+          <Col lg={12}>
             {toggle.pvat ?
             <Card
               title="Plan vs Actual Total Expenses"
@@ -299,7 +303,7 @@ function Budget(props) {
                     type="Bar"
                     options={{
                       low: 0,
-                      high: setBarGraphDisplayRange(budget).yMax || 0,
+                      high: setBarGraphDisplayRange(budget, state.totalExpenses).yMax || 0,
                       seriesBarDistance: 5,
                       height: "240px",
                       stackBars: true
@@ -354,7 +358,7 @@ function Budget(props) {
             />
           : null}
           </Col>
-          <Col lg={8}>
+          <Col lg={12}>
             {toggle.pvac ?
             <Card
               title="Plan vs Actual Expenses by Category"
