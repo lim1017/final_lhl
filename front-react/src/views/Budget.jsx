@@ -231,7 +231,7 @@ function Budget(props) {
 
   // Render Contents
   return (
-    <div>
+    <div className="budgetWrap">
     <div style={{ display: "flex", width: "100%" }}>
       <div className="budgetNav">
         <div className="budgetNavA">
@@ -249,7 +249,7 @@ function Budget(props) {
         </div>
       </div>
     </div>
-    <div className="content top100px">
+    <div className="top100px content">
       <Grid fluid>
         <Row>
           <Col lg={12}>
