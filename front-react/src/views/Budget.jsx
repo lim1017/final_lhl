@@ -1,5 +1,6 @@
 /* Import Global State/Hooks */ 
 import React, { useContext, useReducer, useState, useEffect } from "react";
+
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
 import budgetReducer from "../hooks/reducers/budget";
@@ -22,6 +23,7 @@ import BudgetChartMenu from "components/Budget/BudgetChartMenu";
 import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
 import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
+
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
 // Outer Functions
@@ -30,8 +32,8 @@ import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 /* Budget Function */
 /* --------------- */
 function Budget(props) {
-
   // States & Variables
+
   const{ state, dispatch } = useContext(appDataContext);
   const [ budget, dispatchBudget ] = useReducer(budgetReducer, findUserBudget(state, 1));
   const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
@@ -44,6 +46,7 @@ function Budget(props) {
     pvat: true,
     pvac: true,
     botg: true
+
   });
   const [range, setRange] = useState(12);
   const [portfolio, setPortfolio] = useState(1);
@@ -51,6 +54,7 @@ function Budget(props) {
   const [error, setError] = useState("");
 
   // Inner Functions
+
   if (state.users && state.users.length > 0) {
     for (const user of state.users) {
       if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
@@ -131,7 +135,7 @@ function Budget(props) {
   }
 
   function getActualExpenses(n) {
-    return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
+    return state.totalExpenses[n] ? state.totalExpenses[n].sum : 0;
   }
 
   function setGraphDisplayRange(bud, goal, range, port) {
@@ -223,10 +227,11 @@ function Budget(props) {
 
   // Render Contents
   return (
-  <div>
-    <div className="budgetNav">
-      <div className="budgetNavA">
-        <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+    <div style={{ display: "flex", width: "100%" }}>
+      <div className="budgetNav">
+        <div className="budgetNavA">
+          <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+        </div>
       </div>
       <div className="budgetNavB budgetButtons">
         <BudgetInputMenu
@@ -559,7 +564,6 @@ function Budget(props) {
         </Row>
       </Grid>
     </div>
-  </div>
   );
 }
 
