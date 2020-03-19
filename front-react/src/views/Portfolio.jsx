@@ -133,11 +133,13 @@ function Portfolio(props) {
     };
 
     e.preventDefault();
+
     setLocalState({
       ...localState,
       riskScore: totalScore,
       portfolioReturn: portfolioDistribution(totalScore).portfolioReturn
     });
+
     Promise.all([
       axios.put(`http://localhost:8001/api/users/add`, userPortfolio)
     ]).then(() => {
@@ -179,11 +181,13 @@ function Portfolio(props) {
             onSubmit={onSubmit}
           />
         </Route>
-
         <Route path={`${match.url}/review`}>
           <RenderPortfolio
             portfolioDistribution={portfolioDistribution}
             riskScore={localState.riskScore}
+            localState={localState}
+            setLocalState={setLocalState}
+            state={state}
           />
         </Route>
       </Switch>

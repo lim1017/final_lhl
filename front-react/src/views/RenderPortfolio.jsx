@@ -1,7 +1,8 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { Link, useRouteMatch } from "react-router-dom";
-
+import axios from "axios";
+import { useEffect } from "react";
 import ChartistGraph from "react-chartist";
 import { Card } from "components/Card/Card";
 import CardExplained from "components/Card/CardExplained";
@@ -48,7 +49,7 @@ function RenderPortfolio(props) {
       {/* RENDER PORTFOLIO DISTRIBUTION */}
       <>
         <Grid container spacing={1}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <Card
               title="Portfolio Distribution"
               content={
@@ -56,13 +57,13 @@ function RenderPortfolio(props) {
                   id="chartPreferences"
                   className="ct-chart ct-perfect-fourth"
                 >
-                  {`Your expected return is ${
-                    props.portfolioDistribution(props.riskScore).portfolioReturn
-                  }`}
+                  {`Your expected return is ${props.state.users[0].portfolioreturn}
+                  `}
                   <ChartistGraph
                     data={createPie(
-                      props.portfolioDistribution(props.riskScore)
-                        .investmentTypes
+                      props.portfolioDistribution(
+                        props.state.users[0].riskscore
+                      ).investmentTypes
                     )}
                     type="Pie"
                   />
@@ -79,38 +80,6 @@ function RenderPortfolio(props) {
                 </div>
               }
             />
-          </Grid>
-          <Grid item xs={6}>
-            <Card
-              title="Portfolio Distribution"
-              content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
-                  {`Your expected return is ${
-                    props.portfolioDistribution(props.riskScore).portfolioReturn
-                  }`}
-                  <ChartistGraph
-                    data={createPie(
-                      props.portfolioDistribution(props.riskScore)
-                        .investmentTypes
-                    )}
-                    type="Pie"
-                  />
-                </div>
-              }
-              legend={
-                <div className="legend">
-                  {createLegend({
-                    names: nameList(
-                      props.portfolioDistribution().investmentTypes
-                    ),
-                    types: ["info", "primary", "success"]
-                  })}
-                </div>
-              }
-            ></Card>
           </Grid>
         </Grid>
       </>
