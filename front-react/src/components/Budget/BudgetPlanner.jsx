@@ -245,10 +245,10 @@ export default function BudgetPlannerA(props) {
             </Table>
           </TableContainer>
           <div>
-            <div>
+            <div className="budgetPlannerError">
               {props.error}
             </div>
-            <div>
+            <div className="budgetPlannerButtons">
               <CustomButton
                 className="button"
                 bsStyle="success"

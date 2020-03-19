@@ -1,5 +1,6 @@
 /* Import Global State/Hooks */ 
 import React, { useContext, useReducer, useState, useEffect } from "react";
+
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
 import budgetReducer from "../hooks/reducers/budget";
@@ -17,9 +18,12 @@ import {
 } from "variables/Variables.jsx";
 import BudgetPlanner from "components/Budget/BudgetPlanner";
 import BudgetGoals from "components/Budget/BudgetGoals";
+import BudgetInputMenu from "components/Budget/BudgetInputMenu";
+import BudgetChartMenu from "components/Budget/BudgetChartMenu";
 import BudgetNavButtonA from "components/CustomButton/BudgetNavButton";
 import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
+
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 
 // Outer Functions
@@ -28,8 +32,8 @@ import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 /* Budget Function */
 /* --------------- */
 function Budget(props) {
-
   // States & Variables
+
   const{ state, dispatch } = useContext(appDataContext);
   const [ budget, dispatchBudget ] = useReducer(budgetReducer, findUserBudget(state, 1));
   const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
@@ -38,7 +42,11 @@ function Budget(props) {
   });
   const [ toggle, dispatchToggle ] = useReducer(budgetToggleReducer, {
     planner: true,
-    goal: false
+    goal: false,
+    pvat: true,
+    pvac: true,
+    botg: true
+
   });
   const [range, setRange] = useState(12);
   const [portfolio, setPortfolio] = useState(1);
@@ -46,6 +54,7 @@ function Budget(props) {
   const [error, setError] = useState("");
 
   // Inner Functions
+
   if (state.users && state.users.length > 0) {
     for (const user of state.users) {
       if (user.id === 1 && user.portfolioreturn > 1 && user.portfolioreturn !== portfolio) {
@@ -55,6 +64,32 @@ function Budget(props) {
   }
 
   useEffect(() => {
+
+    let datez= `${state.date.month}+${state.date.year}`
+
+      Promise.all([
+        axios.get(`http://localhost:8001/api/expenses/${datez}`),
+        axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
+        axios.get("http://localhost:8001/api/budget"),
+        axios.get("http://localhost:8001/api/goals"),
+        axios.get("http://localhost:8001/api/users")
+
+      ]).then(response => {
+        dispatch({
+          type: "SET_DATA",
+          expenses: response[0].data,
+          totalExpenses: response[1].data,
+          budget: response[2].data,
+          goals: response[3].data,
+          users: response[4].data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
     for (const bud of state.budget) {
       if (bud.user_id === 1 && bud !== budget) {
         dispatchBudget({
@@ -62,8 +97,7 @@ function Budget(props) {
           budget: findUserBudget(state, 1)
         });
       }
-    } 
-    console.log('state.budget has changed! ', state.budget)
+    }
   }, state.budget);
 
   function chgMonth(date) {
@@ -101,7 +135,7 @@ function Budget(props) {
   }
 
   function getActualExpenses(n) {
-    return (state.totalExpenses[n] ? state.totalExpenses[n].sum : 0)
+    return state.totalExpenses[n] ? state.totalExpenses[n].sum : 0;
   }
 
   function setGraphDisplayRange(bud, goal, range, port) {
@@ -162,7 +196,6 @@ function Budget(props) {
       .then(res1 => {
         axios.get("http://localhost:8001/api/budget")
         .then(res2 => {
-          console.log('refreshing state.budget')
           dispatch({
             ...state,
             type: "SET_DATA",
@@ -194,41 +227,21 @@ function Budget(props) {
 
   // Render Contents
   return (
-  <div>
-    <div className="budgetNav">
-      <div className="budgetNavA">
-        <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+    <div>
+    <div style={{ display: "flex", width: "100%" }}>
+      <div className="budgetNav">
+        <div className="budgetNavA">
+          <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+        </div>
       </div>
-      <div className="budgetButtons">
-        <BudgetNavButtonA
-          toggle={toggle.planner}
+      <div className="budgetNavB budgetButtons">
+        <BudgetInputMenu
+          toggle={toggle}
           dispatch={dispatchToggle}
-          type={"PLANNER"}
-          text={"Budget Planner"}
         />
-        <BudgetNavButtonA
-          toggle={toggle.goal}
+        <BudgetChartMenu
+          toggle={toggle}
           dispatch={dispatchToggle}
-          type={"GOAL"}
-          text={"Goals"}
-        />
-        <BudgetNavButtonA
-          // toggle={toggle.goal}
-          // dispatch={dispatchToggle}
-          // type={"GOAL"}
-          text={"New"}
-        />
-        <BudgetNavButtonA
-          // toggle={toggle.goal}
-          // dispatch={dispatchToggle}
-          // type={"GOAL"}
-          text={"New"}
-        />
-        <BudgetNavButtonA
-          // toggle={toggle.goal}
-          // dispatch={dispatchToggle}
-          // type={"GOAL"}
-          text={"New"}
         />
       </div>
     </div>
@@ -261,6 +274,7 @@ function Budget(props) {
         </Row>
         <Row>
           <Col lg={4}>
+            {toggle.pvat ?
             <Card
               title="Plan vs Actual Total Expenses"
               category="compare planned expenses vs expenses in given month"
@@ -307,16 +321,13 @@ function Budget(props) {
                               // easing: Chartist.Svg.Easing.easeOutSine,
                             }
                           });
+
                         }
                       },
                       created: context => {
 
-                        console.log('this is goal.select ', goal.select)
-
                         for (const g of goal.select) {
-                          console.log(g.type)
                           if (g.type === "LE") {
-                            console.log("LE activate")
 
                             function projectY(chartRect, bounds, value) {
                               return chartRect.y1 - 
@@ -341,8 +352,10 @@ function Budget(props) {
                 </div>
               }
             />
+          : null}
           </Col>
           <Col lg={8}>
+            {toggle.pvac ?
             <Card
               title="Plan vs Actual Expenses by Category"
               category="compare planned expenses vs expenses in given month"
@@ -397,10 +410,12 @@ function Budget(props) {
                 </div>
               }
             />
+          : null}
           </Col>
         </Row>
         <Row>
           <Col lg={12}>
+            {toggle.botg ?
             <BudgetGraphCard
               title="Budget Plan summary"
               category="insert other budget informations here"
@@ -545,11 +560,12 @@ function Budget(props) {
                 </div>
               }
             />
+          : null}
           </Col>
         </Row>
       </Grid>
     </div>
-  </div>
+    </div>
   );
 }
 

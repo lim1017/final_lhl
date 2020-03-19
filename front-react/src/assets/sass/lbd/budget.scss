@@ -18,6 +18,7 @@
   display: grid;
   grid-column: 1/2;
   grid-row: 1/2;
+  padding-left: 20px;
  }
 
  .budgetNavB {
@@ -30,6 +31,7 @@
  .budgetButtons {
   display: flex;
   max-width: 100%;
+  justify-content: flex-end;
   }
 
   .budgetPlanToggle {
@@ -66,6 +68,20 @@
 
 .top100px {
   padding-top: 100px;
+}
+
+.budgetPlannerError {
+  color: red;
+}
+
+.budgetPlannerButtons {
+  width: 100%;
+  text-align: right;
+  
+  .button{
+    border-radius: 20px;
+    margin: 5px;
+  }
 }
 
 @media only screen and (max-width: 991px) {
