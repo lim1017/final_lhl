@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
 export default function Show(props) {
+  const [click, setClick] = useState(false);
+
   function typeDetailer(type) {
     switch (type) {
       case "SFP":
@@ -15,7 +17,10 @@ export default function Show(props) {
   }
 
   return (
-    <article className="goal">
+    <article
+      className={"goal" + (click ? " goalClick" : "")}
+      onClick={() => setClick(!click)}
+    >
       <div className="header">
         <h4 className="title">{props.name}</h4>
         <div className="icons">

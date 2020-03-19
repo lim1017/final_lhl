@@ -1,17 +1,10 @@
 .goal{
   width: 96%;
   margin: auto;
+  border: solid;
   border-radius: 20px;
-  background-color: rgb(150, 186, 218);
+  border-color: rgb(150, 186, 218);
   margin-bottom: 10px;
-
-  &:hover {
-    background-color: rgb(172, 202, 228);
-
-    .description {
-      display: block;
-    }
-  }
 
   .header{
     padding: 5px 10px;
@@ -24,6 +17,7 @@
     margin: $none;
     color: $black-color;
     font-weight: $font-weight-bold;
+    padding: 5px;
   }
 
   .icons{
@@ -42,6 +36,7 @@
     display: grid;
     grid-column: 1/3;
     grid-row: 2/3;
+    display: none;
   }
 
   .description{
@@ -50,12 +45,24 @@
   }
 }
 
+.goalClick {
+  border-color: rgb(42, 101, 203);
+
+  .content{
+    display: block;
+  }
+
+  .description {
+    display: block;
+  }
+}
+
 .goalForm{
   width: 96%;
   margin: auto;
   border-radius: 20px;
   border: 2px solid;
-  border-color: rgb(172, 202, 228);
+  border-color: rgb(42, 101, 203);
   background-color: white;
   margin-bottom: 10px;
 
@@ -144,8 +151,9 @@
 .goalNew{
   width: 96%;
   margin: auto;
+  border: solid;
   border-radius: 20px;
-  background-color: rgb(150, 186, 218);
+  border-color: rgb(150, 186, 218);
   margin-bottom: 10px;
 
     .icons{
