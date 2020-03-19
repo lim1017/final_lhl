@@ -12,8 +12,18 @@ const budgetCalc = function(budget) {
   if (budget.c_debt) result -= budget.c_debt
   if (budget.c_misc) result -= budget.c_misc
 
-  return  result;
+  return result;
 };
+
+const expensesCalc = function(expenses) {
+  let result = parseInt(0);
+
+  for (const expense of expenses) {
+    result += parseInt(expense.sum)
+  }
+
+  return result;
+}
 
 const budgetCalcPortfolio = function(def, inc, port, period) {
 
@@ -106,4 +116,4 @@ const findUserBudget = function(state, id) {
   return result;
 }
 
-module.exports = { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget };
+module.exports = { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, expensesCalc };
