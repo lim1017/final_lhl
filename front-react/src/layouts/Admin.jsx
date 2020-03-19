@@ -24,6 +24,8 @@ import Sidebar from "components/Sidebar/Sidebar";
 import { style } from "variables/Variables.jsx";
 import routes from "routes.js";
 import image from "assets/img/sidebar-3.jpg";
+import TomNav from "../components/TomNav/TomNav.jsx";
+
 
 
 const Admin = props =>{
@@ -31,6 +33,8 @@ const Admin = props =>{
 
   return (
     <appDataContext.Provider value={{state, dispatch}} >
+         
+
       <Admin2 {...props} />
     </appDataContext.Provider> 
   )
@@ -95,7 +99,10 @@ class Admin2 extends Component {
           hasImage={this.state.hasImage}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <Switch>{this.getRoutes(routes)}</Switch>
+          <TomNav />
+          <div className="top70px">
+            <Switch>{this.getRoutes(routes)}</Switch>
+          </div>
         </div>
       </div>
     );

@@ -23,7 +23,6 @@ import Youtube from "views/Youtube.jsx";
 import News from "views/News.jsx";
 import Education from "views/Education.jsx";
 import Notifications from "views/Notifications.jsx";
-import Upgrade from "views/Upgrade.jsx";
 
 const dashboardRoutes = [
   {

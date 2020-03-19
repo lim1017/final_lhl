@@ -38,15 +38,27 @@ const articles=[{
   },
   {
     id:4,
-    title:"LEARNORE",
-    link:"https://www.moneyadviceservice.org.uk/en/articles/beginners-guide-to-managing-your-money",
-    image:"https://i.ytimg.com/vi/4N1ayk-Xba4/maxresdefault.jpg"
+    title:"Time Value of Money",
+    link:"https://www.investopedia.com/articles/03/082703.asp",
+    image:"https://i.ytimg.com/vi/4N1ayk-Xba4/maxresdefault.jpg",
+    question:"Why is Time value of Money Important?",
+    answer:2,
+    a1:"Time is money",
+    a2:"$100 today is not the same as $100 next year",
+    a3:"Duno",
+    a4:"$100 today is the same as $100 next year"
   },
   {
     id:5,
-    title:"YAH YAH ",
-    link:"https://www.moneyadviceservice.org.uk/en/articles/beginners-guide-to-managing-your-money",
-    image:"https://i.ytimg.com/vi/4N1ayk-Xba4/maxresdefault.jpg"
+    title:"Budgeting Tips",
+    link:"https://www.everydollar.com/blog/budgeting-tips-every-budgeter-needs-to-know",
+    image:"https://i.ytimg.com/vi/4N1ayk-Xba4/maxresdefault.jpg",
+    question:"What is Budgeting Tip #11",
+    answer:4,
+    a1:"Track every expense",
+    a2:"Save for big purchases a little at a time",
+    a3:"Review your spending habits",
+    a4:"Understand the difference between needs and wants"
   }
 
 

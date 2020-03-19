@@ -15,8 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { Component } from "react";
-import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import React from "react";
+import { NavItem, Nav } from "react-bootstrap";
 
 const AdminNavbarLinks = function(props) {
 

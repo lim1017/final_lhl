@@ -10,6 +10,27 @@
     border: $none;
     font-size: $font-size-navbar;
     border-radius: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+
+    .container{
+        margin-left: 0px;
+        margin-right: 0px;
+        width: calc(100% - 260px);
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        grid-template-rows: 1fr;
+        // justify-content: space-between;
+
+        .nav-login-div {
+          position: relative;
+          display: grid;
+          grid-column: 2/3;
+          grid-row: 1/2;
+          right: 0;
+        }
+    }
     
     .navbar-brand {
         font-weight: $font-weight-normal;
@@ -289,5 +310,3 @@
         background-color: transparent;
     }
 }
-
-

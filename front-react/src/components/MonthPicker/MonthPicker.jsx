@@ -74,10 +74,9 @@ class List extends Component {
         }
 
         return (
-            <ul>
-                <li>
+           <div className="edit">
                     <h4>Change Month</h4>
-                    <div className="edit">
+                    
                         <Picker
                             ref="pickAMonth"
                             years={[2019, 2020, 2021]}
@@ -92,9 +91,7 @@ class List extends Component {
                              onClick={this.handleClickMonthBox} />
                         </Picker>
                     </div>
-                </li>
-
-            </ul>
+          
         )
     }
 

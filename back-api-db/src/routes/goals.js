@@ -4,7 +4,7 @@ module.exports = db => {
   router.get("/goals", (request, response) => {
     db.query(
       `
-      SELECT * FROM goals ORDER BY id
+      SELECT *, to_char( date, 'DD-MON-YYYY') as date FROM goals ORDER BY id
       `
     ).then(({ rows: goals }) => {
       response.json(goals);
@@ -19,7 +19,7 @@ module.exports = db => {
 
     db.query(
       `
-      SELECT * FROM goals WHERE id = $1::integer
+      SELECT *, to_char( date, 'DD-MON-YYYY') as date FROM goals WHERE id = $1::integer
      `,
      [request.params.id]
     ).then(({ rows: result }) => {

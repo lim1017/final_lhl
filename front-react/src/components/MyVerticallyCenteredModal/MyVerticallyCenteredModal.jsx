@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useContext } from "react";
 import { Modal } from "react-bootstrap";
 import Button from '@material-ui/core/Button';
 import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
 import { articles } from "variables/EducationArticles.jsx";
-
-
-
+import appDataContext from "../../hooks/reducers/useContext";
 
 
 function MyVerticallyCenteredModal(props) {
+
+  const [incorrect, setIncorrect] = React.useState(false);
+  const { state, dispatch } = useContext(appDataContext);
+
+  
+
   return (
     <Modal
       {...props}
@@ -28,6 +32,11 @@ function MyVerticallyCenteredModal(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
+
+      {state.educationAnswers[`${props.id}`]==0 && state.educationAnsweredYet[`${props.id}`]==true  ? (
+            <p>Sorry try again</p>
+                  ) : null}
+
         <Button variant="contained" 
                 color="primary"  
                 onClick={props.onHide}
@@ -36,7 +45,10 @@ function MyVerticallyCenteredModal(props) {
         
         <Button variant="contained" 
                 color="primary"  
-                onClick={()=>props.verifyAnswer(props.id)}
+                onClick={()=>{
+                  props.verifyAnswer(props.id)
+                  setIncorrect(true)
+                }}
                 style={{marginLeft:'2rem'}}
         >
         Submit</Button>      
