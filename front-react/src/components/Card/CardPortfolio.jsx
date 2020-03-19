@@ -35,39 +35,40 @@ const colors = [
 
 function CardPortfolio(props) {
   return (
-    // title="Portfolio Distribution"
-    // content={
-    //   <div
-    //     id="chartPreferences"
-    //     className="ct-chart ct-perfect-fourth"
-    //   >
-    //     {`Your expected return is ${props.state.users[0].portfolioreturn}
-    // `}
-    <PieChart width={730} height={500}>
-      <Pie
-        data={createPie(
-          props.portfolioDistribution(props.state.users[0].riskscore)
-            .investmentTypes
-        )}
-        dataKey="value"
-        nameKey="name"
-        cx="40%"
-        cy="40%"
-        outerRadius={150}
-        fill="#8884d8"
-        label
-      >
-        {createPie(
-          props.portfolioDistribution(props.state.users[0].riskscore)
-            .investmentTypes
-        ).map((entry, index) => (
-          <Cell fill={colors[index % colors.length]} />
-        ))}
-      </Pie>
-      <Legend verticalAlign="bottom" layout="vertical" height={0} width={250} />
-    </PieChart>
-    // </div>
-    // }
+    <>
+      <div>Your Investment Portfolio: </div>
+      <div>
+        {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
+      </div>
+      <PieChart width={730} height={500}>
+        <Pie
+          data={createPie(
+            props.portfolioDistribution(props.state.users[0].riskscore)
+              .investmentTypes
+          )}
+          dataKey="value"
+          nameKey="name"
+          cx="40%"
+          cy="40%"
+          outerRadius={150}
+          fill="#8884d8"
+          label
+        >
+          {createPie(
+            props.portfolioDistribution(props.state.users[0].riskscore)
+              .investmentTypes
+          ).map((entry, index) => (
+            <Cell fill={colors[index % colors.length]} />
+          ))}
+        </Pie>
+        <Legend
+          verticalAlign="bottom"
+          layout="vertical"
+          height={0}
+          width={250}
+        />
+      </PieChart>
+    </>
   );
 }
 
