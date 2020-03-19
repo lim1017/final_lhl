@@ -100,9 +100,7 @@ class Admin2 extends Component {
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
           <TomNav />
-          <div className="top70px">
-            <Switch>{this.getRoutes(routes)}</Switch>
-          </div>
+          <Switch>{this.getRoutes(routes)}</Switch>
         </div>
       </div>
     );

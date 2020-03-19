@@ -237,16 +237,16 @@ function Budget(props) {
         <div className="budgetNavA">
           <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
         </div>
-      </div>
-      <div className="budgetNavB budgetButtons">
-        <BudgetInputMenu
-          toggle={toggle}
-          dispatch={dispatchToggle}
-        />
-        <BudgetChartMenu
-          toggle={toggle}
-          dispatch={dispatchToggle}
-        />
+        <div className="budgetNavB budgetButtons">
+          <BudgetInputMenu
+            toggle={toggle}
+            dispatch={dispatchToggle}
+          />
+          <BudgetChartMenu
+            toggle={toggle}
+            dispatch={dispatchToggle}
+          />
+        </div>
       </div>
     </div>
     <div className="content top100px">
@@ -277,7 +277,7 @@ function Budget(props) {
           </Col>
         </Row>
         <Row>
-          <Col lg={4}>
+          <Col lg={12}>
             {toggle.pvat ?
             <Card
               title="Plan vs Actual Total Expenses"
@@ -358,7 +358,7 @@ function Budget(props) {
             />
           : null}
           </Col>
-          <Col lg={8}>
+          <Col lg={12}>
             {toggle.pvac ?
             <Card
               title="Plan vs Actual Expenses by Category"
