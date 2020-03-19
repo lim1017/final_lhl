@@ -92,7 +92,7 @@
 
 .risk-assessment-start-button {
   background-color: #ffe7ea;
-  color: #b3898e;
+  color: #9cb389;
 }
 
 .risk-assessment-button-image-container .risk-assessment-start-button:hover {
@@ -131,12 +131,16 @@
   margin-bottom: 2rem;
 }
 
+.review-start-button-div {
+  display: flex;
+  justify-content: center;
+}
 .risk-assessment-review-container .risk-assessment-start-button {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
+  // position: absolute;
+  // top: 100%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // -ms-transform: translate(-50%, -50%);
 }
 
 .review-background-image {

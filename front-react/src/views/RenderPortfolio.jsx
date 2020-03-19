@@ -18,25 +18,41 @@ function RenderPortfolio(props) {
         <div>
           <div className="stocks-bonds-cash-explained">
             <Grid container spacing={1}>
-              <CardExplained></CardExplained>
-              <Grid item xs={12}>
+              <Grid
+                item
+                xs={12}
+                style={{
+                  maxWidth: 650,
+                  opacity: 0.9,
+                  margin: "auto",
+                  marginBottom: 20,
+                  marginTop: 20,
+                  padding: 20,
+                  backgroundColor: "white"
+                }}
+              >
                 <CardPortfolio
                   portfolioDistribution={props.portfolioDistribution}
                   state={props.state}
                 ></CardPortfolio>
               </Grid>
             </Grid>
+            <Grid container spacing={1}>
+              <CardExplained></CardExplained>
+            </Grid>
+            <div className="review-start-button-div">
+              <Link to={`/admin/portfolio/start`} c>
+                <button
+                  rel="Submit"
+                  href="#"
+                  className="risk-assessment-start-button"
+                >
+                  Re-Do Risk Assessment
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
-        <Link to={`/admin/portfolio/start`} c>
-          <button
-            rel="Submit"
-            href="#"
-            className="risk-assessment-start-button"
-          >
-            Re-Do Risk Assessment
-          </button>
-        </Link>
       </div>
     </div>
   );
