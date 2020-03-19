@@ -213,6 +213,24 @@ function Budget(props) {
           toggle={toggle}
           dispatch={dispatchToggle}
         />
+        <BudgetNavButtonA
+          // toggle={toggle.goal}
+          // dispatch={dispatchToggle}
+          // type={"GOAL"}
+          text={"New"}
+        />
+        <BudgetNavButtonA
+          // toggle={toggle.goal}
+          // dispatch={dispatchToggle}
+          // type={"GOAL"}
+          text={"New"}
+        />
+        <BudgetNavButtonA
+          // toggle={toggle.goal}
+          // dispatch={dispatchToggle}
+          // type={"GOAL"}
+          text={"New"}
+        />
       </div>
     </div>
     <div className="content top100px">
@@ -291,6 +309,7 @@ function Budget(props) {
                               // easing: Chartist.Svg.Easing.easeOutSine,
                             }
                           });
+
                         }
                       },
                       created: context => {
