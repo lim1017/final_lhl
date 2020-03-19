@@ -49,46 +49,43 @@ function RenderPortfolio(props) {
       <div className="review-background-image">
         {/* RENDER PORTFOLIO DISTRIBUTION */}
 
-        <Grid container spacing={1}>
-          <Grid item xs={12}>
-            <Card
-              title="Portfolio Distribution"
-              content={
-                <div
-                  id="chartPreferences"
-                  className="ct-chart ct-perfect-fourth"
-                >
-                  {`Your expected return is ${props.state.users[0].portfolioreturn}
-                  `}
-                  <ChartistGraph
-                    data={createPie(
-                      props.portfolioDistribution(
-                        props.state.users[0].riskscore
-                      ).investmentTypes
-                    )}
-                    type="Pie"
-                  />
-                </div>
-              }
-              legend={
-                <div className="legend">
-                  {createLegend({
-                    names: nameList(
-                      props.portfolioDistribution().investmentTypes
-                    ),
-                    types: ["info", "primary", "success"]
-                  })}
-                </div>
-              }
-            />
-          </Grid>
-        </Grid>
-
         {/* EQUITY INFORMATION RENDERED ONCE QUESTIONNAIRE COMPLETE */}
         <div>
           <div className="stocks-bonds-cash-explained">
             <Grid container spacing={1}>
               <CardExplained></CardExplained>
+              <Grid item xs={12}>
+                <Card
+                  title="Portfolio Distribution"
+                  content={
+                    <div
+                      id="chartPreferences"
+                      className="ct-chart ct-perfect-fourth"
+                    >
+                      {`Your expected return is ${props.state.users[0].portfolioreturn}
+                  `}
+                      <ChartistGraph
+                        data={createPie(
+                          props.portfolioDistribution(
+                            props.state.users[0].riskscore
+                          ).investmentTypes
+                        )}
+                        type="Pie"
+                      />
+                    </div>
+                  }
+                  legend={
+                    <div className="legend">
+                      {createLegend({
+                        names: nameList(
+                          props.portfolioDistribution().investmentTypes
+                        ),
+                        types: ["info", "primary", "success"]
+                      })}
+                    </div>
+                  }
+                />
+              </Grid>
             </Grid>
           </div>
         </div>
