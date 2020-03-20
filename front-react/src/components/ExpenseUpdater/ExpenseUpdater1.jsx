@@ -43,7 +43,9 @@ function ExpenseUpdater1(props) {
   };
 
   function submitExpense() {
-    const expenseObj = { amount, name, type };
+    const userId = localStorage.getItem('id');
+
+    const expenseObj = { amount, name, type, userId };
     Promise.all([
       axios.put(`http://localhost:8001/api/expenses/add`, expenseObj)
     ])

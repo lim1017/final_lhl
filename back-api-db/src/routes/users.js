@@ -11,7 +11,42 @@ module.exports = db => {
     });
   });
 
+
   router.put("/users/add", (request, response) => {
+    if (process.env.TEST_ERROR) {
+      setTimeout(() => response.status(500).json({}), 1000);
+      return;
+    }
+    
+    console.log(request.body)
+
+    const { username } = request.body;
+    
+    db.query(
+      `
+      INSERT INTO users (name, riskScore, portfolioReturn)
+      VALUES
+      ($1, 1, 1)
+
+      `,
+      [username]
+    )
+      .then(x => {
+        console.log(x, 'after add')
+        setTimeout(() => {
+          response.status(204).json({x});
+        }, 1000);
+      })
+      .catch(error =>{
+        console.log(error, 'erring in add');
+        response.json({error});
+      }) 
+
+
+  });
+
+
+  router.put("/users/update", (request, response) => {
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;

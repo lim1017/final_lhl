@@ -50,12 +50,11 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
    
-   
+
     <Route path="/welcome" render={props => <WelcomeLayout {...props} />}/>
 
     <PrivateRoute path="/admin/" render={props => <AdminLayout {...props} />} />
       {/* <Route path="/admin/expenses" render={props => <AdminLayout {...props} />} /> */}
-      {/* <Redirect from="/" to="/admin/expenses  " /> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

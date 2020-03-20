@@ -52,6 +52,10 @@ function Dashboard(props) {
   }
 
   function sendFileBack() {
+
+    const userId = localStorage.getItem('id');
+
+
     if (fileUploaded && fileUploaded.selectedFile.name.includes(".csv")) {
       console.log(fileUploaded);
       const data = new FormData();
@@ -64,7 +68,7 @@ function Dashboard(props) {
         axios
           .post(
             "http://localhost:8001/api/expenses/file/",
-            { textData },
+            { textData, userId },
             {
               // receive two parameter endpoint url ,form data
             }

@@ -38,6 +38,7 @@ function formatExpenses(data){
     finalOP.push(x)
   });
 
+
   return finalOP
 }
 
@@ -48,17 +49,16 @@ module.exports = db => {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
-
-    const { amount, name, type } = request.body;
+    const { amount, name, type, userId } = request.body;
 
     db.query(
       `
       INSERT INTO expenses (name, user_id, amount, type, date)
       VALUES
-      ($1, 1, $2, $3, current_date)
+      ($1, $2, $3, $4, current_date)
 
       `,
-      [name, amount, type]
+      [name, userId, amount, type]
     )
       .then(x => {
         setTimeout(() => {
@@ -81,7 +81,7 @@ module.exports = db => {
       return res.status(200).send(req.file)
     })
 
-    // console.log(req.body, 'from upload@@!!')
+    console.log(req.body, 'from upload@@!!')
 
     Promise.all(formatExpenses(req.body).map(element =>{
        return db.query(
@@ -91,7 +91,7 @@ module.exports = db => {
         ($1, $2, $3, $4, current_date)
   
         `,
-        [element[0],element[1], element[2], element[3]]
+        [element[0],req.body.userId, element[1], element[2]]
         //name/userid/amount/type
       )
         
@@ -114,7 +114,6 @@ module.exports = db => {
     
     date= req.params.date.split('+')
 
-  console.log(date, 'expenses')
   db.query(
     `
     Select *, to_char( date, 'DD-MON-YYYY') as date from expenses 
