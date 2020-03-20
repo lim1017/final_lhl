@@ -1,26 +1,7 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import ReactDOM from "react-dom";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-// import TomNav from "./components/TomNav/TomNav.jsx";
-
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/animate.min.css";
@@ -32,31 +13,33 @@ import "./views/index.scss";
 import AdminLayout from "layouts/Admin.jsx";
 import WelcomeLayout from "layouts/Welcome.jsx";
 
-
-
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={(props) => (
-    localStorage.getItem('id') !== null
-      ? <AdminLayout {...props} />
-      : <Redirect to='/welcome' />
-  )} />
-)
-
+  <Route
+    {...rest}
+    render={props =>
+      localStorage.getItem("id") !== null ? (
+        <AdminLayout {...props} />
+      ) : (
+        <Redirect to="/welcome" />
+      )
+    }
+  />
+);
 
 ReactDOM.render(
-  
-
   <BrowserRouter>
     <Switch>
-   
+      <Route path="/welcome" render={props => <WelcomeLayout {...props} />} />
 
-    <Route path="/welcome" render={props => <WelcomeLayout {...props} />}/>
-
-    <PrivateRoute path="/admin/" render={props => <AdminLayout {...props} />} />
-      {/* <Route path="/admin/expenses" render={props => <AdminLayout {...props} />} /> */}
+      <PrivateRoute
+        path="/admin/"
+        render={props => <AdminLayout {...props} />}
+      />
+      {/* <Route
+        path="/admin/dashboard"
+        render={props => <AdminLayout {...props} />}
+      /> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
-  
 );

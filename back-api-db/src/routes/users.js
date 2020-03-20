@@ -10,7 +10,6 @@ module.exports = db => {
     `,
       [request.params.id]
     ).then(({ rows: days }) => {
-      console.log("responseusers", response);
       response.json(days);
     });
   });
@@ -53,8 +52,6 @@ module.exports = db => {
       return;
     }
     const { user, riskScore, portfolioReturn } = request.body;
-    console.log("TEST", portfolioReturn);
-    console.log("TEST2", request.body);
 
     db.query(
       `

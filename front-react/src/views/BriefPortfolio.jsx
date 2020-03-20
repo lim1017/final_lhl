@@ -94,7 +94,6 @@ const colors = [
 ];
 
 function BriefPortfolio(props) {
-  console.log("BRIEF PROPS", props);
   return (
     <>
       <div>Your Investment Portfolio: </div>

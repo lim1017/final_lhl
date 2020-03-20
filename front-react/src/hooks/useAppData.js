@@ -46,9 +46,6 @@ export default function useAppData() {
   useEffect(() => {
     const user = localStorage.getItem("id");
 
-    console.log("starting app in useappdata");
-    console.log("logged in as", user);
-
     let datez = `${state.date.month}+${state.date.year}+${user}`;
 
     Promise.all([
@@ -59,7 +56,6 @@ export default function useAppData() {
       axios.get(`http://localhost:8001/api/users/${user}`)
     ])
       .then(response => {
-        console.log("response", response);
         dispatch({
           type: SET_DATA,
           expenses: response[0].data,
@@ -73,8 +69,6 @@ export default function useAppData() {
         console.log(error);
       });
   }, []);
-
-  console.log("state has been updated: ", state);
 
   return { state, dispatch };
 }

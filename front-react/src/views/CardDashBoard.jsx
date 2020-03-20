@@ -18,9 +18,7 @@ function CardDashBoard(props) {
             padding: 20,
             backgroundColor: "white"
           }}
-        >
-          <BriefPortfolio state={props.state}></BriefPortfolio>
-        </Card>
+        ></Card>
 
         <Card
           style={{
@@ -48,7 +46,10 @@ function CardDashBoard(props) {
             padding: 20,
             backgroundColor: "white"
           }}
-        ></Card>
+        >
+          {" "}
+          <BriefPortfolio state={props.state}></BriefPortfolio>
+        </Card>
         <Card
           style={{
             maxWidth: 500,
