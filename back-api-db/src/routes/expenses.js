@@ -38,7 +38,6 @@ function formatExpenses(data){
     finalOP.push(x)
   });
 
-  // console.log(finalOP)
   return finalOP
 }
 
@@ -114,40 +113,33 @@ module.exports = db => {
 
     
     date= req.params.date.split('+')
-  // console.log(date, 'expenses')
+
+  console.log(date, 'expenses')
   db.query(
     `
     Select *, to_char( date, 'DD-MON-YYYY') as date from expenses 
-    where extract(month from date)=$1 and extract(year from date)=$2;  
+    WHERE user_id=$3 AND
+    extract(month from date)=$1 AND extract(year from date)=$2;  
     `,
-    [date[0], date[1]]
+    [date[0], date[1], date[2]]
   ).then(({ rows: expenses }) => {
     response.json(expenses);
   });
   
   });
 
-// router.get("/expenses", (request, response) => {
-//   db.query(
-//     `
-//     SELECT * FROM expenses
-//   `
-//   ).then(({ rows: expenses }) => {
-//     response.json(expenses);
-//   });
-// });
+
 
 router.get("/expensestotal/:date", (req, response) => {
   date= req.params.date.split('+')
-  // console.log(date)
 
   db.query(
     `
     SELECT type, Sum(amount) FROM expenses 
-    where extract(month from date)=$1 and extract(year from date)=$2
+    WHERE user_id=$3 AND extract(month from date)=$1 and extract(year from date)=$2
     GROUP BY type;
   `,
-  [date[0], date[1]]
+  [date[0], date[1], date[2]]
   ).then(({ rows: totalExpense }) => {
     response.json(totalExpense);
   });

@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import ChartistGraph from "react-chartist";
+import React, { useState, useContext, useEffect } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import {
   PieChart,
@@ -22,7 +21,6 @@ import FileUpload from "components/FileUpload/FileUpload.jsx";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
-import { optionsBar, responsiveBar } from "variables/Variables.jsx";
 
 import appDataContext from "../hooks/reducers/useContext";
 import { MDBDataTable } from "mdbreact";
@@ -34,8 +32,17 @@ function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
   const [addExpense, setAddExpense] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
+  const [user, setUser] = useState(false);
 
-  const COLORS = ["#c4d2c7", "#ffe7ea", "#f87f8d", "#FF8042"];
+
+  const COLORS = ['#c4d2c7', '#ffe7ea', '#f87f8d', '#FF8042'];
+  
+
+  useEffect(() => {
+    console.log(state)
+     setUser(localStorage.getItem('id'))
+
+  }, []);
 
   function handleFile(event) {
     setFileUploaded({
@@ -91,19 +98,18 @@ function Dashboard(props) {
 
   function formatDataForBarChart(data) {
     const finalOP = [];
-    const avg = [315, 180, 533, 1700, 79, 172, 558, 300];
-    console.log(data);
+    const avg=[315, 180, 533, 1700, 79, 172, 558, 300]
+    let i =0
     data.forEach(ele => {
-      let i = 0;
-      const bar = {
-        name: ele.type,
-        Personal: ele.sum,
-        Average: avg[0]
-      };
+      
+      const bar={
+        name:ele.type,
+        Personal:ele.sum,
+        Average:avg[i]
+      }
       finalOP.push(bar);
-      i++;
-    });
-    console.log(finalOP);
+      i++
+    });   
     return finalOP;
   }
 
@@ -147,6 +153,8 @@ function Dashboard(props) {
       date: datez
     });
 
+
+    
     refreshExpenses(date);
   }
 
@@ -159,34 +167,20 @@ function Dashboard(props) {
   }
 
   function createPie(expensesTotal) {
-    // const finalOP = { labels: [], series: [] };
-
-    // let grandTotal = 0;
-    // expensesTotal.forEach(element => {
-    //   grandTotal += parseInt(element.sum);
-    // });
-    // expensesTotal.forEach(element => {
-    //   finalOP.labels.push(
-    //     ((parseInt(element.sum) / grandTotal) * 100).toFixed(0) + "%"
-    //   );
-    //   finalOP.series.push(element.sum);
-    // });
-    // console.log(finalOP)
-    // return finalOP;
-
-    const finalOP = [];
-    expensesTotal.forEach(element => {
-      const slice = {
-        name: element.type,
-        value: parseInt(element.sum)
-      };
-      finalOP.push(slice);
-    });
-    return finalOP;
+   
+    const finalOP=[]
+    expensesTotal.forEach(element =>{
+      const slice={
+        name:element.type,
+        value:parseInt(element.sum)
+      }
+      finalOP.push(slice)
+    })
+    return finalOP
   }
 
   function refreshExpenses(date) {
-    let datez = `${date.month}+${date.year}`;
+    let datez= `${date.month}+${date.year}+${user}`
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),

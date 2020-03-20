@@ -16,29 +16,55 @@
 
 */
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 
 import logo from "assets/img/piggylogo.png";
+import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from "react-bootstrap";
+
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: window.innerWidth
+      width: window.innerWidth,
+      isLoggedIn:false
     };
   }
+
+
+
+  logout(){
+    localStorage.clear();
+    
+    this.setState({isLoggedIn:false})
+
+  }
+
+
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
+  
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
+
   componentDidMount() {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
+
+    const userId = localStorage.getItem('id');
+
+    console.log(userId,'sidebar console')
+    
+    if (userId !== null){
+      this.setState({isLoggedIn:true})
+    }
   }
+
+  
   render() {
     const sidebarBackground = {
       backgroundImage: "url(" + this.props.image + ")"
@@ -116,6 +142,14 @@ class Sidebar extends Component {
               return null;
             })}
           </ul>
+
+          {this.state.isLoggedIn ? (
+          <Link to={`/welcome`} onClick={()=>this.logout()} c>
+
+          <Button variant="outline-success" >Logout</Button>
+
+          </Link>
+            ) : null}
         </div>
       </div>
     );
