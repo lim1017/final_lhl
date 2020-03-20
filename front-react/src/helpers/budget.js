@@ -27,17 +27,18 @@ const expensesCalc = function(expenses) {
 
 const budgetCalcPortfolio = function(def, inc, port, period) {
 
-  // let result = def;
-  // for (let i = 0; i < period; i++) {
-  //   result += inc + result * (port - 1);
-  // }
-  const rate = port - 1;
-  const baseInterest = def * Math.pow((1 + (rate / 12)), period);
-  const incomeInterest = inc*12*((Math.pow((1+rate/period), (rate*period))-1)/(rate/period));
-  const income = inc * period;
-  const result = baseInterest + incomeInterest + income;
+  const monthly = Math.pow((port), (1/12))
+  let start = def;
+  let end = 0;
+  for (let i = 0; i <= period; i++) {
+    if (i === 0) end = start;
+    else {
+      end = start * monthly + inc;
+      start = end;
+    }
+  }
 
-  return result;
+  return Math.floor(end);
 }
 
 const budgetSetGraphData = function(budget, range, port) {
@@ -56,22 +57,14 @@ const budgetSetGraphData = function(budget, range, port) {
   for (let month = 0; month < searchRange; month++) {
     let node = (currentDate.getMonth()+month) % 12 + 1;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
-    let number = parseInt(base) + monthlyGain * month;
+    let number = Math.floor(parseInt(base) + monthlyGain * month);
     const dataNode = {};
     
-    if (range <= 12) {
-      dataNode.name = node;
-      dataNode.budget = parseInt(number);
-      if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month);
-    } else {
-      dataNode.name = `${node} / ${yearNode}`;
-      dataNode.budget = parseInt(number);
-      if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month);
-    } 
+    dataNode.name = `${node} / ${yearNode}`;
+    dataNode.saving = parseInt(number);
+    if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month);
     data.push(dataNode);
   }
-
-  console.log('budgetSetGraphData', data)
 
   return data;
 };

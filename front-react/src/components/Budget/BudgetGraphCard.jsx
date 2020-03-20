@@ -51,6 +51,8 @@ export const BudgetGraphCard = function(props) {
             <MenuItem value={12}>1 Year</MenuItem>
             <MenuItem value={60}>5 Years</MenuItem>
             <MenuItem value={120}>10 Years</MenuItem>
+            <MenuItem value={240}>20 Years</MenuItem>
+            <MenuItem value={600}>50 Years</MenuItem>
           </Select>
         </FormControl>
       </div>

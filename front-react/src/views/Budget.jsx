@@ -285,36 +285,33 @@ function Budget(props) {
     }
 
     return Math.floor(height * 1.1)
-  } 
-
-  const ReferenceLines = function() {
-    return(
-      <ReferenceLine y={9800} label="Max" stroke="red" />
-    )
   }
 
-  function setBarGraphDisplayRange(bud, expenses) {
+  const setDisplayForBOTG = function(bud, goal) {
     const res = {
-      yMin : 0,
-      yMax : 0
+      yMin: parseInt(bud.base),
+      yMax: 0
     }
 
-    const budgetMax = bud.c_hous + bud.c_tran + bud.c_food + bud.c_util + bud.c_entr + bud.c_medi + bud.c_debt + bud.c_misc;
-    const expensesMax = expensesCalc(expenses);
-    if (expensesMax > budgetMax) res.yMax = expensesMax;
-    else res.yMax = budgetMax;
-
-    for (const g of goal.select) {
-      if (g.type === "LE") {
-        if (g.amount > res.yMax) res.yMax = g.amount;
+    for (const g of goal) {
+      if (g.type === "SFP") {
+        if (parseInt(g.amount) > res.yMax) res.yMax = g.amount;
+        if (parseInt(g.amount) < res.yMin) res.yMin = g.amount;
       }
     }
 
-    res.yMax *= 1.1;
-    if (res.yMax < 2000) res.yMax = 2000;
+    res.yMax = Math.floor(res.yMax * 1.1);
 
     return res;
   }
+
+  const referenceLines = goal.select.map(g => {
+    if (g.type === "SFP") {
+      return (
+        <ReferenceLine key={g.id} y={g.amount} stroke="red" />
+      );
+    }
+  });
 
   /* --------------- */
   /* Render Contents */
@@ -375,7 +372,7 @@ function Budget(props) {
               ctTableFullWidth
               ctTableResponsive
               content={
-                <BarChart width={730} height={350} data={formatDataForPVAT(budgetKey, state.totalExpenses)}>
+                <BarChart width={800} height={350} data={formatDataForPVAT(budgetKey, state.totalExpenses)}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis domain={[0, setDisplayForPVAT(budgetKey, state.totalExpenses, goal)]} />
@@ -402,7 +399,7 @@ function Budget(props) {
               ctTableFullWidth
               ctTableResponsive
               content={
-                <BarChart width={730} height={350} data={formatDataForPVAC(budgetKey, state.totalExpenses)}>
+                <BarChart width={800} height={350} data={formatDataForPVAC(budgetKey, state.totalExpenses)}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis domain={[0, setDisplayForPVAC(budgetKey, state.totalExpenses, goal)]} />
@@ -427,151 +424,23 @@ function Budget(props) {
               range={range}
               setRange={setRange}
               content={
-                <LineChart width={730} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
+                <LineChart width={800} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
+                  <XAxis
+                    dataKey="name"
+                    tickCount={2}
+                    interval="preserveStartEnd"
+                  />
+                  <YAxis
+                    label={{value: 'amount', angle: -90, position: 'insideLeft'}}
+                    domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]} 
+                  />
                   <Tooltip />
                   <Legend />
-                  <ReferenceLine x="Page C" stroke="red" label="Max PV PAGE" />
-                  {ReferenceLines}
-                  <Line type="monotone" dataKey="budget" stroke="#8884d8" />
-                  <Line type="monotone" dataKey="portfolio" stroke="#82ca9d" />
+                  {referenceLines}
+                  <Line type="monotone" dataKey="saving" dot={false} stroke="#8884d8" />
+                  <Line type="monotone" dataKey="portfolio" dot={false} stroke="#82ca9d" />
                 </LineChart>
-                // <div>
-                //   <ChartistGraph
-                //     data={
-                //       budgetSetGraphData(budget, range, portfolio)
-                //     }
-                //     // targetLine={{
-                //     //   value: 400,
-                //     //   class: 'ct-target-line'
-                //     // }}
-                //     type="Line"
-                //     options={{
-                //       low: setGraphDisplayRange(budget, goal, range, portfolio).yMin || 0,
-                //       high: setGraphDisplayRange(budget, goal, range, portfolio).yMax || 0,
-                //       showArea: false,
-                //       height: "245px",
-                //       axisX: {
-                //         showGrid: true
-                //       },
-                //       lineSmooth: true,
-                //       showLine: true,
-                //       showPoint: true,
-                //       fullWidth: true,
-                //       chartPadding: {
-                //         left: 50,
-                //         right: 50
-                //       }
-                //     }}
-                //     responsiveOptions={responsiveSales}
-                //     listener={{
-                //       draw: data => {
-                //         if(data.type === 'label') {
-                //           if (data.text < 10) {
-                //             data.element.attr({
-                //               x: data.x - (winWidth / 300)
-                //             });
-                //           } else if (data.text < 100) {
-                //             data.element.attr({
-                //               x: data.x - (winWidth / 150)
-                //             });
-                //           } else {
-                //             data.element.attr({
-                //               x: data.x - (winWidth / 80)
-                //             });
-                //           }
-                //         }
-                //         if(data.type === 'line' || data.type === 'area') {
-                //           data.element.animate({
-                //             d: {
-                //               begin: 1 * data.index,
-                //               dur: 500,
-                //               from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                //               to: data.path.clone().stringify()
-                //               // easing: Chartist.Svg.Easing.easeOutQuint
-                //             }
-                //           });
-                //         }
-                //       },
-                //       created: context => {
-
-                //         for (const g of goal.select) {
-                //           const currentDate = new Date();
-                //           const goalYear = g.date.split('-')[2];
-                //           const goalMonthText = g.date.split('-')[1];
-                //           let goalMonth = 0;
-                //           let totalMonth = 0;
-                          
-                //           if (goalMonthText) {
-                //             if (goalMonthText === "JAN") goalMonth = 1;
-                //             if (goalMonthText === "FEB") goalMonth = 2;
-                //             if (goalMonthText === "MAR") goalMonth = 3;
-                //             if (goalMonthText === "APR") goalMonth = 4;
-                //             if (goalMonthText === "MAY") goalMonth = 5;
-                //             if (goalMonthText === "JUN") goalMonth = 6;
-                //             if (goalMonthText === "JUL") goalMonth = 7;
-                //             if (goalMonthText === "AUG") goalMonth = 8;
-                //             if (goalMonthText === "SEP") goalMonth = 9;
-                //             if (goalMonthText === "OCT") goalMonth = 10;
-                //             if (goalMonthText === "NOV") goalMonth = 11;
-                //             if (goalMonthText === "DEC") goalMonth = 12;
-                //           }
-                          
-                //           totalMonth = (goalYear - currentDate.getFullYear()) * 12 + goalMonth - (currentDate.getMonth() + 1)
-                //           if (context.axisX.ticks.length > 12) totalMonth = totalMonth / 3;
-
-                //           if (g.type === "SFP") {
-
-                //             function projectY(chartRect, bounds, value) {
-                //               return chartRect.y1 - 
-                //                 (chartRect.height() * (value - bounds.min) / (bounds.range/* + bounds.step*/));
-                //             }
-                //             function projectX(chartRect, axisX, value) {
-                //               return chartRect.x1 + (axisX.stepLength * value);
-                //             }
-
-                //             let targetLineY1 = projectY(context.chartRect, context.bounds, g.amount);
-                //             let targetLineY2 = projectY(context.chartRect, context.bounds, g.amount);
-                //             let targetLineX = projectX(context.chartRect, context.axisX, totalMonth);
-
-                //             context.svg.elem('line', {
-                //               x1: context.chartRect.x1,
-                //               x2: context.chartRect.x2,
-                //               y1: targetLineY1,
-                //               y2: targetLineY2
-                //             }, 'ct-target-line');
-                            
-                //             if (totalMonth > 0 && totalMonth <= context.axisX.ticks.length) {
-                //               context.svg.elem('line', {
-                //                 x1: targetLineX,
-                //                 x2: targetLineX,
-                //                 y1: context.chartRect.y1,
-                //                 y2: context.chartRect.y2
-                //               }, 'ct-target-line');
-                //             }
-
-                //           }
-                //         }
-
-                //       }
-                //     }}
-                //     // listener={{"draw" : function(data) {
-                //     //   if(data.type === 'line' || data.type === 'area') {
-                //     //     data.element.animate({
-                //     //       d: {
-                //     //         begin: 1 * data.index,
-                //     //         dur: 500,
-                //     //         from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                //     //         to: data.path.clone().stringify()
-                //     //         // easing: Chartist.Svg.Easing.easeOutQuint
-                //     //       }
-                //     //     });
-                //     //   }
-                //     // }}}
-                //   />
-                // </div>
               }
             />
           : null}
