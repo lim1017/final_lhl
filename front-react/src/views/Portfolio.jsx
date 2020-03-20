@@ -1,12 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Switch, Route, Link, Redirect, useRouteMatch } from "react-router-dom";
+import { Switch, Route, Link, useRouteMatch } from "react-router-dom";
 import appDataContext from "../hooks/reducers/useContext";
-import TextField from "@material-ui/core/Grid";
 import Questionnaire from "./Questionnaire";
 import RenderPortfolio from "./RenderPortfolio";
 import axios from "axios";
 import { SET_DATA } from "hooks/reducers/app";
-import risk_portfolio_bg from "../assets/img/risk_portfolio_bg.jpg";
 
 function portfolioDistribution(riskScore) {
   //renders portfolio based on questionnaire response of user

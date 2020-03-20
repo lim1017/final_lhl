@@ -2,8 +2,10 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import BriefPortfolio from "./BriefPortfolio";
+import DashPortfolio from "./DashPortfolio";
 
 function CardDashBoard(props) {
+  console.log("props", props.state.users[0].riskscore);
   return (
     <>
       <Grid item xs={6}>
@@ -47,8 +49,11 @@ function CardDashBoard(props) {
             backgroundColor: "white"
           }}
         >
-          {" "}
-          <BriefPortfolio state={props.state}></BriefPortfolio>
+          {props.state.users[0].riskscore === 0 ? (
+            <DashPortfolio></DashPortfolio>
+          ) : (
+            <BriefPortfolio state={props.state}></BriefPortfolio>
+          )}
         </Card>
         <Card
           style={{
