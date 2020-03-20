@@ -24,7 +24,6 @@ import Sidebar from "components/Sidebar/Sidebar";
 import { style } from "variables/Variables.jsx";
 import routes from "routes.js";
 import image from "assets/img/sidebar-5.jpg";
-import TomNav from "../components/TomNav/TomNav.jsx";
 
 const Admin = props => {
   const { state, dispatch } = useAppData();
@@ -95,7 +94,6 @@ class Admin2 extends Component {
           hasImage={this.state.hasImage}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          {/* <TomNav /> */}
           <Switch>{this.getRoutes(routes)}</Switch>
         </div>
       </div>

@@ -24,6 +24,7 @@ const colors = [
 ];
 
 function CardPortfolio(props) {
+  console.log("CARDPORTFOLIO", props);
   return (
     <>
       <div>Your Investment Portfolio: </div>

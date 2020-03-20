@@ -126,8 +126,9 @@ function Portfolio(props) {
       parseInt(localState.questionFour) +
       parseInt(localState.questionFive);
 
+    const userid = localStorage.getItem("id");
     const userPortfolio = {
-      user: 1,
+      user: userid,
       riskScore: totalScore,
       portfolioReturn: portfolioDistribution(totalScore).portfolioReturn
     };
