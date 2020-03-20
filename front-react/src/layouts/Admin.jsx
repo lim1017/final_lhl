@@ -99,7 +99,7 @@ class Admin2 extends Component {
           hasImage={this.state.hasImage}
         />
         <div id="main-panel" className="main-panel" ref="mainPanel">
-          <TomNav />
+          {/* <TomNav /> */}
           <Switch>{this.getRoutes(routes)}</Switch>
         </div>
       </div>

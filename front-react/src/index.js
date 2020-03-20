@@ -30,14 +30,34 @@ import "./assets/css/pe-icon-7-stroke.css";
 import "./views/index.scss";
 
 import AdminLayout from "layouts/Admin.jsx";
+import WelcomeLayout from "layouts/Welcome.jsx";
+
+
+
+
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    localStorage.getItem('id') !== null
+      ? <AdminLayout {...props} />
+      : <Redirect to='/welcome' />
+  )} />
+)
+
 
 ReactDOM.render(
-  <BrowserRouter>
+  
 
+  <BrowserRouter>
     <Switch>
-      <Route path="/admin" render={props => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/expenses" />
+   
+   
+    <Route path="/welcome" render={props => <WelcomeLayout {...props} />}/>
+
+    <PrivateRoute path="/admin/" render={props => <AdminLayout {...props} />} />
+      {/* <Route path="/admin/expenses" render={props => <AdminLayout {...props} />} /> */}
+      {/* <Redirect from="/" to="/admin/expenses  " /> */}
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")
+  
 );

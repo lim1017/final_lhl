@@ -23,8 +23,18 @@ import Youtube from "views/Youtube.jsx";
 import News from "views/News.jsx";
 import Education from "views/Education.jsx";
 import Notifications from "views/Notifications.jsx";
+import Dashboard from "views/Dashboard.jsx";
+
+
 
 const dashboardRoutes = [
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    icon: "pe-7s-bell",
+    component: Dashboard,
+    layout: "/admin"
+  },
   {
     path: "/expenses",
     name: "Expenses",
@@ -82,6 +92,17 @@ const dashboardRoutes = [
     component: Notifications,
     layout: "/admin"
   }
+  
 ];
+
+// const staticRoute=[
+//   {
+//     path: "/Landing",
+//     name: "landing",
+//     icon: "pe-7s-graph",
+//     component: Landing,
+//     layout: "/"
+//   }
+// ]
 
 export default dashboardRoutes;
