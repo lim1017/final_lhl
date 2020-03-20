@@ -126,7 +126,9 @@ function Portfolio(props) {
       parseInt(localState.questionFour) +
       parseInt(localState.questionFive);
 
+
     const userid = localStorage.getItem("id");
+
     const userPortfolio = {
       user: userid,
       riskScore: totalScore,
@@ -142,7 +144,7 @@ function Portfolio(props) {
     });
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/add`, userPortfolio)
+      axios.put(`http://localhost:8001/api/users/update`, userPortfolio)
     ]).then(() => {
       dispatch({
         ...state,
