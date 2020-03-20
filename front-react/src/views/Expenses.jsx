@@ -188,6 +188,7 @@ function Dashboard(props) {
     ])
       .then(response => {
         dispatch({
+          ...state,
           type: SET_DATA,
           expenses: response[0].data,
           totalExpenses: response[1].data
