@@ -26,7 +26,7 @@ import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, ex
 import useWindowDimensions from "helpers/windowDimensions";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
-import { LineChart, Line, Legend, BarChart, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, } from 'recharts';
+import { AreaChart, Area, Legend, BarChart, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, } from 'recharts';
 
 /* --------------- */
 /* Budget Function */
@@ -37,8 +37,8 @@ function Budget(props) {
   /* States & Variables */
   /* ------------------ */
 
-  // const{ state, dispatch } = useContext(appDataContext);
-  const [state, dispatch] = useReducer(reducerz, globalStateDefault);
+  const{ state, dispatch } = useContext(appDataContext);
+  // const [state, dispatch] = useReducer(reducerz, globalStateDefault);
   const [ budget, dispatchBudget ] = useReducer(budgetReducer, findUserBudget(state, 1));
   const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
     id: [],
@@ -73,7 +73,7 @@ function Budget(props) {
   }
 
   useEffect(() => {
-
+    console.log('reloading budget page')
     let datez= `${state.date.month}+${state.date.year}`
 
       Promise.all([
@@ -187,47 +187,14 @@ function Budget(props) {
   /* Chart Data Prep */
   /* --------------- */
 
-  // function getActualExpenses(n) {
-  //   return state.totalExpenses[n] ? state.totalExpenses[n].sum : 0;
-  // }
-
-  function setGraphDisplayRange(bud, goal, range, port) {
-    const res = {
-      yMin : parseInt(bud.base) || 0,
-      yMax : (parseInt(bud.base) || 0) + budgetCalc(bud) * range
-    }
-
-    if (budgetCalc(bud) * range < 0) {
-      res.yMin = (parseInt(bud.base) || 0) + budgetCalc(bud) * range;
-      res.yMax = parseInt(bud.base) || 0;
-    }
-
-    for (const g of goal.select) {
-      if (g.type === "SFP") {
-        if (g.amount > res.yMax) res.yMax = g.amount;
-        if (g.amount < res.yMin) res.yMin = g.amount;
-      }
-    }
-
-    if (port > 1) {
-      let portGain = budgetCalcPortfolio(budget.base, budget.income, port, range);
-      if (portGain > res.yMax) res.yMax = portGain;
-    }
-
-    res.yMax *= 1.1;
-    if (res.yMax < 10000) res.yMax = 10000;
-
-    return res;
-  }
-
-  const formatDataForPVAT = function(budgetKey, expensesTotal) {
+  const formatDataForPVAT = function(budgetKey, totalExpenses) {
     const result = [];
     const plan = {name: 'plan'};
     const actual = {name: 'actual'};
 
     for (let i = 0; i < expenseKey.length; i++) {
       plan[`${expenseKey[i]}`] = budgetKey[i];
-      for (const expense of expensesTotal) {
+      for (const expense of totalExpenses) {
         if (expense.type === expenseKey[i]) {
           actual[`${expenseKey[i]}`] = expense.sum;
         }
@@ -240,12 +207,12 @@ function Budget(props) {
     return result;
   };
 
-  const formatDataForPVAC = function(budgetKey, expensesTotal) {
+  const formatDataForPVAC = function(budgetKey, totalExpenses) {
     const result = [];
 
     for (let i = 0; i < expenseKey.length; i++) {
       let actualData = 0;
-      for (const expense of expensesTotal) {
+      for (const expense of totalExpenses) {
         if (expense.type === expenseKey[i]) {
           actualData = expense.sum;
         }
@@ -256,14 +223,28 @@ function Budget(props) {
     return result;
   };
 
-  const setDisplayForPVAT = function(budgetKey, expensesTotal, goal) {
+  const formatDataForPVAS = function(budgetKey, totalExpenses) {
+    const result = [{name: 'Plan', Plan: budget.income, Actual: budget.income}];
+
+    for (let i = 0; i < budgetKey.length; i++) {
+      result[0].Plan -= parseInt(budgetKey[i]);
+    }
+
+    for (let i = 0; i < totalExpenses.length; i++) {
+      result[0].Actual -= parseInt(totalExpenses[i].sum);
+    }
+
+    return result;
+  };
+
+  const setDisplayForPVAT = function(budgetKey, totalExpenses, goal) {
     let height, plan, actual = 0;
 
     for (const budget of budgetKey) {
       plan += parseInt(budget)
     }
 
-    for (const expense of expensesTotal) {
+    for (const expense of totalExpenses) {
       actual += parseInt(expense.sum);
     }
 
@@ -273,14 +254,14 @@ function Budget(props) {
     return Math.floor(height * 1.1);
   } 
 
-  const setDisplayForPVAC = function(budgetKey, expensesTotal, goal) {
+  const setDisplayForPVAC = function(budgetKey, totalExpenses, goal) {
     let height = 0;
 
     for (const budget of budgetKey) {
       if (parseInt(budget) > height) height = budget;
     }
 
-    for (const expense of expensesTotal) {
+    for (const expense of totalExpenses) {
       if (parseInt(expense.sum) > height) height = expense.sum;
     }
 
@@ -290,7 +271,7 @@ function Budget(props) {
   const setDisplayForBOTG = function(bud, goal) {
     const res = {
       yMin: parseInt(bud.base),
-      yMax: 0
+      yMax: parseInt(bud.base) * 2
     }
 
     for (const g of goal) {
@@ -391,6 +372,8 @@ function Budget(props) {
             />
           : null}
           </Col>
+        </Row>
+        <Row>
           <Col lg={12}>
             {toggle.pvac ?
             <Card
@@ -415,6 +398,29 @@ function Budget(props) {
         </Row>
         <Row>
           <Col lg={12}>
+            {toggle.pvat ?
+            <Card
+              title="Plan vs Actual Monthly Saving"
+              category="compare planned expenses vs expenses in given month"
+              ctTableFullWidth
+              ctTableResponsive
+              content={
+                <BarChart width={800} height={350} data={formatDataForPVAS(budgetKey, state.totalExpenses)}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="Plan" fill="#ffe7ea" />
+                  <Bar dataKey="Actual" fill="#c4d2c7" />
+                </BarChart>
+              }
+            />
+          : null}
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={12}>
             {toggle.botg ?
             <BudgetGraphCard
               title="Budget Plan summary"
@@ -424,7 +430,7 @@ function Budget(props) {
               range={range}
               setRange={setRange}
               content={
-                <LineChart width={800} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
+                <AreaChart width={800} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     dataKey="name"
@@ -432,15 +438,19 @@ function Budget(props) {
                     interval="preserveStartEnd"
                   />
                   <YAxis
-                    label={{value: 'amount', angle: -90, position: 'insideLeft'}}
-                    domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]} 
+                    tickFormatter={(t)=>{  
+                      if (t >= 1000000) return `$${Math.round(t/100000)/10}M`
+                      if (t >= 1000) return `$${Math.round(t/100)/10}K`
+                      return t;
+                    }}
+                    domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]}
                   />
                   <Tooltip />
                   <Legend />
                   {referenceLines}
-                  <Line type="monotone" dataKey="saving" dot={false} stroke="#8884d8" />
-                  <Line type="monotone" dataKey="portfolio" dot={false} stroke="#82ca9d" />
-                </LineChart>
+                  <Area type="monotone" dataKey="saving" stackId="1" stroke="#c4d2c7" fill="#c4d2c7" />
+                  <Area type="monotone" dataKey="portfolio" stackId="1" stroke="#ffe7ea" fill="#ffe7ea" />
+                </AreaChart>
               }
             />
           : null}
