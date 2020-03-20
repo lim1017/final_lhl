@@ -17,8 +17,13 @@ export default function useAppData() {
 
   useEffect(() => {
 
-    let datez= `${state.date.month}+${state.date.year}`
+    const user=localStorage.getItem('id')
 
+    console.log('starting app in useappdata')
+    console.log('logged in as', user)
+
+    let datez= `${state.date.month}+${state.date.year}+${user}`
+    
       Promise.all([
         axios.get(`http://localhost:8001/api/expenses/${datez}`),
         axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
