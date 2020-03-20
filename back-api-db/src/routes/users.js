@@ -1,27 +1,30 @@
 const router = require("express").Router();
 
 module.exports = db => {
-  router.get("/users", (request, response) => {
+  router.get("/users/:id", (request, response) => {
+    console.log("get", request.params);
     db.query(
       `
-      SELECT * FROM users
-    `
+      SELECT * FROM users 
+      WHERE id = $1
+    `,
+      [request.params.id]
     ).then(({ rows: days }) => {
+      console.log("responseusers", response);
       response.json(days);
     });
   });
-
 
   // router.put("/users/add", (request, response) => {
   //   if (process.env.TEST_ERROR) {
   //     setTimeout(() => response.status(500).json({}), 1000);
   //     return;
   //   }
-    
+
   //   console.log(request.body)
 
   //   const { username } = request.body;
-    
+
   //   db.query(
   //     `
   //     INSERT INTO users (name, riskScore, portfolioReturn)
@@ -40,11 +43,9 @@ module.exports = db => {
   //     .catch(error =>{
   //       console.log(error, 'erring in add');
   //       response.json({error});
-  //     }) 
-
+  //     })
 
   // });
-
 
   router.put("/users/update", (request, response) => {
     if (process.env.TEST_ERROR) {
@@ -78,9 +79,8 @@ module.exports = db => {
   //     setTimeout(() => response.status(500).json({}), 1000);
   //     return;
   //   }
-    
-  //   console.log(request.params.username)
 
+  //   console.log(request.params.username)
 
   //   db.query(
   //     `
