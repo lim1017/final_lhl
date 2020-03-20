@@ -154,7 +154,7 @@ function Portfolio(props) {
   }
 
   let match = useRouteMatch();
-  console.log("portfoliostate", state);
+
   return (
     <div className="risk-assessment-start-div">
       <Switch>
