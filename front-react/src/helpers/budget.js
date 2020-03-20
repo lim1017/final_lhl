@@ -62,7 +62,7 @@ const budgetSetGraphData = function(budget, range, port) {
     
     dataNode.name = `${node} / ${yearNode}`;
     dataNode.saving = parseInt(number);
-    if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month);
+    if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) - parseInt(number);
     data.push(dataNode);
   }
 

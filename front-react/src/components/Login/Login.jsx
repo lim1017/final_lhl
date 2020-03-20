@@ -1,15 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  Navbar,
-  Nav,
-  Form,
-  Button,
-  FormControl,
-  NavDropdown
-} from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Button, FormControl } from "react-bootstrap";
 import axios from "axios";
 
-import { Link, useRouteMatch, Redirect, Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 function Login(props) {
   const [loggedIn, setLoggedIn] = useState({ name: null, id: null });
@@ -78,57 +71,55 @@ function Login(props) {
   }
 
   return (
-    <switch>
-      <div>
-        {loggedIn.id !== null ? (
-          <>
-            <Button variant="outline-success" onClick={() => logout()}>
-              Logout
-            </Button>
-            <Route exact path="/welcome">
-              {loggedIn ? <Redirect to="/admin/dashboard" /> : null}
-            </Route>
-          </>
-        ) : null}
-
-        <Form inline>
-          <FormControl
-            type="text"
-            placeholder="Login"
-            className="mr-sm-2"
-            onChange={handleChangeName}
-          />
-
-          <Button variant="outline-success" onClick={() => login()}>
-            Login
+    <div>
+      {loggedIn.id !== null ? (
+        <>
+          <Button variant="outline-success" onClick={() => logout()}>
+            Logout
           </Button>
-        </Form>
-        <br></br>
+          <Route exact path="/welcome">
+            {loggedIn ? <Redirect to="/admin/dashboard" /> : null}
+          </Route>
+        </>
+      ) : null}
 
-        <Form inline>
-          <FormControl
-            type="text"
-            placeholder="Register"
-            className="mr-sm-2"
-            onChange={handleChangeName}
-          />
+      <Form inline>
+        <FormControl
+          style={{ marginRight: "10px" }}
+          type="text"
+          placeholder="Login"
+          className="mr-sm-2"
+          onChange={handleChangeName}
+        />
 
-          <Button variant="outline-success" onClick={() => register()}>
-            Register
-          </Button>
-        </Form>
+        <Button variant="outline-success" onClick={() => login()}>
+          Login
+        </Button>
+      </Form>
+      <br></br>
 
-        {userExists === false ? (
-          <p style={{ color: "red" }}>
-            username does not exist please register
-          </p>
-        ) : null}
+      <Form inline>
+        <FormControl
+          style={{ marginRight: "10px" }}
+          type="text"
+          placeholder="Register"
+          className="mr-sm-2"
+          onChange={handleChangeName}
+        />
 
-        {userExistsRegister ? (
-          <p style={{ color: "red" }}>User Already exists choose a new name</p>
-        ) : null}
-      </div>
-    </switch>
+        <Button variant="outline-success" onClick={() => register()}>
+          Register
+        </Button>
+      </Form>
+
+      {userExists === false ? (
+        <p style={{ color: "red" }}>username does not exist please register</p>
+      ) : null}
+
+      {userExistsRegister ? (
+        <p style={{ color: "red" }}>User Already exists choose a new name</p>
+      ) : null}
+    </div>
   );
 }
 
