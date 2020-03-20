@@ -7,7 +7,7 @@ export default function useAppData() {
     expenses: [{id: 0, name: '', user_id: 0, amount: 0, type: '', date: ''}],
     totalExpenses:[{type:'', sum:0},{type:'', sum:0},{type:'', sum:0}],
     budget: [{id: 0, user_id: 0, income: 0, c_hous: 0, c_tran: 0, c_food: 0, c_util: 0, c_entr: 0, c_medi: 0, c_debt: 0, c_misc: 0}],
-    goals: [],
+    goals: [{id: 0, name: "", user_id: 1, type: "", amount: 0, description: "", date: ""}],
     users: [{}],
     date: {month: 1, year: 2020},
     educationAnswers:{1:0, 2:0, 3:0, 4:0, 5:0},
