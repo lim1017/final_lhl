@@ -39,7 +39,7 @@ function Budget(props) {
 
   const{ state, dispatch } = useContext(appDataContext);
   // const [state, dispatch] = useReducer(reducerz, globalStateDefault);
-  const [ budget, dispatchBudget ] = useReducer(budgetReducer, findUserBudget(state, 1));
+  const [ budget, dispatchBudget ] = useReducer(budgetReducer, findUserBudget(state, localStorage.getItem('id') || 1));
   const [ goal, dispatchGoal ] = useReducer(budgetGoalsReducer, {
     id: [],
     select: []
@@ -100,10 +100,10 @@ function Budget(props) {
 
   useEffect(() => {
     for (const bud of state.budget) {
-      if (bud.user_id === 1 && bud !== budget) {
+      if (bud.user_id === localStorage.getItem('id') && bud !== budget) {
         dispatchBudget({
           type: "ALL",
-          budget: findUserBudget(state, 1)
+          budget: findUserBudget(state, localStorage.getItem('id'))
         });
       }
     }
