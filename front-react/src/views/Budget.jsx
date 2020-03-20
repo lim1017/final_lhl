@@ -13,7 +13,7 @@ import budgetToggleReducer from "../hooks/reducers/budgetToggle";
 import budgetGoalsReducer from "../hooks/reducers/budgetGoals";
 
 /* Import Components */
-import Card from "components/Card/Card.jsx";
+import CardBudget from "components/Card/CardBudget.jsx";
 import BudgetGraphCard from "components/Budget/BudgetGraphCard.jsx";
 import { Grid, Row, Col } from "react-bootstrap";
 import ChartistGraph from "react-chartist";
@@ -317,10 +317,11 @@ function Budget(props) {
         </div>
       </div>
     </div>
-    <div className="top100px content">
-      <Grid fluid>
+    <div className="budgetContents">
+      {/* <Grid fluid>
         <Row>
-          <Col lg={12}>
+          <Col lg={12}> */}
+          <div className="budgetContent budgetContentA">
             {toggle.planner ?
             <BudgetPlanner
               budget={budget}
@@ -329,10 +330,12 @@ function Budget(props) {
               error={error}
             />
             : null}
-          </Col>
+          </div>
+          {/* </Col>
         </Row>
         <Row>
-          <Col lg={12}>
+          <Col lg={12}> */}
+          <div className="budgetContent budgetContentB">
             {toggle.goal ?
             <BudgetGoals
               goal={goal}
@@ -342,16 +345,19 @@ function Budget(props) {
               updateBudgetLocal={dispatchBudget}
             />
             : null}
-          </Col>
+          </div>
+          {/* </Col>
         </Row>
         <Row>
-          <Col lg={12}>
+          <Col lg={12}> */}
+          <div className="budgetContent budgetContentC">
             {toggle.pvat ?
-            <Card
+            <CardBudget
               title="Plan vs Actual Total Expenses"
               category="compare planned expenses vs expenses in given month"
               ctTableFullWidth
               ctTableResponsive
+              size={600}
               content={
                 <BarChart width={800} height={350} data={formatDataForPVAT(budgetKey, state.totalExpenses)}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -371,16 +377,19 @@ function Budget(props) {
               }
             />
           : null}
-          </Col>
+        </div>
+          {/* </Col>
         </Row>
         <Row>
-          <Col lg={12}>
+          <Col lg={12}> */}
+          <div className="budgetContent budgetContentD">
             {toggle.pvac ?
-            <Card
+            <CardBudget
               title="Plan vs Actual Expenses by Category"
               category="compare planned expenses vs expenses in given month"
               ctTableFullWidth
               ctTableResponsive
+              size={600}
               content={
                 <BarChart width={800} height={350} data={formatDataForPVAC(budgetKey, state.totalExpenses)}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -394,16 +403,19 @@ function Budget(props) {
               }
             />
           : null}
-          </Col>
+          </div>
+          {/* </Col>
         </Row>
         <Row>
-          <Col lg={12}>
+          <Col lg={12}> */}
+          <div className="budgetContent budgetContentE">
             {toggle.pvat ?
-            <Card
+            <CardBudget
               title="Plan vs Actual Monthly Saving"
               category="compare planned expenses vs expenses in given month"
               ctTableFullWidth
               ctTableResponsive
+              size={600}
               content={
                 <BarChart width={800} height={350} data={formatDataForPVAS(budgetKey, state.totalExpenses)}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -417,10 +429,12 @@ function Budget(props) {
               }
             />
           : null}
-          </Col>
+        </div>
+          {/* </Col>
         </Row>
         <Row>
-          <Col lg={12}>
+          <Col lg={12}> */}
+          <div className="budgetContent budgetContentF">
             {toggle.botg ?
             <BudgetGraphCard
               title="Budget Plan summary"
@@ -454,9 +468,10 @@ function Budget(props) {
               }
             />
           : null}
-          </Col>
+          </div>
+          {/* </Col>
         </Row>
-      </Grid>
+      </Grid> */}
     </div>
     </div>
   );
