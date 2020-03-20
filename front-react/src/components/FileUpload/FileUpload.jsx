@@ -8,9 +8,6 @@ function FileUpload(props) {
   const [fileTypeError, setFileTypeError] = useState(false);
 
 
-  const handleClick = (e) => {
-    this.inputElement.click();
-  }
 
   return (
     <div>
