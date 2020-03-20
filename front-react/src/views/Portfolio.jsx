@@ -126,6 +126,7 @@ function Portfolio(props) {
       parseInt(localState.questionFour) +
       parseInt(localState.questionFive);
 
+      
     const userPortfolio = {
       user: 1,
       riskScore: totalScore,

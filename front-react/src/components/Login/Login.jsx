@@ -38,9 +38,8 @@ function Login(props) {
 
 
   function login(){
-    console.log(username)
     Promise.all([
-      axios.get(`http://localhost:8001/api/users/${username}`)
+      axios.get(`http://localhost:8001/api/account/${username}`)
     ])
       .then(response => {
         if (response[0].data.length === 0){
@@ -66,7 +65,7 @@ function Login(props) {
   function register(){
     console.log(username)
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/add`,{username})
+      axios.put(`http://localhost:8001/api/account/register`,{username})
     ])
       .then(response => {
         
@@ -106,13 +105,14 @@ function Login(props) {
                   ) : null}
                   
         
-           <Form inline>
+           <Form inline >
            <FormControl type="text" placeholder="Login" className="mr-sm-2"
              onChange={handleChangeName}
            />
           
            <Button variant="outline-success" onClick={()=>login()}>Login</Button>
            </Form>
+           <br></br>
 
            <Form inline>
            <FormControl type="text" placeholder="Register" className="mr-sm-2"

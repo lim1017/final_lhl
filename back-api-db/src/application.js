@@ -20,6 +20,7 @@ const users = require("./routes/users");
 const expenses = require("./routes/expenses");
 const goals = require("./routes/goals");
 const budget = require("./routes/budget");
+const account = require("./routes/account");
 
 
 
@@ -55,6 +56,8 @@ module.exports = function application(
   app.use("/api", expenses(db));
   app.use("/api", goals(db));
   app.use("/api", budget(db));
+  app.use("/api", account(db));
+
 
   if (ENV === "development" || ENV === "test") {
     Promise.all([
