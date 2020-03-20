@@ -29,7 +29,8 @@ class Sidebar extends Component {
     super(props);
     this.state = {
       width: window.innerWidth,
-      isLoggedIn:false
+      isLoggedIn:false,
+      loggedInUser:'azxcv'
     };
   }
 
@@ -56,11 +57,11 @@ class Sidebar extends Component {
     window.addEventListener("resize", this.updateDimensions.bind(this));
 
     const userId = localStorage.getItem('id');
+    const user = localStorage.getItem('username');
 
-    console.log(userId,'sidebar console')
-    
     if (userId !== null){
       this.setState({isLoggedIn:true})
+      this.setState({loggedInUser:user})
     }
   }
 
@@ -144,11 +145,13 @@ class Sidebar extends Component {
           </ul>
 
           {this.state.isLoggedIn ? (
+            <>
           <Link to={`/welcome`} onClick={()=>this.logout()} c>
 
           <Button variant="outline-success" >Logout</Button>
-
           </Link>
+          <p>Hello {this.state.loggedInUser}</p>
+            </>
             ) : null}
         </div>
       </div>
