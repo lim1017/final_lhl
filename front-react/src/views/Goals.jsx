@@ -71,7 +71,7 @@ function Goals(props) {
   });
 
   return (
-    <div className="content top70px">
+    <div className="content">
       <h3>Goals</h3>
 
       {/* {state.goals.length===0 ? (

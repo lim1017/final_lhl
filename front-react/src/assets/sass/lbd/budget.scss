@@ -1,5 +1,4 @@
 .budgetNav {
- margin: 70px;
  height: 65px;
  width: calc(100% - 260px);
  background-color: white;
@@ -83,6 +82,10 @@
     border-radius: 20px;
     margin: 5px;
   }
+}
+
+.budgetWrap {
+  width: 100%;
 }
 
 @media only screen and (max-width: 991px) {
