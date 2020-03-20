@@ -153,6 +153,8 @@ function Dashboard(props) {
       date: datez
     });
 
+
+    
     refreshExpenses(date);
   }
 
