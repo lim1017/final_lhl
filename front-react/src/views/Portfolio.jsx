@@ -161,7 +161,6 @@ function Portfolio(props) {
         <Route path={`/admin/portfolio/start`}>
           <div className="risk-assessment-button-image-container">
             <div className="risk-assessment-background-image"></div>
-
             <Link to={`${match.url}/questionnaire`}>
               <button
                 rel="Submit"

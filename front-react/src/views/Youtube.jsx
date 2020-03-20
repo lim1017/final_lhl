@@ -1,26 +1,68 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 
-class Youtube extends React.Component {
-  render() {
-    const opts = {
-      height: "500",
-      width: "800",
-      playerVars: {
-        // https://developers.google.com/youtube/player_parameters
-        autoplay: 1
-      }
-    };
+const Youtube = () => {
+  const [youtubeVideo, setYoutubeVideo] = useState("PZBWI5vz2Hg");
 
-    return (
-      <YouTube videoId="PHe0bXAIuk0" opts={opts} onReady={this._onReady} />
-    );
-  }
+  const opts = {
+    height: "500",
+    width: "100%",
+    playerVars: {
+      autoplay: 1
+    }
+  };
 
-  _onReady(event) {
-    // access to player in all event handlers via event.target
+  const _onReady = event => {
     event.target.pauseVideo();
-  }
-}
+  };
+
+  return (
+    <>
+      <div className="youtube-video-container">
+        <div className="youtube-video">
+          <YouTube videoId={youtubeVideo} opts={opts} onReady={_onReady} />
+        </div>
+        <div className="youtube-video-buttons-container">
+          <button
+            onClick={() => setYoutubeVideo("PHe0bXAIuk0")}
+            className="youtube-button"
+          >
+            How The Economy Works - Ray Dalio
+          </button>
+          <button
+            onClick={() => setYoutubeVideo("F3QpgXBtDeo")}
+            className="youtube-button"
+          >
+            How The Stock Market Works - Kurzgesagt
+          </button>
+          <button
+            onClick={() => setYoutubeVideo("Dugn51K_6WA")}
+            className="youtube-button"
+          >
+            Money & Finance - Crash Course
+          </button>
+          <button
+            onClick={() => setYoutubeVideo("EfBSN0xTBo0")}
+            className="youtube-button"
+          >
+            Financial Wisdom - Kevin Hart
+          </button>
+          <button
+            onClick={() => setYoutubeVideo("svbkVpeuwE4")}
+            className="youtube-button"
+          >
+            Compound Interest - Warren Buffet
+          </button>
+          <button
+            onClick={() => setYoutubeVideo("kpjZZBPQvDM")}
+            className="youtube-button"
+          >
+            Financial Advice - Tony Robbins
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default Youtube;
