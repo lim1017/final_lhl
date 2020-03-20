@@ -59,6 +59,7 @@ export default function useAppData() {
       axios.get(`http://localhost:8001/api/users/${user}`)
     ])
       .then(response => {
+        console.log("response", response);
         dispatch({
           type: SET_DATA,
           expenses: response[0].data,

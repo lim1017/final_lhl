@@ -126,14 +126,14 @@ function Portfolio(props) {
       parseInt(localState.questionFour) +
       parseInt(localState.questionFive);
 
-
     const userid = localStorage.getItem("id");
-
+    console.log("userid", userid);
     const userPortfolio = {
       user: userid,
       riskScore: totalScore,
       portfolioReturn: portfolioDistribution(totalScore).portfolioReturn
     };
+    console.log("userportfolio", userPortfolio);
 
     e.preventDefault();
 
@@ -157,7 +157,7 @@ function Portfolio(props) {
   }
 
   let match = useRouteMatch();
-
+  console.log("portfoliostate", state);
   return (
     <div className="risk-assessment-start-div">
       <Switch>
