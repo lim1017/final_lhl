@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Form, Button, FormControl } from "react-bootstrap";
 import axios from "axios";
 
-import { Link, useRouteMatch, Redirect, Route } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 
 
@@ -92,9 +92,8 @@ function Login(props) {
 
     return(
 
-      <switch>
       <div>
-      
+       
         {loggedIn.id !== null ? (
           <>
           <Button variant="outline-success" onClick={()=>logout()}>Logout</Button>
@@ -106,7 +105,7 @@ function Login(props) {
                   
         
            <Form inline >
-           <FormControl type="text" placeholder="Login" className="mr-sm-2"
+           <FormControl style={{marginRight:"10px"}} type="text" placeholder="Login" className="mr-sm-2"
              onChange={handleChangeName}
            />
           
@@ -115,7 +114,7 @@ function Login(props) {
            <br></br>
 
            <Form inline>
-           <FormControl type="text" placeholder="Register" className="mr-sm-2"
+           <FormControl style={{marginRight:"10px"}} type="text" placeholder="Register" className="mr-sm-2"
              onChange={handleChangeName}
            />
           
@@ -136,7 +135,6 @@ function Login(props) {
 
          
       </div>  
-      </switch>      
      
     )
 }
