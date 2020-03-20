@@ -1,18 +1,8 @@
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  Legend,
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip
-} from "recharts";
+import { PieChart, Pie, Legend, Cell } from "recharts";
 
 function createPie(portfolioTypes) {
+  console.log("dashboard", portfolioTypes);
   const finalOP = [];
   portfolioTypes.forEach(element => {
     const slice = {
@@ -34,6 +24,7 @@ const colors = [
 ];
 
 function CardPortfolio(props) {
+  console.log("CARDPORTFOLIO", props);
   return (
     <>
       <div>Your Investment Portfolio: </div>
