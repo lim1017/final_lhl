@@ -6,20 +6,14 @@ export const Card = function(props) {
       <div
         className={"cardBudget" +
         (props.plain ? " cardBudget-plain" : "") +
-        (props.size ? ` cardBudgetSize${props.size}` : "")
-      }>
+        (props.size ? ` cardBudgetSize${props.size}` : "")}
+      >
         <div className={"header" + (props.hCenter ? " text-center" : "")}>
           <h4 className="title">{props.title}</h4>
           <p className="category">{props.category}</p>
         </div>
         <div
-          className={
-            "content" +
-            (props.ctAllIcons ? " all-icons" : "") +
-            (props.ctTableFullWidth ? " table-full-width" : "") +
-            (props.ctTableResponsive ? " table-responsive" : "") +
-            (props.ctTableUpgrade ? " table-upgrade" : "")
-          }
+          className={"content"}
         >
           {props.content}
 

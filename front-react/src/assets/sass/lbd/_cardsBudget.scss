@@ -2,6 +2,7 @@
     border-radius: $border-radius-base;
     box-shadow: 0 1px 2px rgba(0,0,0,.05),0 0 0 1px rgba(63,63,68,.1);
     background-color: #FFFFFF;
+    margin: auto;
     margin-bottom: 30px;
 
     .image{
@@ -45,6 +46,7 @@
     }
     .content{
         padding: 15px 15px 10px 15px;
+        text-align: center;
     }
     .header{
         padding: 15px 15px 0;
@@ -223,6 +225,18 @@
     }
 }
 
+.cardBudgetSize350 {
+  width: calc(100% - 1px);
+}
+
+.cardBudgetSize500 {
+  width: 500px;
+}
+
 .cardBudgetSize600 {
   width: 600px;
+}
+
+.cardBudgetSize800 {
+  width: 800px;
 }

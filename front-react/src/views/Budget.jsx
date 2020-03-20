@@ -26,7 +26,7 @@ import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, ex
 import useWindowDimensions from "helpers/windowDimensions";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
-import { AreaChart, Area, Legend, BarChart, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, } from 'recharts';
+import { AreaChart, Area, Legend, BarChart, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 /* --------------- */
 /* Budget Function */
@@ -192,6 +192,8 @@ function Budget(props) {
     const plan = {name: 'plan'};
     const actual = {name: 'actual'};
 
+    console.log('pvat', budgetKey, totalExpenses)
+
     for (let i = 0; i < expenseKey.length; i++) {
       plan[`${expenseKey[i]}`] = budgetKey[i];
       for (const expense of totalExpenses) {
@@ -294,72 +296,96 @@ function Budget(props) {
     }
   });
 
+  /* ---------------------- */
+  /* Cards Size Adjustments */
+  /* ---------------------- */
+
+  const cardSize = function(width) {
+    let size = {card: 600, graphX: 450, graphY: 200}
+    if (width < 500) {
+      size.card = 350;
+      size.graphX = 300;
+      size.graphY = 200;
+    } else if (width >= 500 && width < 700) {
+      size.card = 500;
+      size.graphX = 440;
+      size.graphY = 260;
+    } else if (width >= 700 && width < 890) {
+      size.card = 600;
+      size.graphX = 540;
+      size.graphY = 300;
+    } else if (width >= 890 && width < 992) {
+      size.card = 800;
+      size.graphX = 720;
+      size.graphY = 480;
+    } else if (width >= 992) {
+      size.card = 600;
+      size.graphX = 540;
+      size.graphY = 300;
+    }
+
+    // console.log('this is width/size', width, size);
+    return size;
+  }
+
   /* --------------- */
   /* Render Contents */
   /* --------------- */
 
   return (
     <div className="budgetWrap">
-    <div style={{ display: "flex", width: "100%" }}>
-      <div className="budgetNav">
-        <div className="budgetNavA">
-          <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
-        </div>
-        <div className="budgetNavB budgetButtons">
-          <BudgetInputMenu
-            toggle={toggle}
-            dispatch={dispatchToggle}
-          />
-          <BudgetChartMenu
-            toggle={toggle}
-            dispatch={dispatchToggle}
-          />
+      <div style={{ display: "flex", width: "100%" }}>
+        <div className="budgetNav">
+          <div className="budgetNavA">
+            <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+          </div>
+          <div className="budgetNavB budgetButtons">
+            <BudgetInputMenu
+              toggle={toggle}
+              dispatch={dispatchToggle}
+            />
+            <BudgetChartMenu
+              toggle={toggle}
+              dispatch={dispatchToggle}
+            />
+          </div>
         </div>
       </div>
-    </div>
-    <div className="budgetContents">
-      {/* <Grid fluid>
-        <Row>
-          <Col lg={12}> */}
-          <div className="budgetContent budgetContentA">
-            {toggle.planner ?
-            <BudgetPlanner
-              budget={budget}
-              updateBudgetLocal={dispatchBudget}
-              validate={validatePlanner}
-              error={error}
-            />
-            : null}
-          </div>
-          {/* </Col>
-        </Row>
-        <Row>
-          <Col lg={12}> */}
-          <div className="budgetContent budgetContentB">
-            {toggle.goal ?
-            <BudgetGoals
-              goal={goal}
-              selectGoal={dispatchGoal}
-              goals={state.goals}
-              budget={budget}
-              updateBudgetLocal={dispatchBudget}
-            />
-            : null}
-          </div>
-          {/* </Col>
-        </Row>
-        <Row>
-          <Col lg={12}> */}
-          <div className="budgetContent budgetContentC">
-            {toggle.pvat ?
-            <CardBudget
-              title="Plan vs Actual Total Expenses"
-              category="compare planned expenses vs expenses in given month"
-              ctTableFullWidth
-              ctTableResponsive
-              size={600}
-              content={
-                <BarChart width={800} height={350} data={formatDataForPVAT(budgetKey, state.totalExpenses)}>
+      <div className="budgetContents">
+        <div className="budgetContent budgetContentA">
+          {toggle.planner ?
+          <BudgetPlanner
+            budget={budget}
+            updateBudgetLocal={dispatchBudget}
+            validate={validatePlanner}
+            error={error}
+          />
+          : null}
+        </div>
+        <div className="budgetContent budgetContentB">
+          {toggle.goal ?
+          <BudgetGoals
+            goal={goal}
+            selectGoal={dispatchGoal}
+            goals={state.goals}
+            budget={budget}
+            updateBudgetLocal={dispatchBudget}
+          />
+          : null}
+        </div>
+        <div className="budgetContent budgetContentC">
+          {toggle.pvat ?
+          <CardBudget
+            title="Plan vs Actual Total Expenses"
+            category="compare planned expenses vs expenses in given month"
+            size={cardSize(winWidth).card}
+            content={
+              <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
+                <BarChart 
+                  height={cardSize(winWidth).graphY}
+                  data={formatDataForPVAT(budgetKey, state.totalExpenses)}
+                  margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis domain={[0, setDisplayForPVAT(budgetKey, state.totalExpenses, goal)]} />
@@ -374,24 +400,24 @@ function Budget(props) {
                   <Bar dataKey={expenseKey[6]} stackId="a" fill="#ffe7ea" />
                   <Bar dataKey={expenseKey[7]} stackId="a" fill="#c4d2c7" />
                 </BarChart>
+              </ResponsiveContainer>
               }
             />
           : null}
         </div>
-          {/* </Col>
-        </Row>
-        <Row>
-          <Col lg={12}> */}
-          <div className="budgetContent budgetContentD">
-            {toggle.pvac ?
-            <CardBudget
-              title="Plan vs Actual Expenses by Category"
-              category="compare planned expenses vs expenses in given month"
-              ctTableFullWidth
-              ctTableResponsive
-              size={600}
-              content={
-                <BarChart width={800} height={350} data={formatDataForPVAC(budgetKey, state.totalExpenses)}>
+        <div className="budgetContent budgetContentD">
+          {toggle.pvac ?
+          <CardBudget
+            title="Plan vs Actual Expenses by Category"
+            category="compare planned expenses vs expenses in given month"
+            size={cardSize(winWidth).card}
+            content={
+              <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
+                <BarChart 
+                  height={cardSize(winWidth).graphY}
+                  data={formatDataForPVAC(budgetKey, state.totalExpenses)}
+                  margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
                   <YAxis domain={[0, setDisplayForPVAC(budgetKey, state.totalExpenses, goal)]} />
@@ -400,79 +426,71 @@ function Budget(props) {
                   <Bar dataKey="Plan" fill="#ffe7ea" />
                   <Bar dataKey="Actual" fill="#c4d2c7" />
                 </BarChart>
-              }
-            />
+              </ResponsiveContainer>
+            }
+          />
           : null}
           </div>
-          {/* </Col>
-        </Row>
-        <Row>
-          <Col lg={12}> */}
           <div className="budgetContent budgetContentE">
             {toggle.pvat ?
             <CardBudget
               title="Plan vs Actual Monthly Saving"
               category="compare planned expenses vs expenses in given month"
-              ctTableFullWidth
-              ctTableResponsive
-              size={600}
+              size={cardSize(winWidth).card}
               content={
-                <BarChart width={800} height={350} data={formatDataForPVAS(budgetKey, state.totalExpenses)}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="Plan" fill="#ffe7ea" />
-                  <Bar dataKey="Actual" fill="#c4d2c7" />
-                </BarChart>
+                <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
+                  <BarChart 
+                    height={cardSize(winWidth).graphY}
+                    data={formatDataForPVAS(budgetKey, state.totalExpenses)}
+                    margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Plan" fill="#ffe7ea" />
+                    <Bar dataKey="Actual" fill="#c4d2c7" />
+                  </BarChart>
+                </ResponsiveContainer>
               }
             />
           : null}
         </div>
-          {/* </Col>
-        </Row>
-        <Row>
-          <Col lg={12}> */}
-          <div className="budgetContent budgetContentF">
-            {toggle.botg ?
-            <BudgetGraphCard
-              title="Budget Plan summary"
-              category="insert other budget informations here"
-              ctTableFullWidth
-              ctTableResponsive
-              range={range}
-              setRange={setRange}
-              content={
-                <AreaChart width={800} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis
-                    dataKey="name"
-                    tickCount={2}
-                    interval="preserveStartEnd"
-                  />
-                  <YAxis
-                    tickFormatter={(t)=>{  
-                      if (t >= 1000000) return `$${Math.round(t/100000)/10}M`
-                      if (t >= 1000) return `$${Math.round(t/100)/10}K`
-                      return t;
-                    }}
-                    domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]}
-                  />
-                  <Tooltip />
-                  <Legend />
-                  {referenceLines}
-                  <Area type="monotone" dataKey="saving" stackId="1" stroke="#c4d2c7" fill="#c4d2c7" />
-                  <Area type="monotone" dataKey="portfolio" stackId="1" stroke="#ffe7ea" fill="#ffe7ea" />
-                </AreaChart>
-              }
-            />
+        <div className="budgetContent budgetContentF">
+          {toggle.botg ?
+          <BudgetGraphCard
+            title="Budget Plan summary"
+            category="insert other budget informations here"
+            range={range}
+            setRange={setRange}
+            content={
+              <AreaChart width={800} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="name"
+                  tickCount={2}
+                  interval="preserveStartEnd"
+                />
+                <YAxis
+                  tickFormatter={(t)=>{  
+                    if (t >= 1000000) return `$${Math.round(t/100000)/10}M`
+                    if (t >= 1000) return `$${Math.round(t/100)/10}K`
+                    return t;
+                  }}
+                  domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]}
+                />
+                <Tooltip />
+                <Legend />
+                {referenceLines}
+                <Area type="monotone" dataKey="saving" stackId="1" stroke="#c4d2c7" fill="#c4d2c7" />
+                <Area type="monotone" dataKey="portfolio" stackId="1" stroke="#ffe7ea" fill="#ffe7ea" />
+              </AreaChart>
+            }
+          />
           : null}
-          </div>
-          {/* </Col>
-        </Row>
-      </Grid> */}
-    </div>
+        </div>
+      </div>
     </div>
   );
 }

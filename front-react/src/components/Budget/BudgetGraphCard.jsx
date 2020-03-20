@@ -31,7 +31,10 @@ export const BudgetGraphCard = function(props) {
 
   return (
     <div
-      className={"card budgetGraphCardGrid" + (props.plain ? " card-plain" : "")}>
+      className={"cardBudget budgetGraphCardGrid" +
+      (props.plain ? " card-plain" : "") +
+      (props.size ? ` cardBudgetSize${props.size}` : "")}
+    >
       <div className={"header" + (props.hCenter ? " text-center" : "")}>
         <h4 className="title">{props.title}</h4>
         <p className="category">{props.category}</p>
@@ -58,11 +61,7 @@ export const BudgetGraphCard = function(props) {
       </div>
       <div
         className={
-          "content budgetGraphCardGraph" +
-          (props.ctAllIcons ? " all-icons" : "") +
-          (props.ctTableFullWidth ? " table-full-width" : "") +
-          (props.ctTableResponsive ? " table-responsive" : "") +
-          (props.ctTableUpgrade ? " table-upgrade" : "")
+          "content budgetGraphCardGraph"
         }
       >
         {props.content}
