@@ -23,13 +23,15 @@ function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
   const [addExpense, setAddExpense] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
+  const [user, setUser] = useState(false);
+
 
   const COLORS = ['#c4d2c7', '#ffe7ea', '#f87f8d', '#FF8042'];
-  let user=''
+  
 
   useEffect(() => {
     console.log(state)
-     user = localStorage.getItem('id')
+     setUser(localStorage.getItem('id'))
 
   }, []);
 
@@ -136,6 +138,8 @@ function Dashboard(props) {
       date: datez
     });
 
+
+    
     refreshExpenses(date);
   }
 
@@ -161,7 +165,7 @@ function Dashboard(props) {
   }
 
   function refreshExpenses(date) {
-    let datez= `${state.date.month}+${state.date.year}+${user}`
+    let datez= `${date.month}+${date.year}+${user}`
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
