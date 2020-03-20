@@ -10,7 +10,11 @@ function Welcome(props) {
     <div>
       <div className='welcome-img-container'>
         <div className='welcome-img'>
-          <Login />
+          
+          <div className='login-box'>
+            <Login />
+          </div>
+        
         </div>
       </div>
     </div>
