@@ -1,16 +1,5 @@
 import React from "react";
-import {
-  PieChart,
-  Pie,
-  Legend,
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip
-} from "recharts";
+import { PieChart, Pie, Legend, Cell } from "recharts";
 
 function createPie(portfolioTypes) {
   const finalOP = [];
