@@ -2,6 +2,7 @@ import React from "react";
 import { PieChart, Pie, Legend, Cell } from "recharts";
 
 function createPie(portfolioTypes) {
+  console.log("dashboard", portfolioTypes);
   const finalOP = [];
   portfolioTypes.forEach(element => {
     const slice = {

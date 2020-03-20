@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
+import BriefPortfolio from "./BriefPortfolio";
 
 function CardDashBoard(props) {
   return (
@@ -17,7 +18,10 @@ function CardDashBoard(props) {
             padding: 20,
             backgroundColor: "white"
           }}
-        ></Card>
+        >
+          <BriefPortfolio state={props.state}></BriefPortfolio>
+        </Card>
+
         <Card
           style={{
             maxWidth: 500,
