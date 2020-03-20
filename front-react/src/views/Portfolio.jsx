@@ -141,7 +141,7 @@ function Portfolio(props) {
     });
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/add`, userPortfolio)
+      axios.put(`http://localhost:8001/api/users/update`, userPortfolio)
     ]).then(() => {
       dispatch({
         ...state,
