@@ -1,37 +1,37 @@
-.goal{
+.goal {
   width: 96%;
   margin: auto;
   border: solid;
   border-radius: 20px;
-  border-color: rgb(150, 186, 218);
+  border-color: #ffe7ea;
   margin-bottom: 10px;
 
-  .header{
+  .header {
     padding: 5px 10px;
     display: grid;
     grid-template-columns: 1fr 50px;
     grid-template-rows: auto auto;
   }
 
-  .title{
+  .title {
     margin: $none;
     color: $black-color;
     font-weight: $font-weight-bold;
     padding: 5px;
   }
 
-  .icons{
+  .icons {
     text-align: right;
     font-size: 20px;
 
-    .icon{
+    .icon {
       &:hover {
         font-size: 22px;
       }
     }
   }
 
-  .content{
+  .content {
     position: relative;
     display: grid;
     grid-column: 1/3;
@@ -39,16 +39,16 @@
     display: none;
   }
 
-  .description{
+  .description {
     padding: 5px 10px;
     display: none;
   }
 }
 
 .goalClick {
-  border-color: rgb(42, 101, 203);
+  border-color: #ffe7ea;
 
-  .content{
+  .content {
     display: block;
   }
 
@@ -57,114 +57,114 @@
   }
 }
 
-.goalForm{
+.goalForm {
   width: 96%;
   margin: auto;
   border-radius: 20px;
   border: 2px solid;
-  border-color: rgb(42, 101, 203);
+  border-color: #ffe7ea;
   background-color: white;
   margin-bottom: 10px;
 
-    .goalWrapper{
-      padding: 5px 10px;
-      display: grid;
-      grid-template-columns: 1fr 50px;
-      grid-template-rows: auto auto 50px;
-    }
+  .goalWrapper {
+    padding: 5px 10px;
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    grid-template-rows: auto auto 50px;
+  }
 
-    .inputName{
-      font-size: 20px;
-      grid-column: 1/3;
-      grid-row: 1/2;
-      height: 35px;
-      border-color: rgb(150, 186, 218);
-      border-radius: 10px;
-      resize: none;
-      background: none;
-    }
+  .inputName {
+    font-size: 20px;
+    grid-column: 1/3;
+    grid-row: 1/2;
+    height: 35px;
+    border-color: #ffe7ea;
+    border-radius: 10px;
+    resize: none;
+    background: none;
+  }
 
-    .inputDescription{
-      font-size: 20px;
-      width: 100%;
-      height: 200px;
-      border-color: rgb(150, 186, 218);
-      border-radius: 10px;
-      resize: none;
-      background: none;
-    }
+  .inputDescription {
+    font-size: 20px;
+    width: 100%;
+    height: 200px;
+    border-color: #ffe7ea;
+    border-radius: 10px;
+    resize: none;
+    background: none;
+  }
 
-    .inputAmount{
-      font-size: 20px;
-      width: 200px;
-      height: 30px;
-      border-color: rgb(150, 186, 218);
-      border-radius: 10px;
-      resize: none;
-      background: none;
-      overflow: hidden;
-    }
+  .inputAmount {
+    font-size: 20px;
+    width: 200px;
+    height: 30px;
+    border-color: #ffe7ea;
+    border-radius: 10px;
+    resize: none;
+    background: none;
+    overflow: hidden;
+  }
 
-    .icons{
-      text-align: right;
-      font-size: 20px;
+  .icons {
+    text-align: right;
+    font-size: 20px;
 
-      .icon{
-        &:hover {
-          font-size: 22px;
-        }
+    .icon {
+      &:hover {
+        font-size: 22px;
       }
     }
+  }
 
-    .content{
-      position: relative;
-      font-size: 16px;
-      padding: 0px;
-      grid-column: 1/3;
-      grid-row: 2/3;
+  .content {
+    position: relative;
+    font-size: 16px;
+    padding: 0px;
+    grid-column: 1/3;
+    grid-row: 2/3;
 
-      .flex{
-        display: flex;
-        padding-top: 20px;
-        padding-bottom: 20px;
+    .flex {
+      display: flex;
+      padding-top: 20px;
+      padding-bottom: 20px;
 
-        .width200{
-          width: 200px;
-        }
+      .width200 {
+        width: 200px;
       }
     }
+  }
 
-    .buttons{
-      position: relative;
-      height: 50px;
-      text-align: right;
-      grid-column: 1/3;
-      grid-row: 3/4;
+  .buttons {
+    position: relative;
+    height: 50px;
+    text-align: right;
+    grid-column: 1/3;
+    grid-row: 3/4;
 
-      .button{
-        border-radius: 20px;
-        margin: 5px;
-      }
+    .button {
+      border-radius: 20px;
+      margin: 5px;
     }
+  }
 }
 
-.goalNew{
+.goalNew {
   width: 96%;
   margin: auto;
   border: solid;
   border-radius: 20px;
-  border-color: rgb(150, 186, 218);
+  border-color: #ffe7ea;
   margin-bottom: 10px;
 
-    .icons{
-      padding-top: 10px;
-      text-align: center;
-      font-size: 50px;
+  .icons {
+    padding-top: 10px;
+    text-align: center;
+    font-size: 50px;
 
-      .icon{
-        &:hover {
-          font-size: 55px;
-        }
+    .icon {
+      &:hover {
+        font-size: 55px;
       }
+    }
   }
 }
