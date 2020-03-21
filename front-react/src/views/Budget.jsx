@@ -186,7 +186,9 @@ function Budget(props) {
   }
 
   const scrollCheck = function(e) {
-    if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = e.target.scrollingElement.scrollTop / 250 + 'px';
+    if (winWidth >= 992) {
+      if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = e.target.scrollingElement.scrollTop / 250 + 'px';
+    }
   }
 
   window.addEventListener('scroll', scrollCheck);
