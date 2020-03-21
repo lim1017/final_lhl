@@ -7,6 +7,7 @@ import CardGoals from "components/Card/CardGoals.jsx";
 import Goal from "components/Goal/index.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
 import appDataContext from "../hooks/reducers/useContext";
+import CardExplained from "components/Card/CardExplained";
 
 function Goals(props) {
   const { state, dispatch } = useContext(appDataContext);
@@ -68,14 +69,20 @@ function Goals(props) {
   });
 
   return (
-    <div className="content">
-      <CardGoals
-        state={state}
-        setGoal={setGoal}
-        // goal={goal}
-        GoalsInList={GoalsInList}
-      ></CardGoals>
-    </div>
+    <>
+      <Grid item xs={6}>
+        <h2>Set Some Goals!</h2>
+        <CardGoals
+          state={state}
+          setGoal={setGoal}
+          // goal={goal}
+          GoalsInList={GoalsInList}
+        ></CardGoals>
+      </Grid>
+      <Grid item xs={6}>
+        <CardExplained></CardExplained>
+      </Grid>
+    </>
   );
 }
 

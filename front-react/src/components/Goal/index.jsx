@@ -51,17 +51,15 @@ export default function Goal(props) {
 
   if (mode === SHOW) {
     return (
-      <div className="test">
-        <Show
-          name={props.name}
-          type={props.type}
-          amount={props.amount}
-          description={props.description}
-          date={props.date}
-          onEdit={() => transition(EDIT)}
-          onDelete={deleteGoal}
-        />
-      </div>
+      <Show
+        name={props.name}
+        type={props.type}
+        amount={props.amount}
+        description={props.description}
+        date={props.date}
+        onEdit={() => transition(EDIT)}
+        onDelete={deleteGoal}
+      />
     );
   } else if (mode === EDIT) {
     return (
