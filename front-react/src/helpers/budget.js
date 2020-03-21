@@ -1,3 +1,5 @@
+const monthName = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+
 const budgetCalc = function(budget) {
   let result = parseInt(0);
 
@@ -55,12 +57,12 @@ const budgetSetGraphData = function(budget, range, port) {
   let portCheck = (port > 1)
 
   for (let month = 0; month < searchRange; month++) {
-    let node = (currentDate.getMonth()+month) % 12 + 1;
+    let node = (currentDate.getMonth()+month) % 12;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
     let number = Math.floor(parseInt(base) + monthlyGain * month);
     const dataNode = {};
     
-    dataNode.name = `${node} / ${yearNode}`;
+    dataNode.name = `${monthName[node]} / ${yearNode}`;
     dataNode.saving = parseInt(number);
     if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) - parseInt(number);
     data.push(dataNode);
