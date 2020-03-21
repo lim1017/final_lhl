@@ -15,7 +15,7 @@ module.exports = db => {
       `
       INSERT INTO users (name, riskScore, portfolioReturn, literacy, eduScores, eduIsAnswered)
       VALUES
-      ($1, 0, 1, 0, ARRAY[0,0,0,0,0], ARRAY[false,false,false,false,false])
+      ($1, 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":0}', '{"1":0, "2":0, "3":0, "4":0, "5":0}')
 
       `,
       [username]
