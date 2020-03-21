@@ -1,22 +1,22 @@
 import React, { useState } from "react";
-import ReactDOM from 'react-dom'
+import ReactDOM from "react-dom";
 import CustomButton from "../CustomButton/CustomButton";
-import TextField from '@material-ui/core/TextField';
+import TextField from "@material-ui/core/TextField";
 
 export default function Form(props) {
-  const [name, setName] = useState(props.name || "")
-  const [type, setType] = useState(props.type || "")
-  const [amount, setAmount] = useState(props.amount || "")
-  const [description, setDescription] = useState(props.description || "")
-  const [month, setMonth] = useState(props.date.split('-')[0] || 1)
-  const [year, setYear] = useState(props.date.split('-')[2] || 2020)
+  const [name, setName] = useState(props.name || "");
+  const [type, setType] = useState(props.type || "");
+  const [amount, setAmount] = useState(props.amount || "");
+  const [description, setDescription] = useState(props.description || "");
+  const [month, setMonth] = useState(props.date.split("-")[0] || 1);
+  const [year, setYear] = useState(props.date.split("-")[2] || 2020);
   const [error, setError] = useState("");
 
   const typeCheck = function(value) {
     if (value !== type) {
-      setType(value)
+      setType(value);
     }
-  }
+  };
 
   const validate = function() {
     const date = new Date(`${month}/5/${year}`);
@@ -30,19 +30,19 @@ export default function Form(props) {
     } else if (amount === "" || isNaN(amount)) {
       setError("Amount cannot be blank or not a number");
       return;
-    } else if (date  === "" || isNaN(date.getTime())) {
+    } else if (date === "" || isNaN(date.getTime())) {
       setError("Valid target date must be selected");
       return;
     }
 
     setError("");
     props.onSave(name, type, amount, description, date);
-  }
+  };
 
   const cancel = function() {
     // reset();
     props.onCancel();
-  }
+  };
 
   function chgMonth(chgDate) {
     let newMonth = month;
@@ -62,15 +62,15 @@ export default function Form(props) {
     }
   }
 
-  // function onlyNumberKey(evt) { 
-          
-  //   // Only ASCII charactar in that range allowed 
-  //   var ASCIICode = (evt.which) ? evt.which : evt.keyCode 
-  //   if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57)) 
-  //       return false; 
-  //   return true; 
-  // } 
-  console.log('current date: ', new Date(`${month}/5/${year}`))
+  // function onlyNumberKey(evt) {
+
+  //   // Only ASCII charactar in that range allowed
+  //   var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+  //   if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+  //       return false;
+  //   return true;
+  // }
+  console.log("current date: ", new Date(`${month}/5/${year}`));
 
   return (
     <article className="goalForm">
@@ -79,12 +79,12 @@ export default function Form(props) {
           <textarea
             className="inputName"
             value={name}
-            onChange={(e) => {
-              setName(e.target.value)
+            onChange={e => {
+              setName(e.target.value);
               // e.target.style.height = 25 + "px"
               // e.target.style.height = e.target.scrollHeight + "px"
             }}
-            placeholder="Goal Name"
+            placeholder="Name Your Goal"
           />
           <div className="content">
             <div className="flex">
@@ -97,7 +97,8 @@ export default function Form(props) {
                     value="SFP"
                     onClick={() => typeCheck("SFP")}
                   />
-                Save for Purchase</div>
+                  Purchase
+                </div>
                 <div>
                   <input
                     name="type"
@@ -105,7 +106,8 @@ export default function Form(props) {
                     value="SPM"
                     onClick={() => typeCheck("SPM")}
                   />
-                Save per Month</div>
+                  Save Money
+                </div>
                 <div>
                   <input
                     name="type"
@@ -113,18 +115,29 @@ export default function Form(props) {
                     value="LE"
                     onClick={() => typeCheck("LE")}
                   />
-                Limit Expenses</div>
+                  Limit Expenses
+                </div>
               </div>
               <div className="width200">
-                <div>Amount: $
+                <div>
+                  $:
                   <TextField
                     type="number"
-                    inputProps={{ min: "0", max: "9999999999", step: "100", width: "100px" }}
-                    style = {{width: 80}}
+                    inputProps={{
+                      min: "0",
+                      max: "9999999999",
+                      step: "100",
+                      width: "100px"
+                    }}
+                    style={{ width: 80 }}
                     defaultValue={amount}
-                    onInput={(e)=>{ 
-                      e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,10))
-                      setAmount(e.target.value)
+                    onInput={e => {
+                      e.target.value = parseInt(
+                        Math.max(0, parseInt(e.target.value))
+                          .toString()
+                          .slice(0, 10)
+                      );
+                      setAmount(e.target.value);
                     }}
                   />
                 </div>
@@ -134,12 +147,21 @@ export default function Form(props) {
                   <div>Month:</div>
                   <TextField
                     type="number"
-                    inputProps={{ min: "1", max: "12", step: "1", width: "100px" }}
-                    style = {{width: 30}}
+                    inputProps={{
+                      min: "1",
+                      max: "12",
+                      step: "1",
+                      width: "100px"
+                    }}
+                    style={{ width: 30 }}
                     defaultValue={month}
-                    onInput={(e)=>{ 
-                      e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,2))
-                      chgMonth({month: e.target.value})
+                    onInput={e => {
+                      e.target.value = parseInt(
+                        Math.max(0, parseInt(e.target.value))
+                          .toString()
+                          .slice(0, 2)
+                      );
+                      chgMonth({ month: e.target.value });
                     }}
                   />
                 </div>
@@ -147,12 +169,21 @@ export default function Form(props) {
                   <div>Year:</div>
                   <TextField
                     type="number"
-                    inputProps={{ min: "2020", max: "2120", step: "10", width: "100px" }}
-                    style = {{width: 50}}
+                    inputProps={{
+                      min: "2020",
+                      max: "2120",
+                      step: "10",
+                      width: "100px"
+                    }}
+                    style={{ width: 50 }}
                     defaultValue={year}
-                    onInput={(e)=>{ 
-                      e.target.value = parseInt(Math.max(0, parseInt(e.target.value)).toString().slice(0,4))
-                      chgMonth({year: e.target.value})
+                    onInput={e => {
+                      e.target.value = parseInt(
+                        Math.max(0, parseInt(e.target.value))
+                          .toString()
+                          .slice(0, 4)
+                      );
+                      chgMonth({ year: e.target.value });
                     }}
                   />
                 </div>
@@ -162,8 +193,8 @@ export default function Form(props) {
               <textarea
                 className="inputDescription"
                 value={description}
-                onChange={(e) => {
-                  setDescription(e.target.value)
+                onChange={e => {
+                  setDescription(e.target.value);
                   // e.target.style.height = 100 + "px"
                   // e.target.style.height = e.target.scrollHeight + "px"
                 }}
@@ -175,14 +206,18 @@ export default function Form(props) {
             {error}
             <CustomButton
               className="button"
-              bsStyle="info"
+              style={{ color: "#9cb389", borderColor: "#9cb389" }}
               onClick={() => cancel()}
-            >Cancel</CustomButton>
+            >
+              Cancel
+            </CustomButton>
             <CustomButton
               className="button"
-              bsStyle="success"
+              style={{ color: "#9cb389", borderColor: "#9cb389" }}
               onClick={() => validate()}
-            >Save</CustomButton>
+            >
+              Save
+            </CustomButton>
           </div>
         </div>
       </form>

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 export default function Show(props) {
   const [click, setClick] = useState(false);
@@ -6,13 +6,13 @@ export default function Show(props) {
   function typeDetailer(type) {
     switch (type) {
       case "SFP":
-        return "saving for purchase"
+        return "saving for purchase";
       case "SPM":
-        return "save per month"
+        return "save per month";
       case "LE":
-        return "limit expenses"
+        return "limit expenses";
       default:
-        return type
+        return type;
     }
   }
 
@@ -24,17 +24,12 @@ export default function Show(props) {
       <div className="header">
         <h4 className="title">{props.name}</h4>
         <div className="icons">
-          <i 
-            className="icon pe-7s-pen"
-            onClick={props.onEdit}
-          />
-          <i className="icon pe-7s-trash"
-            onClick={props.onDelete}
-          />
+          <i className="icon pe-7s-pen" onClick={props.onEdit} />
+          <i className="icon pe-7s-trash" onClick={props.onDelete} />
         </div>
         <div className="content">
-          <div>Type of Goal: {typeDetailer(props.type)}</div>
-          <div>Amount: ${props.amount}</div>
+          <div>Goal Type: {typeDetailer(props.type)}</div>
+          <div>$: {props.amount}</div>
           <div>Date: {props.date}</div>
         </div>
       </div>
