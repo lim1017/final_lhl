@@ -21,7 +21,7 @@
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(8, 1fr) ;
+  grid-template-rows: repeat(10, 1fr) ;
 
 
 }
@@ -35,7 +35,21 @@
   // justify-content: center;
   display: grid;
   grid-column: 2/3;
-  grid-row: 3;
+  grid-row: 4;
   justify-content: center;
 
+}
+
+.ml3 {
+  font-weight: 900;
+  font-size: 3.5em;
+  color:whitesmoke;
+}
+
+.anime{
+  display: grid;
+  grid-column: 2;
+  grid-row: 2;
+  justify-content: center;
+  text-align: center;
 }

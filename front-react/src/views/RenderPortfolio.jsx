@@ -1,14 +1,13 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { Link, useRouteMatch } from "react-router-dom";
-import axios from "axios";
-import { useEffect } from "react";
+
 import CardExplained from "components/Card/CardExplained";
 import CardPortfolio from "components/Card/CardPortfolio";
 
 function RenderPortfolio(props) {
   console.log("RENDER PROPS", props);
-  let match = useRouteMatch();
+  // let match = useRouteMatch();
 
   return (
     <div className="risk-assessment-review-container">
@@ -42,7 +41,7 @@ function RenderPortfolio(props) {
               <CardExplained></CardExplained>
             </Grid>
             <div className="review-start-button-div">
-              <Link to={`/admin/portfolio/start`} c>
+              <Link to={`/admin/portfolio/start`}>
                 <button
                   rel="Submit"
                   href="#"

@@ -8,16 +8,13 @@ function FileUpload(props) {
   const [fileTypeError, setFileTypeError] = useState(false);
 
 
-  const handleClick = (e) => {
-    this.inputElement.click();
-  }
 
   return (
     <div>
       <div className='file-upload'>
         
         <label style={{marginBottom:'0'}}>
-        <div type="button" className="btn btn-success btn-block select-btn">Select File</div>
+        <div type="button" className="btn btn-success btn-block select-btn" style={{height:'50px'}} >Select File</div>
                   <input className='file-upload-btn' type="file" name="file" style={{display:"none"}} onChange={(e)=>{
                     if(e.target.files[0].name.includes('.csv')){
                       setFileTypeError(false)
@@ -30,6 +27,13 @@ function FileUpload(props) {
                     }}/>
         </label>
                   <Button
+                  
+                  style={{marginLeft:'1.5rem', backgroundColor:"#c4d2c7",
+                  color:'black',
+                  fontWeight:'bold',
+                  height:'50px'
+
+                  }}
                     variant="contained"
                     color="primary"
                     onClick={()=>{

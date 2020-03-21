@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CardNews from "components/Card/CardNews.jsx";
 import Grid from "@material-ui/core/Grid";
 import noimage from "assets/img/sadpig.png";

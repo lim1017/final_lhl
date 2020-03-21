@@ -77,7 +77,6 @@ function Budget(props) {
     const user = localStorage.getItem("id");
     let datez= `${state.date.month}+${state.date.year}+${user}`
 
-
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
@@ -195,6 +194,8 @@ function Budget(props) {
     const plan = {name: 'plan'};
     const actual = {name: 'actual'};
 
+    console.log('pvat', budgetKey, totalExpenses)
+
     for (let i = 0; i < expenseKey.length; i++) {
       plan[`${expenseKey[i]}`] = budgetKey[i];
       for (const expense of totalExpenses) {
@@ -303,6 +304,7 @@ function Budget(props) {
 
   const cardSize = function(width) {
     console.log('width', width)
+    
     let size = {card: 600, graphX: 450, graphY: 200}
     if (width < 500) {
       size.card = 350;
@@ -370,7 +372,6 @@ function Budget(props) {
       return ` budgetContentF`
     }
   }
-
 
   /* --------------- */
   /* Render Contents */

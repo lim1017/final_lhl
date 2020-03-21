@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import Budget from "views/Budget.jsx";
 import Expenses from "views/Expenses.jsx";
 import Goals from "views/Goals.jsx";
@@ -24,8 +7,6 @@ import News from "views/News.jsx";
 import Education from "views/Education.jsx";
 import Notifications from "views/Notifications.jsx";
 import Dashboard from "views/Dashboard.jsx";
-
-
 
 const dashboardRoutes = [
   {
@@ -92,7 +73,6 @@ const dashboardRoutes = [
     component: Notifications,
     layout: "/admin"
   }
-  
 ];
 
 // const staticRoute=[

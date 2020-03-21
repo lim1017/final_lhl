@@ -10,7 +10,6 @@ module.exports = db => {
     `,
       [request.params.id]
     ).then(({ rows: days }) => {
-      console.log("responseusers", response);
       response.json(days);
     });
   });
@@ -53,8 +52,6 @@ module.exports = db => {
       return;
     }
     const { user, riskScore, portfolioReturn } = request.body;
-    console.log("TEST", portfolioReturn);
-    console.log("TEST2", request.body);
 
     db.query(
       `
@@ -73,27 +70,27 @@ module.exports = db => {
       .catch(error => console.log(error));
   });
 
-  // router.get("/users/:username", (request, response) => {
-  //   console.log('backend login')
-  //   if (process.env.TEST_ERROR) {
-  //     setTimeout(() => response.status(500).json({}), 1000);
-  //     return;
-  //   }
+  router.get("/users/:username", (request, response) => {
+    console.log('backend login')
+    if (process.env.TEST_ERROR) {
+      setTimeout(() => response.status(500).json({}), 1000);
+      return;
+    }
 
-  //   console.log(request.params.username)
+    console.log(request.params.username)
 
-  //   db.query(
-  //     `
-  //     SELECT * FROM users
-  //     WHERE name = $1
-  //     `,
-  //     [request.params.username]
-  //   )
-  //   .then(({ rows: user }) => {
-  //     response.json(user);
-  //   })
-  //     .catch(error => console.log(error));
-  // });
+    db.query(
+      `
+      SELECT * FROM users
+      WHERE name = $1
+      `,
+      [request.params.username]
+    )
+    .then(({ rows: user }) => {
+      response.json(user);
+    })
+      .catch(error => console.log(error));
+  });
 
   return router;
 };

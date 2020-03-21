@@ -1,64 +1,68 @@
 import React from "react";
 import useVisualMode from "../../hooks/useVisualMode";
 
-import Show from "./show"
-import Form from "./form"
-import New from "./new"
-
+import Show from "./show";
+import Form from "./form";
+import New from "./new";
 
 const SHOW = "SHOW";
 const EDIT = "EDIT";
 const NEW = "NEW";
 
 export default function Goal(props) {
-  const { mode, transition, back } = useVisualMode(
-    !props.mode ? SHOW : NEW
-  );
-
+  const { mode, transition, back } = useVisualMode(!props.mode ? SHOW : NEW);
 
   function saveGoal(name, type, amount, description, date) {
-
     const goal = {
-      name, user_id: 1, type, amount, description, date
+      name,
+      user_id: 1,
+      type,
+      amount,
+      description,
+      date
     };
 
     // transition(SAVE, true);
 
-    props.setGoal(props.id, goal)
-    .then(response => {
-      console.log('success ', response);
-      transition(SHOW);
-    })
-    .catch(error => {
-      // transition(ERROR, true);
-      console.log('failure ', error);
-    })
+    props
+      .setGoal(props.id, goal)
+      .then(response => {
+        console.log("success ", response);
+        transition(SHOW);
+      })
+      .catch(error => {
+        // transition(ERROR, true);
+        console.log("failure ", error);
+      });
   }
 
   function deleteGoal() {
-    props.deleteGoal(props.id)
-    .then(response => {
-      console.log('success ', response);
-      transition(SHOW);
-    })
-    .catch(error => {
-      // transition(ERROR, true);
-      console.log('failure ', error);
-    })
+    props
+      .deleteGoal(props.id)
+      .then(response => {
+        console.log("success ", response);
+        transition(SHOW);
+      })
+      .catch(error => {
+        // transition(ERROR, true);
+        console.log("failure ", error);
+      });
   }
 
   if (mode === SHOW) {
     return (
-      <Show
-        name={props.name}
-        type={props.type}
-        amount={props.amount}
-        description={props.description}
-        date={props.date}
-        onEdit={() => transition(EDIT)}
-        onDelete={deleteGoal}
-      />
-    )
+      <div className="test">
+        <Show
+          name={props.name}
+          type={props.type}
+          amount={props.amount}
+          description={props.description}
+          date={props.date}
+          onEdit={() => transition(EDIT)}
+          onDelete={deleteGoal}
+        />
+      </div>
+    );
   } else if (mode === EDIT) {
     return (
       <Form
@@ -70,7 +74,7 @@ export default function Goal(props) {
         onCancel={() => back()}
         onSave={saveGoal}
       />
-    )
+    );
   } else if (mode === NEW) {
     return (
       <New
@@ -81,7 +85,7 @@ export default function Goal(props) {
         date={props.date}
         onEdit={() => transition(EDIT)}
       />
-    )
+    );
   }
   // return (
   //   <article className="goal">
