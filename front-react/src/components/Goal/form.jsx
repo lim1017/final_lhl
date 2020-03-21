@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
 
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
@@ -73,154 +74,159 @@ export default function Form(props) {
   console.log("current date: ", new Date(`${month}/5/${year}`));
 
   return (
-    <article className="goalForm">
-      <form>
-        <div className="goalWrapper">
-          <textarea
-            className="inputName"
-            value={name}
-            onChange={e => {
-              setName(e.target.value);
-              // e.target.style.height = 25 + "px"
-              // e.target.style.height = e.target.scrollHeight + "px"
-            }}
-            placeholder="Name Your Goal"
-          />
-          <div className="content">
-            <div className="flex">
-              <div className="width200">
-                <div>Type of Goal:</div>
-                <div>
-                  <input
-                    name="type"
-                    type="radio"
-                    value="SFP"
-                    onClick={() => typeCheck("SFP")}
-                  />
-                  Purchase
-                </div>
-                <div>
-                  <input
-                    name="type"
-                    type="radio"
-                    value="SPM"
-                    onClick={() => typeCheck("SPM")}
-                  />
-                  Save Money
-                </div>
-                <div>
-                  <input
-                    name="type"
-                    type="radio"
-                    value="LE"
-                    onClick={() => typeCheck("LE")}
-                  />
-                  Limit Expenses
-                </div>
-              </div>
-              <div className="width200">
-                <div>
-                  $:
-                  <TextField
-                    type="number"
-                    inputProps={{
-                      min: "0",
-                      max: "9999999999",
-                      step: "100",
-                      width: "100px"
-                    }}
-                    style={{ width: 80 }}
-                    defaultValue={amount}
-                    onInput={e => {
-                      e.target.value = parseInt(
-                        Math.max(0, parseInt(e.target.value))
-                          .toString()
-                          .slice(0, 10)
-                      );
-                      setAmount(e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-              <div>
-                <div>
-                  <div>Month:</div>
-                  <TextField
-                    type="number"
-                    inputProps={{
-                      min: "1",
-                      max: "12",
-                      step: "1",
-                      width: "100px"
-                    }}
-                    style={{ width: 30 }}
-                    defaultValue={month}
-                    onInput={e => {
-                      e.target.value = parseInt(
-                        Math.max(0, parseInt(e.target.value))
-                          .toString()
-                          .slice(0, 2)
-                      );
-                      chgMonth({ month: e.target.value });
-                    }}
-                  />
-                </div>
-                <div>
-                  <div>Year:</div>
-                  <TextField
-                    type="number"
-                    inputProps={{
-                      min: "2020",
-                      max: "2120",
-                      step: "10",
-                      width: "100px"
-                    }}
-                    style={{ width: 50 }}
-                    defaultValue={year}
-                    onInput={e => {
-                      e.target.value = parseInt(
-                        Math.max(0, parseInt(e.target.value))
-                          .toString()
-                          .slice(0, 4)
-                      );
-                      chgMonth({ year: e.target.value });
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-            <div>
+    <>
+      <Grid item xs={12}>
+        <article className="goalForm">
+          <form>
+            <div className="goalWrapper">
               <textarea
-                className="inputDescription"
-                value={description}
+                className="inputName"
+                value={name}
                 onChange={e => {
-                  setDescription(e.target.value);
-                  // e.target.style.height = 100 + "px"
+                  setName(e.target.value);
+                  // e.target.style.height = 25 + "px"
                   // e.target.style.height = e.target.scrollHeight + "px"
                 }}
-                placeholder="Description"
+                placeholder="Name Your Goal"
               />
+
+              <div className="content">
+                <div className="flex">
+                  <div className="width200">
+                    Type of Goal:
+                    <div>
+                      <input
+                        name="type"
+                        type="radio"
+                        value="SFP"
+                        onClick={() => typeCheck("SFP")}
+                      />
+                      Purchase
+                    </div>
+                    <div>
+                      <input
+                        name="type"
+                        type="radio"
+                        value="SPM"
+                        onClick={() => typeCheck("SPM")}
+                      />
+                      Save Money
+                    </div>
+                    <div>
+                      <input
+                        name="type"
+                        type="radio"
+                        value="LE"
+                        onClick={() => typeCheck("LE")}
+                      />
+                      Limit Expenses
+                    </div>
+                  </div>
+                  <div className="width200">
+                    <div>
+                      $:
+                      <TextField
+                        type="number"
+                        inputProps={{
+                          min: "0",
+                          max: "1000000000",
+                          step: "100",
+                          width: "100px"
+                        }}
+                        style={{ width: 80 }}
+                        defaultValue={amount}
+                        onInput={e => {
+                          e.target.value = parseInt(
+                            Math.max(0, parseInt(e.target.value))
+                              .toString()
+                              .slice(0, 10)
+                          );
+                          setAmount(e.target.value);
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div>
+                      <div>Month:</div>
+                      <TextField
+                        type="number"
+                        inputProps={{
+                          min: "1",
+                          max: "12",
+                          step: "1",
+                          width: "100px"
+                        }}
+                        style={{ width: 50 }}
+                        defaultValue={1}
+                        onInput={e => {
+                          e.target.value = parseInt(
+                            Math.max(0, parseInt(e.target.value))
+                              .toString()
+                              .slice(0, 2)
+                          );
+                          chgMonth({ month: e.target.value });
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <div>Year:</div>
+                      <TextField
+                        type="number"
+                        inputProps={{
+                          min: "2020",
+                          max: "2120",
+                          step: "1",
+                          width: "100px"
+                        }}
+                        style={{ width: 50 }}
+                        defaultValue={2020}
+                        onInput={e => {
+                          e.target.value = parseInt(
+                            Math.max(0, parseInt(e.target.value))
+                              .toString()
+                              .slice(0, 4)
+                          );
+                          chgMonth({ year: e.target.value });
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <textarea
+                    className="inputDescription"
+                    value={description}
+                    onChange={e => {
+                      setDescription(e.target.value);
+                      // e.target.style.height = 100 + "px"
+                      // e.target.style.height = e.target.scrollHeight + "px"
+                    }}
+                    placeholder="Description"
+                  />
+                </div>
+              </div>
+              <div className="buttons">
+                <CustomButton
+                  className="button"
+                  style={{ color: "#9cb389", borderColor: "#9cb389" }}
+                  onClick={() => cancel()}
+                >
+                  Cancel
+                </CustomButton>
+                <CustomButton
+                  className="button"
+                  style={{ color: "#9cb389", borderColor: "#9cb389" }}
+                  onClick={() => validate()}
+                >
+                  Save
+                </CustomButton>
+                {error}
+              </div>
             </div>
-          </div>
-          <div className="buttons">
-            {error}
-            <CustomButton
-              className="button"
-              style={{ color: "#9cb389", borderColor: "#9cb389" }}
-              onClick={() => cancel()}
-            >
-              Cancel
-            </CustomButton>
-            <CustomButton
-              className="button"
-              style={{ color: "#9cb389", borderColor: "#9cb389" }}
-              onClick={() => validate()}
-            >
-              Save
-            </CustomButton>
-          </div>
-        </div>
-      </form>
-    </article>
+          </form>
+        </article>
+      </Grid>
+    </>
   );
 }
