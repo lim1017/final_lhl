@@ -49,6 +49,7 @@ function Budget(props) {
     goal: false,
     pvat: true,
     pvac: true,
+    pvas: true,
     botg: true
 
   });
@@ -73,29 +74,30 @@ function Budget(props) {
   }
 
   useEffect(() => {
-    console.log('reloading budget page')
-    let datez= `${state.date.month}+${state.date.year}`
+    const user = localStorage.getItem("id");
+    let datez= `${state.date.month}+${state.date.year}+${user}`
 
-      Promise.all([
-        axios.get(`http://localhost:8001/api/expenses/${datez}`),
-        axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
-        axios.get("http://localhost:8001/api/budget"),
-        axios.get("http://localhost:8001/api/goals"),
-        axios.get("http://localhost:8001/api/users")
 
-      ]).then(response => {
-        dispatch({
-          type: "SET_DATA",
-          expenses: response[0].data,
-          totalExpenses: response[1].data,
-          budget: response[2].data,
-          goals: response[3].data,
-          users: response[4].data
-        });
-      })
-      .catch(error => {
-        console.log(error);
+    Promise.all([
+      axios.get(`http://localhost:8001/api/expenses/${datez}`),
+      axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
+      axios.get("http://localhost:8001/api/budget"),
+      axios.get("http://localhost:8001/api/goals"),
+      axios.get(`http://localhost:8001/api/users/${user}`)
+
+    ]).then(response => {
+      dispatch({
+        type: "SET_DATA",
+        expenses: response[0].data,
+        totalExpenses: response[1].data,
+        budget: response[2].data,
+        goals: response[3].data,
+        users: response[4].data
       });
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }, []);
 
   useEffect(() => {
@@ -124,7 +126,8 @@ function Budget(props) {
   }
 
   function refreshExpenses(date) {
-    let datez = `${date.month}+${date.year}`;
+    const user = localStorage.getItem("id");
+    let datez = `${date.month}+${date.year}+${user}`;
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
@@ -191,8 +194,6 @@ function Budget(props) {
     const result = [];
     const plan = {name: 'plan'};
     const actual = {name: 'actual'};
-
-    console.log('pvat', budgetKey, totalExpenses)
 
     for (let i = 0; i < expenseKey.length; i++) {
       plan[`${expenseKey[i]}`] = budgetKey[i];
@@ -301,6 +302,7 @@ function Budget(props) {
   /* ---------------------- */
 
   const cardSize = function(width) {
+    console.log('width', width)
     let size = {card: 600, graphX: 450, graphY: 200}
     if (width < 500) {
       size.card = 350;
@@ -318,15 +320,57 @@ function Budget(props) {
       size.card = 800;
       size.graphX = 720;
       size.graphY = 480;
-    } else if (width >= 992) {
+    } else if (width >= 992 && width < 1276) {
       size.card = 600;
       size.graphX = 540;
       size.graphY = 300;
+    } else if (width >= 1276) {
+      size.card = 500;
+      size.graphX = 440;
+      size.graphY = 260;
     }
+
+    // planner: true,
+    // goal: false,
+    // pvat: true,
+    // pvac: true,
+    // pvas: true,
+    // botg: true
 
     // console.log('this is width/size', width, size);
     return size;
   }
+
+  const cardLoc = function(toggle, loc, wide) {
+    if (wide === false) {
+      return ` budgetContent${loc}`
+    }
+
+    if (loc === "A") {
+      return ` budgetContentA`
+    }
+    if (loc === "B") {
+      if (toggle.planner === false) return ` budgetContentA`
+      return ` budgetContentC`
+    }
+    if (loc === "C") {
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentB`
+      return ` budgetContentC`
+    }
+    if (loc === "D") {
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentD`
+      return ` budgetContentD`
+    }
+    if (loc === "E") {
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentF`
+      return ` budgetContentE`
+    }
+    if (loc === "F") {
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentG`
+      return ` budgetContentF`
+    }
+  }
+
 
   /* --------------- */
   /* Render Contents */
@@ -352,17 +396,18 @@ function Budget(props) {
         </div>
       </div>
       <div className="budgetContents">
-        <div className="budgetContent budgetContentA">
+        <div className={"budgetContent" + (cardLoc(toggle, "A", winWidth >= 1276))}>
           {toggle.planner ?
           <BudgetPlanner
             budget={budget}
             updateBudgetLocal={dispatchBudget}
             validate={validatePlanner}
             error={error}
+            size={cardSize(winWidth).card}
           />
           : null}
         </div>
-        <div className="budgetContent budgetContentB">
+        <div className={"budgetContent" + (cardLoc(toggle, "B", winWidth >= 1276))}>
           {toggle.goal ?
           <BudgetGoals
             goal={goal}
@@ -370,10 +415,11 @@ function Budget(props) {
             goals={state.goals}
             budget={budget}
             updateBudgetLocal={dispatchBudget}
+            size={cardSize(winWidth).card}
           />
           : null}
         </div>
-        <div className="budgetContent budgetContentC">
+        <div className={"budgetContent" + (cardLoc(toggle, "C", winWidth >= 1276))}>
           {toggle.pvat ?
           <CardBudget
             title="Plan vs Actual Total Expenses"
@@ -405,7 +451,7 @@ function Budget(props) {
             />
           : null}
         </div>
-        <div className="budgetContent budgetContentD">
+        <div className={"budgetContent" + (cardLoc(toggle, "D", winWidth >= 1276))}>
           {toggle.pvac ?
           <CardBudget
             title="Plan vs Actual Expenses by Category"
@@ -431,8 +477,8 @@ function Budget(props) {
           />
           : null}
           </div>
-          <div className="budgetContent budgetContentE">
-            {toggle.pvat ?
+          <div className={"budgetContent" + (cardLoc(toggle, "E", winWidth >= 1276))}>
+            {toggle.pvas ?
             <CardBudget
               title="Plan vs Actual Monthly Saving"
               category="compare planned expenses vs expenses in given month"
@@ -457,35 +503,42 @@ function Budget(props) {
             />
           : null}
         </div>
-        <div className="budgetContent budgetContentF">
+        <div className={"budgetContent" + (cardLoc(toggle, "F", winWidth >= 1276))}>
           {toggle.botg ?
           <BudgetGraphCard
             title="Budget Plan summary"
             category="insert other budget informations here"
             range={range}
             setRange={setRange}
+            size={cardSize(winWidth).card}
             content={
-              <AreaChart width={800} height={350} data={budgetSetGraphData(budget, range, portfolio)}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="name"
-                  tickCount={2}
-                  interval="preserveStartEnd"
-                />
-                <YAxis
-                  tickFormatter={(t)=>{  
-                    if (t >= 1000000) return `$${Math.round(t/100000)/10}M`
-                    if (t >= 1000) return `$${Math.round(t/100)/10}K`
-                    return t;
-                  }}
-                  domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]}
-                />
-                <Tooltip />
-                <Legend />
-                {referenceLines}
-                <Area type="monotone" dataKey="saving" stackId="1" stroke="#c4d2c7" fill="#c4d2c7" />
-                <Area type="monotone" dataKey="portfolio" stackId="1" stroke="#ffe7ea" fill="#ffe7ea" />
-              </AreaChart>
+              <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
+                <AreaChart 
+                  height={cardSize(winWidth).graphY}
+                  data={budgetSetGraphData(budget, range, portfolio)}
+                  margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    dataKey="name"
+                    tickCount={2}
+                    interval="preserveStartEnd"
+                  />
+                  <YAxis
+                    tickFormatter={(t)=>{  
+                      if (t >= 1000000) return `$${Math.round(t/100000)/10}M`
+                      if (t >= 1000) return `$${Math.round(t/100)/10}K`
+                      return t;
+                    }}
+                    domain={[setDisplayForBOTG(budget, goal.select).yMin, setDisplayForBOTG(budget, goal.select).yMax]}
+                  />
+                  <Tooltip />
+                  <Legend />
+                  {referenceLines}
+                  <Area type="monotone" dataKey="saving" stackId="1" stroke="#c4d2c7" fill="#c4d2c7" />
+                  <Area type="monotone" dataKey="portfolio" stackId="1" stroke="#ffe7ea" fill="#ffe7ea" />
+                </AreaChart>
+              </ResponsiveContainer>
             }
           />
           : null}

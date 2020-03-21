@@ -1,16 +1,16 @@
 const budgetCalc = function(budget) {
   let result = parseInt(0);
 
-  if (budget.income) result += budget.income
+  if (budget.income) result += parseInt(budget.income)
 
-  if (budget.c_hous) result -= budget.c_hous
-  if (budget.c_tran) result -= budget.c_tran
-  if (budget.c_food) result -= budget.c_food
-  if (budget.c_util) result -= budget.c_util
-  if (budget.c_entr) result -= budget.c_entr
-  if (budget.c_medi) result -= budget.c_medi
-  if (budget.c_debt) result -= budget.c_debt
-  if (budget.c_misc) result -= budget.c_misc
+  if (budget.c_hous) result -= parseInt(budget.c_hous)
+  if (budget.c_tran) result -= parseInt(budget.c_tran)
+  if (budget.c_food) result -= parseInt(budget.c_food)
+  if (budget.c_util) result -= parseInt(budget.c_util)
+  if (budget.c_entr) result -= parseInt(budget.c_entr)
+  if (budget.c_medi) result -= parseInt(budget.c_medi)
+  if (budget.c_debt) result -= parseInt(budget.c_debt)
+  if (budget.c_misc) result -= parseInt(budget.c_misc)
 
   return result;
 };
@@ -68,7 +68,7 @@ const budgetSetGraphData = function(budget, range, port) {
 
   return data;
 };
-
+ 
 const findUserBudget = function(state, id) {
   let result = {
     id: 0,

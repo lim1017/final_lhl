@@ -2,6 +2,7 @@ const PLANNER = "PLANNER";
 const GOAL = "GOAL";
 const PVAT = "PVAT";
 const PVAC = "PVAC";
+const PVAS = "PVAS";
 const BOTG = "BOTG";
 
 export default function budgetReducer(state, action) {
@@ -25,6 +26,11 @@ export default function budgetReducer(state, action) {
       return {
         ...state,
         pvac: !state.pvac
+      };
+    case PVAS:
+      return {
+        ...state,
+        pvas: !state.pvas
       };
     case BOTG:
       return {
