@@ -19,9 +19,11 @@ import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
+import CardSidebar from "../Card/CardSidebar.jsx";
+
 
 import logo from "assets/img/piggylogo.png";
-import { Navbar, Nav, Form, Button, FormControl, NavDropdown } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 
 class Sidebar extends Component {
@@ -145,13 +147,22 @@ class Sidebar extends Component {
           </ul>
 
           {this.state.isLoggedIn ? (
-            <>
-          <Link to={`/welcome`} onClick={()=>this.logout()} c>
+            <div className="sidebar-card">
 
-          <Button variant="outline-success" >Logout</Button>
-          </Link>
-          <p>Hello {this.state.loggedInUser}</p>
-            </>
+
+      
+            <CardSidebar 
+                statsIcon="fa fa-clock-o"
+                title='Welcome' 
+                category={this.state.loggedInUser}
+                content={
+                  <Link to={`/welcome`} onClick={()=>this.logout()} c>
+                  <Button variant="outline-success"  >Logout</Button>
+                  </Link>
+                }
+              />  
+
+            </div>
             ) : null}
         </div>
       </div>

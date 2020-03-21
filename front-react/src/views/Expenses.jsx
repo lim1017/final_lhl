@@ -135,16 +135,6 @@ function Dashboard(props) {
     setAddExpense(!addExpense);
   }
 
-  function createLegend(json) {
-    var legend = [];
-    for (var i = 0; i < json["names"].length; i++) {
-      var type = "fa fa-circle text-" + json["types"][i];
-      legend.push(<i className={type} key={i} />);
-      legend.push(" ");
-      legend.push(json["names"][i]);
-    }
-    return legend;
-  }
 
   function chgMonth(date) {
     const datez = {
@@ -156,19 +146,10 @@ function Dashboard(props) {
       type: SET_DATE,
       date: datez
     });
-
-
     
     refreshExpenses(date);
   }
 
-  function nameList(data) {
-    const finalOP = [];
-    data.forEach(element => {
-      finalOP.push(element.type);
-    });
-    return finalOP;
-  }
 
   function createPie(expensesTotal) {
    
@@ -204,11 +185,11 @@ function Dashboard(props) {
   }
 
   return (
-    <div className="content" style={{ padding: "0" }}>
-      <div className="top35px">
-        <Grid fluid>
-          <Row>
-            <Col md={12}>
+    <div className='content-wrapper'>
+    <div className="content1" style={{ padding: "0" }}>
+      <div className="contentExpenses1">
+     
+            <div className="expenses-table1">
               <CardExpTable
                 title="Expenses"
                 category={returnMonthText(state.date.month)}
@@ -220,10 +201,12 @@ function Dashboard(props) {
                 content={
                   <div>
                     <MDBDataTable
+                      className="mdb"
                       searching={false}
                       displayEntries={false}
                       scrollY
-                      maxHeight="300px"
+                      maxHeight="225px"
+
                       striped
                       bordered
                       small
@@ -260,7 +243,13 @@ function Dashboard(props) {
                     <div className="addExpenseDiv">
                       <Button
                         variant="contained"
-                        color="primary"
+                        // color="primary" 
+                        style={{ 
+                        backgroundColor:"#c4d2c7",
+                        color:'black',
+                        fontWeight:'bold',
+                        height:'50px'
+                        }}
                         onClick={() => toggleState()}
                       >
                         Add an expense
@@ -280,24 +269,22 @@ function Dashboard(props) {
                   </div>
                 }
               />
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={5}>
+              </div>
+      
+            <div className="expenses-table2">
               <Card
                 statsIcon="fa fa-clock-o"
                 title="Expenses"
-                category={returnMonthText(state.date.month)}
-                stats="Campaign sent 2 days ago"
                 content={
-                  <PieChart width={730} height={350}>
+                  <PieChart width={500} height={350}>
+                    <Tooltip />
                     <Pie
                       data={createPie(state.totalExpenses)}
                       dataKey="value"
                       nameKey="name"
-                      cx="40%"
+                      cx="70%"
                       cy="40%"
-                      outerRadius={70}
+                      outerRadius={120}
                       fill="#8884d8"
                       label
                     >
@@ -308,22 +295,21 @@ function Dashboard(props) {
                     <Legend
                       verticalAlign="bottom"
                       layout="horizontal"
-                      height={35}
+                      height={55}
                       width={355}
                     />
                   </PieChart>
                 }
               />
-            </Col>
-            <Col lg={7}>
+            </div>  
+            <div className="expenses-table3">
+
               <Card
                 statsIcon="fa fa-clock-o"
-                title={returnMonthText(state.date.month)}
-                category="Expense Comparison To National Average"
-                stats="Campaign sent 2 days ago"
+                title="Expense Comparison To National Average"
                 content={
                   <BarChart
-                    width={730}
+                    width={500}
                     height={350}
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
@@ -337,9 +323,9 @@ function Dashboard(props) {
                   </BarChart>
                 }
               />
-            </Col>
-          </Row>
-        </Grid>
+            </div>
+      
+      </div>
       </div>
     </div>
   );

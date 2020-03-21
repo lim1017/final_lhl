@@ -104,12 +104,18 @@ function ExpenseUpdater1(props) {
 
           <span>
             <Button
-              style={formStyle}
+              style={{ 
+                marginTop:'15px',
+                backgroundColor:"#c4d2c7",
+                color:'black',
+                fontWeight:'bold',
+                height:'30px'
+                }}
               variant="contained"
               color="primary"
               onClick={() => submitExpense()}
             >
-              Primary
+              Add Expense
             </Button>
           </span>
         </div>
