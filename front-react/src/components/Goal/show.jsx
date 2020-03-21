@@ -6,11 +6,11 @@ export default function Show(props) {
   function typeDetailer(type) {
     switch (type) {
       case "SFP":
-        return "saving for purchase";
+        return "Purchase";
       case "SPM":
-        return "save per month";
+        return "Saving Money";
       case "LE":
-        return "limit expenses";
+        return "Limit Expenses";
       default:
         return type;
     }
