@@ -156,9 +156,12 @@ class Sidebar extends Component {
                 title='Welcome' 
                 category={this.state.loggedInUser}
                 content={
+                  <div className='sidebar-content'>
                   <Link to={`/welcome`} onClick={()=>this.logout()} c>
                   <Button variant="outline-success"  >Logout</Button>
                   </Link>
+                  <span>{}</span>
+                  </div>
                 }
               />  
 

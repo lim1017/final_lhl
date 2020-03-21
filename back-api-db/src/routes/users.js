@@ -1,7 +1,9 @@
 const router = require("express").Router();
 
 module.exports = db => {
+
   router.get("/users/:id", (request, response) => {
+    console.log('id route')
     console.log("get", request.params);
     db.query(
       `
@@ -12,6 +14,36 @@ module.exports = db => {
     ).then(({ rows: days }) => {
       response.json(days);
     });
+  });
+
+  router.put("/users/updateedu", (request, response) => {
+
+
+
+    if (process.env.TEST_ERROR) {
+      setTimeout(() => response.status(500).json({}), 1000);
+      return;
+    }
+
+    console.log(request.body, 'from eduupdate')
+    const { eduscores , userId } = request.body;
+
+
+
+    db.query(
+      `
+      UPDATE users
+      SET eduScores = $1 
+      WHERE id = $2
+      `,
+      [eduscores, parseInt(userId)]
+    )
+      .then(x => {
+        setTimeout(() => {
+          response.status(204).json({});
+        }, 1000);
+      })
+      .catch(error => console.log(error));
   });
 
   // router.put("/users/add", (request, response) => {

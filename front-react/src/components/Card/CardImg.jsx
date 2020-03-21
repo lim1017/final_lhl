@@ -49,7 +49,7 @@ export default function CardImg(props) {
           </Button>
 
 
-          {state.educationAnswers[`${props.id}`] ? (
+          {props.allAnswers[`${props.id}`] ? (
             <img src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg" width="40" height="40"></img>
                   ) : null}
 

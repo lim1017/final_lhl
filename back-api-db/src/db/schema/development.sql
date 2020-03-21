@@ -1,7 +1,7 @@
-INSERT INTO users (name, riskScore, portfolioReturn)
+INSERT INTO users (name, riskScore, portfolioReturn, literacy, eduScores, eduIsAnswered)
 VALUES
-    ('bob', 0, 1),
-    ('joe', 0, 1);
+    ('bob', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":1}', '{"1":0, "2":0, "3":0, "4":0, "5":1}'),
+    ('joe', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":0}', '{"1":0, "2":0, "3":0, "4":0, "5":0}');
 
 
 SET datestyle = "ISO, MDY";

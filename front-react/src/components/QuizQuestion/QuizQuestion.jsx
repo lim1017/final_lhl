@@ -5,14 +5,14 @@ import React from 'react';
 
 export default function QuizQuestion(props){
 
-  const {question, a1, a2, a3, a4, getAnswer, id} = props
+  const {question, a1, a2, a3, a4, sendAnswer, id} = props
   const [answer, setAnswer] = React.useState(0);
 
 
-  function sendAnswer (answer){
-    setAnswer(answer)
+  function prepareAnswer (answerz){
+    setAnswer(answerz)
 
-    getAnswer(answer, id)
+    sendAnswer(answerz, id)
   }
   
   return(
@@ -30,7 +30,7 @@ export default function QuizQuestion(props){
               value="1"
               onChange={e => {
                 console.log(e.target.value)
-                sendAnswer(e.target.value)
+                prepareAnswer(e.target.value)
               }}
             ></input>
            {a1}
@@ -45,7 +45,7 @@ export default function QuizQuestion(props){
               value="2"
               onChange={e => {
                 console.log(e.target.value)
-                sendAnswer(e.target.value)
+                prepareAnswer(e.target.value)
               }}
             ></input>
             {a2}
@@ -60,7 +60,7 @@ export default function QuizQuestion(props){
               value="3"
               onChange={e => {
                 console.log(e.target.value)
-                sendAnswer(e.target.value)
+                prepareAnswer(e.target.value)
               }}
             ></input>
             {a3}
@@ -75,7 +75,7 @@ export default function QuizQuestion(props){
               value="4"
               onChange={e => {
                 console.log(e.target.value)
-                sendAnswer(e.target.value)
+                prepareAnswer(e.target.value)
               }}
             ></input>
             {a4}
