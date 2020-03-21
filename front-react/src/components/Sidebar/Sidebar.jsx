@@ -55,6 +55,7 @@ class Sidebar extends Component {
   }
 
   componentDidMount() {
+    console.log('fromsidebar')
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
 
