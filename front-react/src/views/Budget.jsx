@@ -55,7 +55,7 @@ function Budget(props) {
   });
   const [range, setRange] = useState(12);
   const [portfolio, setPortfolio] = useState(1);
-  const { /*height: winHeight,*/ width: winWidth } = useWindowDimensions();
+  const { width: winWidth } = useWindowDimensions();
   const [error, setError] = useState("");
 
   const expenseKey = ['entertainment', 'medical', 'debt', 'misc', 'transporation', 'home', 'food', 'utilities'];
@@ -185,6 +185,12 @@ function Budget(props) {
     savePlanner();
   }
 
+  const scrollCheck = function(e) {
+    if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = e.target.scrollingElement.scrollTop / 250 + 'px';
+  }
+
+  window.addEventListener('scroll', scrollCheck);
+
   /* --------------- */
   /* Chart Data Prep */
   /* --------------- */
@@ -193,8 +199,6 @@ function Budget(props) {
     const result = [];
     const plan = {name: 'plan'};
     const actual = {name: 'actual'};
-
-    console.log('pvat', budgetKey, totalExpenses)
 
     for (let i = 0; i < expenseKey.length; i++) {
       plan[`${expenseKey[i]}`] = budgetKey[i];
@@ -255,10 +259,16 @@ function Budget(props) {
     if (plan > actual) height = plan;
     else height = actual;
 
+    for (const g of goal) {
+      if (g.type === "LE") {
+        if (parseInt(g.amount) > height) height = g.amount;
+      }
+    }
+
     return Math.floor(height * 1.1);
   } 
 
-  const setDisplayForPVAC = function(budgetKey, totalExpenses, goal) {
+  const setDisplayForPVAC = function(budgetKey, totalExpenses) {
     let height = 0;
 
     for (const budget of budgetKey) {
@@ -270,6 +280,33 @@ function Budget(props) {
     }
 
     return Math.floor(height * 1.1)
+  }
+
+  const setDisplayForPVAS = function(budgetKey, totalExpenses, inc, goal) {
+    let height, plan, actual = 0;
+
+    for (const budget of budgetKey) {
+      plan += parseInt(budget)
+    }
+
+    for (const expense of totalExpenses) {
+      actual += parseInt(expense.sum);
+    }
+
+    plan = Math.abs(inc - plan);
+    actual = Math.abs(actual - inc);
+
+    if (plan > actual) height =  plan;
+    else height = actual;
+
+    for (const g of goal) {
+      if (g.type === "SPM") {
+        if (parseInt(g.amount) > height) height = g.amount;
+      }
+    }
+
+    const result =  {yMax: Math.floor(height * 1.25), yMin: Math.floor(-height * 1.25)};
+    return result;
   }
 
   const setDisplayForBOTG = function(bud, goal) {
@@ -290,10 +327,35 @@ function Budget(props) {
     return res;
   }
 
-  const referenceLines = goal.select.map(g => {
+  const PVATreferenceLinesY = goal.select.map(g => {
+    if (g.type === "LE") {
+      return (
+        <ReferenceLine key={g.id*100+1} y={g.amount} stroke="red" />
+      );
+    }
+  })
+
+  const PVASreferenceLinesY = goal.select.map(g => {
+    if (g.type === "SPM") {
+      return (
+        <ReferenceLine key={g.id*100+1} y={g.amount} stroke="red" />
+      );
+    }
+  })
+
+  const BOTGreferenceLinesY = goal.select.map(g => {
     if (g.type === "SFP") {
       return (
-        <ReferenceLine key={g.id} y={g.amount} stroke="red" />
+        <ReferenceLine key={g.id*100+1} y={g.amount} stroke="red" />
+      );
+    }
+  })
+
+  const BOTGreferenceLinesX = goal.select.map(g => {
+    if (g.type === "SFP") {
+      const d = g.date.split('-');
+      return (
+        <ReferenceLine key={g.id*100+2} x={`${d[1]} / ${d[2]}`} stroke="red" />
       );
     }
   });
@@ -303,8 +365,6 @@ function Budget(props) {
   /* ---------------------- */
 
   const cardSize = function(width) {
-    console.log('width', width)
-    
     let size = {card: 600, graphX: 450, graphY: 200}
     if (width < 500) {
       size.card = 350;
@@ -332,14 +392,6 @@ function Budget(props) {
       size.graphY = 260;
     }
 
-    // planner: true,
-    // goal: false,
-    // pvat: true,
-    // pvac: true,
-    // pvas: true,
-    // botg: true
-
-    // console.log('this is width/size', width, size);
     return size;
   }
 
@@ -399,7 +451,7 @@ function Budget(props) {
   return (
     <div className="budgetWrap">
       <div style={{ display: "flex", width: "100%" }}>
-        <div className="budgetNav">
+        <nav className="budgetNav">
           <div className="budgetNavA">
             <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
           </div>
@@ -413,7 +465,8 @@ function Budget(props) {
               dispatch={dispatchToggle}
             />
           </div>
-        </div>
+        </nav>
+        <div id="budgetBG" className="budgetBG"></div>
       </div>
       <div className="budgetContents">
         <div className={"budgetContent" + (cardLoc(toggle, "AB", winWidth >= 1276))}>
@@ -456,7 +509,7 @@ function Budget(props) {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
-                  <YAxis domain={[0, setDisplayForPVAT(budgetKey, state.totalExpenses, goal)]} />
+                  <YAxis domain={[0, setDisplayForPVAT(budgetKey, state.totalExpenses, goal.select)]} />
                   <Tooltip />
                   <Legend />
                   <Bar dataKey={expenseKey[0]} stackId="a" fill="#ffe7ea" />
@@ -467,6 +520,7 @@ function Budget(props) {
                   <Bar dataKey={expenseKey[5]} stackId="a" fill="#c4d2c7" />
                   <Bar dataKey={expenseKey[6]} stackId="a" fill="#ffe7ea" />
                   <Bar dataKey={expenseKey[7]} stackId="a" fill="#c4d2c7" />
+                  {PVATreferenceLinesY}
                 </BarChart>
               </ResponsiveContainer>
               }
@@ -488,7 +542,7 @@ function Budget(props) {
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="name" />
-                  <YAxis domain={[0, setDisplayForPVAC(budgetKey, state.totalExpenses, goal)]} />
+                  <YAxis domain={[0, setDisplayForPVAC(budgetKey, state.totalExpenses)]} />
                   <Tooltip />
                   <Legend />
                   <Bar dataKey="Plan" fill="#ffe7ea" />
@@ -514,11 +568,12 @@ function Budget(props) {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis />
+                    <YAxis domain={[setDisplayForPVAS(budgetKey, state.totalExpenses, budget.income, goal.select).yMax, 1000]} />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="Plan" fill="#ffe7ea" />
                     <Bar dataKey="Actual" fill="#c4d2c7" />
+                    {PVASreferenceLinesY}
                   </BarChart>
                 </ResponsiveContainer>
               }
@@ -556,9 +611,10 @@ function Budget(props) {
                   />
                   <Tooltip />
                   <Legend />
-                  {referenceLines}
                   <Area type="monotone" dataKey="saving" stackId="1" stroke="#c4d2c7" fill="#c4d2c7" />
                   <Area type="monotone" dataKey="portfolio" stackId="1" stroke="#ffe7ea" fill="#ffe7ea" />
+                  {BOTGreferenceLinesY}
+                  {BOTGreferenceLinesX}
                 </AreaChart>
               </ResponsiveContainer>
             }
