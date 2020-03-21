@@ -1,6 +1,6 @@
 
 import React from "react";
-import Card from "components/Card/Card.jsx";
+import CardBudget from "components/Card/CardBudget.jsx";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -32,15 +32,6 @@ export default function BudgetGoals(props) {
 
   const GoalsInList = props.goals.map(goal => {
     return (
-      // <Goal
-      //   key={goal.id}
-      //   id={goal.id}
-      //   name={goal.name}
-      //   type={goal.type}
-      //   amount={goal.amount}
-      //   description={goal.description}
-      //   date={goal.date}
-      // />
       <TableRow key={goal.id}>
         <TableCell component="th" scope="row" className={classes.tableCell}>
           <Checkbox
@@ -65,11 +56,10 @@ export default function BudgetGoals(props) {
   });
 
   return (
-    <Card
+    <CardBudget
       title="Goals"
       category="choose goals to display on graph"
-      ctTableFullWidth
-      ctTableResponsive
+      size={props.size}
       content={
         <div>
           <TableContainer component={Paper}>

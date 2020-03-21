@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "components/Card/Card.jsx";
+import CardBudget from "components/Card/CardBudget.jsx";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -31,11 +31,10 @@ export default function BudgetPlannerA(props) {
   const classes = useStyles();
 
   return (
-    <Card
+    <CardBudget
       title="Budget Planner"
       category="insert your monthly budget by categories here"
-      ctTableFullWidth
-      ctTableResponsive
+      size={props.size}
       content={
         <div>
           <TableContainer component={Paper}>

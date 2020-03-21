@@ -100,6 +100,15 @@ export default function BudgetChartMenu(props) {
                         checked={props.toggle.pvac}
                       />
                       Plan vs Actual Expenses by Category</MenuItem>
+                      <MenuItem
+                      onClick={() => {
+                        props.dispatch({type: "PVAS"}
+                      )}}
+                    >
+                      <Checkbox
+                        checked={props.toggle.pvas}
+                      />
+                      Plan vs Actual Saving</MenuItem>
                     <MenuItem
                       onClick={() => {
                         props.dispatch({type: "BOTG"})
