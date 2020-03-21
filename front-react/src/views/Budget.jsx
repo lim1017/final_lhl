@@ -348,27 +348,46 @@ function Budget(props) {
       return ` budgetContent${loc}`
     }
 
-    if (loc === "A") {
-      return ` budgetContentA`
+    if (loc === "AB") {
+      if (toggle.pvat === false && toggle.pvac === false && toggle.pvas === false && toggle.botg === false) {
+        return ` budgetContentAC`
+      }
+      return ` budgetContentAB`
     }
     if (loc === "B") {
-      if (toggle.planner === false) return ` budgetContentA`
-      return ` budgetContentC`
+      if (toggle.planner === false) return ``
+      return ``
     }
     if (loc === "C") {
-      if (toggle.planner === true || toggle.goal === true) return ` budgetContentB`
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentD`
+      else if (toggle.pvac === false && toggle.pvas === false && toggle.botg === false) return ` budgetContentCD`
       return ` budgetContentC`
     }
     if (loc === "D") {
-      if (toggle.planner === true || toggle.goal === true) return ` budgetContentD`
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentF`
+      else if (toggle.pvat === false && toggle.pvas === false && toggle.botg === false) return ` budgetContentCD`
+      else if (toggle.pvat === false && toggle.botg === false) return ` budgetContentD`
+      else if (toggle.pvat === false && toggle.pvas === false) return ` budgetContentC`
+      else if (toggle.pvat === false) return ` budgetContentD`
       return ` budgetContentD`
     }
     if (loc === "E") {
-      if (toggle.planner === true || toggle.goal === true) return ` budgetContentF`
+      if (toggle.planner === true || toggle.goal === true) return ` budgetContentG`
+      else if (toggle.pvac === false && toggle.pvat === false && toggle.botg === false) return ` budgetContentCD`
+      else if (toggle.pvat === false && toggle.botg === false) return ` budgetContentC`
+      else if (toggle.pvac === false && toggle.botg === false) return ` budgetContentD`
+      else if (toggle.pvat === false) return ` budgetContentC`
+      else if (toggle.pvac === false) return ` budgetContentD`
       return ` budgetContentE`
     }
     if (loc === "F") {
-      if (toggle.planner === true || toggle.goal === true) return ` budgetContentG`
+      if (toggle.planner === true || toggle.goal === true) {
+        if (toggle.pvac === false && toggle.pvas === false && toggle.pvat === false) return ` budgetContentD`
+        return ` budgetContentH`
+      } else if (toggle.pvac === false && toggle.pvas === false && toggle.pvat === false) return ` budgetContentCD`
+      else if (toggle.pvac === false && toggle.pvas === false) return ` budgetContentD`
+      else if (toggle.pvat === false && toggle.pvas === false) return ` budgetContentD`
+      else if (toggle.pvat === false && toggle.pvac === false) return ` budgetContentD`
       return ` budgetContentF`
     }
   }
@@ -397,28 +416,30 @@ function Budget(props) {
         </div>
       </div>
       <div className="budgetContents">
-        <div className={"budgetContent" + (cardLoc(toggle, "A", winWidth >= 1276))}>
-          {toggle.planner ?
-          <BudgetPlanner
-            budget={budget}
-            updateBudgetLocal={dispatchBudget}
-            validate={validatePlanner}
-            error={error}
-            size={cardSize(winWidth).card}
-          />
-          : null}
-        </div>
-        <div className={"budgetContent" + (cardLoc(toggle, "B", winWidth >= 1276))}>
-          {toggle.goal ?
-          <BudgetGoals
-            goal={goal}
-            selectGoal={dispatchGoal}
-            goals={state.goals}
-            budget={budget}
-            updateBudgetLocal={dispatchBudget}
-            size={cardSize(winWidth).card}
-          />
-          : null}
+        <div className={"budgetContent" + (cardLoc(toggle, "AB", winWidth >= 1276))}>
+          <div className={(cardLoc(toggle, "A", winWidth >= 1276))}>
+            {toggle.planner ?
+            <BudgetPlanner
+              budget={budget}
+              updateBudgetLocal={dispatchBudget}
+              validate={validatePlanner}
+              error={error}
+              size={cardSize(winWidth).card}
+            />
+            : null}
+          </div>
+          <div className={(cardLoc(toggle, "B", winWidth >= 1276))}>
+            {toggle.goal ?
+            <BudgetGoals
+              goal={goal}
+              selectGoal={dispatchGoal}
+              goals={state.goals}
+              budget={budget}
+              updateBudgetLocal={dispatchBudget}
+              size={cardSize(winWidth).card}
+            />
+            : null}
+          </div>
         </div>
         <div className={"budgetContent" + (cardLoc(toggle, "C", winWidth >= 1276))}>
           {toggle.pvat ?

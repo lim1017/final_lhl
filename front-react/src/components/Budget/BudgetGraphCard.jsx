@@ -66,13 +66,13 @@ export const BudgetGraphCard = function(props) {
       >
         {props.content}
 
-        <div className="footer">
+        {/* <div className="footer">
           {props.legend}
           {props.stats != null ? <hr /> : ""}
           <div className="stats">
             <i className={props.statsIcon} /> {props.stats}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
