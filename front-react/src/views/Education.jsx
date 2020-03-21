@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import CardImg from "components/Card/CardImg.jsx";
 import { ProgressBar } from "react-bootstrap";
 import { articles } from "variables/EducationArticles.jsx";
@@ -23,14 +23,17 @@ import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
 import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
 import appDataContext from "../hooks/reducers/useContext";
 import reducerz, { SET_EDU_ANSWERS, SET_EDU_PROGRESS } from "../hooks/reducers/app";
+import axios from "axios";
+
 
 
 function Maps({ ...prop }) {
+  const userId = localStorage.getItem('id');
   const { state, dispatch } = useContext(appDataContext);
 
   const [modalShow, setModalShow] = React.useState(0);
 
-  const [allAnswers, setallAnswers] = React.useState({
+  const [allAnswers, setAllAnswers] = React.useState({
     1:0,
     2:0,
     3:0,
@@ -38,38 +41,84 @@ function Maps({ ...prop }) {
     5:0
   });
 
+  const [selectedAnswers, setSelectedAnswers] = React.useState({
+    1:0,
+    2:0,
+    3:0,
+    4:0,
+    5:0
+  });
+  
+  const [answerYet, setAnswerYet] = React.useState({
+    1:false,
+    2:false,
+    3:false,
+    4:false,
+    5:false
+  });
+
+  useEffect(() => {
+    const userId = localStorage.getItem('id');
+
+
+    Promise.all([
+      axios.get(`http://localhost:8001/api/users/${userId}`),
+    ])
+      .then(response => {
+        console.log(response[0].data[0])
+        setAllAnswers(response[0].data[0].eduscores)
+        setAnswerYet(response[0].data[0].eduisanswered)
+        updateProgressBar(response[0].data[0].eduscores)
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }, []);
 
 
 
-  function getAnswer(answer, id){
-    setallAnswers({...allAnswers, [`${id}`]:parseInt(answer)})
-    // const submitedAnswers={...state.educationAnswers, id[1]=parseInt(answer)}
 
-    // dispatch({
-    //   type: SET_EDU_PROGRESS
-    //   eduProgress: submitedAnswers
-    // })
+
+  function recieveAnswer(answer, id){
+    setSelectedAnswers({...selectedAnswers, [`${id}`]:parseInt(answer)})
+ 
   }
 
-  console.log(state.educationAnswers[1][2], 'shoukd be false')
+  // console.log(state.educationAnswers[1][2], 'shoukd be false')
 
   function verifyAnswer(id){
-    if (articles[id-1].answer===allAnswers[id]){
-      const isCorrect={...state.educationAnswers, 
+
+    console.log(selectedAnswers, 'from verified answer')
+    
+
+    if (articles[id-1].answer===selectedAnswers[id]){
+      const isCorrect={...allAnswers, 
         [`${id}`]:1 }
 
-      dispatch({
-        type: SET_EDU_ANSWERS,
-        educationAnswers: isCorrect
-      })
-      //dispatch goes into eventloop and runs after verifyAnswer
+     
+      setAllAnswers(isCorrect)
       updateProgressBar(isCorrect)
       setModalShow(false)
-      state.educationAnsweredYet[id]=true
+      setAnswerYet({...answerYet, [`${id}`]:true})
+     
+      const eduUpdate={eduscores: isCorrect, userId: userId}
+
+      Promise.all([
+        axios.put(`http://localhost:8001/api//users/updateedu`, eduUpdate)
+      ])
+        .then(response => {
+          console.log("axios data recieved: ", response);
+        })
+        .catch(error => {
+          console.log("no go");
+        });
+
+
 
     } else{
-      state.educationAnsweredYet[id]=true
-
+      setAnswerYet({...answerYet, [`${id}`]:true})
     }
   }
 
@@ -100,8 +149,9 @@ function Maps({ ...prop }) {
   
 
   return (
-    <div>
-      <h1>🅔🅓🅤🅒🅐🅣🅘🅞🅝 {state.eduProgress=== 100 ? (
+    <div className='img-wrapper'>
+      <div className='img-container'>
+      <h1 className='edu-title'>🄴🄳🅄🄲🄰🅃🄴 🅈🄾🅄🅁🅂🄴🄻🄵 {state.eduProgress=== 100 ? (
             <img src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg" width="40" height="40"></img>
                   ) : null}</h1>
  
@@ -114,9 +164,9 @@ function Maps({ ...prop }) {
            
            return (
              <div className="article">
-            <CardImg title={title} link={link} image={image} id={id} readArticle={()=>{
-               console.log(`clicked ${id}`)
-               setModalShow(id)
+            <CardImg className='edu-article' title={title} link={link} image={image} id={id} allAnswers={allAnswers} readArticle={()=>{
+              console.log(allAnswers,'allanswers')
+              setModalShow(id)
             }}/>
             
 
@@ -125,6 +175,9 @@ function Maps({ ...prop }) {
             id={id}
             onHide={() => setModalShow(false)}
             verifyAnswer={verifyAnswer}
+            selectedAnswers={selectedAnswers}
+            answerYet={answerYet}
+            allAnswers={allAnswers}
             content={ <QuizQuestion
               id={id}
               question={question}
@@ -132,7 +185,7 @@ function Maps({ ...prop }) {
               a2={a2}
               a3={a3}
               a4={a4}
-              getAnswer={getAnswer}
+              sendAnswer={recieveAnswer}
             />}
             />
             </div>
@@ -140,10 +193,10 @@ function Maps({ ...prop }) {
         })}
       </div>
     
-      <div>
-        <ProgressBar style={progressBar} now={state.eduProgress} label={state.eduProgress} />
+        <div>
+          <ProgressBar style={progressBar} now={state.eduProgress} label={state.eduProgress} />
+        </div>
       </div>
-
     </div>
   );
 }

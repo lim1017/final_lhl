@@ -6,12 +6,14 @@ import { articles } from "variables/EducationArticles.jsx";
 import appDataContext from "../../hooks/reducers/useContext";
 
 
+
 function MyVerticallyCenteredModal(props) {
+
+ 
 
   const [incorrect, setIncorrect] = React.useState(false);
   const { state, dispatch } = useContext(appDataContext);
 
-  
 
   return (
     <Modal
@@ -33,7 +35,7 @@ function MyVerticallyCenteredModal(props) {
       </Modal.Body>
       <Modal.Footer>
 
-      {state.educationAnswers[`${props.id}`]==0 && state.educationAnsweredYet[`${props.id}`]==true  ? (
+      {props.allAnswers[`${props.id}`]==0 && props.answerYet[`${props.id}`]==true  ? (
             <p>Sorry try again</p>
                   ) : null}
 

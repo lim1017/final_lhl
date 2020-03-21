@@ -13,9 +13,9 @@ module.exports = db => {
 
     db.query(
       `
-      INSERT INTO users (name, riskScore, portfolioReturn)
+      INSERT INTO users (name, riskScore, portfolioReturn, literacy, eduScores, eduIsAnswered)
       VALUES
-      ($1, 0, 1)
+      ($1, 0, 1, 0, ARRAY[0,0,0,0,0], ARRAY[false,false,false,false,false])
 
       `,
       [username]

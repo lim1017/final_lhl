@@ -12,7 +12,10 @@ CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) UNIQUE NOT NULL,
   riskScore REAL,
-  portfolioReturn REAL
+  portfolioReturn REAL,
+  literacy INTEGER,
+  eduScores json,
+  eduIsAnswered json
 );
 
 CREATE TABLE expenses (
