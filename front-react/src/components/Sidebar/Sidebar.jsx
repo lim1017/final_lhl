@@ -153,7 +153,7 @@ class Sidebar extends Component {
       
             <CardSidebar 
                 statsIcon="fa fa-clock-o"
-                title='Hello' 
+                title='Welcome' 
                 category={this.state.loggedInUser}
                 content={
                   <Link to={`/welcome`} onClick={()=>this.logout()} c>
