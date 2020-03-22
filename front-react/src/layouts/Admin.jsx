@@ -85,7 +85,6 @@ class Admin2 extends Component {
   render() {
     return (
       <div className="wrapper">
-        <NotificationSystem ref="notificationSystem" style={style} />
         <Sidebar
           {...this.props}
           routes={routes}

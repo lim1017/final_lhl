@@ -97,7 +97,7 @@ function CardDashBoard(props) {
                       label
                     >
                       {createPie(props.state.totalExpenses).map((entry, index) => (
-                        <Cell fill={COLORS[index % COLORS.length]} />
+                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
                     <Legend

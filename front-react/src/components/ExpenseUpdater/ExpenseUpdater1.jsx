@@ -58,11 +58,7 @@ function ExpenseUpdater1(props) {
       });
   }
 
-  const formStyle = {
-    marginTop: "25px",
-    marginLeft: "25px"
-  };
-
+  
   return (
     <div display="flex" flexDirection="row">
       <form className={classes.root} noValidate autoComplete="off">

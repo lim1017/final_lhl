@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 
@@ -55,7 +39,6 @@ class Sidebar extends Component {
   }
 
   componentDidMount() {
-    console.log('fromsidebar')
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
 
@@ -158,7 +141,7 @@ class Sidebar extends Component {
                 category={this.state.loggedInUser}
                 content={
                   <div className='sidebar-content'>
-                  <Link to={`/welcome`} onClick={()=>this.logout()} c>
+                  <Link to={`/welcome`} onClick={()=>this.logout()} >
                   <Button variant="outline-success"  >Logout</Button>
                   </Link>
                   <span>{}</span>

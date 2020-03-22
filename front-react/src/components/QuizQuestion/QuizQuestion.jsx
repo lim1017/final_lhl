@@ -6,11 +6,8 @@ import React from 'react';
 export default function QuizQuestion(props){
 
   const {question, a1, a2, a3, a4, sendAnswer, id} = props
-  const [answer, setAnswer] = React.useState(0);
-
 
   function prepareAnswer (answerz){
-    setAnswer(answerz)
 
     sendAnswer(answerz, id)
   }
