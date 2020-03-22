@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button, FormControl } from "react-bootstrap";
 import axios from "axios";
 
@@ -14,13 +14,13 @@ function Login(props) {
   const [userExists, setUserExists] = useState(true);
   const [userExistsRegister, setUserExistsRegister] = useState(false);
 
-  //prevents refresh from logging you out.  updates local state everytime with local storage
-  useEffect(() => {
-    const user = localStorage.getItem("username");
-    const userId = localStorage.getItem("id");
-    console.log(userId);
-    // setLoggedIn({name:user, id:userId})
-  }, []);
+  // //prevents refresh from logging you out.  updates local state everytime with local storage
+  // useEffect(() => {
+  //   const user = localStorage.getItem("username");
+  //   const userId = localStorage.getItem("id");
+  //   console.log(userId);
+  //   // setLoggedIn({name:user, id:userId})
+  // }, []);
 
   function logout() {
     localStorage.clear();
