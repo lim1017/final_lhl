@@ -7,7 +7,6 @@ import React, { useContext, useReducer, useState, useEffect } from "react";
 
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
-import reducerz from "../hooks/reducers/app";
 import budgetReducer from "../hooks/reducers/budget";
 import budgetToggleReducer from "../hooks/reducers/budgetToggle";
 import budgetGoalsReducer from "../hooks/reducers/budgetGoals";
@@ -15,15 +14,12 @@ import budgetGoalsReducer from "../hooks/reducers/budgetGoals";
 /* Import Components */
 import CardBudget from "components/Card/CardBudget.jsx";
 import BudgetGraphCard from "components/Budget/BudgetGraphCard.jsx";
-import { Grid, Row, Col } from "react-bootstrap";
-import ChartistGraph from "react-chartist";
-import { globalStateDefault, responsiveSales } from "variables/Variables.jsx";
 import BudgetPlannerA from "components/Budget/BudgetPlannerA";
 import BudgetPlannerB from "components/Budget/BudgetPlannerB";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetInputMenu from "components/Budget/BudgetInputMenu";
 import BudgetChartMenu from "components/Budget/BudgetChartMenu";
-import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, expensesCalc } from "helpers/budget";
+import { budgetSetGraphData, findUserBudget } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
@@ -83,7 +79,7 @@ function Budget(props) {
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
       axios.get("http://localhost:8001/api/budget"),
-      axios.get("http://localhost:8001/api/goals"),
+      axios.get(`http://localhost:8001/api/goals/${user}`),
       axios.get(`http://localhost:8001/api/users/${user}`)
 
     ]).then(response => {
@@ -186,8 +182,6 @@ function Budget(props) {
     setError("");
     savePlanner();
   }
-
-  console.log(winWidth);
 
   const scrollCheck = function() {
     if (winWidth >= 992) {
@@ -372,7 +366,7 @@ function Budget(props) {
 
   const PVATdata = expenseKey.map((value, i) => { 
     return(
-      <Bar dataKey={expenseKey[i]} stackId="a" fill={colors[i]} /> 
+      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} /> 
     )
   });
 

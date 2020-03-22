@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import CustomButton from "../CustomButton/CustomButton";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -83,6 +82,7 @@ export default function Form(props) {
                 className="inputName"
                 value={name}
                 onChange={e => {
+                  e.target.value = e.target.value.slice(0,30);
                   setName(e.target.value);
                   // e.target.style.height = 25 + "px"
                   // e.target.style.height = e.target.scrollHeight + "px"

@@ -85,7 +85,9 @@ VALUES
     'description description description description description description description description description description description description description description description description description description description description description description description description description description description',
     '01/5/2020'),
     ('goal03 limit expenses', 1, 'LE', 400, 'description', '01/5/2020'),
-    ('goal04 limit expenses high value', 1, 'LE', 10000, 'description', '01/5/2020');
+    ('goal04 limit expenses high value', 1, 'LE', 10000, 'description', '01/5/2020'),
+    ('someone elses goal 1', 2, 'LE', 10000, 'description', '01/5/2020'),
+    ('someone elses goal 2', 2, 'LE', 10000, 'description', '01/5/2020');
 
   -- id SERIAL PRIMARY KEY NOT NULL,
   -- name VARCHAR(255) NOT NULL,
