@@ -44,6 +44,7 @@ export default function useAppData() {
   });
 
   useEffect(() => {
+    console.log('use effect running')
     const user = localStorage.getItem("id");
 
     let datez = `${state.date.month}+${state.date.year}+${user}`;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@material-ui/core/Card";
 import Grid from "@material-ui/core/Grid";
 import BriefPortfolio from "./BriefPortfolio";
@@ -7,6 +7,7 @@ import DashGoals from "./DashGoals";
 import DashBudget from "./DashBudget";
 import DashExpenses from "./DashExpenses";
 import NewUserPg from "components/NewUserPg/NewUserPg.jsx";
+import axios from "axios";
 
 
 
@@ -26,6 +27,46 @@ import { createPie, returnMonthText } from "helpers/expenseHelper";
 
 //props is = to state
 function CardDashBoard(props) {
+
+  const [isUserNew, setIsUserNew] = useState(true);
+  const userId = localStorage.getItem('id');
+
+
+  
+  useEffect(() => {
+  
+    Promise.all([
+      axios.get(`http://localhost:8001/api/users/${userId}`)
+    ])
+      .then(response => {
+        console.log(response, 'from dashboard')
+        console.log(response[0].data[0].isnew)
+        setIsUserNew(response[0].data[0].isnew)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
+
+
+
+  function oldUser(){
+    console.log(isUserNew)
+
+  Promise.all([
+      axios.put(`http://localhost:8001/api/users/update/newuser`, {userId})
+    ])
+      .then(response => {
+        console.log("axios data recieved: ", response);
+        setIsUserNew(false)
+
+      })
+      .catch(error => {
+        console.log("no go");
+      });
+
+  }
+
   
   const COLORS = ['#c4d2c7', '#ffe7ea', '#f87f8d', '#FF8042'];
 
@@ -34,8 +75,8 @@ function CardDashBoard(props) {
      
 
     <>
-      {props.state.expenses.length === 0 && props.state.users[0].riskscore === 0 ? (
-          <NewUserPg/>    
+      {isUserNew ? (
+          <NewUserPg oldUser={oldUser} />    
       ) :
       <>
       {/* <Grid item xs={9}> */}

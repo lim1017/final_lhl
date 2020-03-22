@@ -15,7 +15,8 @@ CREATE TABLE users (
   portfolioReturn REAL,
   literacy INTEGER,
   eduScores json,
-  eduIsAnswered json
+  eduIsAnswered json,
+  isNew BOOLEAN
 );
 
 CREATE TABLE expenses (
