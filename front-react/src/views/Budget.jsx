@@ -354,6 +354,7 @@ function Budget(props) {
 
   const BOTGreferenceLinesY = goal.select.map(g => {
     if (g.type === "SFP") {
+      const d = g.date.split('-');
       return (
         <ReferenceLine key={g.id*100+1} y={g.amount} stroke="red" />
       );
