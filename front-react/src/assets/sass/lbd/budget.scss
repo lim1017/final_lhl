@@ -11,16 +11,6 @@
       display: grid;
     }
 
-<<<<<<< HEAD
-=======
-    .budgetBG {
-      background-image: url('../../img/NewYork.jpg');
-      grid-column: 1/2;
-      grid-row: 3/8;
-      z-index: -1;
-    }
-
->>>>>>> James/budget41 (#60)
     .budgetContentAB {
       grid-column: 1/2;
       grid-row: 3/8;
@@ -184,7 +174,6 @@
   width: 100%;
 }
 
-<<<<<<< HEAD
 .budgetBG {
   background-image: url('../../img/HongKong.jpg');
   background-size: auto 100%;
@@ -193,12 +182,6 @@
   height: 100vh;
   width: 100%;
   z-index: 0;
-=======
-@media only screen and (max-width: 991px) {
-  .budgetNav {
-    width: 100%;
-  }
->>>>>>> James/budget41 (#60)
 }
 
 @media only screen and (max-width: 1275px) {
@@ -214,21 +197,10 @@
       display: grid;
     }
 
-<<<<<<< HEAD
     .budgetContentAF {
       grid-column: 1/2;
       grid-row: 3/8;
       overflow: hidden;
-=======
-    .budgetBG {
-      background-image: url('../../img/HongKong.jpg');
-      background-size: 120%;
-      opacity: 0.8;
-      position: fixed;
-      height: 100vh;
-      width: 100%;
-      z-index: 0;
->>>>>>> James/budget41 (#60)
     }
 
     .budgetContentAB {
@@ -271,7 +243,6 @@
   }
 }
 
-<<<<<<< HEAD
 @media only screen and (max-width: 991px) {
   .budgetNav {
     width: 100%;
@@ -377,5 +348,3 @@
     grid-template-rows: 200px 20px auto auto auto auto auto;
   }
 }
-=======
->>>>>>> James/budget41 (#60)
