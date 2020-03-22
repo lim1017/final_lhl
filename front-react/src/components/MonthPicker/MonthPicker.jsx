@@ -66,7 +66,7 @@ class List extends Component {
             from: 'From', to: 'To',
         }
         const mvalue = this.state.mvalue
-            , mrange = this.state.mrange
+            // , mrange = this.state.mrange
 
         const makeText = m => {
             if (m && m.year && m.month) return (pickerLang.months[m.month-1] + '. ' + m.year)

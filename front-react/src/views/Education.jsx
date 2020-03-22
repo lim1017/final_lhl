@@ -1,20 +1,4 @@
-/*!
 
-=========================================================
-* Light Bootstrap Dashboard React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { useContext, useEffect } from "react";
 import CardImg from "components/Card/CardImg.jsx";
 import { ProgressBar } from "react-bootstrap";
@@ -22,7 +6,7 @@ import { articles } from "variables/EducationArticles.jsx";
 import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
 import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
 import appDataContext from "../hooks/reducers/useContext";
-import reducerz, { SET_EDU_ANSWERS, SET_EDU_PROGRESS } from "../hooks/reducers/app";
+import reducerz, { SET_EDU_PROGRESS } from "../hooks/reducers/app";
 import axios from "axios";
 
 
@@ -163,9 +147,8 @@ function Maps({ ...prop }) {
 
            
            return (
-             <div className="article">
+             <div className="article" key={id}>
             <CardImg className='edu-article' title={title} link={link} image={image} id={id} allAnswers={allAnswers} readArticle={()=>{
-              console.log(allAnswers,'allanswers')
               setModalShow(id)
             }}/>
             
@@ -179,6 +162,7 @@ function Maps({ ...prop }) {
             answerYet={answerYet}
             allAnswers={allAnswers}
             content={ <QuizQuestion
+              
               id={id}
               question={question}
               a1={a1}

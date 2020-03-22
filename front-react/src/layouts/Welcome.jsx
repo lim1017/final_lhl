@@ -16,7 +16,7 @@ function Welcome(props) {
         <div className='welcome-img'>
         
         <div className='anime'>
-        <h1 class="ml3">Take Control Of Your Finances </h1>
+        <h1 className="ml3">Take Control Of Your Finances </h1>
         </div>
           
           <div className='login-box'>

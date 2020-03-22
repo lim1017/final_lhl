@@ -118,7 +118,7 @@ function BriefPortfolio(props) {
             portfolioDistribution(props.state.users[0].riskscore)
               .investmentTypes
           ).map((entry, index) => (
-            <Cell fill={colors[index % colors.length]} />
+            <Cell key={index} fill={colors[index % colors.length]} />
           ))}
         </Pie>
         <Legend

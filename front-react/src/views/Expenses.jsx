@@ -291,7 +291,7 @@ function Dashboard(props) {
                       label
                     >
                       {createPie(state.totalExpenses).map((entry, index) => (
-                        <Cell fill={COLORS[index % COLORS.length]} />
+                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
                     <Legend
