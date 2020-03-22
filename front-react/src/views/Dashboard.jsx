@@ -5,7 +5,15 @@ import CardDashBoard from "./CardDashBoard";
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
 
-  return <CardDashBoard state={state}></CardDashBoard>;
+  return (
+
+    <div className='dash-wrapper'>
+      <div className='dash-img'> 
+          <CardDashBoard state={state}></CardDashBoard>;
+      </div>  
+    </div>
+
+  )
 }
 
 export default Dashboard;
