@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Grid, Row, Col } from "react-bootstrap";
+
+import { createPie, returnMonthText } from "helpers/expenseHelper";
+
 import {
   PieChart,
   Pie,
@@ -117,19 +119,19 @@ function Dashboard(props) {
     return finalOP;
   }
 
-  function returnMonthText(number) {
-    switch (number) {
-      case 1:
-        return "January";
-      case 2:
-        return "Febuary";
-      case 3:
-        return "March";
+  // function returnMonthText(number) {
+  //   switch (number) {
+  //     case 1:
+  //       return "January";
+  //     case 2:
+  //       return "Febuary";
+  //     case 3:
+  //       return "March";
 
-      default:
-      // code block
-    }
-  }
+  //     default:
+  //     // code block
+  //   }
+  // }
 
   function toggleState() {
     setAddExpense(!addExpense);
@@ -151,18 +153,18 @@ function Dashboard(props) {
   }
 
 
-  function createPie(expensesTotal) {
+  // function createPie(expensesTotal) {
    
-    const finalOP=[]
-    expensesTotal.forEach(element =>{
-      const slice={
-        name:element.type,
-        value:parseInt(element.sum)
-      }
-      finalOP.push(slice)
-    })
-    return finalOP
-  }
+  //   const finalOP=[]
+  //   expensesTotal.forEach(element =>{
+  //     const slice={
+  //       name:element.type,
+  //       value:parseInt(element.sum)
+  //     }
+  //     finalOP.push(slice)
+  //   })
+  //   return finalOP
+  // }
 
   function refreshExpenses(date) {
     let datez= `${date.month}+${date.year}+${user}`
