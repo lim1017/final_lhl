@@ -6,6 +6,8 @@ import DashPortfolio from "./DashPortfolio";
 import DashGoals from "./DashGoals";
 import DashBudget from "./DashBudget";
 import DashExpenses from "./DashExpenses";
+import NewUserPg from "components/NewUserPg/NewUserPg.jsx";
+
 
 
 import {
@@ -22,68 +24,91 @@ import {
 } from "recharts";
 import { createPie, returnMonthText } from "helpers/expenseHelper";
 
-
+//props is = to state
 function CardDashBoard(props) {
   
   const COLORS = ['#c4d2c7', '#ffe7ea', '#f87f8d', '#FF8042'];
 
-
-  console.log("props", props);
-  console.log(props.state.expenses.length)
   return (
+    
+     
+
     <>
-      <Grid item xs={6}>
+      {props.state.expenses.length === 0 && props.state.users[0].riskscore === 0 ? (
+          <NewUserPg/>    
+      ) :
+      <>
+      {/* <Grid item xs={9}> */}
+      <div className='dash-card1'>
         <Card
           style={{
+            width:'500px',
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.8,
+            opacity: 0.9,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "white",
+            display:'grid',
+            gridTemplateRows: '1fr 1fr 1fr'
           }}
         >
-          <DashGoals></DashGoals>
+          <DashGoals ></DashGoals>
+          <h1 className='card1-txt'>Step1: Secure your financial future; Setup your first goal!</h1>
         </Card>
+      </div>
 
+      <div className='dash-card2'>
         <Card
           style={{
+            width:'500px',
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.8,
+            opacity: 0.9,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "white",
+            display:'grid',
+            gridTemplateRows: '1fr 1fr 1fr'
           }}
         >
           <DashBudget></DashBudget>
+          <h1 className='card1-txt'>Step3: See the power of planning your budget</h1>
         </Card>
-      </Grid>
+      </div>
+      {/* </Grid> */}
 
-      <Grid item xs={6}>
+       {/* <Grid item xs={9}> */}
+      <div className='dash-card3'>
         <Card
           style={{
+            width:'500px',
+            width:'500px',
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.8,
+            opacity: 0.9,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
-          }}
+            backgroundColor: "white",
+            display:'grid',
+            gridTemplateRows: '1fr 1fr 1fr'          }}
         >
 
           {props.state.expenses.length === 0 ? (
+            <>
             <DashExpenses state={props.state}>
-            </DashExpenses>  
+            </DashExpenses>
+             <h1 className='card1-txt'>Step2: See whats really slowing you down.  Track your expenses!</h1>  
+            </>
             ) : 
-            <div>
-              <h2>Expenses for {returnMonthText(props.state.date.month)}</h2>
+            <div className='dashboard-chart'>
+              <h4>Expenses for {returnMonthText(props.state.date.month)}</h4>
             <PieChart width={500} height={350}>
                     <Tooltip />
                     <Pie
@@ -109,28 +134,40 @@ function CardDashBoard(props) {
             </PieChart>
             </div>
             }
-          
-
         </Card>
+        </div>
+        <div className='dash-card4'>
         <Card
           style={{
+            width:'500px',
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.8,
+            opacity: 0.9,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "white",
+            display:'grid',
+            gridTemplateRows: '1fr 1fr 1fr'
           }}
         >
           {props.state.users[0].riskscore === 0 ? (
+            <>
             <DashPortfolio></DashPortfolio>
+             <h1 className='card1-txt'>Step4: Let us help you Invest!</h1>
+            </>  
           ) : (
             <BriefPortfolio state={props.state}></BriefPortfolio>
           )}
         </Card>
-      </Grid>
+        </div>
+      {/* </Grid> */}
+
+
+    </>
+  }
+
     </>
   );
 }
