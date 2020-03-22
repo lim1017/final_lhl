@@ -95,12 +95,12 @@ const colors = [
 
 function BriefPortfolio(props) {
   return (
-    <>
-      <div>Your Investment Portfolio: </div>
-      <div>
+    <div className='dashboard-chart4'>
+      <h4>Your Investment Portfolio: </h4>
+      <h6>
         {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
-      </div>
-      <PieChart width={730} height={500}>
+      </h6>
+      <PieChart width={500} height={350}>
         <Pie
           data={createPie(
             portfolioDistribution(props.state.users[0].riskscore)
@@ -108,9 +108,9 @@ function BriefPortfolio(props) {
           )}
           dataKey="value"
           nameKey="name"
-          cx="40%"
-          cy="40%"
-          outerRadius={150}
+          cx="60%"
+          cy="50%"
+          outerRadius={120}
           fill="#8884d8"
           label
         >
@@ -123,12 +123,12 @@ function BriefPortfolio(props) {
         </Pie>
         <Legend
           verticalAlign="bottom"
-          layout="vertical"
-          height={0}
-          width={250}
+          layout="horizontal"
+          height={55}
+          width={400}
         />
       </PieChart>
-    </>
+    </div>
   );
 }
 
