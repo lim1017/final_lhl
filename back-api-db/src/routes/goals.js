@@ -1,11 +1,12 @@
 const router = require("express").Router();
 
 module.exports = db => {
-  router.get("/goals", (request, response) => {
+  router.get("/goals/:userid", (request, response) => {
     db.query(
       `
-      SELECT *, to_char( date, 'DD-MON-YYYY') as date FROM goals ORDER BY id
-      `
+      SELECT *, to_char( date, 'DD-MON-YYYY') as date FROM goals WHERE user_id = $1::integer
+      `,
+      [request.params.userid]
     ).then(({ rows: goals }) => {
       response.json(goals);
     });
@@ -13,9 +14,7 @@ module.exports = db => {
 
   router.put("/goals/:id", (request, response) => {
 
-    // console.log('receiving goal: ', request.params.id, request.body)
     const { name, user_id, type, amount, description, date } = request.body;
-    console.log('current id: ', request.params.id)
 
     db.query(
       `

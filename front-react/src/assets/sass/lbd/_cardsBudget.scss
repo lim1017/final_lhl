@@ -226,8 +226,16 @@
     }
 }
 
+.cardBudgetSize300 {
+  width: 300px;
+}
+
 .cardBudgetSize350 {
-  width: calc(100% - 1px);
+  width: 350px;
+}
+
+.cardBudgetSize400 {
+  width: 400px;  
 }
 
 .cardBudgetSize500 {

@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: 'auto 15px auto 0',
+    margin: 'auto 5px auto 5px',
     display: 'flex',
   },
   paper: {
@@ -80,7 +80,11 @@ export default function BudgetChartMenu(props) {
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList autoFocusItem={open} id="menu-list-grow" onKeyDown={handleListKeyDown}>
+                  <MenuList 
+                    autoFocusItem={open}
+                    id="menu-list-grow"
+                    onKeyDown={handleListKeyDown}
+                  >
                     <MenuItem
                       onClick={() => {
                         props.dispatch({type: "PVAT"})

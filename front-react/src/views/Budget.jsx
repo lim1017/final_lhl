@@ -7,7 +7,6 @@ import React, { useContext, useReducer, useState, useEffect } from "react";
 
 import appDataContext from "../hooks/reducers/useContext";
 import axios from "axios";
-import reducerz from "../hooks/reducers/app";
 import budgetReducer from "../hooks/reducers/budget";
 import budgetToggleReducer from "../hooks/reducers/budgetToggle";
 import budgetGoalsReducer from "../hooks/reducers/budgetGoals";
@@ -15,14 +14,12 @@ import budgetGoalsReducer from "../hooks/reducers/budgetGoals";
 /* Import Components */
 import CardBudget from "components/Card/CardBudget.jsx";
 import BudgetGraphCard from "components/Budget/BudgetGraphCard.jsx";
-import { Grid, Row, Col } from "react-bootstrap";
-import ChartistGraph from "react-chartist";
-import { globalStateDefault, responsiveSales } from "variables/Variables.jsx";
-import BudgetPlanner from "components/Budget/BudgetPlanner";
+import BudgetPlannerA from "components/Budget/BudgetPlannerA";
+import BudgetPlannerB from "components/Budget/BudgetPlannerB";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetInputMenu from "components/Budget/BudgetInputMenu";
 import BudgetChartMenu from "components/Budget/BudgetChartMenu";
-import { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, expensesCalc } from "helpers/budget";
+import { budgetSetGraphData, findUserBudget } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
@@ -60,6 +57,7 @@ function Budget(props) {
 
   const expenseKey = ['entertainment', 'medical', 'debt', 'misc', 'transporation', 'home', 'food', 'utilities'];
   const budgetKey = [budget.c_entr, budget.c_medi, budget.c_debt, budget.c_misc, budget.c_tran, budget.c_hous, budget.c_food, budget.c_util];
+  const colors = ["#ffe7ea", "#c4d2c7", "#cce3e1", "#add0e0", "#b6bffa", "#f5c2b3", "#dfe6c3", "#f5e0b3"];
 
   /* ------------------------------------ */
   /* Init & useEffects & Database Updates */
@@ -81,7 +79,7 @@ function Budget(props) {
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
       axios.get("http://localhost:8001/api/budget"),
-      axios.get("http://localhost:8001/api/goals"),
+      axios.get(`http://localhost:8001/api/goals/${user}`),
       axios.get(`http://localhost:8001/api/users/${user}`)
 
     ]).then(response => {
@@ -185,12 +183,15 @@ function Budget(props) {
     savePlanner();
   }
 
-  const scrollCheck = function(e) {
+  const scrollCheck = function() {
     if (winWidth >= 992) {
-      if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = e.target.scrollingElement.scrollTop / 250 + 'px';
+      if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = document.scrollingElement.scrollTop / 250 + 'px';
+    } else {
+      if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = document.scrollingElement.scrollTop + 'px';
     }
   }
 
+  scrollCheck();
   window.addEventListener('scroll', scrollCheck);
 
   /* --------------- */
@@ -347,6 +348,7 @@ function Budget(props) {
 
   const BOTGreferenceLinesY = goal.select.map(g => {
     if (g.type === "SFP") {
+      const d = g.date.split('-');
       return (
         <ReferenceLine key={g.id*100+1} y={g.amount} stroke="red" />
       );
@@ -356,10 +358,16 @@ function Budget(props) {
   const BOTGreferenceLinesX = goal.select.map(g => {
     if (g.type === "SFP") {
       const d = g.date.split('-');
-      return (
+      return(
         <ReferenceLine key={g.id*100+2} x={`${d[1]} / ${d[2]}`} stroke="red" />
       );
     }
+  });
+
+  const PVATdata = expenseKey.map((value, i) => { 
+    return(
+      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} /> 
+    )
   });
 
   /* ---------------------- */
@@ -368,11 +376,19 @@ function Budget(props) {
 
   const cardSize = function(width) {
     let size = {card: 600, graphX: 450, graphY: 200}
-    if (width < 500) {
+    if (width < 385) {
+      size.card = 300;
+      size.graphX = 270;
+      size.graphY = 180;
+    } else if (width >= 385 && width < 450) {
       size.card = 350;
       size.graphX = 300;
       size.graphY = 200;
-    } else if (width >= 500 && width < 700) {
+    } else if (width >= 450 && width < 550) {
+      size.card = 400;
+      size.graphX = 360;
+      size.graphY = 230;
+    } else if (width >= 550 && width < 700) {
       size.card = 500;
       size.graphX = 440;
       size.graphY = 260;
@@ -452,35 +468,59 @@ function Budget(props) {
 
   return (
     <div className="budgetWrap">
-      <div style={{ display: "flex", width: "100%" }}>
-        <nav className="budgetNav">
-          <div className="budgetNavA">
-            <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
-          </div>
-          <div className="budgetNavB budgetButtons">
+      <nav className="budgetNav">
+        <div className="budgetNavA">
+          <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+        </div>
+        {winWidth >= 450 ?
+        <div className="budgetNavB budgetButtons">
+          <BudgetInputMenu
+            toggle={toggle}
+            dispatch={dispatchToggle}
+          />
+          <BudgetChartMenu
+            toggle={toggle}
+            dispatch={dispatchToggle}
+          />
+        </div> :
+        <div className="budgetButtons">
+          <div className="budgetNavB">
             <BudgetInputMenu
               toggle={toggle}
               dispatch={dispatchToggle}
             />
+          </div>
+          <div className="budgetNavC">
             <BudgetChartMenu
               toggle={toggle}
               dispatch={dispatchToggle}
             />
           </div>
-        </nav>
-        <div id="budgetBG" className="budgetBG"></div>
-      </div>
+        </div>
+        }
+      </nav>
       <div className="budgetContents">
+        <div className="budgetContentAF">
+          <div id="budgetBG" className="budgetBG"></div>
+        </div>
         <div className={"budgetContent" + (cardLoc(toggle, "AB", winWidth >= 1276))}>
           <div className={(cardLoc(toggle, "A", winWidth >= 1276))}>
             {toggle.planner ?
-            <BudgetPlanner
-              budget={budget}
-              updateBudgetLocal={dispatchBudget}
-              validate={validatePlanner}
-              error={error}
-              size={cardSize(winWidth).card}
-            />
+              cardSize(winWidth).card >= 600 ?
+                <BudgetPlannerA
+                  budget={budget}
+                  updateBudgetLocal={dispatchBudget}
+                  validate={validatePlanner}
+                  error={error}
+                  size={cardSize(winWidth).card}
+                /> :
+                <BudgetPlannerB
+                budget={budget}
+                updateBudgetLocal={dispatchBudget}
+                validate={validatePlanner}
+                error={error}
+                size={cardSize(winWidth).card}
+              />
             : null}
           </div>
           <div className={(cardLoc(toggle, "B", winWidth >= 1276))}>
@@ -514,14 +554,7 @@ function Budget(props) {
                   <YAxis domain={[0, setDisplayForPVAT(budgetKey, state.totalExpenses, goal.select)]} />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey={expenseKey[0]} stackId="a" fill="#ffe7ea" />
-                  <Bar dataKey={expenseKey[1]} stackId="a" fill="#c4d2c7" />
-                  <Bar dataKey={expenseKey[2]} stackId="a" fill="#ffe7ea" />
-                  <Bar dataKey={expenseKey[3]} stackId="a" fill="#c4d2c7" />
-                  <Bar dataKey={expenseKey[4]} stackId="a" fill="#ffe7ea" />
-                  <Bar dataKey={expenseKey[5]} stackId="a" fill="#c4d2c7" />
-                  <Bar dataKey={expenseKey[6]} stackId="a" fill="#ffe7ea" />
-                  <Bar dataKey={expenseKey[7]} stackId="a" fill="#c4d2c7" />
+                  {PVATdata}
                   {PVATreferenceLinesY}
                 </BarChart>
               </ResponsiveContainer>
