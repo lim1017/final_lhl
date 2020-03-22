@@ -11,7 +11,18 @@ function NewUserPg(props) {
     <h3>etc etcetc etcetc etcetc etcetc etcetc etcetc etc</h3>
     <h3>etc etcetc etcetc etcetc etc</h3>
     <h4> need to add button to take to actual dashboard </h4>
-    </div>  );
+  
+            <button className="risk-assessment-start-button" onClick={()=>{
+            console.log('clicked')
+            props.oldUser()
+            // localStorage.setItem("newUser", false);
+
+            }}>Get Started Now</button>
+
+  </div>  
+  
+  
+  );
 }
 
 export default NewUserPg;

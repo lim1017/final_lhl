@@ -18,17 +18,12 @@ module.exports = db => {
 
   router.put("/users/updateedu", (request, response) => {
 
-
-
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
 
-    console.log(request.body, 'from eduupdate')
     const { eduscores , userId } = request.body;
-
-
 
     db.query(
       `
@@ -37,6 +32,33 @@ module.exports = db => {
       WHERE id = $2
       `,
       [eduscores, parseInt(userId)]
+    )
+      .then(x => {
+        setTimeout(() => {
+          response.status(204).json({});
+        }, 1000);
+      })
+      .catch(error => console.log(error));
+  });
+
+  router.put("/users/update/newuser", (request, response) => {
+
+    if (process.env.TEST_ERROR) {
+      setTimeout(() => response.status(500).json({}), 1000);
+      return;
+    }
+
+    const { userId } = request.body;
+    console.log('updaing newuser status to false')
+    console.log(request.body, 'the user id is')
+
+    db.query(
+      `
+      UPDATE users
+      SET isNew = false 
+      WHERE id = $1
+      `,
+      [parseInt(userId)]
     )
       .then(x => {
         setTimeout(() => {

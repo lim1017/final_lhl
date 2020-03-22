@@ -58,6 +58,7 @@ function Login(props) {
         if (response[0].status === 200) {
           setUserExistsRegister(true);
         } else {
+          // localStorage.setItem("newUser", true);
           login();
         }
       })
