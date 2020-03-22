@@ -13,9 +13,10 @@ export default function Goal(props) {
   const { mode, transition, back } = useVisualMode(!props.mode ? SHOW : NEW);
 
   function saveGoal(name, type, amount, description, date) {
+    const id = localStorage.getItem("id");
     const goal = {
       name,
-      user_id: 1,
+      user_id: id,
       type,
       amount,
       description,
