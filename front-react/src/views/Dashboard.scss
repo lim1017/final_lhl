@@ -7,63 +7,62 @@
   height: 100%;
   width: 100%;
   background: url("../assets/img/Xi'an.jpg");
+}
 
-  .new-user {
-    display: grid;
-    grid-column: 2;
-    grid-row: 3;
-    justify-content: center;
-  }
+.new-user {
+  display: grid;
+  grid-column: 2;
+  grid-row: 3;
+  justify-content: center;
+}
 
-  .welcome-text-div {
-    display: grid;
-    grid-column: 2;
-    grid-row: 1;
-    justify-content: center;
-  }
+.welcome-text-div {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1;
+  justify-content: center;
+}
 
-  .welcome-text {
-    display: grid;
-    color: white;
-    text-align: center;
-  }
+.welcome-text {
+  display: grid;
+  color: white;
+  text-align: center;
+}
 
-  .welcome-quote {
-    display: grid;
-    grid-column: 2;
-    grid-row: 5;
-    justify-content: center;
-  }
+.welcome-quote {
+  display: grid;
+  grid-column: 2;
+  grid-row: 5;
+  justify-content: center;
+}
 
-  .dash-wrapper-newuser {
-    height: 100%vh;
-    width: 100%;
-  }
+.dash-wrapper-newuser {
+  height: 100%vh;
+  width: 100%;
+}
 
-  .dash-img-newuser {
-    width: 100%;
-    height: 100%;
-    background: url("../assets/img/Toronto.jpg");
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-
-  .dashboard-image-container {
-    display: flex;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-
+.dash-img-newuser {
+  width: 100%;
+  height: 100%;
+  background: url("../assets/img/Xi'an.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: auto;
+}
+
+.dashboard-image-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .dash-wrapper {
@@ -74,7 +73,7 @@
 .dash-img {
   width: 100%;
   height: 100%;
-  background: url("../assets/img/Toronto.jpg");
+  background: url("../assets/img/Xi'an.jpg");
   background-size: cover;
   background-position: center;
   z-index: -1;

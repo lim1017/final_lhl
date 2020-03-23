@@ -99,7 +99,8 @@ function BriefPortfolio(props) {
       <h4>Your Investment Portfolio: </h4>
       <h6>
         {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
-      </div>
+      </h6>
+
       <PieChart width={550} height={350}>
         <Pie
           data={createPie(
