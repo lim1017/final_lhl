@@ -6,7 +6,6 @@ import CardExplained from "components/Card/CardExplained";
 import CardPortfolio from "components/Card/CardPortfolio";
 
 function RenderPortfolio(props) {
-  console.log("RENDER PROPS", props);
   // let match = useRouteMatch();
 
   return (

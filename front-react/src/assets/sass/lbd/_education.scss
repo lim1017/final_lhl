@@ -3,31 +3,28 @@
   flex-wrap: wrap;
   margin-top: 8rem;
 
-  .article{
+  .article {
     flex: 0 0 calc(33% - 2rem); //3 on each line
     margin: 2rem 1rem;
   }
 }
 
-.edu-title{
+.edu-title {
   margin-top: 0px;
   padding-top: 15px;
   padding-left: 15px;
-  color:whitesmoke;
+  color: whitesmoke;
 }
 
-.img-wrapper{
+.img-wrapper {
   height: 100%vh;
   width: 100%;
-
-  
-  
 }
 
-.img-container{
+.img-container {
   width: 100%;
   height: 100%;
-  background: url("../../img/Toronto.jpg");
+  background: url("../../img/IcelandLights.jpg");
   background-size: cover;
   background-position: center;
   z-index: -1;
@@ -36,11 +33,10 @@
   left: 0;
   right: 0;
 
-
   // display: grid;
   // grid-template-columns: auto;
 }
 
-.MuiCard-root{
+.MuiCard-root {
   opacity: 0.85;
 }

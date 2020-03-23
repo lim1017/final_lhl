@@ -30,7 +30,7 @@ export default function Show(props) {
         <div className="content">
           <div>Goal Type: {typeDetailer(props.type)}</div>
           <div>$: {props.amount}</div>
-          <div>Date: {props.date}</div>
+          <div>Date: {`${props.date.split("-")[1]}-${props.date.split("-")[2]}`}</div>
         </div>
       </div>
       <div className="description">

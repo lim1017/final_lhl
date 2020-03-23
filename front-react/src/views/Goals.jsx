@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import axios from "axios";
-import { Grid } from "react-bootstrap";
+import Grid from "@material-ui/core/Grid";
 import Goal from "components/Goal/index.jsx";
 import appDataContext from "../hooks/reducers/useContext";
 import CardGoalsTips from "./CardGoalsTips";
@@ -10,11 +10,13 @@ function Goals(props) {
   const { state, dispatch } = useContext(appDataContext);
 
   const setGoal = (id, goal) => {
+    const user = localStorage.getItem("id");
     return new Promise((res, rej) => {
       axios
         .put(`http://localhost:8001/api/goals/${id}`, goal)
         .then(res1 => {
-          axios.get("http://localhost:8001/api/goals").then(res2 => {
+          axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
+            console.log("goal get", res2.data);
             dispatch({
               ...state,
               type: "SET_DATA",
@@ -30,11 +32,12 @@ function Goals(props) {
   };
 
   const deleteGoal = id => {
+    const user = localStorage.getItem("id");
     return new Promise((res, rej) => {
       axios
         .delete(`http://localhost:8001/api/goals/${id}`)
         .then(res1 => {
-          axios.get("http://localhost:8001/api/goals").then(res2 => {
+          axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
             dispatch({
               ...state,
               type: "SET_DATA",
@@ -66,12 +69,9 @@ function Goals(props) {
   });
 
   return (
-    <>
-      {/* <div className="risk-assessment-button-image-container">
-        <div className="risk-assessment-background-image"> */}
-      {/* <Grid container spacing={1}> */}
+    <Grid className="goals-background-image" container spacing={1}>
       <Grid item xs={6}>
-        <h2>Set Some Goals!</h2>
+        <h2> Set Some Goals!</h2>
         <CardGoals
           state={state}
           setGoal={setGoal}
@@ -81,10 +81,7 @@ function Goals(props) {
       <Grid item xs={6}>
         <CardGoalsTips></CardGoalsTips>
       </Grid>
-      {/* </Grid> */}
-      {/* </div>
-      </div> */}
-    </>
+    </Grid>
   );
 }
 
