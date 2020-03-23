@@ -168,3 +168,15 @@
     }
   }
 }
+
+.goals-button-image-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.goals-background-image {
+  background: url("../../img/Nepal.jpg");
+  background-size: cover;
+}
