@@ -89,7 +89,7 @@ const findUserBudget = function(state, id) {
 
   if (state.budget) {
     for (const budget of state.budget) {
-      if (budget.user_id && budget.user_id === id) {
+      if (budget.user_id && budget.user_id === parseInt(id)) {
         result = budget;
       }
     }

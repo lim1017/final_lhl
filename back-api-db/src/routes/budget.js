@@ -1,11 +1,12 @@
 const router = require("express").Router();
 
 module.exports = db => {
-  router.get("/budget", (request, response) => {
+  router.get("/budget/:id", (request, response) => {
     db.query(
       `
-      SELECT * FROM budget
-    `
+      SELECT * FROM budget WHERE id = $1::integer
+      `,
+      [request.params.id]
     ).then(({ rows: budget }) => {
       response.json(budget);
     });

@@ -78,7 +78,7 @@ function Budget(props) {
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
-      axios.get("http://localhost:8001/api/budget"),
+      axios.get(`http://localhost:8001/api/budget/${user}`),
       axios.get(`http://localhost:8001/api/goals/${user}`),
       axios.get(`http://localhost:8001/api/users/${user}`)
 
@@ -99,7 +99,7 @@ function Budget(props) {
 
   useEffect(() => {
     for (const bud of state.budget) {
-      if (bud.user_id === localStorage.getItem('id') && bud !== budget) {
+      if (bud.user_id === parseInt(localStorage.getItem('id')) && bud !== budget) {
         dispatchBudget({
           type: "ALL",
           budget: findUserBudget(state, localStorage.getItem('id'))
