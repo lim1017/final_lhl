@@ -1,39 +1,32 @@
-
 import React, { Component } from "react";
 import { NavLink, Link } from "react-router-dom";
 
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 import CardSidebar from "../Card/CardSidebar.jsx";
 
-
 import logo from "assets/img/piggylogo.png";
 import { Button } from "react-bootstrap";
-
 
 class Sidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       width: window.innerWidth,
-      isLoggedIn:false,
-      loggedInUser:'azxcv'
+      isLoggedIn: false,
+      loggedInUser: "azxcv"
     };
   }
 
-
-
-  logout(){
+  logout() {
     localStorage.clear();
-    
-    this.setState({isLoggedIn:false})
 
+    this.setState({ isLoggedIn: false });
   }
-
 
   activeRoute(routeName) {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   }
-  
+
   updateDimensions() {
     this.setState({ width: window.innerWidth });
   }
@@ -42,16 +35,15 @@ class Sidebar extends Component {
     this.updateDimensions();
     window.addEventListener("resize", this.updateDimensions.bind(this));
 
-    const userId = localStorage.getItem('id');
-    const user = localStorage.getItem('username');
+    const userId = localStorage.getItem("id");
+    const user = localStorage.getItem("username");
 
-    if (userId !== null){
-      this.setState({isLoggedIn:true})
-      this.setState({loggedInUser:user})
+    if (userId !== null) {
+      this.setState({ isLoggedIn: true });
+      this.setState({ loggedInUser: user });
     }
   }
 
-  
   render() {
     const sidebarBackground = {
       backgroundImage: "url(" + this.props.image + ")"
@@ -132,25 +124,22 @@ class Sidebar extends Component {
 
           {this.state.isLoggedIn ? (
             <div className="sidebar-card">
-
-
-      
-            <CardSidebar 
+              <CardSidebar
+                className="sidebar-name"
                 statsIcon="fa fa-clock-o"
-                title='Welcome' 
+                title="Welcome"
                 category={this.state.loggedInUser}
                 content={
-                  <div className='sidebar-content'>
-                  <Link to={`/welcome`} onClick={()=>this.logout()} >
-                  <Button variant="outline-success"  >Logout</Button>
-                  </Link>
-                  <span>{}</span>
+                  <div className="sidebar-content">
+                    <Link to={`/welcome`} onClick={() => this.logout()}>
+                      <Button variant="outline-success">Logout</Button>
+                    </Link>
+                    <span>{}</span>
                   </div>
                 }
-              />  
-
+              />
             </div>
-            ) : null}
+          ) : null}
         </div>
       </div>
     );
