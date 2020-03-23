@@ -100,7 +100,7 @@ function BriefPortfolio(props) {
       <div>
         {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
       </div>
-      <PieChart width={730} height={500}>
+      <PieChart width={550} height={350}>
         <Pie
           data={createPie(
             portfolioDistribution(props.state.users[0].riskscore)
@@ -108,9 +108,9 @@ function BriefPortfolio(props) {
           )}
           dataKey="value"
           nameKey="name"
-          cx="40%"
-          cy="40%"
-          outerRadius={150}
+          cx="41%"
+          cy="47%"
+          outerRadius={135}
           fill="#8884d8"
           label
         >
@@ -124,7 +124,7 @@ function BriefPortfolio(props) {
         <Legend
           verticalAlign="bottom"
           layout="vertical"
-          height={0}
+          height={45}
           width={250}
         />
       </PieChart>
