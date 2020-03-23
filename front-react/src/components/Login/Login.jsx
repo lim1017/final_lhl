@@ -93,7 +93,11 @@ function Login(props) {
           onChange={handleChangeName}
         />
 
-        <Button variant="outline-success" onClick={() => login()}>
+        <Button
+          style={{ width: "10rem" }}
+          variant="outline-success"
+          onClick={() => login()}
+        >
           Login
         </Button>
       </Form>
@@ -108,7 +112,11 @@ function Login(props) {
           onChange={handleChangeName}
         />
 
-        <Button variant="outline-success" onClick={() => register()}>
+        <Button
+          style={{ width: "10rem" }}
+          variant="outline-success"
+          onClick={() => register()}
+        >
           Register
         </Button>
       </Form>
