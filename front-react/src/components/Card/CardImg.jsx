@@ -25,7 +25,7 @@ export default function CardImg(props) {
         <CardMedia
           component="img"
           alt={props.title}
-          height="140"
+          height="200"
           image={props.image}
           title={props.title}
         />
@@ -33,12 +33,16 @@ export default function CardImg(props) {
           <Typography gutterBottom variant="h5" component="h2"><a href={props.link}>
             {props.title}</a>
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-           {props.title}
-          </Typography>
+          
           
           <Button
-            style={{marginTop: '1rem'}}
+            style={{ 
+            marginTop:'1rem',
+            backgroundColor:"#c4d2c7",
+            color:'black',
+            fontWeight:'bold',
+            height:'30px'
+            }}
             variant="contained"
             color="primary"
             onClick={() => props.readArticle()}
