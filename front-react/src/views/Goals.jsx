@@ -10,11 +10,13 @@ function Goals(props) {
   const { state, dispatch } = useContext(appDataContext);
 
   const setGoal = (id, goal) => {
+    const user = localStorage.getItem("id");
     return new Promise((res, rej) => {
       axios
         .put(`http://localhost:8001/api/goals/${id}`, goal)
         .then(res1 => {
-          axios.get("http://localhost:8001/api/goals").then(res2 => {
+          axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
+            console.log("goal get", res2.data);
             dispatch({
               ...state,
               type: "SET_DATA",
@@ -30,11 +32,12 @@ function Goals(props) {
   };
 
   const deleteGoal = id => {
+    const user = localStorage.getItem("id");
     return new Promise((res, rej) => {
       axios
         .delete(`http://localhost:8001/api/goals/${id}`)
         .then(res1 => {
-          axios.get("http://localhost:8001/api/goals").then(res2 => {
+          axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
             dispatch({
               ...state,
               type: "SET_DATA",

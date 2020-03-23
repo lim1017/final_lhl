@@ -49,7 +49,7 @@ export default function BudgetGoals(props) {
           ${goal.amount}
         </TableCell>
         <TableCell component="th" scope="row" className={classes.tableCell}>
-          {goal.date}
+          {`${goal.date.split("-")[1]}-${goal.date.split("-")[2]}`}
         </TableCell>
       </TableRow>
     );

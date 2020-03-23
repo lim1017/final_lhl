@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import CustomButton from "../CustomButton/CustomButton";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
+import { getMonthNum } from "../../helpers/goal";
 
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
   const [type, setType] = useState(props.type || "");
   const [amount, setAmount] = useState(props.amount || "");
   const [description, setDescription] = useState(props.description || "");
-  const [month, setMonth] = useState(props.date.split("-")[0] || 1);
-  const [year, setYear] = useState(props.date.split("-")[2] || 2020);
+  const [month, setMonth] = useState(props.date.split("-")[1] || new Date().getMonth() + 1);
+  const [year, setYear] = useState(props.date.split("-")[2] || new Date().getFullYear() + 1);
   const [error, setError] = useState("");
 
   const typeCheck = function(value) {
@@ -19,7 +20,7 @@ export default function Form(props) {
   };
 
   const validate = function() {
-    const date = new Date(`${month}/5/${year}`);
+    const date = new Date(`${month}/1/${year}`);
 
     if (name === "") {
       setError("Goal name cannot be blank");
@@ -48,6 +49,7 @@ export default function Form(props) {
     let newMonth = month;
     let newYear = year;
 
+
     if (chgDate.month) {
       if (chgDate.month < 1) newMonth = 1;
       else if (chgDate.month > 12) newMonth = 12;
@@ -70,7 +72,9 @@ export default function Form(props) {
   //       return false;
   //   return true;
   // }
-  console.log("current date: ", new Date(`${month}/5/${year}`));
+
+  console.log("goal edit props date: ", props.date, month, year);
+  console.log("current date: ", new Date(`${month}/1/${year}`));
 
   return (
     <>
@@ -98,8 +102,8 @@ export default function Form(props) {
                       <input
                         name="type"
                         type="radio"
-                        value="SFP"
-                        onClick={() => typeCheck("SFP")}
+                        checked={type === "SFP"}
+                        onChange={() => typeCheck("SFP")}
                       />
                       Purchase
                     </div>
@@ -107,8 +111,8 @@ export default function Form(props) {
                       <input
                         name="type"
                         type="radio"
-                        value="SPM"
-                        onClick={() => typeCheck("SPM")}
+                        checked={type === "SPM"}
+                        onChange={() => typeCheck("SPM")}
                       />
                       Save Money
                     </div>
@@ -116,8 +120,8 @@ export default function Form(props) {
                       <input
                         name="type"
                         type="radio"
-                        value="LE"
-                        onClick={() => typeCheck("LE")}
+                        checked={type === "LE"}
+                        onChange={() => typeCheck("LE")}
                       />
                       Limit Expenses
                     </div>
@@ -158,7 +162,7 @@ export default function Form(props) {
                           width: "100px"
                         }}
                         style={{ width: 50 }}
-                        defaultValue={1}
+                        defaultValue={getMonthNum(month)}
                         onInput={e => {
                           e.target.value = parseInt(
                             Math.max(0, parseInt(e.target.value))
@@ -180,7 +184,7 @@ export default function Form(props) {
                           width: "100px"
                         }}
                         style={{ width: 50 }}
-                        defaultValue={2020}
+                        defaultValue={year}
                         onInput={e => {
                           e.target.value = parseInt(
                             Math.max(0, parseInt(e.target.value))
@@ -206,6 +210,9 @@ export default function Form(props) {
                   />
                 </div>
               </div>
+              <div className="errorMessage">
+                {error}
+              </div>
               <div className="buttons">
                 <CustomButton
                   className="button"
@@ -221,7 +228,6 @@ export default function Form(props) {
                 >
                   Save
                 </CustomButton>
-                {error}
               </div>
             </div>
           </form>
