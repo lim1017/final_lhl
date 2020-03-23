@@ -1,8 +1,17 @@
-.youtube-video {
-  width: 118rem;
-}
-
 .youtube-video-buttons-container {
   display: flex;
   justify-content: space-between;
+}
+
+.youtube-background-image {
+  height: 100%;
+  width: 100%;
+  background: url("../assets/img/Iceland.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }

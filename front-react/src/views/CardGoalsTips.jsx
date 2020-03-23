@@ -6,7 +6,7 @@ function CardGoalsTips(props) {
   const [localState, setLocalState] = useState({
     outputTips: 0
   });
-  console.log("localstate", localState);
+
   return (
     <Grid item xs={12}>
       <div className="goals-container">
@@ -33,7 +33,10 @@ function CardGoalsTips(props) {
               <a
                 href="https://www.wealthsimple.com/en-ca/learn/how-to-save-money"
                 class="btn btn-primary"
-                style={{ color: "black", borderColor: "#c4d2c7" }}
+                style={{
+                  color: "black",
+                  borderColor: "#c4d2c7"
+                }}
               >
                 Go to Article
               </a>
