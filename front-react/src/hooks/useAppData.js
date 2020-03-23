@@ -37,7 +37,7 @@ export default function useAppData() {
       }
     ],
     users: [{}],
-    date: { month: 1, year: 2020 },
+    date: { month: 3, year: 2020 },
     educationAnswers: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     educationAnsweredYet: { 1: false, 2: false, 3: false, 4: false, 5: false },
     eduProgress: 0
