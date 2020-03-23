@@ -75,7 +75,7 @@ VALUES
 
 
 INSERT INTO budget (user_id, base, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc)
-VALUES (1, 100000, 1000, 10, 20, 30, 40, 50, 60, 70, 80);
+VALUES (1, 100000, 5000, 2000, 200, 800, 400, 200, 100, 100, 300);
   
 INSERT INTO goals (name, user_id, type, amount, description, date)
 VALUES

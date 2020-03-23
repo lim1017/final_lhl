@@ -87,7 +87,18 @@
 .dashboard-chart {
   display: grid;
   grid-row: 1/5;
+  height: 450px;
+  width: 450px;
 }
+
+.dashboard-chart1 {
+  display: grid;
+  grid-row: 1/5;
+  height: 450px;
+  width: 450px;
+  overflow-y: auto;
+}
+
 .dashboard-chart4 {
   display: grid;
   grid-row: 1/5;
