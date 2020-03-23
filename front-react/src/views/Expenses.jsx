@@ -66,7 +66,7 @@ function Dashboard(props) {
         axios
           .post(
             "http://localhost:8001/api/expenses/file/",
-            { textData, userId },
+            { textData, userId, date:state.date },
             {
               // receive two parameter endpoint url ,form data
             }
@@ -195,6 +195,7 @@ function Dashboard(props) {
 
                     {addExpense ? (
                       <ExpenseUpdater1
+                        date={state.date}
                         onExpenseSubmit={() => refreshExpenses(state.date)}
                       />
                     ) : null}

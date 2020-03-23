@@ -3,6 +3,14 @@ import axios from "axios";
 import reducerz, { SET_DATA } from "./reducers/app";
 
 export default function useAppData() {
+
+  const today=new Date();
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  console.log(today)
+  console.log(mm)
+
   const [state, dispatch] = useReducer(reducerz, {
     expenses: [{ id: 0, name: "", user_id: 0, amount: 0, type: "", date: "" }],
     totalExpenses: [
@@ -37,7 +45,7 @@ export default function useAppData() {
       }
     ],
     users: [{}],
-    date: { month: 3, year: 2020 },
+    date: { month: mm, year: yyyy },
     educationAnswers: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     educationAnsweredYet: { 1: false, 2: false, 3: false, 4: false, 5: false },
     eduProgress: 0

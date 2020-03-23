@@ -51,14 +51,20 @@ module.exports = db => {
     }
     const { amount, name, type, userId } = request.body;
 
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  
+  datez = request.body.date.year + '/' + request.body.date.month + '/' + dd;
+  
+
     db.query(
       `
       INSERT INTO expenses (name, user_id, amount, type, date)
       VALUES
-      ($1, $2, $3, $4, current_date)
+      ($1, $2, $3, $4, $5)
 
       `,
-      [name, userId, amount, type]
+      [name, userId, amount, type, datez]
     )
       .then(x => {
         setTimeout(() => {
@@ -83,15 +89,20 @@ module.exports = db => {
 
     console.log(req.body, 'from upload@@!!')
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    
+    datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
+
     Promise.all(formatExpenses(req.body).map(element =>{
        return db.query(
         `
         INSERT INTO expenses (name, user_id, amount, type, date)
         VALUES
-        ($1, $2, $3, $4, current_date)
+        ($1, $2, $3, $4, $5)
   
         `,
-        [element[0],req.body.userId, element[1], element[2]]
+        [element[0],req.body.userId, element[1], element[2], datez]
         //name/userid/amount/type
       )
         
