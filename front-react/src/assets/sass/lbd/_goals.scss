@@ -134,6 +134,13 @@
     }
   }
 
+  .errorMessage {
+    position: relative;
+    text-align: right;
+    grid-column: 1/3;
+    grid-row: 3/4; 
+  }
+
   .buttons {
     position: relative;
     height: 50px;

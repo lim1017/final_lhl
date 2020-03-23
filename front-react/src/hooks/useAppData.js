@@ -60,12 +60,11 @@ export default function useAppData() {
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
-      axios.get("http://localhost:8001/api/budget"),
+      axios.get(`http://localhost:8001/api/budget/${user}`),
       axios.get(`http://localhost:8001/api/goals/${user}`),
       axios.get(`http://localhost:8001/api/users/${user}`)
     ])
       .then(response => {
-        console.log("goal get", response[3].data);
         dispatch({
           type: SET_DATA,
           expenses: response[0].data,
