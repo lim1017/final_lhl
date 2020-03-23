@@ -12,7 +12,7 @@ function CardGoals(props) {
           <Goal
             mode="new"
             key={props.state.goals.length + 1}
-            id={props.state.goals.length + 1}
+            id={0}
             date={`1-${'JAN'}-${new Date().getFullYear() + 1}`}
             setGoal={props.setGoal}
           />
