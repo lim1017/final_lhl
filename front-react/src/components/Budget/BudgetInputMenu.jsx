@@ -11,7 +11,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: 'auto 10px auto 0',
+    margin: 'auto 5px auto 5px',
     display: 'flex',
   },
   paper: {

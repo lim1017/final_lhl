@@ -44,6 +44,7 @@ export default function useAppData() {
   });
 
   useEffect(() => {
+    console.log('use effect running')
     const user = localStorage.getItem("id");
 
     let datez = `${state.date.month}+${state.date.year}+${user}`;
@@ -52,7 +53,7 @@ export default function useAppData() {
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`),
       axios.get("http://localhost:8001/api/budget"),
-      axios.get("http://localhost:8001/api/goals"),
+      axios.get(`http://localhost:8001/api/goals/${user}`),
       axios.get(`http://localhost:8001/api/users/${user}`)
     ])
       .then(response => {

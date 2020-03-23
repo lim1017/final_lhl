@@ -67,6 +67,9 @@ function Goals(props) {
 
   return (
     <>
+      {/* <div className="risk-assessment-button-image-container">
+        <div className="risk-assessment-background-image"> */}
+      {/* <Grid container spacing={1}> */}
       <Grid item xs={6}>
         <h2>Set Some Goals!</h2>
         <CardGoals
@@ -78,6 +81,9 @@ function Goals(props) {
       <Grid item xs={6}>
         <CardGoalsTips></CardGoalsTips>
       </Grid>
+      {/* </Grid> */}
+      {/* </div>
+      </div> */}
     </>
   );
 }

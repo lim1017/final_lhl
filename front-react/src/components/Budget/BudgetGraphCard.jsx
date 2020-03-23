@@ -60,9 +60,7 @@ export const BudgetGraphCard = function(props) {
         </FormControl>
       </div>
       <div
-        className={
-          "content budgetGraphCardGraph"
-        }
+        className={"content budgetGraphCardGraph"}
       >
         {props.content}
 

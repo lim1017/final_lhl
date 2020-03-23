@@ -95,9 +95,9 @@ const colors = [
 
 function BriefPortfolio(props) {
   return (
-    <>
-      <div>Your Investment Portfolio: </div>
-      <div>
+    <div className="dashboard-chart4">
+      <h4>Your Investment Portfolio: </h4>
+      <h6>
         {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
       </div>
       <PieChart width={550} height={350}>
@@ -128,7 +128,7 @@ function BriefPortfolio(props) {
           width={250}
         />
       </PieChart>
-    </>
+    </div>
   );
 }
 
