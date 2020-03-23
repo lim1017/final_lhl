@@ -1,6 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 
-import { createPie, returnMonthText } from "helpers/expenseHelper";
+import {
+  formatDataForExpenseTable,
+  createPie,
+  returnMonthText,
+  formatDataForBarChart
+} from "helpers/expenseHelper";
 
 import {
   PieChart,
@@ -16,14 +21,10 @@ import {
 } from "recharts";
 
 import { Card } from "components/Card/Card.jsx";
-
 import { CardExpTable } from "components/Card/CardExpTable.jsx";
-
 import FileUpload from "components/FileUpload/FileUpload.jsx";
-
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
-
 import appDataContext from "../hooks/reducers/useContext";
 import { MDBDataTable } from "mdbreact";
 import Button from "@material-ui/core/Button";
@@ -36,14 +37,11 @@ function Dashboard(props) {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [user, setUser] = useState(false);
 
-
-  const COLORS = ['#c4d2c7', '#ffe7ea', '#f87f8d', '#FF8042'];
-  
+  const COLORS = ["#c4d2c7", "#ffe7ea", "#f87f8d", "#FF8042"];
 
   useEffect(() => {
-    console.log(state)
-     setUser(localStorage.getItem('id'))
-
+    console.log(state);
+    setUser(localStorage.getItem("id"));
   }, []);
 
   function handleFile(event) {
@@ -54,9 +52,7 @@ function Dashboard(props) {
   }
 
   function sendFileBack() {
-
-    const userId = localStorage.getItem('id');
-
+    const userId = localStorage.getItem("id");
 
     if (fileUploaded && fileUploaded.selectedFile.name.includes(".csv")) {
       console.log(fileUploaded);
@@ -90,53 +86,9 @@ function Dashboard(props) {
     }
   }
 
-  function formatDataForExpenseTable(data) {
-    const finalOP = [];
-
-    data.forEach(ele => {
-      if (ele.amount !== 0) {
-        finalOP.push(ele);
-      }
-    });
-
-    return finalOP;
-  }
-
-  function formatDataForBarChart(data) {
-    const finalOP = [];
-    const avg=[315, 180, 533, 1700, 79, 172, 558, 300]
-    let i =0
-    data.forEach(ele => {
-      
-      const bar={
-        name:ele.type,
-        Personal:ele.sum,
-        Average:avg[i]
-      }
-      finalOP.push(bar);
-      i++
-    });   
-    return finalOP;
-  }
-
-  // function returnMonthText(number) {
-  //   switch (number) {
-  //     case 1:
-  //       return "January";
-  //     case 2:
-  //       return "Febuary";
-  //     case 3:
-  //       return "March";
-
-  //     default:
-  //     // code block
-  //   }
-  // }
-
   function toggleState() {
     setAddExpense(!addExpense);
   }
-
 
   function chgMonth(date) {
     const datez = {
@@ -148,26 +100,12 @@ function Dashboard(props) {
       type: SET_DATE,
       date: datez
     });
-    
+
     refreshExpenses(date);
   }
 
-
-  // function createPie(expensesTotal) {
-   
-  //   const finalOP=[]
-  //   expensesTotal.forEach(element =>{
-  //     const slice={
-  //       name:element.type,
-  //       value:parseInt(element.sum)
-  //     }
-  //     finalOP.push(slice)
-  //   })
-  //   return finalOP
-  // }
-
   function refreshExpenses(date) {
-    let datez= `${date.month}+${date.year}+${user}`
+    let datez = `${date.month}+${date.year}+${user}`;
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
@@ -187,147 +125,143 @@ function Dashboard(props) {
   }
 
   return (
-    <div className='content-wrapper'>
-    <div className="content1" style={{ padding: "0" }}>
-      <div className="contentExpenses1">
-     
-            <div className="expenses-table1">
-              <CardExpTable
-                title="Expenses"
-                category={returnMonthText(state.date.month)}
-                ctTableFullWidth
-                ctTableResponsive
-                content2={
-                  <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
-                }
-                content={
-                  <div>
-                    <MDBDataTable
-                      className="mdb"
-                      searching={false}
-                      displayEntries={false}
-                      scrollY
-                      maxHeight="225px"
-
-                      striped
-                      bordered
-                      small
-                      data={{
-                        columns: [
-                          {
-                            label: "Name",
-                            field: "name",
-                            sort: "asc",
-                            width: 150
-                          },
-                          {
-                            label: "Type",
-                            field: "type",
-                            sort: "asc",
-                            width: 150
-                          },
-                          {
-                            label: "Amount",
-                            field: "amount",
-                            sort: "asc",
-                            width: 150
-                          },
-                          {
-                            label: "Date",
-                            field: "date",
-                            sort: "asc",
-                            width: 150
-                          }
-                        ],
-                        rows: formatDataForExpenseTable(state.expenses)
+    <div className="content-wrapper">
+      <div className="content1" style={{ padding: "0" }}>
+        <div className="contentExpenses1">
+          <div className="expenses-table1">
+            <CardExpTable
+              title="Expenses"
+              category={returnMonthText(state.date.month)}
+              ctTableFullWidth
+              ctTableResponsive
+              content2={
+                <MonthPicker currentMonth={state.date} chgMonth={chgMonth} />
+              }
+              content={
+                <div>
+                  <MDBDataTable
+                    className="mdb"
+                    searching={false}
+                    displayEntries={false}
+                    scrollY
+                    maxHeight="225px"
+                    striped
+                    bordered
+                    small
+                    data={{
+                      columns: [
+                        {
+                          label: "Name",
+                          field: "name",
+                          sort: "asc",
+                          width: 150
+                        },
+                        {
+                          label: "Type",
+                          field: "type",
+                          sort: "asc",
+                          width: 150
+                        },
+                        {
+                          label: "Amount",
+                          field: "amount",
+                          sort: "asc",
+                          width: 150
+                        },
+                        {
+                          label: "Date",
+                          field: "date",
+                          sort: "asc",
+                          width: 150
+                        }
+                      ],
+                      rows: formatDataForExpenseTable(state.expenses)
+                    }}
+                  />
+                  <div className="addExpenseDiv">
+                    <Button
+                      variant="contained"
+                      // color="primary"
+                      style={{
+                        backgroundColor: "#c4d2c7",
+                        color: "black",
+                        fontWeight: "bold",
+                        height: "50px"
                       }}
-                    />
-                    <div className="addExpenseDiv">
-                      <Button
-                        variant="contained"
-                        // color="primary" 
-                        style={{ 
-                        backgroundColor:"#c4d2c7",
-                        color:'black',
-                        fontWeight:'bold',
-                        height:'50px'
-                        }}
-                        onClick={() => toggleState()}
-                      >
-                        Add an expense
-                      </Button>
-
-                      {addExpense ? (
-                        <ExpenseUpdater1
-                          onExpenseSubmit={() => refreshExpenses(state.date)}
-                        />
-                      ) : null}
-
-                      <FileUpload
-                        handleFile={handleFile}
-                        sendFileBack={sendFileBack}
-                      />
-                    </div>
-                  </div>
-                }
-              />
-              </div>
-      
-            <div className="expenses-table2">
-              <Card
-                statsIcon="fa fa-clock-o"
-                title="Expenses"
-                content={
-                  <PieChart width={500} height={350}>
-                    <Tooltip />
-                    <Pie
-                      data={createPie(state.totalExpenses)}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="70%"
-                      cy="40%"
-                      outerRadius={120}
-                      fill="#8884d8"
-                      label
+                      onClick={() => toggleState()}
                     >
-                      {createPie(state.totalExpenses).map((entry, index) => (
-                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Legend
-                      verticalAlign="bottom"
-                      layout="horizontal"
-                      height={55}
-                      width={355}
-                    />
-                  </PieChart>
-                }
-              />
-            </div>  
-            <div className="expenses-table3">
+                      Add an expense
+                    </Button>
 
-              <Card
-                statsIcon="fa fa-clock-o"
-                title="Expense Comparison To National Average"
-                content={
-                  <BarChart
-                    width={500}
-                    height={350}
-                    data={formatDataForBarChart(state.totalExpenses)}
+                    {addExpense ? (
+                      <ExpenseUpdater1
+                        onExpenseSubmit={() => refreshExpenses(state.date)}
+                      />
+                    ) : null}
+
+                    <FileUpload
+                      handleFile={handleFile}
+                      sendFileBack={sendFileBack}
+                    />
+                  </div>
+                </div>
+              }
+            />
+          </div>
+
+          <div className="expenses-table2">
+            <Card
+              statsIcon="fa fa-clock-o"
+              title="Expenses"
+              content={
+                <PieChart width={500} height={350}>
+                  <Tooltip />
+                  <Pie
+                    data={createPie(state.totalExpenses)}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="70%"
+                    cy="40%"
+                    outerRadius={120}
+                    fill="#8884d8"
+                    label
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="Personal" fill="#c4d2c7" />
-                    <Bar dataKey="Average" fill="#ffe7ea" />
-                  </BarChart>
-                }
-              />
-            </div>
-      
-      </div>
+                    {createPie(state.totalExpenses).map((entry, index) => (
+                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Legend
+                    verticalAlign="bottom"
+                    layout="horizontal"
+                    height={55}
+                    width={355}
+                  />
+                </PieChart>
+              }
+            />
+          </div>
+          <div className="expenses-table3">
+            <Card
+              statsIcon="fa fa-clock-o"
+              title="Expense Comparison To National Average"
+              content={
+                <BarChart
+                  width={500}
+                  height={350}
+                  data={formatDataForBarChart(state.totalExpenses)}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="Personal" fill="#c4d2c7" />
+                  <Bar dataKey="Average" fill="#ffe7ea" />
+                </BarChart>
+              }
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
