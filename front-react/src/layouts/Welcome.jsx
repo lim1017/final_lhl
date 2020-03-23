@@ -11,7 +11,7 @@ function Welcome(props) {
 
   return (
     
-    <div>
+    <div style={{height:"100vh"}}>
       <div className='welcome-img-container'>
         <div className='welcome-img'>
         

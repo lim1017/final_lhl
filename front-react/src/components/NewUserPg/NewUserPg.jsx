@@ -2,25 +2,35 @@ import React from "react";
 
 
 function NewUserPg(props) {
-    
+
+  const username = localStorage.getItem('username');
+    console.log(username)
 
   return (
- <div>
-    <h1>Hello BOB</h1>
-    <h2>Welcome to piggy bank where we take your financial litter to the next level!</h2>
-    <h3>etc etcetc etcetc etcetc etcetc etcetc etcetc etc</h3>
-    <h3>etc etcetc etcetc etcetc etc</h3>
-    <h4> need to add button to take to actual dashboard </h4>
-  
-            <button className="risk-assessment-start-button" onClick={()=>{
-            console.log('clicked')
-            props.oldUser()
-            // localStorage.setItem("newUser", false);
 
-            }}>Get Started Now</button>
+    <>
+    <div className='welcome-text-div'>
+    <h2 className='welcome-text'>Welcome {username}!</h2>
+    <h2 className='welcome-text'>Here at PiggyBank we believe in the power of financial literacy.  We will help you setup your goals, track and expenses, achieve your dreams.  </h2>
+    </div>
 
+
+  <div className='new-user'>
+    <button className="new-user-button" onClick={()=>{
+    console.log('clicked')
+    props.oldUser()
+    // localStorage.setItem("newUser", false);
+    }}>Get Started Now</button>
   </div>  
-  
+
+  <div className='welcome-quote'>
+    <h2 className='welcome-text'>Compound interest is the eighth wonder of the world. He who understands it, earns it … he who doesn't … pays it.
+    </h2>
+    <h3 style={{color:'white'}}>Albert Einstein</h3>
+  </div>
+
+
+    </>
   
   );
 }
