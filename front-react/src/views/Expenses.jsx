@@ -210,56 +210,75 @@ function Dashboard(props) {
           </div>
 
           <div className="expenses-table2">
-            <Card
-              statsIcon="fa fa-clock-o"
-              title="Expenses"
-              content={
-                <PieChart width={500} height={350}>
-                  <Tooltip />
-                  <Pie
-                    data={createPie(state.totalExpenses)}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="70%"
-                    cy="40%"
-                    outerRadius={120}
-                    fill="#8884d8"
-                    label
-                  >
-                    {createPie(state.totalExpenses).map((entry, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Legend
-                    verticalAlign="bottom"
-                    layout="horizontal"
-                    height={55}
-                    width={355}
-                  />
-                </PieChart>
-              }
-            />
+
+          {state.expenses.length !==0 ? (
+                     
+                     <Card
+                     statsIcon="fa fa-clock-o"
+                     title="Expenses"
+                     content={
+                       <PieChart width={500} height={350}>
+                         <Tooltip />
+                         <Pie
+                           data={createPie(state.totalExpenses)}
+                           dataKey="value"
+                           nameKey="name"
+                           cx="70%"
+                           cy="40%"
+                           outerRadius={120}
+                           fill="#8884d8"
+                           label
+                         >
+                           {createPie(state.totalExpenses).map((entry, index) => (
+                             <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                           ))}
+                         </Pie>
+                         <Legend
+                           verticalAlign="bottom"
+                           layout="horizontal"
+                           height={55}
+                           width={355}
+                         />
+                       </PieChart>
+                     }
+                   />
+
+          ) : null}
+
+
+       
           </div>
           <div className="expenses-table3">
-            <Card
-              statsIcon="fa fa-clock-o"
-              title="Expense Comparison To National Average"
-              content={
-                <BarChart
-                  width={500}
-                  height={350}
-                  data={formatDataForBarChart(state.totalExpenses)}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar dataKey="Personal" fill="#c4d2c7" />
-                  <Bar dataKey="Average" fill="#ffe7ea" />
-                </BarChart>
-              }
-            />
+
+          {state.expenses.length !==0 ? (
+                     
+                     <Card
+                     statsIcon="fa fa-clock-o"
+                     title={<p>Expense Comparison To <a target="_blank" rel="noopener noreferrer" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201">National Average</a>
+                     </p>}
+                     content={
+                       <BarChart
+                         width={500}
+                         height={350}
+                         data={formatDataForBarChart(state.totalExpenses)}
+                       >
+                         <CartesianGrid strokeDasharray="3 3" />
+                         <XAxis dataKey="name" />
+                         <YAxis />
+                         <Tooltip />
+                         <Legend />
+                         <Bar dataKey="Personal" fill="#c4d2c7" />
+                         <Bar dataKey="Average" fill="#ffe7ea" />
+                       </BarChart>
+                     }
+                   />
+
+          ) : null}
+
+          
+
+
+          
           </div>
         </div>
       </div>

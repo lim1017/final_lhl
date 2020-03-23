@@ -32,7 +32,7 @@ function Dashboard(props) {
 
 
 
-  function oldUser(){
+  function isOldUser(){
     console.log(isUserNew)
 
   Promise.all([
@@ -55,7 +55,7 @@ function Dashboard(props) {
     {isUserNew ? (
     <div className='dash-wrapper-newuser'>
       <div className='dash-img-newuser'>
-        <NewUserPg oldUser={oldUser} />
+        <NewUserPg oldUser={isOldUser} />
       </div>
     </div>
     ) : 

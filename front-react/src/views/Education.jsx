@@ -178,7 +178,7 @@ function Maps({ ...prop }) {
       </div>
     
         <div>
-          <ProgressBar style={progressBar} now={state.eduProgress} label={state.eduProgress} />
+          <ProgressBar style={progressBar} now={state.eduProgress} label={state.eduProgress.toFixed(2)} />
         </div>
       </div>
     </div>
