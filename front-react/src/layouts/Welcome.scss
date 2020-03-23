@@ -1,12 +1,9 @@
-
-
-.welcome-img-container{
-   height: 100%;
+.welcome-img-container {
+  height: 100%;
   width: 100%;
-
 }
 
-.welcome-img{
+.welcome-img {
   height: 100%;
   width: 100%;
   background: url("../assets/img/Toronto.jpg");
@@ -20,35 +17,41 @@
 
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(10, 1fr) ;
-
-
+  grid-template-rows: repeat(10, 1fr);
 }
 
-.login-box{
-  // width:300px;
-  // margin:auto;
-
-  // padding-top: 20%;
-  // display:flex;
-  // justify-content: center;
+.login-box {
   display: grid;
   grid-column: 2/3;
   grid-row: 4;
   justify-content: center;
-
 }
 
 .ml3 {
   font-weight: 900;
   font-size: 3.5em;
-  color:whitesmoke;
+  color: whitesmoke;
 }
 
-.anime{
+.anime {
   display: grid;
   grid-column: 2;
   grid-row: 2;
   justify-content: center;
   text-align: center;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.welcome-outter-container {
+  background: black;
 }
