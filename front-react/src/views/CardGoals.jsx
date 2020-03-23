@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Goal from "components/Goal/index.jsx";
 
 function CardGoals(props) {
+
   return (
     <Grid item xs={12}>
       {
@@ -11,8 +12,8 @@ function CardGoals(props) {
           <Goal
             mode="new"
             key={props.state.goals.length + 1}
-            id={props.state.goals.length + 1}
-            date={`2020-01-05T05:00:00.000Z`}
+            id={0}
+            date={`1-${'JAN'}-${new Date().getFullYear() + 1}`}
             setGoal={props.setGoal}
           />
         </div>
