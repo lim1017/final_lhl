@@ -4,7 +4,7 @@ import { NavLink, Link } from "react-router-dom";
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 import CardSidebar from "../Card/CardSidebar.jsx";
 
-import logo from "assets/img/piggylogo.png";
+import logo from "assets/img/piggylogo2.png";
 import { Button } from "react-bootstrap";
 
 class Sidebar extends Component {
@@ -59,20 +59,12 @@ class Sidebar extends Component {
           <div className="sidebar-background" style={sidebarBackground} />
         ) : null}
         <div className="logo">
-          <a
-            href="https://www.creative-tim.com?ref=lbd-sidebar"
-            className="simple-text logo-mini"
-          >
+          <a className="simple-text logo-mini">
             <div className="logo-img">
               <img src={logo} alt="logo_image" />
             </div>
           </a>
-          <a
-            href="https://www.creative-tim.com?ref=lbd-sidebar"
-            className="simple-text logo-normal"
-          >
-            PiggyBank
-          </a>
+          <a className="simple-text logo-normal">PiggyBank</a>
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">

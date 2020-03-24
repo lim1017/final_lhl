@@ -128,18 +128,22 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white",
-            display: "grid",
-            gridTemplateRows: "1fr 1fr 1fr"
+            backgroundColor: "white"
           }}
         >
           {props.state.goals.length === 0 ? (
             <>
-              <DashGoals></DashGoals>
               <h1 className="card1-txt">
-                Step 1: Success is the progressive realization of a worthy
-                goal...
+                Step 1:
+                <br></br>
+                <br></br>
+                Success is the progressive realization of a worthy goal
               </h1>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <DashGoals></DashGoals>
             </>
           ) : (
             <div className="dashboard-chart1">
@@ -161,17 +165,22 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white",
-            display: "grid",
-            gridTemplateRows: "1fr 1fr 1fr"
+            backgroundColor: "white"
           }}
         >
           {props.state.budget.length === 0 ? (
             <>
-              <DashBudget></DashBudget>
               <h1 className="card1-txt">
-                Step 3: The best way to stick to your budget is to start one.
+                Step 3:
+                <br></br>
+                <br></br>
+                The best way to stick to your budget is to start one
               </h1>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <DashBudget></DashBudget>
             </>
           ) : (
             <div className="dashboard-chart">
@@ -207,17 +216,21 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white",
-            display: "grid",
-            gridTemplateRows: "1fr 1fr 1fr"
+            backgroundColor: "white"
           }}
         >
           {props.state.expenses.length === 0 ? (
             <>
-              <DashExpenses state={props.state}></DashExpenses>
               <h1 className="card1-txt">
-                Step 2: A penny saved is a penny earned.
+                Step 2:
+                <br></br>
+                <br></br>A penny saved is a penny earned
               </h1>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <DashExpenses state={props.state}></DashExpenses>
             </>
           ) : (
             <div className="dashboard-chart">
@@ -260,17 +273,22 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white",
-            display: "grid",
-            gridTemplateRows: "1fr 1fr 1fr"
+            backgroundColor: "white"
           }}
         >
           {props.state.users[0].riskscore === 0 ? (
             <>
-              <DashPortfolio></DashPortfolio>
               <h1 className="card1-txt">
-                Step 4: Discover the power of compound interest.
+                Step 4:
+                <br></br>
+                <br></br>
+                Discover the power of compound interest
               </h1>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <DashPortfolio></DashPortfolio>
             </>
           ) : (
             <BriefPortfolio state={props.state}></BriefPortfolio>

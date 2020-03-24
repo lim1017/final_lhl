@@ -10,7 +10,7 @@ function Welcome(props) {
     <>
       <div className="welcome-outter-container">
         <div className="anime">
-          <h1 className="ml3">Take Control Of Your Finances </h1>
+          <h1 className="ml3">Take Control Of Your Finances with PiggyBank </h1>
         </div>
         <div className="login-box">
           <Login />
@@ -23,6 +23,7 @@ function Welcome(props) {
             height="100%"
             playing={true}
             loop={true}
+            controls={true}
           />
         </div>
       </div>

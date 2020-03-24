@@ -17,6 +17,13 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
+    path: "/goals",
+    name: "Goals",
+    icon: "pe-7s-target",
+    component: Goals,
+    layout: "/admin"
+  },
+  {
     path: "/expenses",
     name: "Expenses",
     icon: "pe-7s-credit",
@@ -24,10 +31,10 @@ const dashboardRoutes = [
     layout: "/admin"
   },
   {
-    path: "/goals",
-    name: "Goals",
-    icon: "pe-7s-target",
-    component: Goals,
+    path: "/budget",
+    name: "Budget",
+    icon: "pe-7s-calculator",
+    component: Budget,
     layout: "/admin"
   },
   {
@@ -39,10 +46,10 @@ const dashboardRoutes = [
     redirect: "/portfolio/start"
   },
   {
-    path: "/budget",
-    name: "Budget",
-    icon: "pe-7s-calculator",
-    component: Budget,
+    path: "/news",
+    name: "News",
+    icon: "pe-7s-speaker",
+    component: News,
     layout: "/admin"
   },
   {
@@ -52,13 +59,7 @@ const dashboardRoutes = [
     component: Youtube,
     layout: "/admin"
   },
-  {
-    path: "/news",
-    name: "News",
-    icon: "pe-7s-speaker",
-    component: News,
-    layout: "/admin"
-  },
+
   {
     path: "/Education",
     name: "Education",
