@@ -23,7 +23,6 @@ function MyVerticallyCenteredModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
         <p>
           {props.content}
         </p>
@@ -34,19 +33,36 @@ function MyVerticallyCenteredModal(props) {
             <p>Sorry try again</p>
                   ) : null}
 
-        <Button variant="contained" 
+        <Button 
+                style={{ 
+                  marginTop:'1rem',
+                  backgroundColor:"#c4d2c7",
+                  color:'black',
+                  fontWeight:'bold',
+                  height:'30px'
+                  }}
+                variant="contained" 
                 color="primary"  
                 onClick={props.onHide}
         >
         Cancel</Button>
         
-        <Button variant="contained" 
+        <Button 
+                style={{ 
+                  marginTop:'1rem',
+                  backgroundColor:"#c4d2c7",
+                  color:'black',
+                  fontWeight:'bold',
+                  height:'30px',
+                  marginLeft:'2rem'
+                  }}
+                variant="contained" 
                 color="primary"  
                 onClick={()=>{
                   props.verifyAnswer(props.id)
                   
                 }}
-                style={{marginLeft:'2rem'}}
+                
         >
         Submit</Button>      
       </Modal.Footer>

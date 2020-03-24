@@ -58,15 +58,41 @@ function CardDashBoard(props) {
 
   // }
 
-  const expenseKey = ['entertainment', 'medical', 'debt', 'misc', 'transporation', 'home', 'food', 'utilities'];
-  const budgetKey = ['c_entr', 'c_medi', 'c_debt', 'c_misc', 'c_tran', 'c_hous', 'c_food', 'c_util'];
-  const budgetColors = ["#ffe7ea", "#c4d2c7", "#cce3e1", "#add0e0", "#b6bffa", "#f5c2b3", "#dfe6c3", "#f5e0b3"];
+  const expenseKey = [
+    "entertainment",
+    "medical",
+    "debt",
+    "misc",
+    "transporation",
+    "home",
+    "food",
+    "utilities"
+  ];
+  const budgetKey = [
+    "c_entr",
+    "c_medi",
+    "c_debt",
+    "c_misc",
+    "c_tran",
+    "c_hous",
+    "c_food",
+    "c_util"
+  ];
+  const budgetColors = [
+    "#ffe7ea",
+    "#c4d2c7",
+    "#cce3e1",
+    "#add0e0",
+    "#b6bffa",
+    "#f5c2b3",
+    "#dfe6c3",
+    "#f5e0b3"
+  ];
   const COLORS = ["#c4d2c7", "#ffe7ea", "#f87f8d", "#FF8042"];
 
   const formatDataForPVAT = function(state) {
-
-    const plan = {name: 'plan'};
-    const actual = {name: 'actual'};
+    const plan = { name: "plan" };
+    const actual = { name: "actual" };
     const result = [];
 
     for (let i = 0; i < expenseKey.length; i++) {
@@ -82,10 +108,10 @@ function CardDashBoard(props) {
     return result;
   };
 
-  const PVATdata = expenseKey.map((value, i) => { 
-    return(
-      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={budgetColors[i]} /> 
-    )
+  const PVATdata = expenseKey.map((value, i) => {
+    return (
+      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={budgetColors[i]} />
+    );
   });
 
   return (
@@ -108,20 +134,19 @@ function CardDashBoard(props) {
           }}
         >
           {props.state.goals.length === 0 ? (
-          <>
-            <DashGoals></DashGoals>
-            <h1 className="card1-txt">
-              Step1: Secure your financial future; Setup your first goal!
-            </h1>
-          </>
-        ) : (
-          <div className="dashboard-chart1">
-            <h4>My Goals</h4>
-            <Goals
-              state={props.state}
-            />
-        </div>
-        )}
+            <>
+              <DashGoals></DashGoals>
+              <h1 className="card1-txt">
+                Step 1: Success is the progressive realization of a worthy
+                goal...
+              </h1>
+            </>
+          ) : (
+            <div className="dashboard-chart1">
+              <h4>My Goals</h4>
+              <Goals state={props.state} />
+            </div>
+          )}
         </Card>
       </div>
 
@@ -142,16 +167,16 @@ function CardDashBoard(props) {
           }}
         >
           {props.state.budget.length === 0 ? (
-          <>
-            <DashBudget></DashBudget>
-            <h1 className="card1-txt">
-              Step3: See the power of planning your budget
-            </h1>
-          </>
-        ) : (
-          <div className="dashboard-chart">
-            <h4>Expenses for {returnMonthText(props.state.date.month)}</h4>
-              <BarChart 
+            <>
+              <DashBudget></DashBudget>
+              <h1 className="card1-txt">
+                Step 3: The best way to stick to your budget is to start one.
+              </h1>
+            </>
+          ) : (
+            <div className="dashboard-chart">
+              <h4>Expenses for {returnMonthText(props.state.date.month)}</h4>
+              <BarChart
                 width={500}
                 height={350}
                 data={formatDataForPVAT(props.state)}
@@ -163,8 +188,8 @@ function CardDashBoard(props) {
                 <Legend />
                 {PVATdata}
               </BarChart>
-          </div>
-        )}
+            </div>
+          )}
         </Card>
       </div>
       {/* </Grid> */}
@@ -191,12 +216,12 @@ function CardDashBoard(props) {
             <>
               <DashExpenses state={props.state}></DashExpenses>
               <h1 className="card1-txt">
-                Step2: See whats really slowing you down. Track your expenses!
+                Step 2: A penny saved is a penny earned.
               </h1>
             </>
           ) : (
             <div className="dashboard-chart">
-              <h4>Expenses for {returnMonthText(props.state.date.month)}</h4>
+              <h4>Expenses for {returnMonthText(parseInt(props.state.date.month))}</h4>
               <PieChart width={500} height={350}>
                 <Tooltip />
                 <Pie
@@ -243,7 +268,9 @@ function CardDashBoard(props) {
           {props.state.users[0].riskscore === 0 ? (
             <>
               <DashPortfolio></DashPortfolio>
-              <h1 className="card1-txt">Step4: Let us help you Invest!</h1>
+              <h1 className="card1-txt">
+                Step 4: Discover the power of compound interest.
+              </h1>
             </>
           ) : (
             <BriefPortfolio state={props.state}></BriefPortfolio>

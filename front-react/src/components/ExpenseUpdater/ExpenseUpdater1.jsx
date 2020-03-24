@@ -87,14 +87,14 @@ function ExpenseUpdater1(props) {
               value={type}
               onChange={handleChangeType}
             >
-              <MenuItem value="food">Food</MenuItem>
-              <MenuItem value="transportation">Transportation</MenuItem>
-              <MenuItem value="home">Home</MenuItem>
-              <MenuItem value="utilities">Utilities</MenuItem>
-              <MenuItem value="entertainment">Entertainment</MenuItem>
-              <MenuItem value="medical">Medical</MenuItem>
-              <MenuItem value="debt">Debt Repayment</MenuItem>
-              <MenuItem value="misc">Misc</MenuItem>
+              <MenuItem value="Food">Food</MenuItem>
+              <MenuItem value="Transportation">Transportation</MenuItem>
+              <MenuItem value="Home">Home</MenuItem>
+              <MenuItem value="Utilities">Utilities</MenuItem>
+              <MenuItem value="Entertainment">Entertainment</MenuItem>
+              <MenuItem value="Medical">Medical</MenuItem>
+              <MenuItem value="Debt">Debt Repayment</MenuItem>
+              <MenuItem value="Misc">Misc</MenuItem>
             </Select>
           </FormControl>
 
