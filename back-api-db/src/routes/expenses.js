@@ -76,65 +76,95 @@ module.exports = db => {
 
 
   router.post('/expenses/file/',function(req, res) {  
-    
-     
-    upload(req, res, function (err) {
-           if (err instanceof multer.MulterError) {
-               return res.status(500).json(err)
-           } else if (err) {
-               return res.status(500).json(err)
-           }
-      return res.status(200).send(req.file)
-    })
 
-    console.log(req.body, 'from upload@@!!')
-    var score=0
-
-    if (req.body.scoreUp){
-      score = 10
-    }
-
+    var score = 0
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    
-    datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
+     
+    upload(req, res, function (err) {
+      if (err instanceof multer.MulterError) {
+          return res.status(500).json(err)
+      } else if (err) {
+          return res.status(500).json(err)
+      }
 
-    Promise.all(formatExpenses(req.body).map(element =>{
-       return db.query(
-        `
-        INSERT INTO expenses (name, user_id, amount, type, date)
-        VALUES
-        ($1, $2, $3, $4, $5)
+      console.log(req.body, 'from upload@@!!')
+
+      if (!req.body.scoreUp) score = 10;
+      datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
   
-        `,
-        [element[0], req.body.userId, element[1], element[2], datez]
-        //name/userid/amount/type
-      )
+      return Promise.all(formatExpenses(req.body).map(element =>{
+        return db.query(
+          `
+          INSERT INTO expenses (name, user_id, amount, type, date)
+          VALUES
+          ($1, $2, $3, $4, $5)
+    
+          `,
+          [element[0], req.body.userId, element[1], element[2], datez]
+          //name/userid/amount/type
+        )
+          
+      })).then(x => {
+        // res.status(200)
+        console.log('done file upload')
+        console.log(score, 'the score is')
+        db.query(
+          `
+          UPDATE users
+          SET literacy = $1 
+          WHERE id = $2
+          `,
+          [score, parseInt(req.body.userId)]
+        ) .then(x => {
+              res.status(200).send(req.file)
+              
+              console.log(x, 'done updating literacy')
+        })
+        .catch(error => console.log(error));
         
-    })).then(x => {
-      // res.status(200)
-      console.log('done file upload')
-      console.log(score, 'the score is')
-      db.query(
-        `
-        UPDATE users
-        SET literacy = $1 
-        WHERE id = $2
-        `,
-        [score, parseInt(req.body.userId)]
-      ) .then(x => {
-            res.status(200)
-            
-            console.log(x, 'done updating literacy')
       })
       .catch(error => console.log(error));
-      
+    });
+      // return res.status(200).send(req.file)
     })
-    .catch(error => console.log(error));
+    
+  //   if (!req.body.scoreUp) score = 10;
+  //   datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
 
-
-
-  });
+  //   Promise.all(formatExpenses(req.body).map(element =>{
+  //      return db.query(
+  //       `
+  //       INSERT INTO expenses (name, user_id, amount, type, date)
+  //       VALUES
+  //       ($1, $2, $3, $4, $5)
+  
+  //       `,
+  //       [element[0], req.body.userId, element[1], element[2], datez]
+  //       //name/userid/amount/type
+  //     )
+        
+  //   })).then(x => {
+  //     // res.status(200)
+  //     console.log('done file upload')
+  //     console.log(score, 'the score is')
+  //     db.query(
+  //       `
+  //       UPDATE users
+  //       SET literacy = $1 
+  //       WHERE id = $2
+  //       `,
+  //       [score, parseInt(req.body.userId)]
+  //     ) .then(x => {
+  //           res.status(200)
+            
+  //           console.log(x, 'done updating literacy')
+  //     })
+  //     .catch(error => console.log(error));
+      
+  //   })
+  //   .catch(error => console.log(error));
+  // });
 
 
   router.get("/expenses/:date", (req, response) => {
