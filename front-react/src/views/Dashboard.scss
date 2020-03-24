@@ -136,17 +136,20 @@
 }
 
 .new-user-button {
-  padding: 35px 50px;
+  padding-right: 50px;
+  padding-left: 50px;
   outline: none;
   border-radius: 30px;
   font-size: 24px;
   font-weight: 300;
-  background-color: #c4d2c7;
-  border-color: #c4d2c7;
-  height: 150px;
+  background-color: #ffe7ea;
+  border-color: #ffe7ea;
+  height: 15rem;
+  max-height: 10rem;
 }
 
 .new-user-button:hover {
   background-color: #c4d2c7;
-  color: #b3898e;
+  border-color: #c4d2c7;
+  color: black;
 }

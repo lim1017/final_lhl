@@ -1,18 +1,40 @@
 import React from "react";
+import Card from "@material-ui/core/Card";
+import TextField from "@material-ui/core/Grid";
 
 function NewUserPg(props) {
   const username = localStorage.getItem("username");
-  console.log(username);
 
   return (
     <>
       <div className="welcome-text-div">
         <h2 className="welcome-text">Welcome {username}!</h2>
-        <h2 className="welcome-text">
-          Here at PiggyBank we believe in the power of financial literacy. We
-          will help you setup your goals and budget while tracking your expenses
-          and helping you invest to achieve your dreams.{" "}
-        </h2>
+        <Card
+          style={{
+            maxWidth: 500,
+            maxHeight: 150,
+            fontWeight: 900,
+            opacity: 0.8,
+            margin: "auto",
+            marginBottom: 20,
+            marginTop: 20,
+            padding: 20,
+            backgroundColor: "white",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          <TextField>
+            Here at PiggyBank we believe in the power of financial literacy. Let
+            us help you achieve your financial dreams through the power of goal
+            setting, smart budgeting, expense tracking and portfolio management.
+          </TextField>
+        </Card>
+        {/* <h2 className="welcome-text">
+          Here at PiggyBank we believe in the power of financial literacy. Let
+          us help you achieve your financial dreams through the power of goal
+          setting, smart budgeting, expense tracking and portfolio management.
+        </h2> */}
       </div>
 
       <div className="new-user">
