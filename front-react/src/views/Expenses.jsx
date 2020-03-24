@@ -131,7 +131,7 @@ function Dashboard(props) {
           <div className="expenses-table1">
             <CardExpTable
               title="Expenses"
-              category={returnMonthText(state.date.month)}
+              category={returnMonthText(parseInt(state.date.month))}
               ctTableFullWidth
               ctTableResponsive
               content2={
@@ -186,7 +186,8 @@ function Dashboard(props) {
                         backgroundColor: "#c4d2c7",
                         color: "black",
                         fontWeight: "bold",
-                        height: "50px"
+                        height: "50px",
+                        marginLeft:"1.5em"
                       }}
                       onClick={() => toggleState()}
                     >

@@ -30,7 +30,7 @@ export default function CardImg(props) {
           title={props.title}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2"><a href={props.link}>
+          <Typography gutterBottom variant="h5" component="h2"><a target="_blank" rel="noopener noreferrer" href={props.link}>
             {props.title}</a>
           </Typography>
           

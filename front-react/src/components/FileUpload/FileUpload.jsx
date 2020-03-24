@@ -28,7 +28,7 @@ function FileUpload(props) {
         </label>
                   <Button
                   
-                  style={{marginLeft:'1.5rem', backgroundColor:"#c4d2c7",
+                  style={{marginLeft:'1.5rem',marginRight:'1.5em', backgroundColor:"#c4d2c7",
                   color:'black',
                   fontWeight:'bold',
                   height:'50px'

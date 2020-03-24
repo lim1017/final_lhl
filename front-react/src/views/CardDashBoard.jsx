@@ -196,7 +196,7 @@ function CardDashBoard(props) {
             </>
           ) : (
             <div className="dashboard-chart">
-              <h4>Expenses for {returnMonthText(props.state.date.month)}</h4>
+              <h4>Expenses for {returnMonthText(parseInt(props.state.date.month))}</h4>
               <PieChart width={500} height={350}>
                 <Tooltip />
                 <Pie
