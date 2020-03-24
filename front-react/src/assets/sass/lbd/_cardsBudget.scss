@@ -51,9 +51,17 @@
     }
     .header{
         padding: 15px 15px 0;
+        display: grid;
+        grid-template-columns: 1fr 30px;
+        grid-template-rows: 25px 1fr;
     }
+
     .category,
     label{
+        display: grid;
+        grid-column: 1/2;
+        grid-row: 2/3;
+
         font-size: $font-size-base;
         font-weight: $font-weight-normal;
         color: $dark-gray;
@@ -71,10 +79,23 @@
     }
 
     .title{
+        display: grid;
+        grid-column: 1/2;
+        grid-row: 1/2;
+
         margin: $none;
         color: $black-color;
         font-weight: $font-weight-light;
     }
+
+    .iconQuestion {
+        background: url("../../img/question_inverted.png");
+        background-color: red;
+        height: 20px;
+        width: 20px;
+        display: block;
+    }
+
     .avatar{
         width: 30px;
         height: 30px;

@@ -34,6 +34,12 @@ export default function reducerz(state, action) {
       ...state,
       eduProgress: action.eduProgress
     };   
+    case SET_USER:
+    console.log(action, 'set user case')
+    return {
+      ...state,
+      users: action.users
+    };   
 
     default:
       throw new Error(

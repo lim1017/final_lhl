@@ -6,7 +6,7 @@ export class CardSidebar extends Component {
       <div
         className={"card" + (this.props.plain ? " card-plain" : "")}>
         <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
-          <h4 className="title">{this.props.title} {this.props.category}</h4>
+          <h2 className="title">{this.props.title} {this.props.category}</h2>
         </div>
         <div
           className={
