@@ -43,7 +43,7 @@ function Budget(props) {
   });
   const [ toggle, dispatchToggle ] = useReducer(budgetToggleReducer, {
     planner: true,
-    goal: false,
+    goal: true,
     pvat: true,
     pvac: true,
     pvas: true,
@@ -369,6 +369,8 @@ function Budget(props) {
       <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} /> 
     )
   });
+
+  console.log('check', state, budget)
 
   /* ---------------------- */
   /* Cards Size Adjustments */
