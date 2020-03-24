@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
 module.exports = db => {
-
   router.get("/users/:id", (request, response) => {
+    console.log('selecting user')
+
     console.log('id route')
     console.log("get", request.params);
     db.query(

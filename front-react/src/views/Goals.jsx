@@ -9,19 +9,36 @@ import CardGoals from "./CardGoals";
 function Goals(props) {
   const { state, dispatch } = useContext(appDataContext);
 
+  console.log(state)
+
   const setGoal = (id, goal) => {
     const user = localStorage.getItem("id");
+    var scoreUp=false
+
+    if (state.goals.length===0){
+      scoreUp=true
+    }
+
     return new Promise((res, rej) => {
       axios
-        .put(`http://localhost:8001/api/goals/${id}`, goal)
+        .put(`http://localhost:8001/api/goals/${id}`, [goal, scoreUp] )
         .then(res1 => {
           axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
-            console.log("goal get", res2.data);
+
+            axios.get((`http://localhost:8001/api/users/${user}`))
+            .then(resz =>{
+              dispatch({
+                type: "SET_USER",
+                users: resz.data
+              });
+            })
+            
             dispatch({
               ...state,
               type: "SET_DATA",
               goals: res2.data
             });
+
             res(res2);
           });
         })
@@ -40,7 +57,7 @@ function Goals(props) {
           axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
             dispatch({
               ...state,
-              type: "SET_DATA",
+              type: "SET_USER",
               goals: res2.data
             });
             res(res2);

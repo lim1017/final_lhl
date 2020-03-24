@@ -76,8 +76,7 @@ module.exports = db => {
 
 
   router.post('/expenses/file/',function(req, res) {  
-    
-     
+         
     upload(req, res, function (err) {
            if (err instanceof multer.MulterError) {
                return res.status(500).json(err)
@@ -87,11 +86,10 @@ module.exports = db => {
       return res.status(200).send(req.file)
     })
 
-    console.log(req.body, 'from upload@@!!')
     var score=0
 
     if (req.body.scoreUp){
-      score = 10
+      score = 15
     }
 
     var today = new Date();
@@ -112,23 +110,18 @@ module.exports = db => {
       )
         
     })).then(x => {
-      // res.status(200)
-      console.log('done file upload')
-      console.log(score, 'the score is')
-      db.query(
+     db.query(
         `
         UPDATE users
-        SET literacy = $1 
+        SET literacy = literacy + $1 
         WHERE id = $2
         `,
         [score, parseInt(req.body.userId)]
-      ) .then(x => {
+      ).then(x => {
             res.status(200)
-            
             console.log(x, 'done updating literacy')
       })
-      .catch(error => console.log(error));
-      
+      .catch(error => console.log(error));      
     })
     .catch(error => console.log(error));
 

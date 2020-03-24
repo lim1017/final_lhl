@@ -14,7 +14,14 @@ module.exports = db => {
 
   router.put("/goals/:id", (request, response) => {
 
-    const { name, user_id, type, amount, description, date } = request.body;
+    const { name, user_id, type, amount, description, date } = request.body[0];
+
+    console.log(request.body, 'goals/id')
+    var score=0
+
+    if (request.body.scoreUp){
+      score = 15
+    }
 
     db.query(
       `
@@ -50,6 +57,24 @@ module.exports = db => {
           [name, user_id, type, amount, description, date]
         ).then(() => {
           response.json(`database:goal ${request.params.id} updated`);
+
+          console.log(score, user_id, 'score and user id')
+
+          db.query(
+            `
+            UPDATE users
+            SET literacy = literacy + $1 
+            WHERE id = $2
+            `,
+            [score, user_id]
+          ).then(x => {
+            response.status(200)
+                console.log(x, 'done updating literacy in goals')
+          })
+          .catch(error => console.log(error));    
+
+
+
         }).catch(error => console.log(error));  
       }
     })

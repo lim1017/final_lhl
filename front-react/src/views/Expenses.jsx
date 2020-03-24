@@ -74,7 +74,7 @@ function Dashboard(props) {
           .post(
             "http://localhost:8001/api/expenses/file/",
             { textData, userId, date:state.date, scoreUp }
-          )
+            )
           .then(res => {
             refreshExpenses(state.date);
             console.log('done file uploading')
