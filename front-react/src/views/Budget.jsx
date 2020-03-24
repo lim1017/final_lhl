@@ -144,15 +144,15 @@ function Budget(props) {
   }
 
   function savePlanner() {
-
+    const user = localStorage.getItem("id");
     const newBud = {
       ...budget
     };
 
     axios
-      .put(`http://localhost:8001/api/budget`, newBud)
+      .put(`http://localhost:8001/api/budget/${user}`, newBud)
       .then(res1 => {
-        axios.get("http://localhost:8001/api/budget")
+        axios.get(`http://localhost:8001/api/budget/${user}`)
         .then(res2 => {
           dispatch({
             ...state,

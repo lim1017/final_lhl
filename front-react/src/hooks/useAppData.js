@@ -8,8 +8,8 @@ export default function useAppData() {
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
 
-  console.log(today)
-  console.log(mm)
+  // console.log(today)
+  // console.log(mm)
 
   const [state, dispatch] = useReducer(reducerz, {
     expenses: [{ id: 0, name: "", user_id: 0, amount: 0, type: "", date: "" }],
@@ -52,7 +52,7 @@ export default function useAppData() {
   });
 
   useEffect(() => {
-    console.log('use effect running')
+    // console.log('use effect running')
     const user = localStorage.getItem("id");
 
     let datez = `${state.date.month}+${state.date.year}+${user}`;
