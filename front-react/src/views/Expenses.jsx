@@ -29,7 +29,7 @@ import appDataContext from "../hooks/reducers/useContext";
 import { MDBDataTable } from "mdbreact";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import reducerz, { SET_DATA, SET_DATE } from "../hooks/reducers/app";
+import reducerz, { SET_DATA, SET_DATE, SET_USER } from "../hooks/reducers/app";
 
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
@@ -54,6 +54,13 @@ function Dashboard(props) {
   function sendFileBack() {
     const userId = localStorage.getItem("id");
 
+    var scoreUp=false
+    console.log(state.expenses.length, 'expense length')
+
+    if (state.expenses.length === 0){
+      scoreUp=true
+    }
+
     if (fileUploaded && fileUploaded.selectedFile.name.includes(".csv")) {
       console.log(fileUploaded);
       const data = new FormData();
@@ -66,14 +73,25 @@ function Dashboard(props) {
         axios
           .post(
             "http://localhost:8001/api/expenses/file/",
-            { textData, userId, date:state.date },
-            {
-              // receive two parameter endpoint url ,form data
-            }
+            { textData, userId, date:state.date, scoreUp }
           )
           .then(res => {
-            // then print response status
             refreshExpenses(state.date);
+            console.log('done file uploading')
+            
+            axios.get((`http://localhost:8001/api/users/${userId}`))
+            .then(resz =>{
+              console.log(resz, 'after file upload')
+              console.log(resz.data[0])
+              dispatch({
+                type: SET_USER,
+                users: resz.data
+              });
+            })
+            
+            
+            
+            
           });
       };
 
