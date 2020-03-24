@@ -45,7 +45,7 @@ const articles=[{
     answer:2,
     a1:"Time is money",
     a2:"$100 today is not the same as $100 next year",
-    a3:"Duno",
+    a3:"Money takes time to earn",
     a4:"$100 today is the same as $100 next year"
   },
   {
