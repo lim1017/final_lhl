@@ -55,7 +55,7 @@ function Budget(props) {
   const { width: winWidth } = useWindowDimensions();
   const [error, setError] = useState("");
 
-  const expenseKey = ['entertainment', 'medical', 'debt', 'misc', 'transporation', 'home', 'food', 'utilities'];
+  const expenseKey = ['Entertainment', 'Medical', 'Debt', 'Misc', 'Transporation', 'Home', 'Food', 'Utilities'];
   const budgetKey = [budget.c_entr, budget.c_medi, budget.c_debt, budget.c_misc, budget.c_tran, budget.c_hous, budget.c_food, budget.c_util];
   const colors = ["#ffe7ea", "#c4d2c7", "#cce3e1", "#add0e0", "#b6bffa", "#f5c2b3", "#dfe6c3", "#f5e0b3"];
 
@@ -605,7 +605,7 @@ function Budget(props) {
                   >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis domain={[setDisplayForPVAS(budgetKey, state.totalExpenses, budget.income, goal.select).yMax, 1000]} />
+                    <YAxis domain={[-setDisplayForPVAS(budgetKey, state.totalExpenses, budget.income, goal.select).yMax, setDisplayForPVAS(budgetKey, state.totalExpenses, budget.income, goal.select).yMax]} />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="Plan" fill="#ffe7ea" />
@@ -635,7 +635,9 @@ function Budget(props) {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     dataKey="name"
-                    tickCount={2}
+                    tickFormatter={(t)=>{
+                      return t;
+                    }}
                     interval="preserveStartEnd"
                   />
                   <YAxis
