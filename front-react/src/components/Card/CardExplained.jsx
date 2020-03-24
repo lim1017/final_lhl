@@ -10,6 +10,7 @@ export default function CardExplained(props) {
         <Card
           style={{
             maxWidth: 500,
+            minHeight: 200,
             opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
@@ -21,8 +22,13 @@ export default function CardExplained(props) {
           <TextField>
             Cash: There are no fluctuations in your cash. However, you are
             guaranteed to lose ~2% every year due to inflation. You should hold
-            some cash for emergencies but it should always be invested. <br />
-            Expected Return: None Risk: Extremely Low
+            some cash for emergencies but it should always be invested.
+            <br />
+            <br />
+            Expected Return: None
+            <br />
+            <br />
+            Risk: Extremely Low
           </TextField>
         </Card>
       </Grid>
@@ -30,6 +36,7 @@ export default function CardExplained(props) {
         <Card
           style={{
             maxWidth: 500,
+            minHeight: 200,
             opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
@@ -41,8 +48,13 @@ export default function CardExplained(props) {
           <TextField>
             Government Bonds: These are amongst the safest investments you can
             make. There is no chance of defaulting unless the governments'
-            central bank defaults. <br />
-            Expected Return: 1-2% Risk: Very Low
+            central bank defaults.
+            <br />
+            <br />
+            Expected Return: 1-2%
+            <br />
+            <br />
+            Risk: Very Low
           </TextField>
         </Card>
       </Grid>
@@ -50,6 +62,7 @@ export default function CardExplained(props) {
         <Card
           style={{
             maxWidth: 500,
+            minHeight: 200,
             opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
@@ -63,7 +76,11 @@ export default function CardExplained(props) {
             government bonds. There is an extremely low chance of defaulting
             unless the company goes bankrupt.
             <br />
-            Expected Return: 3-4% Risk: Low
+            <br />
+            Expected Return: 3-4%
+            <br />
+            <br />
+            Risk: Low
           </TextField>
         </Card>
       </Grid>
@@ -71,6 +88,7 @@ export default function CardExplained(props) {
         <Card
           style={{
             maxWidth: 500,
+            minHeight: 200,
             opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
@@ -83,7 +101,11 @@ export default function CardExplained(props) {
             Low Volatility Index: Very safe index fund primarily comprised of
             corporations that don't fluctuate with the market (i.e. Coca-Cola).
             <br />
-            Expected Return: ~5% Risk: Low
+            <br />
+            Expected Return: ~5%
+            <br />
+            <br />
+            Risk: Low
           </TextField>
         </Card>
       </Grid>
@@ -91,6 +113,7 @@ export default function CardExplained(props) {
         <Card
           style={{
             maxWidth: 500,
+            minHeight: 200,
             opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
@@ -104,7 +127,11 @@ export default function CardExplained(props) {
             index. This is relatively more risky as the market fluctuates,
             however, returns will be much higher.
             <br />
-            Expected Return: ~8% Risk: Medium
+            <br />
+            Expected Return: ~8%
+            <br />
+            <br />
+            Risk: Medium
           </TextField>
         </Card>
       </Grid>
@@ -112,6 +139,8 @@ export default function CardExplained(props) {
         <Card
           style={{
             maxWidth: 500,
+            minHeight: 200,
+
             opacity: 0.8,
             margin: "auto",
             marginBottom: 20,
@@ -121,12 +150,15 @@ export default function CardExplained(props) {
           }}
         >
           <TextField>
-            Emerging Markets Index: Buying stocks from the index of an emerging
-            economy such as Africa or India. This is very risky as stocks will
-            be extremely volatile, however, there is a potential for very high
-            returns.
+            Emerging Markets Index: Buying the index of an emerging economy such
+            as Africa. Very risky as stocks will be extremely volatile, however,
+            there is a potential for very high returns.
             <br />
-            Expected Return: ~10% Risk: High
+            <br />
+            Expected Return: ~10%
+            <br />
+            <br />
+            Risk: High
           </TextField>
         </Card>
       </Grid>

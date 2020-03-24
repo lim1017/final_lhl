@@ -12,7 +12,7 @@ function NewUserPg(props) {
         <Card
           style={{
             maxWidth: 500,
-            maxHeight: 150,
+            maxHeight: 175,
             fontWeight: 900,
             opacity: 0.8,
             margin: "auto",
@@ -25,16 +25,17 @@ function NewUserPg(props) {
           }}
         >
           <TextField>
-            Here at PiggyBank we believe in the power of financial literacy. Let
-            us help you achieve your financial dreams through the power of goal
-            setting, smart budgeting, expense tracking and portfolio management.
+            Here at PiggyBank we believe in the power of financial literacy.
+            <br></br>
+            <br></br>
+            Let us help you achieve your financial dreams through the power of
+            goal setting, smart budgeting, expense tracking and portfolio
+            management.
+            <br></br>
+            <br></br>
+            Learn a few things on the way too! Let's get started!
           </TextField>
         </Card>
-        {/* <h2 className="welcome-text">
-          Here at PiggyBank we believe in the power of financial literacy. Let
-          us help you achieve your financial dreams through the power of goal
-          setting, smart budgeting, expense tracking and portfolio management.
-        </h2> */}
       </div>
 
       <div className="new-user">
