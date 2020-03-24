@@ -1,13 +1,13 @@
 .sidebar-card {
   width: 90%;
-  margin: auto;
+  // margin: auto;
   margin-top: 3rem;
   opacity: 0.7;
 }
 
 .sidebar-content {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
 }
 
 .sidebar-name {
@@ -16,7 +16,11 @@
 
 .header {
   display: flex;
-  justify-content: center;
+  // justify-content: center;
+}
+
+.sidebar-literacy{
+  color:black;
 }
 
 .sidebar {
@@ -180,13 +184,13 @@ body > .navbar-collapse {
     }
 
     .simple-text {
-      text-transform: uppercase;
+      // text-transform: uppercase;
       padding: $padding-small-vertical $padding-zero;
       display: block;
       font-size: $font-size-large;
       color: $white-color;
       font-weight: $font-weight-normal;
-      line-height: 30px;
+      line-height: 40px;
     }
   }
 
