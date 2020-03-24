@@ -70,7 +70,7 @@ function Goals(props) {
 
   return (
     <Grid className="goals-background-image" container spacing={1}>
-      <Grid item xs={6}>
+      <Grid item xs={5}>
         <h2> Set Some Goals!</h2>
         <CardGoals
           state={state}
@@ -78,7 +78,7 @@ function Goals(props) {
           GoalsInList={GoalsInList}
         ></CardGoals>
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={7}>
         <CardGoalsTips></CardGoalsTips>
       </Grid>
     </Grid>
