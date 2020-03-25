@@ -39,8 +39,7 @@ export default function BudgetPlannerB(props) {
 
   return (
     <CardBudget
-      title="Budget Planner"
-      category="insert your monthly budget by categories here"
+      title="Plan Your Monthly Budget"
       size={props.size}
       dispatch={props.dispatch}
       dispatchType="PLANNER"
