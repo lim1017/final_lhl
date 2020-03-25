@@ -15,20 +15,22 @@ function createPie(portfolioTypes) {
 }
 
 const colors = [
-  "#f6c1fd",
-  "#fbe8fd",
   "#ffe7ea",
-  "#c5e6ab",
-  "#c4d2c7",
-  "#d4f3bb"
+  "#fffbcf",
+  "#dbf0ff",
+  "#D0FFDE",
+  "#e5dbff",
+  "#FAEEC5",
+  "#defafa",
+  "#dffbd4"
 ];
 
 function CardPortfolio(props) {
   return (
     <>
-      <div>Your Investment Portfolio: </div>
+      <div>My Investment Portfolio: </div>
       <div>
-        {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
+        {`My expected return is ${props.state.users[0].portfolioreturn}`}{" "}
       </div>
       <PieChart width={730} height={500}>
         <Pie

@@ -91,13 +91,13 @@ function Budget(props) {
   ];
   const colors = [
     "#ffe7ea",
-    "#c4d2c7",
-    "#cce3e1",
-    "#add0e0",
-    "#b6bffa",
-    "#f5c2b3",
-    "#dfe6c3",
-    "#f5e0b3"
+    "#fffbcf",
+    "#dbf0ff",
+    "#D0FFDE",
+    "#e5dbff",
+    "#FAEEC5",
+    "#defafa",
+    "#dffbd4"
   ];
 
   /* ------------------------------------ */

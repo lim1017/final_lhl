@@ -85,21 +85,21 @@ function createPie(portfolioTypes) {
 
 const colors = [
   "#ffe7ea",
-  "#c4d2c7",
-  "#cce3e1",
-  "#add0e0",
-  "#b6bffa",
-  "#f5c2b3",
-  "#dfe6c3",
-  "#f5e0b3"
+  "#fffbcf",
+  "#dbf0ff",
+  "#D0FFDE",
+  "#e5dbff",
+  "#FAEEC5",
+  "#defafa",
+  "#dffbd4"
 ];
 
 function BriefPortfolio(props) {
   return (
     <div className="dashboard-chart4">
-      <h4>Your Investment Portfolio: </h4>
+      <h4>My Investment Portfolio: </h4>
       <h6>
-        {`Your expected return is ${props.state.users[0].portfolioreturn}`}{" "}
+        {`My expected return is ${props.state.users[0].portfolioreturn}`}{" "}
       </h6>
 
       <PieChart width={550} height={350}>
@@ -111,7 +111,7 @@ function BriefPortfolio(props) {
           dataKey="value"
           nameKey="name"
           cx="41%"
-          cy="47%"
+          cy="49%"
           outerRadius={135}
           fill="#8884d8"
           label

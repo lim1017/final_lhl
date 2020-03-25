@@ -78,15 +78,16 @@ function CardDashBoard(props) {
     "c_food",
     "c_util"
   ];
-  const colours = [
+
+  const colors = [
     "#ffe7ea",
-    "#c4d2c7",
-    "#cce3e1",
-    "#add0e0",
-    "#b6bffa",
-    "#f5c2b3",
-    "#dfe6c3",
-    "#f5e0b3"
+    "#fffbcf",
+    "#dbf0ff",
+    "#D0FFDE",
+    "#e5dbff",
+    "#FAEEC5",
+    "#defafa",
+    "#dffbd4"
   ];
 
   const formatDataForPVAT = function(state) {
@@ -108,9 +109,7 @@ function CardDashBoard(props) {
   };
 
   const PVATdata = expenseKey.map((value, i) => {
-    return (
-      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colours[i]} />
-    );
+    return <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} />;
   });
 
   return (
@@ -127,7 +126,7 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#ececec"
           }}
         >
           {props.state.goals.length === 0 ? (
@@ -164,7 +163,7 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#ececec"
           }}
         >
           {props.state.budget.length === 0 ? (
@@ -216,7 +215,7 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#cacaca"
           }}
         >
           {props.state.expenses.length === 0 ? (
@@ -244,13 +243,13 @@ function CardDashBoard(props) {
                   dataKey="value"
                   nameKey="name"
                   cx="41%"
-                  cy="47%"
+                  cy="49%"
                   outerRadius={135}
                   fill="#8884d8"
                   label
                 >
                   {createPie(props.state.totalExpenses).map((entry, index) => (
-                    <Cell key={index} fill={colours[index % colours.length]} />
+                    <Cell key={index} fill={colors[index % colors.length]} />
                   ))}
                 </Pie>
                 <Legend
@@ -276,7 +275,7 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#cacaca"
           }}
         >
           {props.state.users[0].riskscore === 0 ? (

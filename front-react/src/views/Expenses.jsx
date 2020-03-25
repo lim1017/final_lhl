@@ -38,12 +38,14 @@ function Dashboard(props) {
   const [user, setUser] = useState(false);
 
   const COLORS = [
-    "#f6c1fd",
-    "#fbe8fd",
     "#ffe7ea",
-    "#c5e6ab",
-    "#c4d2c7",
-    "#d4f3bb"
+    "#fffbcf",
+    "#dbf0ff",
+    "#D0FFDE",
+    "#e5dbff",
+    "#FAEEC5",
+    "#defafa",
+    "#dffbd4"
   ];
 
   useEffect(() => {
@@ -131,15 +133,14 @@ function Dashboard(props) {
   function refreshExpenses(date) {
     let datez = `${date.month}+${date.year}+${user}`;
 
-    console.log('inrefresh exps')
+    console.log("inrefresh exps");
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
-
-        console.log('before dispatch single expense')
+        console.log("before dispatch single expense");
         dispatch({
           ...state,
           type: SET_DATA,
