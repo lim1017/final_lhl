@@ -4,6 +4,24 @@
   justify-content: space-between;
 }
 
+.add-1expense-div{
+  width:100%;
+  display:flex;
+  margin-top:15px;
+}
+
+#add-expense-id{
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+}
+
+.inside-1expense-div{
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+}
+
 .file-upload {
   display: flex;
   flex-direction: row;
@@ -24,7 +42,11 @@
 }
 
 // .both-expense-tables{
-//   width:100%
+//   width:100%;
+//   display:grid;
+//   justify-content:space-between;
+//     grid-column: 1/2;
+
 // }
 
 .contentExpenses1 {

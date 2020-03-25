@@ -80,8 +80,8 @@ function ExpenseUpdater1(props) {
   }
 
   return (
-    <div display="flex" flexDirection="row">
-      <form className={classes.root} noValidate autoComplete="off">
+    <div className='inside-1expense-div'>
+      <form id='add-expense-id' className={classes.root} noValidate autoComplete="off">
         <div>
           <TextField
             id="standard-helperText"
@@ -121,6 +121,7 @@ function ExpenseUpdater1(props) {
           <span>
             <Button
               style={{
+                marginLeft: "15px",
                 marginTop: "15px",
                 backgroundColor: "#c4d2c7",
                 color: "black",
@@ -131,7 +132,7 @@ function ExpenseUpdater1(props) {
               color="primary"
               onClick={() => submitExpense()}
             >
-              Add Expense
+              Submit Expense
             </Button>
           </span>
         </div>
