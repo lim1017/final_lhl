@@ -11,7 +11,7 @@ function FileUpload(props) {
         <label style={{ marginBottom: "0" }}>
           <div
             type="button"
-            className="btn btn-success btn-block select-btn"
+            className="btn btn-success"
             style={{ height: "50px" }}
           >
             Select File

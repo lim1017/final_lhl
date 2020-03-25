@@ -1,29 +1,28 @@
-
 import React from "react";
 import CardBudget from "components/Card/CardBudget.jsx";
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Checkbox from '@material-ui/core/Checkbox';
-import { makeStyles } from '@material-ui/core/styles';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Checkbox from "@material-ui/core/Checkbox";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: 80,
-    },
+      width: 80
+    }
   },
   tableHead: {
-    fontSize: '12pt',
+    fontSize: "12pt"
   },
   tableCell: {
-    fontSize: '10pt',
-  },
+    fontSize: "10pt"
+  }
 }));
 
 export default function BudgetGoals(props) {
@@ -35,7 +34,9 @@ export default function BudgetGoals(props) {
         <TableCell component="th" scope="row" className={classes.tableCell}>
           <Checkbox
             checked={props.goal.id.includes(goal.id)}
-            onChange={() => props.selectGoal({ type: "SELECT", id: goal.id, goal })}
+            onChange={() =>
+              props.selectGoal({ type: "SELECT", id: goal.id, goal })
+            }
           />
         </TableCell>
         <TableCell component="th" scope="row" className={classes.tableCell}>
@@ -56,15 +57,18 @@ export default function BudgetGoals(props) {
 
   return (
     <CardBudget
-      title="Goals"
-      category="choose goals to display on graph"
+      title="Your Goals"
       size={props.size}
       dispatch={props.dispatch}
       dispatchType="GOAL"
       content={
         <div>
           <TableContainer component={Paper}>
-            <Table className={classes.table} size="small" aria-label="simple table">
+            <Table
+              className={classes.table}
+              size="small"
+              aria-label="simple table"
+            >
               <TableHead>
                 <TableRow>
                   <TableCell className={classes.tableHead}></TableCell>
@@ -74,9 +78,7 @@ export default function BudgetGoals(props) {
                   <TableCell className={classes.tableHead}>Date</TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {GoalsInList}
-              </TableBody>
+              <TableBody>{GoalsInList}</TableBody>
             </Table>
           </TableContainer>
         </div>

@@ -1,30 +1,28 @@
-import React, { useEffect } from 'react';
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
-import { makeStyles } from '@material-ui/core/styles';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
+import { makeStyles } from "@material-ui/core/styles";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: 'auto 5px auto 5px',
-    display: 'flex',
+    margin: "auto 5px auto 5px",
+    display: "flex"
   },
   paper: {
-    marginRight: theme.spacing(2),
-  },
+    marginRight: theme.spacing(2)
+  }
 }));
 
 export default function BudgetChartMenu(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-
-
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -39,11 +37,11 @@ export default function BudgetChartMenu(props) {
   };
 
   const handleListKeyDown = function(event) {
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       event.preventDefault();
       setOpen(false);
     }
-  }
+  };
 
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
@@ -60,11 +58,13 @@ export default function BudgetChartMenu(props) {
       <div>
         <Button
           ref={anchorRef}
-          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-controls={open ? "menu-list-grow" : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-          style={{fontSize:'1em'}}
-        >Budget Chart Menu</Button>
+          style={{ fontSize: "1em" }}
+        >
+          Charts Menu
+        </Button>
 
         <Popper
           open={open}
@@ -72,56 +72,54 @@ export default function BudgetChartMenu(props) {
           role={undefined}
           transition
           disablePortal
-          >
+        >
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}
-              style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+              style={{
+                transformOrigin:
+                  placement === "bottom" ? "center top" : "center bottom"
+              }}
             >
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
-                  <MenuList 
+                  <MenuList
                     autoFocusItem={open}
                     id="menu-list-grow"
                     onKeyDown={handleListKeyDown}
                   >
                     <MenuItem
                       onClick={() => {
-                        props.dispatch({type: "PVAT"})
+                        props.dispatch({ type: "PVAT" });
                       }}
                     >
-                      <Checkbox
-                        checked={props.toggle.pvat}
-                      />
-                      Plan vs Actual Total Expenses
+                      <Checkbox checked={props.toggle.pvat} />
+                      Budgeted vs Actual
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
-                        props.dispatch({type: "PVAC"}
-                      )}}
-                    >
-                      <Checkbox
-                        checked={props.toggle.pvac}
-                      />
-                      Plan vs Actual Expenses by Category</MenuItem>
-                      <MenuItem
-                      onClick={() => {
-                        props.dispatch({type: "PVAS"}
-                      )}}
-                    >
-                      <Checkbox
-                        checked={props.toggle.pvas}
-                      />
-                      Plan vs Actual Saving</MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        props.dispatch({type: "BOTG"})
+                        props.dispatch({ type: "PVAC" });
                       }}
                     >
-                      <Checkbox
-                        checked={props.toggle.botg}
-                      />
-                      Budget over Time Graph</MenuItem>
+                      <Checkbox checked={props.toggle.pvac} />
+                      Expenses by Category
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        props.dispatch({ type: "PVAS" });
+                      }}
+                    >
+                      <Checkbox checked={props.toggle.pvas} />
+                      Budgeted vs Actual Saving
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        props.dispatch({ type: "BOTG" });
+                      }}
+                    >
+                      <Checkbox checked={props.toggle.botg} />
+                      Budget Plan Summary
+                    </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
