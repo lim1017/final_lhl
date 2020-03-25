@@ -1,5 +1,4 @@
 import React from "react";
-// import iconQuestion from "../../assets/img/question_inverted";
 
 export const Card = function(props) {
 
@@ -17,7 +16,16 @@ export const Card = function(props) {
                 <img src={require("../../assets/img/budget_question.png")} alt="question" height="20" width="20" />
               </div>
               <div className="iconQuit">
-                <img src={require("../../assets/img/budget_quit.png")} alt="quit" height="20" width="20" />
+                <img
+                  src={require("../../assets/img/budget_quit.png")}
+                  alt="quit"
+                  height="20"
+                  width="20"
+                  onClick={() => {
+                    props.dispatch({type: props.dispatchType});
+                    document.scrollingElement.scrollTop = 0;
+                  }}
+                />
               </div>
             </div>
             </div>

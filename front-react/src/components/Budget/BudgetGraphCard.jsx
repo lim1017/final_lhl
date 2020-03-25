@@ -35,30 +35,47 @@ export const BudgetGraphCard = function(props) {
       (props.plain ? " card-plain" : "") +
       (props.size ? ` cardBudgetSize${props.size}` : "")}
     >
-      <div className={"header" + (props.hCenter ? " text-center" : "")}>
+      <div className={"budgetGraphHeader" + (props.hCenter ? " text-center" : "")}>
         <h4 className="title">{props.title}</h4>
         <p className="category">{props.category}</p>
+        <div className="budgetIcons">
+          <div className="budgetIconsList">
+            <div className="iconQuestion">
+              <img src={require("../../assets/img/budget_question.png")} alt="question" height="20" width="20" />
+            </div>
+            <div className="iconQuit">
+              <img
+                src={require("../../assets/img/budget_quit.png")}
+                alt="quit"
+                height="20"
+                width="20"
+                onClick={() => props.dispatch({type: props.dispatchType})}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="textAlignRight">
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
+              Range
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-outlined-label"
+              id="demo-simple-select-outlined"
+              value={props.range}
+              onChange={handleChange}
+              labelWidth={labelWidth}
+            >
+              <MenuItem value={12}>1 Year</MenuItem>
+              <MenuItem value={60}>5 Years</MenuItem>
+              <MenuItem value={120}>10 Years</MenuItem>
+              <MenuItem value={240}>20 Years</MenuItem>
+              <MenuItem value={600}>50 Years</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
-      <div className="textAlignRight">
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel ref={inputLabel} id="demo-simple-select-outlined-label">
-            Range
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-outlined-label"
-            id="demo-simple-select-outlined"
-            value={props.range}
-            onChange={handleChange}
-            labelWidth={labelWidth}
-          >
-            <MenuItem value={12}>1 Year</MenuItem>
-            <MenuItem value={60}>5 Years</MenuItem>
-            <MenuItem value={120}>10 Years</MenuItem>
-            <MenuItem value={240}>20 Years</MenuItem>
-            <MenuItem value={600}>50 Years</MenuItem>
-          </Select>
-        </FormControl>
-      </div>
+ 
       <div
         className={"content budgetGraphCardGraph"}
       >
