@@ -297,8 +297,8 @@ function Dashboard(props) {
                       data={createPie(state.totalExpenses)}
                       dataKey="value"
                       nameKey="name"
-                      cx="50%"
-                      cy="42%"
+                      cx="55%"
+                      cy="50%"
                       outerRadius={120}
                       fill="#8884d8"
                       label
@@ -348,7 +348,7 @@ function Dashboard(props) {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
+                    <Legend verticalAlign="bottom" height={36} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
