@@ -56,13 +56,13 @@ const budgetSetGraphData = function(budget, range, port) {
   let searchRange = range || 12;
   let portCheck = (port > 1)
 
-  for (let month = 0; month < searchRange; month++) {
+  for (let month = 0; month <= searchRange; month++) {
     let node = (currentDate.getMonth()+month) % 12;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
     let number = Math.floor(parseInt(base) + monthlyGain * month);
     const dataNode = {};
     
-    dataNode.name = `${monthName[node]} / ${yearNode}`;
+    dataNode.name = `${monthName[node]} ${yearNode}`;
     dataNode.saving = parseInt(number);
     if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) - parseInt(number);
     data.push(dataNode);
