@@ -106,8 +106,6 @@ function Budget(props) {
 
   if (state.users && state.users.length > 0) {
     for (const user of state.users) {
-      const userLogged = localStorage.getItem("id");
-
       if (
         // user.id === userLogged &&
         user.portfolioreturn > 1 &&

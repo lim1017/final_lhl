@@ -90,11 +90,19 @@ export default function BudgetChartMenu(props) {
                   >
                     <MenuItem
                       onClick={() => {
+                        props.dispatch({ type: "BOTG" });
+                      }}
+                    >
+                      <Checkbox checked={props.toggle.botg} />
+                      Budget Plan Summary
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
                         props.dispatch({ type: "PVAT" });
                       }}
                     >
                       <Checkbox checked={props.toggle.pvat} />
-                      Budgeted vs Actual
+                      Budgeted vs Actual Expenses
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
@@ -111,14 +119,6 @@ export default function BudgetChartMenu(props) {
                     >
                       <Checkbox checked={props.toggle.pvas} />
                       Budgeted vs Actual Saving
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        props.dispatch({ type: "BOTG" });
-                      }}
-                    >
-                      <Checkbox checked={props.toggle.botg} />
-                      Budget Plan Summary
                     </MenuItem>
                   </MenuList>
                 </ClickAwayListener>
