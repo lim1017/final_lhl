@@ -155,7 +155,7 @@ function Sidebar(props) {
                   <div>
                     <div className="sidebar-literacy">
                     
-                      <h4>Literacty score: <AnimatedNumber component="text" value={state.users[0].literacy}
+                      <h4>Literacy score: <AnimatedNumber value={state.users[0].literacy}
                       style={{
                           transition: '2.8s ease-out',
                           fontSize: 24,
@@ -163,7 +163,7 @@ function Sidebar(props) {
                               'background-color, color, opacity'
                       }}
                       frameStyle={perc => (
-                          perc === 100 ? {} : {backgroundColor: '#ffeb3b'}
+                          perc === 100 ? {} : {backgroundColor: '#fcfcfc'}
                       )}
                       duration={1200}
                       formatValue={n => n.toFixed(0)}
