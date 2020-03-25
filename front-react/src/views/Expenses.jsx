@@ -17,7 +17,8 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
+  LabelList
 } from "recharts";
 
 import { Card } from "components/Card/Card.jsx";
@@ -37,6 +38,7 @@ function Dashboard(props) {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [user, setUser] = useState(false);
 
+  
   const COLORS = [
     "#ffe7ea",
     "#fffbcf",
@@ -52,6 +54,40 @@ function Dashboard(props) {
     console.log(state);
     setUser(localStorage.getItem("id"));
   }, []);
+
+
+  function doDispatch(date, data){
+
+    let datez = `${date.month}+${date.year}+${user}`;
+
+  console.log(date, 'date')
+  console.log(data, 'data')
+  
+  Promise.all([
+      axios.get(`http://localhost:8001/api/expenses/${datez}`),
+      axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
+    ])
+      .then(response => {
+
+        console.log(state, 'before dispatch single expense')
+        dispatch({
+          ...state,
+          type: SET_DATA,
+          expenses: response[0].data,
+          totalExpenses: response[1].data,
+          users: data
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+
+    // dispatch({
+    //   type: SET_USER,
+    //   users: data
+    // })
+  }
 
   function handleFile(event) {
     setFileUploaded({
@@ -87,8 +123,7 @@ function Dashboard(props) {
             scoreUp
           })
           .then(res => {
-            refreshExpenses(state.date);
-            console.log("done file uploading");
+
 
             axios
               .get(`http://localhost:8001/api/users/${userId}`)
@@ -99,7 +134,11 @@ function Dashboard(props) {
                   type: SET_USER,
                   users: resz.data
                 });
+
+                doDispatch(state.date, resz.data)
+
               });
+
           });
       };
 
@@ -140,7 +179,10 @@ function Dashboard(props) {
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
+
         console.log("before dispatch single expense");
+        console.log(state, 'before dispatch single expense')
+
         dispatch({
           ...state,
           type: SET_DATA,
@@ -226,6 +268,7 @@ function Dashboard(props) {
 
                     {addExpense ? (
                       <ExpenseUpdater1
+                        doDispatch={doDispatch}
                         state={state}
                         date={state.date}
                         onExpenseSubmit={refreshExpenses}
@@ -241,14 +284,14 @@ function Dashboard(props) {
               }
             />
           </div>
-
+        {/* <div className='both-expense-tables'> */}
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
               <Card
                 statsIcon="fa fa-clock-o"
-                title="Expense Breakdown (in $)"
+                title="Expense Breakdown By Type (in $)"
                 content={
-                  <PieChart width={500} height={350}>
+                  <PieChart width={450} height={350}>
                     <Tooltip />
                     <Pie
                       data={createPie(state.totalExpenses)}
@@ -284,7 +327,7 @@ function Dashboard(props) {
                 statsIcon="fa fa-clock-o"
                 title={
                   <p>
-                    Expense Comparison To{" "}
+                   Personal Expense Comparison To{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -296,7 +339,7 @@ function Dashboard(props) {
                 }
                 content={
                   <BarChart
-                    width={500}
+                    width={700}
                     height={350}
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
@@ -311,6 +354,7 @@ function Dashboard(props) {
                 }
               />
             ) : null}
+          {/* </div> */}
           </div>
         </div>
       </div>
