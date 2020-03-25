@@ -130,16 +130,78 @@
 }
 
 .budgetGraphCardGrid {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  grid-template-rows: 60px 1fr;
-}
 
-.budgetGraphCardGraph {
-  position: relative;
-  display: grid;
-  grid-column: 1/3;
-  grid-row: 2/3;
+  .budgetGraphHeader {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr 105px 45px;
+    grid-template-rows: 25px 60px;
+
+    .title {
+      position: relative;
+      display: grid;
+      grid-column: 1/3;
+      grid-row: 1/2;
+    }
+
+    .budgetIcons{
+      display: grid;
+      grid-column: 3/4;
+      grid-row: 1/2;
+      display: inline-block;
+      overflow: hidden;
+
+      .budgetIconsList{
+        display: flex;
+        justify-content: space-between;
+
+        .iconQuestion {
+          background-color: black;
+          height: 20px;
+          width: 20px;
+
+          &:hover {
+            background-color: rgb(188, 45, 45);
+            transition: background-color 0.2s;
+          }
+    
+          img {
+            position: relative;
+            top: -1px;
+          }
+        }
+        .iconQuit {
+          background-color: black;
+          height: 20px;
+          width: 20px;
+
+          &:hover {
+            background-color: rgb(188, 45, 45);
+            transition: background-color 0.2s;
+          }
+    
+          img {
+            position: relative;
+            top: -1px;
+          }
+        }
+      }
+    }
+
+    .category {
+      position: relative;
+      display: grid;
+      grid-column: 1/2;
+      grid-row: 2/3;
+    }
+
+    .textAlignRight {
+      position: relative;
+      display: grid;
+      grid-column: 2/4;
+      grid-row: 2/3;
+    }
+  }
 }
 
 .top100px {

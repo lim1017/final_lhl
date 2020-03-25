@@ -515,6 +515,7 @@ function Budget(props) {
                   validate={validatePlanner}
                   error={error}
                   size={cardSize(winWidth).card}
+                  dispatch={dispatchToggle}
                 /> :
                 <BudgetPlannerB
                 budget={budget}
@@ -522,6 +523,7 @@ function Budget(props) {
                 validate={validatePlanner}
                 error={error}
                 size={cardSize(winWidth).card}
+                dispatch={dispatchToggle}
               />
             : null}
           </div>
@@ -534,6 +536,7 @@ function Budget(props) {
               budget={budget}
               updateBudgetLocal={dispatchBudget}
               size={cardSize(winWidth).card}
+              dispatch={dispatchToggle}
             />
             : null}
           </div>
@@ -544,6 +547,8 @@ function Budget(props) {
             title="Plan vs Actual Total Expenses"
             category="compare planned expenses vs expenses in given month"
             size={cardSize(winWidth).card}
+            dispatch={dispatchToggle}
+            dispatchType="PVAT"
             content={
               <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
                 <BarChart 
@@ -570,6 +575,8 @@ function Budget(props) {
             title="Plan vs Actual Expenses by Category"
             category="compare planned expenses vs expenses in given month"
             size={cardSize(winWidth).card}
+            dispatch={dispatchToggle}
+            dispatchType="PVAC"
             content={
               <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
                 <BarChart 
@@ -596,6 +603,8 @@ function Budget(props) {
               title="Plan vs Actual Monthly Saving"
               category="compare planned expenses vs expenses in given month"
               size={cardSize(winWidth).card}
+              dispatch={dispatchToggle}
+              dispatchType="PVAS"
               content={
                 <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
                   <BarChart 
@@ -625,6 +634,8 @@ function Budget(props) {
             range={range}
             setRange={setRange}
             size={cardSize(winWidth).card}
+            dispatch={dispatchToggle}
+            dispatchType="BOTG"
             content={
               <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
                 <AreaChart 

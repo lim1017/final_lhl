@@ -35,6 +35,8 @@ export default function BudgetPlannerA(props) {
       title="Budget Planner"
       category="insert your monthly budget by categories here"
       size={props.size}
+      dispatch={props.dispatch}
+      dispatchType="PLANNER"
       content={
         <div>
           <TableContainer component={Paper}>
