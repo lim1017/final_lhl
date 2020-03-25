@@ -71,6 +71,8 @@ function Sidebar(props) {
       backgroundImage: "url(" + props.image + ")"
     };
 
+
+
     return (
       <div
         id="sidebar"

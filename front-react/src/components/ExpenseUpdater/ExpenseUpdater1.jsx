@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -6,6 +6,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
+import appDataContext from "../../hooks/reducers/useContext";
+
+import reducerz, { SET_USER } from "../../hooks/reducers/app";
+
 import axios from "axios";
 
 const useStyles = makeStyles(theme => ({
@@ -26,6 +30,9 @@ const useStyles = makeStyles(theme => ({
 
 function ExpenseUpdater1(props) {
   const classes = useStyles();
+
+  const { state, dispatch } = useContext(appDataContext);
+
   const [amount, setAmount] = React.useState("");
   const [name, setName] = React.useState("");
   const [type, setType] = React.useState(null);
@@ -46,12 +53,35 @@ function ExpenseUpdater1(props) {
     const userId = localStorage.getItem('id');
 
     const expenseObj = { amount, name, type, userId, date:props.date };
+
+    var scoreUp=false
+    console.log(props.state.expenses.length, 'expense length')
+
+    if (props.state.expenses.length === 0){
+      scoreUp=true
+    }
+
+
     Promise.all([
-      axios.put(`http://localhost:8001/api/expenses/add`, expenseObj)
+      axios.put(`http://localhost:8001/api/expenses/add`, {expenseObj, scoreUp})
     ])
       .then(response => {
-        console.log("axios data recieved: ", response);
-        props.onExpenseSubmit();
+        console.log('after adding one exp')
+
+        axios.get((`http://localhost:8001/api/users/${userId}`))
+            .then(resz =>{
+
+
+              dispatch({
+                type: SET_USER,
+                users: resz.data
+              });
+
+
+            })
+
+            props.onExpenseSubmit(state.date);
+
       })
       .catch(error => {
         console.log("no go");
