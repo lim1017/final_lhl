@@ -4,7 +4,8 @@ import appDataContext from "../hooks/reducers/useContext";
 import Questionnaire from "./Questionnaire";
 import RenderPortfolio from "./RenderPortfolio";
 import axios from "axios";
-import { SET_DATA } from "hooks/reducers/app";
+import { SET_DATA, SET_USER } from "hooks/reducers/app";
+
 
 function portfolioDistribution(riskScore) {
   //renders portfolio based on questionnaire response of user
@@ -125,6 +126,15 @@ function Portfolio(props) {
       parseInt(localState.questionFive);
 
     const userid = localStorage.getItem("id");
+    
+    
+    var scoreUp=false
+    console.log(state.users[0].riskscore, 'riskscore')
+
+    if (state.users[0].riskscore === 0){
+      scoreUp=true
+    }
+    
 
     const userPortfolio = {
       user: userid,
@@ -141,13 +151,25 @@ function Portfolio(props) {
     });
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/update`, userPortfolio)
+      axios.put(`http://localhost:8001/api/users/update`, {userPortfolio, scoreUp})
     ]).then(() => {
       dispatch({
         ...state,
         user: userPortfolio,
         type: SET_DATA
       });
+
+      axios.get((`http://localhost:8001/api/users/${userid}`))
+            .then(resz =>{
+              console.log(resz, 'after file upload')
+              console.log(resz.data[0])
+              dispatch({
+                type: SET_USER,
+                users: resz.data
+              });
+            })
+
+
       // force redirect
       window.location.href = "/admin/portfolio/review";
     });

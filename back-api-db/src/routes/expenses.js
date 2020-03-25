@@ -90,7 +90,9 @@ module.exports = db => {
 
       console.log(req.body, 'from upload@@!!')
 
-      if (!req.body.scoreUp) score = 10;
+      if (req.body.scoreUp){
+        score = 15;
+      } 
       datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
   
       return Promise.all(formatExpenses(req.body).map(element =>{
@@ -112,7 +114,7 @@ module.exports = db => {
         db.query(
           `
           UPDATE users
-          SET literacy = $1 
+          SET literacy = literacy + $1 
           WHERE id = $2
           `,
           [score, parseInt(req.body.userId)]

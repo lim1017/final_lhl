@@ -5,16 +5,28 @@ import Goal from "components/Goal/index.jsx";
 import appDataContext from "../hooks/reducers/useContext";
 import CardGoalsTips from "./CardGoalsTips";
 import CardGoals from "./CardGoals";
+import reducerz, { SET_USER } from "../hooks/reducers/app";
+
 
 function Goals(props) {
   const { state, dispatch } = useContext(appDataContext);
 
+
+
   const setGoal = (id, goal) => {
     const user = localStorage.getItem("id");
+    
+    var scoreUp=false
+    console.log(state.goals.length, 'goals length')
+
+    if (state.goals.length === 0){
+      scoreUp=true
+    }
+
     return new Promise((res, rej) => {
       axios
-        .put(`http://localhost:8001/api/goals/${id}`, goal)
-        .then(res1 => {
+        .put(`http://localhost:8001/api/goals/${id}`, {goal, scoreUp})
+        .then( x =>{
           axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
             console.log("goal get", res2.data);
             dispatch({
@@ -23,11 +35,25 @@ function Goals(props) {
               goals: res2.data
             });
             res(res2);
+
+
+          axios.get(`http://localhost:8001/api/users/${user}`).then(res2 => {
+
+    
+            console.log("goal get", res2.data);
+            dispatch({
+              type: "SET_USER",
+              users: res2.data
+            });
+            res(res2);
           });
-        })
-        .catch(error => {
+        
+
+        }).catch(error => {
+  
           rej(error);
         });
+      })
     });
   };
 
@@ -38,9 +64,11 @@ function Goals(props) {
         .delete(`http://localhost:8001/api/goals/${id}`)
         .then(res1 => {
           axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
+
+            console.log(res2.data, 'from goals')
+
             dispatch({
-              ...state,
-              type: "SET_DATA",
+              type: SET_USER,
               goals: res2.data
             });
             res(res2);

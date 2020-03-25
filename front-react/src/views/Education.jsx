@@ -6,7 +6,7 @@ import { articles } from "variables/EducationArticles.jsx";
 import QuizQuestion from "components/QuizQuestion/QuizQuestion.jsx";
 import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVerticallyCenteredModal.jsx";
 import appDataContext from "../hooks/reducers/useContext";
-import reducerz, { SET_EDU_PROGRESS } from "../hooks/reducers/app";
+import reducerz, { SET_EDU_PROGRESS, SET_USER } from "../hooks/reducers/app";
 import axios from "axios";
 
 
@@ -60,6 +60,33 @@ function Maps({ ...prop }) {
       });
 
   }, []);
+
+  useEffect(() => {
+    const userId = localStorage.getItem('id');
+
+
+    Promise.all([
+      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId}),
+    ])
+      .then(res => {
+        
+        axios.get((`http://localhost:8001/api/users/${userId}`))
+            .then(resz =>{
+              console.log(resz, 'after file upload')
+              console.log(resz.data[0])
+              dispatch({
+                type: SET_USER,
+                users: resz.data
+              });
+            })
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+  }, [state.eduProgress]);
+
 
 
 
