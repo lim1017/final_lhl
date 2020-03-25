@@ -1,7 +1,7 @@
 INSERT INTO users (name, riskScore, portfolioReturn, literacy, eduScores, eduIsAnswered, isNew)
 VALUES
-    ('bob', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":1}', '{"1":0, "2":0, "3":0, "4":0, "5":1}', false),
-    ('joe', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":0}', '{"1":0, "2":0, "3":0, "4":0, "5":0}', false);
+    ('bob', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":1, "6":0}', '{"1":0, "2":0, "3":0, "4":0, "5":1, "6":0}', false),
+    ('joe', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":0, "6":0}', '{"1":0, "2":0, "3":0, "4":0, "5":0, "6":0}', false);
 
 
 SET datestyle = "ISO, MDY";
@@ -35,7 +35,7 @@ VALUES
 
 
 
-    ('Auto Lease', 1, 320, 'Transporation', '01/5/2020'),
+    ('Auto Lease', 1, 320, 'Transportation', '01/5/2020'),
     ('Coffee', 1, 2, 'Food', '02/03/2020'),
     ('Burger King', 1, 10, 'Food', '02/05/2020'),
     ('Groceries', 1, 28, 'Food', '02/6/2020'),
@@ -54,16 +54,16 @@ VALUES
     ('Home Insurance', 1, 150, 'Home', '02/3/2020'),
     ('Hydro', 1, 300, 'Home', '02/11/2020'),
     ('Gas', 1, 80, 'Home', '02/20/2020'),
-    ('Auto Insurance', 1, 200, 'Transporation', '02/5/2020'),
-    ('Auto Lease', 1, 320, 'Transporation', '02/5/2020'),
+    ('Auto Insurance', 1, 200, 'Transportation', '02/5/2020'),
+    ('Auto Lease', 1, 320, 'Transportation', '02/5/2020'),
     ('Fancy Sushi', 1, 500, 'Food', '02/11/2020'),('Hydro', 1, 250, 'Utilities', '02/5/2020'),
     ('Movies', 1, 550, 'Entertainment', '02/11/2020'),
     ('Viagara', 1, 1000, 'Medical', '02/5/2020'),
-    ('Debt', 1, 666, 'debt', '02/5/2020'),
+    ('Debt', 1, 666, 'Debt', '02/5/2020'),
     ('Flying Pony', 1, 1250, 'Misc', '02/5/2020'),
 
 
-    ('Auto Lease', 1, 0, 'Transporation', '03/5/2020'),
+    ('Auto Lease', 1, 0, 'Transportation', '03/5/2020'),
     ('Fancy Sushi', 1, 0, 'Food', '03/11/2020'),
     ('Hydro', 1, 0, 'Utilities', '03/5/2020'),
     ('Movies', 1, 0, 'Entertainment', '03/11/2020'),
