@@ -52,7 +52,7 @@
     .header{
         padding: 15px 15px 0;
         display: grid;
-        grid-template-columns: 1fr 30px;
+        grid-template-columns: 1fr 45px;
         grid-template-rows: 25px 1fr;
     }
 
@@ -87,13 +87,49 @@
         color: $black-color;
         font-weight: $font-weight-light;
     }
+    
+    .budgetIcons{
+      display: grid;
+      grid-column: 2/3;
+      grid-row: 1/2;
+      display: inline-block;
+      overflow: hidden;
 
-    .iconQuestion {
-        background: url("../../img/question_inverted.png");
-        background-color: red;
-        height: 20px;
-        width: 20px;
-        display: block;
+      .budgetIconsList{
+        display: flex;
+        justify-content: space-between;
+
+        .iconQuestion {
+          background-color: black;
+          height: 20px;
+          width: 20px;
+
+          &:hover {
+            background-color: rgb(188, 45, 45);
+            transition: background-color 0.2s;
+          }
+    
+          img {
+            position: relative;
+            top: -1px;
+          }
+        }
+        .iconQuit {
+          background-color: black;
+          height: 20px;
+          width: 20px;
+
+          &:hover {
+            background-color: rgb(188, 45, 45);
+            transition: background-color 0.2s;
+          }
+    
+          img {
+            position: relative;
+            top: -1px;
+          }
+        }
+      }
     }
 
     .avatar{
