@@ -6,9 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import appDataContext from "../../hooks/reducers/useContext";
 
-import reducerz, { SET_USER } from "../../hooks/reducers/app";
 
 import axios from "axios";
 
@@ -30,8 +28,6 @@ const useStyles = makeStyles(theme => ({
 
 function ExpenseUpdater1(props) {
   const classes = useStyles();
-
-  const { state, dispatch } = useContext(appDataContext);
 
   const [amount, setAmount] = React.useState("");
   const [name, setName] = React.useState("");
@@ -67,19 +63,14 @@ function ExpenseUpdater1(props) {
     ])
       .then(response => {
         console.log('after adding one exp')
-        props.onExpenseSubmit(state.date);
 
         axios.get((`http://localhost:8001/api/users/${userId}`))
             .then(resz =>{
 
-
-              dispatch({
-                type: SET_USER,
-                users: resz.data
-              });
-
+              props.doDispatch(props.state.date, resz.data)
 
             })
+
 
 
       })
