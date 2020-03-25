@@ -300,6 +300,7 @@ function Dashboard(props) {
                       fill="#8884d8"
                       label
                     >
+                      
                       {createPie(state.totalExpenses).map((entry, index) => (
                         <Cell
                           key={index}
