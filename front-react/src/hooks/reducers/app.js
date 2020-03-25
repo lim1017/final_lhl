@@ -8,6 +8,7 @@ const SET_USER = "SET_USER";
 export default function reducerz(state, action) {
   switch (action.type) {
     case SET_DATA:
+      console.log(action)
       return {
         ...state,
         expenses: action.expenses,
@@ -40,6 +41,14 @@ export default function reducerz(state, action) {
       ...state,
       users: action.users
     };   
+    // case SET_EXPENSES:
+    // console.log(action, 'set expenses')
+    // return {
+    //   ...state,
+    //   users: action.users
+    // };   
+
+    
 
     default:
       throw new Error(

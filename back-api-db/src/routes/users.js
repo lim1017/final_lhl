@@ -16,6 +16,33 @@ module.exports = db => {
     });
   });
 
+  router.put("/users/updateliteracy", (request, response) => {
+
+    console.log('answering question!')
+
+    if (process.env.TEST_ERROR) {
+      setTimeout(() => response.status(500).json({}), 1000);
+      return;
+    }
+
+    const { userId } = request.body;
+
+    db.query(
+      `
+      UPDATE users
+      SET literacy = literacy + 5 
+      WHERE id = $1
+      `,
+      [parseInt(userId)]
+    )
+      .then(x => {
+        setTimeout(() => {
+          response.status(204).json({});
+        }, 1000);
+      })
+      .catch(error => console.log(error));
+  });
+
   router.put("/users/updateedu", (request, response) => {
 
     if (process.env.TEST_ERROR) {
@@ -105,7 +132,13 @@ module.exports = db => {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
-    const { user, riskScore, portfolioReturn } = request.body;
+    const { user, riskScore, portfolioReturn } = request.body.userPortfolio;
+
+    console.log(request.body, 'from user update!!')
+
+    if (request.body.scoreUp){
+      score = 15;
+    } 
 
     db.query(
       `
@@ -117,9 +150,22 @@ module.exports = db => {
       [user, riskScore, portfolioReturn]
     )
       .then(x => {
-        setTimeout(() => {
-          response.status(204).json({});
-        }, 1000);
+      
+        db.query(
+          `
+          UPDATE users
+          SET literacy = literacy + $1 
+          WHERE id = $2
+          `,
+          [score, user]
+        ) .then(x => {
+              response.status(200).send(request.file)
+              
+              console.log(x, 'done updating literacy in user/update')
+        })
+        .catch(error => console.log(error));
+
+
       })
       .catch(error => console.log(error));
   });
