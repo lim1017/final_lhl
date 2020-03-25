@@ -12,6 +12,7 @@
     "mdbreact": "^4.25.3",
     "node-sass": "^4.13.1",
     "react": "16.8.6",
+    "react-animated-number": "^0.4.4",
     "react-animations": "^1.0.0",
     "react-bootstrap": "0.32.4",
     "react-chartist": "0.13.3",
