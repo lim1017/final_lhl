@@ -12,9 +12,18 @@ module.exports = db => {
     });
   });
 
+
+
   router.put("/goals/:id", (request, response) => {
 
-    const { name, user_id, type, amount, description, date } = request.body;
+    const { name, user_id, type, amount, description, date } = request.body.goal;
+
+
+    var score = 0
+
+    if (request.body.scoreUp){
+      score = 15;
+    } 
 
     db.query(
       `
@@ -49,7 +58,26 @@ module.exports = db => {
           `,
           [name, user_id, type, amount, description, date]
         ).then(() => {
+          console.log(score, user_id, 'score and user id')
           response.json(`database:goal ${request.params.id} updated`);
+
+          db.query(
+            `
+            UPDATE users
+            SET literacy = literacy + $1 
+            WHERE id = $2
+            `,
+            [score, user_id]
+          ).then(x => {
+            response.status(200)
+                console.log(x, 'done updating literacy in goals')
+          })
+
+          
+
+
+
+
         }).catch(error => console.log(error));  
       }
     })
