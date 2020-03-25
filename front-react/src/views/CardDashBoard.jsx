@@ -88,8 +88,14 @@ function CardDashBoard(props) {
     "#dfe6c3",
     "#f5e0b3"
   ];
-  const COLORS = ["#c4d2c7", "#ffe7ea", "#f87f8d", "#FF8042"];
-
+  const COLORS = [
+    "#f6c1fd",
+    "#fbe8fd",
+    "#ffe7ea",
+    "#c5e6ab",
+    "#c4d2c7",
+    "#d4f3bb"
+  ];
   const formatDataForPVAT = function(state) {
     const plan = { name: "plan" };
     const actual = { name: "actual" };
@@ -123,7 +129,7 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.9,
+            opacity: 1,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -160,7 +166,7 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.9,
+            opacity: 1,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -211,7 +217,7 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.9,
+            opacity: 1,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
@@ -233,17 +239,20 @@ function CardDashBoard(props) {
               <DashExpenses state={props.state}></DashExpenses>
             </>
           ) : (
-            <div className="dashboard-chart">
-              <h4>Expenses for {returnMonthText(parseInt(props.state.date.month))}</h4>
-              <PieChart width={500} height={350}>
-                <Tooltip />
+            <div>
+              <h4>
+                Your expenses for{" "}
+                {returnMonthText(parseInt(props.state.date.month))}:
+              </h4>
+              <PieChart width={730} height={500}>
+                {/* <Tooltip /> */}
                 <Pie
                   data={createPie(props.state.totalExpenses)}
                   dataKey="value"
                   nameKey="name"
-                  cx="60%"
-                  cy="50%"
-                  outerRadius={120}
+                  cx="33%"
+                  cy="40%"
+                  outerRadius={140}
                   fill="#8884d8"
                   label
                 >
@@ -254,8 +263,8 @@ function CardDashBoard(props) {
                 <Legend
                   verticalAlign="bottom"
                   layout="horizontal"
-                  height={55}
-                  width={355}
+                  height={0}
+                  width={450}
                 />
               </PieChart>
             </div>
@@ -268,7 +277,7 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             minHeight: 500,
-            opacity: 0.9,
+            opacity: 1,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
