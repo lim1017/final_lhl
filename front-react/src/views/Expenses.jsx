@@ -37,7 +37,14 @@ function Dashboard(props) {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [user, setUser] = useState(false);
 
-  const COLORS = ["#c4d2c7", "#ffe7ea", "#f87f8d", "#FF8042"];
+  const COLORS = [
+    "#f6c1fd",
+    "#fbe8fd",
+    "#ffe7ea",
+    "#c5e6ab",
+    "#c4d2c7",
+    "#d4f3bb"
+  ];
 
   useEffect(() => {
     console.log(state);
@@ -54,11 +61,11 @@ function Dashboard(props) {
   function sendFileBack() {
     const userId = localStorage.getItem("id");
 
-    var scoreUp=false
-    console.log(state.expenses.length, 'expense length')
+    var scoreUp = false;
+    console.log(state.expenses.length, "expense length");
 
-    if (state.expenses.length === 0){
-      scoreUp=true
+    if (state.expenses.length === 0) {
+      scoreUp = true;
     }
 
     if (fileUploaded && fileUploaded.selectedFile.name.includes(".csv")) {
@@ -71,27 +78,26 @@ function Dashboard(props) {
       reader.onloadend = e => {
         const textData = e.target.result;
         axios
-          .post(
-            "http://localhost:8001/api/expenses/file/",
-            { textData, userId, date:state.date, scoreUp }
-          )
+          .post("http://localhost:8001/api/expenses/file/", {
+            textData,
+            userId,
+            date: state.date,
+            scoreUp
+          })
           .then(res => {
             refreshExpenses(state.date);
-            console.log('done file uploading')
-            
-            axios.get((`http://localhost:8001/api/users/${userId}`))
-            .then(resz =>{
-              console.log(resz, 'after file upload')
-              console.log(resz.data[0])
-              dispatch({
-                type: SET_USER,
-                users: resz.data
+            console.log("done file uploading");
+
+            axios
+              .get(`http://localhost:8001/api/users/${userId}`)
+              .then(resz => {
+                console.log(resz, "after file upload");
+                console.log(resz.data[0]);
+                dispatch({
+                  type: SET_USER,
+                  users: resz.data
+                });
               });
-            })
-            
-            
-            
-            
           });
       };
 
@@ -205,7 +211,7 @@ function Dashboard(props) {
                         color: "black",
                         fontWeight: "bold",
                         height: "50px",
-                        marginLeft:"1.5em"
+                        marginLeft: "1.5em"
                       }}
                       onClick={() => toggleState()}
                     >
@@ -230,75 +236,74 @@ function Dashboard(props) {
           </div>
 
           <div className="expenses-table2">
-
-          {state.expenses.length !==0 ? (
-                     
-                     <Card
-                     statsIcon="fa fa-clock-o"
-                     title="Expenses"
-                     content={
-                       <PieChart width={500} height={350}>
-                         <Tooltip />
-                         <Pie
-                           data={createPie(state.totalExpenses)}
-                           dataKey="value"
-                           nameKey="name"
-                           cx="70%"
-                           cy="40%"
-                           outerRadius={120}
-                           fill="#8884d8"
-                           label
-                         >
-                           {createPie(state.totalExpenses).map((entry, index) => (
-                             <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                           ))}
-                         </Pie>
-                         <Legend
-                           verticalAlign="bottom"
-                           layout="horizontal"
-                           height={55}
-                           width={355}
-                         />
-                       </PieChart>
-                     }
-                   />
-
-          ) : null}
-
-
-       
+            {state.expenses.length !== 0 ? (
+              <Card
+                statsIcon="fa fa-clock-o"
+                title="Expense Breakdown (in $)"
+                content={
+                  <PieChart width={500} height={350}>
+                    <Tooltip />
+                    <Pie
+                      data={createPie(state.totalExpenses)}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="42%"
+                      outerRadius={120}
+                      fill="#8884d8"
+                      label
+                    >
+                      {createPie(state.totalExpenses).map((entry, index) => (
+                        <Cell
+                          key={index}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Legend
+                      verticalAlign="bottom"
+                      layout="horizontal"
+                      height={55}
+                      width={480}
+                    />
+                  </PieChart>
+                }
+              />
+            ) : null}
           </div>
           <div className="expenses-table3">
-
-          {state.expenses.length !==0 ? (
-                     
-                     <Card
-                     statsIcon="fa fa-clock-o"
-                     title={<p>Expense Comparison To <a target="_blank" rel="noopener noreferrer" href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201">National Average</a>
-                     </p>}
-                     content={
-                       <BarChart
-                         width={500}
-                         height={350}
-                         data={formatDataForBarChart(state.totalExpenses)}
-                       >
-                         <CartesianGrid strokeDasharray="3 3" />
-                         <XAxis dataKey="name" />
-                         <YAxis />
-                         <Tooltip />
-                         <Legend />
-                         <Bar dataKey="Personal" fill="#c4d2c7" />
-                         <Bar dataKey="Average" fill="#ffe7ea" />
-                       </BarChart>
-                     }
-                   />
-
-          ) : null}
-
-          
-
-
-          
+            {state.expenses.length !== 0 ? (
+              <Card
+                statsIcon="fa fa-clock-o"
+                title={
+                  <p>
+                    Expense Comparison To{" "}
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201"
+                    >
+                      National Average
+                    </a>
+                  </p>
+                }
+                content={
+                  <BarChart
+                    width={500}
+                    height={350}
+                    data={formatDataForBarChart(state.totalExpenses)}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Bar dataKey="Personal" fill="#c4d2c7" />
+                    <Bar dataKey="Average" fill="#ffe7ea" />
+                  </BarChart>
+                }
+              />
+            ) : null}
           </div>
         </div>
       </div>

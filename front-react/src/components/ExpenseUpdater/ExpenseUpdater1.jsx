@@ -43,9 +43,9 @@ function ExpenseUpdater1(props) {
   };
 
   function submitExpense() {
-    const userId = localStorage.getItem('id');
+    const userId = localStorage.getItem("id");
 
-    const expenseObj = { amount, name, type, userId, date:props.date };
+    const expenseObj = { amount, name, type, userId, date: props.date };
     Promise.all([
       axios.put(`http://localhost:8001/api/expenses/add`, expenseObj)
     ])
@@ -58,7 +58,6 @@ function ExpenseUpdater1(props) {
       });
   }
 
-  
   return (
     <div display="flex" flexDirection="row">
       <form className={classes.root} noValidate autoComplete="off">
@@ -100,13 +99,13 @@ function ExpenseUpdater1(props) {
 
           <span>
             <Button
-              style={{ 
-                marginTop:'15px',
-                backgroundColor:"#c4d2c7",
-                color:'black',
-                fontWeight:'bold',
-                height:'30px'
-                }}
+              style={{
+                marginTop: "15px",
+                backgroundColor: "#c4d2c7",
+                color: "black",
+                fontWeight: "bold",
+                height: "30px"
+              }}
               variant="contained"
               color="primary"
               onClick={() => submitExpense()}

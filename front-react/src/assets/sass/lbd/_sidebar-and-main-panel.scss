@@ -7,7 +7,7 @@
 
 .sidebar-content {
   display: flex;
-  // justify-content: center;
+  justify-content: center;
 }
 
 .sidebar-name {
@@ -16,11 +16,13 @@
 
 .header {
   display: flex;
-  // justify-content: center;
+  justify-content: center;
 }
 
-.sidebar-literacy{
-  color:black;
+.sidebar-literacy {
+  display: flex;
+  justify-content: center;
+  color: black;
 }
 
 .sidebar {

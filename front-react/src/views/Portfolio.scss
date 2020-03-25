@@ -25,16 +25,16 @@
   opacity: 1;
   padding: 15px 50px;
   outline: none;
-  border-radius: 30px;
+  border-radius: 20px;
   font-size: 24px;
   font-weight: 300;
-  background-color: #c4d2c7;
-  border-color: #c4d2c7;
+
+  background-color: #ffe7ea;
+  color: black;
 }
 
 .risk-assessment-start-button:hover {
   background-color: #c4d2c7;
-  color: #b3898e;
 }
 .risk-assessment-questions label {
   font-weight: 500;
@@ -90,11 +90,6 @@
   bottom: 0;
   left: 0;
   right: 0;
-}
-
-.risk-assessment-start-button {
-  background-color: #ffe7ea;
-  color: #9cb389;
 }
 
 .risk-assessment-button-image-container .risk-assessment-start-button:hover {
