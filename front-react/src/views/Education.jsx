@@ -53,6 +53,7 @@ function Maps({ ...prop }) {
       });
   }, []);
 
+  
   useEffect(() => {
     const userId = localStorage.getItem('id');
 
@@ -143,14 +144,14 @@ function Maps({ ...prop }) {
     <div className="img-wrapper">
       <div className="img-container">
         <h1 className="edu-title">
-          {" "}
+          {/* {" "}
           {state.eduProgress === 100 ? (
             <img
               src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg"
               width="40"
               height="40"
             ></img>
-          ) : null}
+          ) : null} */}
         </h1>
 
         <div className="article-list">

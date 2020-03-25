@@ -14,7 +14,7 @@ const articles = [
     a4: "Ones, and Zeros on a server somewhere"
   },
   {
-    id: 4,
+    id: 2,
     title: "Time Value of Money",
     link: "https://www.investopedia.com/articles/03/082703.asp",
     image:
@@ -27,7 +27,7 @@ const articles = [
     a4: "$100 today is the same as $100 next year"
   },
   {
-    id: 2,
+    id: 3,
     title: "TFSA VS RRSP",
     link:
       "https://help.wealthsimple.com/hc/en-ca/articles/115015719107-Should-I-use-a-TFSA-or-an-RRSP-",
@@ -41,7 +41,7 @@ const articles = [
     a4: "Tractor FUN Super AnT"
   },
   {
-    id: 3,
+    id: 4,
     title: "Stocks/Bonds/Mutual Funds",
     link: "https://blog.vancity.com/intro-investing-stocks-bonds-mutual-funds/",
     image:
@@ -56,7 +56,7 @@ const articles = [
       "A bond is a equity instrument that represents a loan made by an investor to a borrower"
   },
   {
-    id: 6,
+    id: 5,
     title: "When Can I Retire?",
     link: "https://www.wealthsimple.com/en-ca/learn/when-can-i-retire",
     image:
@@ -69,7 +69,7 @@ const articles = [
     a4: "60"
   },
   {
-    id: 5,
+    id: 6,
     title: "Budgeting Tips",
     link:
       "https://www.everydollar.com/blog/budgeting-tips-every-budgeter-needs-to-know",
