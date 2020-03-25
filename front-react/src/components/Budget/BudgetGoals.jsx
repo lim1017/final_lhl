@@ -28,7 +28,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function BudgetGoals(props) {
   const classes = useStyles();
-  // console.log('this is props.goals in budgetGoals: ', props.goals)
 
   const GoalsInList = props.goals.map(goal => {
     return (
@@ -60,6 +59,8 @@ export default function BudgetGoals(props) {
       title="Goals"
       category="choose goals to display on graph"
       size={props.size}
+      dispatch={props.dispatch}
+      dispatchType="GOAL"
       content={
         <div>
           <TableContainer component={Paper}>

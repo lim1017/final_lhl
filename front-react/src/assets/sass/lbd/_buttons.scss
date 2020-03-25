@@ -31,7 +31,7 @@
   @include btn-styles($primary-color, $primary-states-color);
 }
 .btn-success {
-  @include btn-styles($success-color, $success-states-color);
+  @include btn-styles(#c4d2c7, #c4d2c7);
 }
 .btn-info {
   @include btn-styles($info-color, $info-states-color);

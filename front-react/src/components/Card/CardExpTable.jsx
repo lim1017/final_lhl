@@ -8,8 +8,9 @@ export class CardExpTable extends Component {
           <h3 className="title">
             {this.props.category} {this.props.title}
           </h3>
-          <br />
-          <div className="category">{this.props.content2}</div>
+        </div>
+        <div className="category" style={{ paddingLeft: 10 }}>
+          {this.props.content2}
         </div>
         <div
           className={

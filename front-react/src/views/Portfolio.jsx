@@ -25,8 +25,7 @@ function portfolioDistribution(riskScore) {
       { type: "S&P/TSX Index", sum: 10 },
       { type: "Low Volatility Index", sum: 20 },
       { type: "Corporate Bonds", sum: 30 },
-      { type: "Government Bonds", sum: 30 },
-      { type: "Cash", sum: 5 }
+      { type: "Government Bonds", sum: 35 }
     ];
     portfolioReturn = 1.05;
   }
