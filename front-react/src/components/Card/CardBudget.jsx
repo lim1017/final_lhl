@@ -11,8 +11,15 @@ export const Card = function(props) {
       >
         <div className={"header" + (props.hCenter ? " text-center" : "")}>
           <h4 className="title">{props.title}</h4>
-            <div className="iconQuestion">
-              <img src="../../assets/img/new_logo.png" alt="question" height="20" width="20" />
+            <div className="budgetIcons">
+            <div className="budgetIconsList">
+              <div className="iconQuestion">
+                <img src={require("../../assets/img/budget_question.png")} alt="question" height="20" width="20" />
+              </div>
+              <div className="iconQuit">
+                <img src={require("../../assets/img/budget_quit.png")} alt="quit" height="20" width="20" />
+              </div>
+            </div>
             </div>
           <p className="category">{props.category}</p>
         </div>
