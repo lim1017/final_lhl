@@ -1,6 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 
 export const Card = function(props) {
+  const [info, setInfo] = useState(false);
+  const information = function() {
+    
+  }
 
     return (
       <div
@@ -13,7 +17,15 @@ export const Card = function(props) {
             <div className="budgetIcons">
             <div className="budgetIconsList">
               <div className="iconQuestion">
-                <img src={require("../../assets/img/budget_question.png")} alt="question" height="20" width="20" />
+                <img
+                  src={require("../../assets/img/budget_question.png")}
+                  alt="question"
+                  height="20"
+                  width="20"
+                  onClick={() => {
+                    setInfo(!info);
+                  }}
+                />
               </div>
               <div className="iconQuit">
                 <img
@@ -23,7 +35,6 @@ export const Card = function(props) {
                   width="20"
                   onClick={() => {
                     props.dispatch({type: props.dispatchType});
-                    document.scrollingElement.scrollTop = 0;
                   }}
                 />
               </div>
@@ -32,7 +43,9 @@ export const Card = function(props) {
           <p className="category">{props.category}</p>
         </div>
         <div className={"content"}>
-          {props.content}
+          {!info ?
+            props.content
+          : null}
         </div>
 
         <div className="footer">
