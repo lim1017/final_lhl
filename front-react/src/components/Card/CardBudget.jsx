@@ -21,7 +21,10 @@ export const Card = function(props) {
                   alt="quit"
                   height="20"
                   width="20"
-                  onClick={() => props.dispatch({type: props.dispatchType})}
+                  onClick={() => {
+                    props.dispatch({type: props.dispatchType});
+                    document.scrollingElement.scrollTop = 0;
+                  }}
                 />
               </div>
             </div>

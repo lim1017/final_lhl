@@ -183,6 +183,13 @@ function Budget(props) {
     savePlanner();
   }
 
+  const onDispatchToggle = function(data) {
+    if (winWidth < 992) {
+      document.scrollingElement.scrollTop = 0;
+    }
+    dispatchToggle(data);
+  }
+
   const scrollCheck = function() {
     if (winWidth >= 992) {
       if (document.getElementById('budgetBG')) document.getElementById('budgetBG').style.top = document.scrollingElement.scrollTop / 250 + 'px';
@@ -377,40 +384,24 @@ function Budget(props) {
   /* ---------------------- */
 
   const cardSize = function(width) {
-    let size = {card: 600, graphX: 450, graphY: 200}
-    if (width < 385) {
-      size.card = 300;
-      size.graphX = 270;
-      size.graphY = 180;
-    } else if (width >= 385 && width < 450) {
-      size.card = 350;
-      size.graphX = 300;
-      size.graphY = 200;
-    } else if (width >= 450 && width < 550) {
-      size.card = 400;
-      size.graphX = 360;
-      size.graphY = 230;
-    } else if (width >= 550 && width < 700) {
-      size.card = 500;
-      size.graphX = 440;
-      size.graphY = 260;
-    } else if (width >= 700 && width < 890) {
-      size.card = 600;
-      size.graphX = 540;
-      size.graphY = 300;
-    } else if (width >= 890 && width < 992) {
-      size.card = 800;
-      size.graphX = 720;
-      size.graphY = 480;
-    } else if (width >= 992 && width < 1276) {
-      size.card = 600;
-      size.graphX = 540;
-      size.graphY = 300;
-    } else if (width >= 1276) {
-      size.card = 500;
-      size.graphX = 440;
-      size.graphY = 260;
-    }
+    function sizeA() {size.card = 300; size.graphX = 270; size.graphY = 180;};
+    function sizeB() {size.card = 350; size.graphX = 300; size.graphY = 200;};
+    function sizeC() {size.card = 400; size.graphX = 360; size.graphY = 230;};
+    function sizeD() {size.card = 500; size.graphX = 440; size.graphY = 260;};
+    function sizeE() {size.card = 600; size.graphX = 540; size.graphY = 300;};
+    function sizeF() {size.card = 800; size.graphX = 720; size.graphY = 480;};
+    let size = {card: 600, graphX: 450, graphY: 200};
+    
+    if (width < 385) sizeA();
+    else if (width >= 385 && width < 450) sizeB();
+    else if (width >= 450 && width < 550) sizeC();
+    else if (width >= 550 && width < 700) sizeD();
+    else if (width >= 700 && width < 890) sizeE();
+    else if (width >= 890 && width < 992) sizeF();
+    else if (width >= 992 && width < 1276)  sizeE();
+    else if (width >= 1276 && width < 1600) sizeD();
+    else if (width >= 1600 && width < 1920) sizeE();
+    else if (width >= 1920) sizeF();
 
     return size;
   }
@@ -515,7 +506,7 @@ function Budget(props) {
                   validate={validatePlanner}
                   error={error}
                   size={cardSize(winWidth).card}
-                  dispatch={dispatchToggle}
+                  dispatch={onDispatchToggle}
                 /> :
                 <BudgetPlannerB
                 budget={budget}
@@ -523,7 +514,7 @@ function Budget(props) {
                 validate={validatePlanner}
                 error={error}
                 size={cardSize(winWidth).card}
-                dispatch={dispatchToggle}
+                dispatch={onDispatchToggle}
               />
             : null}
           </div>
@@ -536,7 +527,7 @@ function Budget(props) {
               budget={budget}
               updateBudgetLocal={dispatchBudget}
               size={cardSize(winWidth).card}
-              dispatch={dispatchToggle}
+              dispatch={onDispatchToggle}
             />
             : null}
           </div>
@@ -547,7 +538,7 @@ function Budget(props) {
             title="Plan vs Actual Total Expenses"
             category="compare planned expenses vs expenses in given month"
             size={cardSize(winWidth).card}
-            dispatch={dispatchToggle}
+            dispatch={onDispatchToggle}
             dispatchType="PVAT"
             content={
               <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
@@ -575,7 +566,7 @@ function Budget(props) {
             title="Plan vs Actual Expenses by Category"
             category="compare planned expenses vs expenses in given month"
             size={cardSize(winWidth).card}
-            dispatch={dispatchToggle}
+            dispatch={onDispatchToggle}
             dispatchType="PVAC"
             content={
               <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
@@ -603,7 +594,7 @@ function Budget(props) {
               title="Plan vs Actual Monthly Saving"
               category="compare planned expenses vs expenses in given month"
               size={cardSize(winWidth).card}
-              dispatch={dispatchToggle}
+              dispatch={onDispatchToggle}
               dispatchType="PVAS"
               content={
                 <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
@@ -634,7 +625,7 @@ function Budget(props) {
             range={range}
             setRange={setRange}
             size={cardSize(winWidth).card}
-            dispatch={dispatchToggle}
+            dispatch={onDispatchToggle}
             dispatchType="BOTG"
             content={
               <ResponsiveContainer minWidth='100%' minHeight={cardSize(winWidth).graphY} maxHeight={cardSize(winWidth).graphY}>
