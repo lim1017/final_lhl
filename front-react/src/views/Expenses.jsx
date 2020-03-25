@@ -53,6 +53,7 @@ function Dashboard(props) {
   useEffect(() => {
     console.log(state);
     setUser(localStorage.getItem("id"));
+    refreshExpenses(state.date)
   }, []);
 
 
@@ -68,8 +69,6 @@ function Dashboard(props) {
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
-
-        console.log(state, 'before dispatch single expense')
         dispatch({
           ...state,
           type: SET_DATA,
@@ -82,11 +81,6 @@ function Dashboard(props) {
         console.log(error);
       });
 
-
-    // dispatch({
-    //   type: SET_USER,
-    //   users: data
-    // })
   }
 
   function handleFile(event) {
@@ -172,7 +166,6 @@ function Dashboard(props) {
   function refreshExpenses(date) {
     let datez = `${date.month}+${date.year}+${user}`;
 
-    console.log("inrefresh exps");
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
@@ -266,20 +259,21 @@ function Dashboard(props) {
                       Add an expense
                     </Button>
 
-                    {addExpense ? (
-                      <ExpenseUpdater1
-                        doDispatch={doDispatch}
-                        state={state}
-                        date={state.date}
-                        onExpenseSubmit={refreshExpenses}
-                      />
-                    ) : null}
-
                     <FileUpload
                       handleFile={handleFile}
                       sendFileBack={sendFileBack}
                     />
                   </div>
+                    <div className='add-1expense-div'>
+                    {addExpense ? (
+                        <ExpenseUpdater1
+                          doDispatch={doDispatch}
+                          state={state}
+                          date={state.date}
+                          onExpenseSubmit={refreshExpenses}
+                        />
+                      ) : null}
+                    </div>
                 </div>
               }
             />
@@ -288,6 +282,7 @@ function Dashboard(props) {
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
               <Card
+                style={{ width: 700 }}
                 statsIcon="fa fa-clock-o"
                 title="Expense Breakdown By Type (in $)"
                 content={
@@ -297,8 +292,8 @@ function Dashboard(props) {
                       data={createPie(state.totalExpenses)}
                       dataKey="value"
                       nameKey="name"
-                      cx="50%"
-                      cy="42%"
+                      cx="55%"
+                      cy="50%"
                       outerRadius={120}
                       fill="#8884d8"
                       label
@@ -340,7 +335,7 @@ function Dashboard(props) {
                 }
                 content={
                   <BarChart
-                    width={700}
+                    width={650}
                     height={350}
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
@@ -348,7 +343,7 @@ function Dashboard(props) {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
+                    <Legend verticalAlign="bottom" height={16} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
