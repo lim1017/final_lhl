@@ -1,18 +1,31 @@
-const monthName = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const monthName = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC"
+];
 
 const budgetCalc = function(budget) {
   let result = parseInt(0);
 
-  if (budget.income) result += parseInt(budget.income)
+  if (budget.income) result += parseInt(budget.income);
 
-  if (budget.c_hous) result -= parseInt(budget.c_hous)
-  if (budget.c_tran) result -= parseInt(budget.c_tran)
-  if (budget.c_food) result -= parseInt(budget.c_food)
-  if (budget.c_util) result -= parseInt(budget.c_util)
-  if (budget.c_entr) result -= parseInt(budget.c_entr)
-  if (budget.c_medi) result -= parseInt(budget.c_medi)
-  if (budget.c_debt) result -= parseInt(budget.c_debt)
-  if (budget.c_misc) result -= parseInt(budget.c_misc)
+  if (budget.c_hous) result -= parseInt(budget.c_hous);
+  if (budget.c_tran) result -= parseInt(budget.c_tran);
+  if (budget.c_food) result -= parseInt(budget.c_food);
+  if (budget.c_util) result -= parseInt(budget.c_util);
+  if (budget.c_entr) result -= parseInt(budget.c_entr);
+  if (budget.c_medi) result -= parseInt(budget.c_medi);
+  if (budget.c_debt) result -= parseInt(budget.c_debt);
+  if (budget.c_misc) result -= parseInt(budget.c_misc);
 
   return result;
 };
@@ -21,15 +34,14 @@ const expensesCalc = function(expenses) {
   let result = parseInt(0);
 
   for (const expense of expenses) {
-    result += parseInt(expense.sum)
+    result += parseInt(expense.sum);
   }
 
   return result;
-}
+};
 
 const budgetCalcPortfolio = function(def, inc, port, period) {
-
-  const monthly = Math.pow((port), (1/12))
+  const monthly = Math.pow(port, 1 / 12);
   let start = def;
   let end = 0;
   for (let i = 0; i <= period; i++) {
@@ -41,36 +53,39 @@ const budgetCalcPortfolio = function(def, inc, port, period) {
   }
 
   return Math.floor(end);
-}
+};
 
 const budgetSetGraphData = function(budget, range, port) {
   let result = {
     labels: [],
-    series: [ [], [] ]
-  }
-  let data = []
+    series: [[], []]
+  };
+  let data = [];
 
   let monthlyGain = budgetCalc(budget);
   let currentDate = new Date();
   let base = budget.base || 0;
   let searchRange = range || 12;
-  let portCheck = (port > 1)
+  let portCheck = port > 1;
 
   for (let month = 0; month <= searchRange; month++) {
-    let node = (currentDate.getMonth()+month) % 12;
+    let node = (currentDate.getMonth() + month) % 12;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
     let number = Math.floor(parseInt(base) + monthlyGain * month);
     const dataNode = {};
-    
+
     dataNode.name = `${monthName[node]} ${yearNode}`;
-    dataNode.saving = parseInt(number);
-    if (portCheck) dataNode.portfolio = budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) - parseInt(number);
+    dataNode["Assets without Investing"] = parseInt(number);
+    if (portCheck)
+      dataNode["Assets with Investing"] =
+        budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) -
+        parseInt(number);
     data.push(dataNode);
   }
 
   return data;
 };
- 
+
 const findUserBudget = function(state, id) {
   let result = {
     id: 0,
@@ -96,6 +111,12 @@ const findUserBudget = function(state, id) {
   }
 
   return result;
-}
+};
 
-module.exports = { budgetCalc, budgetCalcPortfolio, budgetSetGraphData, findUserBudget, expensesCalc };
+module.exports = {
+  budgetCalc,
+  budgetCalcPortfolio,
+  budgetSetGraphData,
+  findUserBudget,
+  expensesCalc
+};
