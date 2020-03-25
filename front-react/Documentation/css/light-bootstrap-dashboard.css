@@ -1230,10 +1230,10 @@ fieldset[disabled] .btn-neutral.active {
   box-shadow: none;
 }
 .has-success .form-control {
-  color: #87cb16;
+  color: #c4d2c7;
 }
 .has-success .form-control:focus {
-  border-color: #87cb16;
+  border-color: #c4d2c7;
 }
 .has-error .form-control {
   color: #ff4a55;
