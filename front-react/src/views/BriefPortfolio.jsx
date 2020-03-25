@@ -84,12 +84,14 @@ function createPie(portfolioTypes) {
 }
 
 const colors = [
-  "#f6c1fd",
-  "#fbe8fd",
   "#ffe7ea",
-  "#c5e6ab",
   "#c4d2c7",
-  "#d4f3bb"
+  "#cce3e1",
+  "#add0e0",
+  "#b6bffa",
+  "#f5c2b3",
+  "#dfe6c3",
+  "#f5e0b3"
 ];
 
 function BriefPortfolio(props) {

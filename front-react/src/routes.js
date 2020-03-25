@@ -30,13 +30,7 @@ const dashboardRoutes = [
     component: Expenses,
     layout: "/admin"
   },
-  {
-    path: "/budget",
-    name: "Budget",
-    icon: "pe-7s-calculator",
-    component: Budget,
-    layout: "/admin"
-  },
+
   {
     path: "/portfolio",
     name: "Portfolio",
@@ -44,6 +38,13 @@ const dashboardRoutes = [
     component: Portfolio,
     layout: "/admin",
     redirect: "/portfolio/start"
+  },
+  {
+    path: "/budget",
+    name: "Budget",
+    icon: "pe-7s-calculator",
+    component: Budget,
+    layout: "/admin"
   },
   {
     path: "/news",

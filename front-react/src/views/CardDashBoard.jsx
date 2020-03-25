@@ -59,14 +59,14 @@ function CardDashBoard(props) {
   // }
 
   const expenseKey = [
-    "entertainment",
-    "medical",
-    "debt",
-    "misc",
-    "transporation",
-    "home",
-    "food",
-    "utilities"
+    "Entertainment",
+    "Medical",
+    "Debt",
+    "Misc",
+    "Transporation",
+    "Home",
+    "Food",
+    "Utilities"
   ];
   const budgetKey = [
     "c_entr",
@@ -78,7 +78,7 @@ function CardDashBoard(props) {
     "c_food",
     "c_util"
   ];
-  const budgetColors = [
+  const colours = [
     "#ffe7ea",
     "#c4d2c7",
     "#cce3e1",
@@ -88,41 +88,34 @@ function CardDashBoard(props) {
     "#dfe6c3",
     "#f5e0b3"
   ];
-  const COLORS = [
-    "#f6c1fd",
-    "#fbe8fd",
-    "#ffe7ea",
-    "#c5e6ab",
-    "#c4d2c7",
-    "#d4f3bb"
-  ];
+
   const formatDataForPVAT = function(state) {
-    const plan = { name: "plan" };
-    const actual = { name: "actual" };
+    const Budgeted = { name: "Budgeted" };
+    const Actual = { name: "Actual" };
     const result = [];
 
     for (let i = 0; i < expenseKey.length; i++) {
-      plan[`${expenseKey[i]}`] = state.budget[0][`${budgetKey[i]}`];
+      Budgeted[`${expenseKey[i]}`] = state.budget[0][`${budgetKey[i]}`];
       if (state.totalExpenses[i]) {
-        actual[`${expenseKey[i]}`] = state.totalExpenses[i].sum;
+        Actual[`${expenseKey[i]}`] = state.totalExpenses[i].sum;
       }
     }
 
-    result.push(plan);
-    result.push(actual);
+    result.push(Budgeted);
+    result.push(Actual);
 
     return result;
   };
 
   const PVATdata = expenseKey.map((value, i) => {
     return (
-      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={budgetColors[i]} />
+      <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colours[i]} />
     );
   });
 
   return (
     <>
-      {/* <Grid item xs={9}> */}
+      {/* Goals Card */}
       <div className="dash-card1">
         <Card
           style={{
@@ -153,19 +146,19 @@ function CardDashBoard(props) {
             </>
           ) : (
             <div className="dashboard-chart1">
-              <h4>My Goals</h4>
+              <h4>My Financial Goals:</h4>
               <Goals state={props.state} />
             </div>
           )}
         </Card>
       </div>
-
-      <div className="dash-card2">
+      {/* Budget Goals */}
+      <div className="dash-card4">
         <Card
           style={{
             width: "500px",
             maxWidth: 500,
-            minHeight: 500,
+            maxHeight: 500,
             opacity: 1,
             margin: "auto",
             marginBottom: 20,
@@ -177,10 +170,10 @@ function CardDashBoard(props) {
           {props.state.budget.length === 0 ? (
             <>
               <h1 className="card1-txt">
-                Step 3:
+                Step 4:
                 <br></br>
                 <br></br>
-                The best way to stick to your budget is to start one
+                The best way to stick to My budget is to start one
               </h1>
               <br></br>
               <br></br>
@@ -190,7 +183,10 @@ function CardDashBoard(props) {
             </>
           ) : (
             <div className="dashboard-chart">
-              <h4>Expenses for {returnMonthText(props.state.date.month)}</h4>
+              <h4>
+                My Budget for{" "}
+                {returnMonthText(parseInt(props.state.date.month))}:
+              </h4>
               <BarChart
                 width={500}
                 height={350}
@@ -207,16 +203,14 @@ function CardDashBoard(props) {
           )}
         </Card>
       </div>
-      {/* </Grid> */}
 
-      {/* <Grid item xs={9}> */}
-      <div className="dash-card3">
+      <div className="dash-card2">
         <Card
           style={{
             width: "500px",
             width: "500px",
             maxWidth: 500,
-            minHeight: 500,
+            maxHeight: 500,
             opacity: 1,
             margin: "auto",
             marginBottom: 20,
@@ -241,29 +235,28 @@ function CardDashBoard(props) {
           ) : (
             <div>
               <h4>
-                Your expenses for{" "}
+                My Expenses for{" "}
                 {returnMonthText(parseInt(props.state.date.month))}:
               </h4>
-              <PieChart width={730} height={500}>
-                {/* <Tooltip /> */}
+              <PieChart width={550} height={350}>
                 <Pie
                   data={createPie(props.state.totalExpenses)}
                   dataKey="value"
                   nameKey="name"
-                  cx="33%"
-                  cy="40%"
-                  outerRadius={140}
+                  cx="41%"
+                  cy="47%"
+                  outerRadius={135}
                   fill="#8884d8"
                   label
                 >
                   {createPie(props.state.totalExpenses).map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                    <Cell key={index} fill={colours[index % colours.length]} />
                   ))}
                 </Pie>
                 <Legend
                   verticalAlign="bottom"
                   layout="horizontal"
-                  height={0}
+                  height={20}
                   width={450}
                 />
               </PieChart>
@@ -271,7 +264,8 @@ function CardDashBoard(props) {
           )}
         </Card>
       </div>
-      <div className="dash-card4">
+      {/* Portfolio Card */}
+      <div className="dash-card3">
         <Card
           style={{
             width: "500px",
@@ -288,7 +282,7 @@ function CardDashBoard(props) {
           {props.state.users[0].riskscore === 0 ? (
             <>
               <h1 className="card1-txt">
-                Step 4:
+                Step 3:
                 <br></br>
                 <br></br>
                 Discover the power of compound interest
@@ -304,7 +298,6 @@ function CardDashBoard(props) {
           )}
         </Card>
       </div>
-      {/* </Grid> */}
     </>
   );
 }
