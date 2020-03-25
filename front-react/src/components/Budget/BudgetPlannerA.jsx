@@ -453,10 +453,5 @@ export default function BudgetPlannerA(props) {
         </div>
       }
     />
-  );
-<<<<<<< HEAD
+  )
 }
-=======
-
-};
->>>>>>> a
