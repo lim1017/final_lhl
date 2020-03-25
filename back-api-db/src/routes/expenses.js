@@ -44,17 +44,25 @@ function formatExpenses(data){
 
 
 module.exports = db => {
+
   router.put("/expenses/add/", (request, response) => {
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
-    const { amount, name, type, userId } = request.body;
+
+    const { amount, name, type, userId } = request.body.expenseObj;
 
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
-  
-  datez = request.body.date.year + '/' + request.body.date.month + '/' + dd;
+
+  var score = 0
+  if (request.body.scoreUp){
+    score = 15;
+  } 
+
+
+  datez = request.body.expenseObj.date.year + '/' + request.body.expenseObj.date.month + '/' + dd;
   
 
     db.query(
@@ -67,9 +75,23 @@ module.exports = db => {
       [name, userId, amount, type, datez]
     )
       .then(x => {
-        setTimeout(() => {
-          response.status(204).json({});
-        }, 1000);
+       
+        db.query(
+          `
+          UPDATE users
+          SET literacy = literacy + $1 
+          WHERE id = $2
+          `,
+          [score, parseInt(userId)]
+        ) .then(x => {
+              response.status(200).send(x)
+              
+              console.log(x, 'done updating single file')
+        })
+        .catch(error => console.log(error));
+
+
+
       })
       .catch(error => console.log(error));
   });
@@ -90,7 +112,9 @@ module.exports = db => {
 
       console.log(req.body, 'from upload@@!!')
 
-      if (!req.body.scoreUp) score = 10;
+      if (req.body.scoreUp){
+        score = 15;
+      } 
       datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
   
       return Promise.all(formatExpenses(req.body).map(element =>{
@@ -112,7 +136,7 @@ module.exports = db => {
         db.query(
           `
           UPDATE users
-          SET literacy = $1 
+          SET literacy = literacy + $1 
           WHERE id = $2
           `,
           [score, parseInt(req.body.userId)]

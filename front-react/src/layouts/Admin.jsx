@@ -73,7 +73,8 @@ class Admin2 extends Component {
       window.innerWidth < 993 &&
       e.history.location.pathname !== e.location.pathname &&
       document.documentElement.className.indexOf("nav-open") !== -1
-    ) {
+    ) 
+    {
       document.documentElement.classList.toggle("nav-open");
     }
     if (e.history.action === "PUSH" && this.refs.mainPanel) {

@@ -44,7 +44,7 @@ export default function useAppData() {
         date: ""
       }
     ],
-    users: [{}],
+    users: [{literacy:0}],
     date: { month: mm, year: yyyy },
     educationAnswers: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     educationAnsweredYet: { 1: false, 2: false, 3: false, 4: false, 5: false },

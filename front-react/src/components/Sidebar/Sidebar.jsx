@@ -10,6 +10,11 @@ import logo from "assets/img/piggylogo2.png";
 import { Button } from "react-bootstrap";
 
 
+import AnimatedNumber from 'react-animated-number';
+
+
+
+
 
 function Sidebar(props) {
   
@@ -71,6 +76,8 @@ function Sidebar(props) {
       backgroundImage: "url(" + props.image + ")"
     };
 
+
+
     return (
       <div
         id="sidebar"
@@ -91,7 +98,7 @@ function Sidebar(props) {
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">
-            {width <= 991 ? <AdminNavbarLinks /> : null}
+            {/* {width <= 991 ? <AdminNavbarLinks /> : null} */}
             {props.routes.map((prop, key) => {
               if (!prop.redirect)
                 return (
@@ -147,7 +154,22 @@ function Sidebar(props) {
                 content={
                   <div>
                     <div className="sidebar-literacy">
-                      <h4>Literacty score:{state.users[0].literacy}</h4>
+                    
+                      <h4>Literacty score: <AnimatedNumber component="text" value={state.users[0].literacy}
+                      style={{
+                          transition: '2.8s ease-out',
+                          fontSize: 24,
+                          transitionProperty:
+                              'background-color, color, opacity'
+                      }}
+                      frameStyle={perc => (
+                          perc === 100 ? {} : {backgroundColor: '#ffeb3b'}
+                      )}
+                      duration={1200}
+                      formatValue={n => n.toFixed(0)}
+                      />
+                      </h4>
+                    
                     </div>
                     <div className="sidebar-content">
                       <Link to={`/welcome`} onClick={() => logout()}>
