@@ -19,7 +19,8 @@ function Maps({ ...prop }) {
     2: 0,
     3: 0,
     4: 0,
-    5: 0
+    5: 0,
+    6: 0
   });
 
   const [selectedAnswers, setSelectedAnswers] = React.useState({
@@ -27,7 +28,8 @@ function Maps({ ...prop }) {
     2: 0,
     3: 0,
     4: 0,
-    5: 0
+    5: 0,
+    6: 0
   });
 
   const [answerYet, setAnswerYet] = React.useState({
@@ -35,7 +37,8 @@ function Maps({ ...prop }) {
     2: false,
     3: false,
     4: false,
-    5: false
+    5: false,
+    6: false
   });
 
   useEffect(() => {
@@ -54,9 +57,35 @@ function Maps({ ...prop }) {
   }, []);
 
   
-  useEffect(() => {
-    const userId = localStorage.getItem('id');
+  // useEffect(() => {
+  //   const userId = localStorage.getItem('id');
 
+
+  //   Promise.all([
+  //     axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId}),
+  //   ])
+  //     .then(res => {
+        
+  //       axios.get((`http://localhost:8001/api/users/${userId}`))
+  //           .then(resz =>{
+  //             console.log(resz, 'after file upload')
+  //             console.log(resz.data[0])
+  //             dispatch({
+  //               type: SET_USER,
+  //               users: resz.data
+  //             });
+  //           })
+
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+
+  // }, [state.eduProgress]);
+
+
+  function updateLit(){
+    const userId = localStorage.getItem('id');
 
     Promise.all([
       axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId}),
@@ -72,15 +101,11 @@ function Maps({ ...prop }) {
                 users: resz.data
               });
             })
-
       })
       .catch(error => {
         console.log(error);
       });
-
-  }, [state.eduProgress]);
-
-
+  }
 
 
 
@@ -110,6 +135,7 @@ function Maps({ ...prop }) {
       ])
         .then(response => {
           console.log("axios data recieved: ", response);
+          updateLit()
         })
         .catch(error => {
           console.log("no go");
@@ -125,6 +151,7 @@ function Maps({ ...prop }) {
     let totalScore = arrAnswers.reduce((a, b) => a + b, 0);
 
     const score = (totalScore / totalQuestions) * 100;
+
 
     dispatch({
       type: SET_EDU_PROGRESS,
