@@ -17,9 +17,8 @@ function MyVerticallyCenteredModal2(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4></h4>
+        <h4>There are two ways to add an expense.</h4>
         <p>
-          There are two ways to add an expense.
           <ul>
             <li>Add a single expense with the "Add AN EXPENSE" Button</li>
             <li>Upload a .csv file with the "SELECT FILE" BUTTON</li>
