@@ -97,10 +97,10 @@ const colors = [
 function BriefPortfolio(props) {
   return (
     <div className="dashboard-chart4">
-      <h4>My Investment Portfolio: </h4>
-      <h6>
-        {`My expected return is ${props.state.users[0].portfolioreturn}`}{" "}
-      </h6>
+      {/* <h4>My Investment Portfolio: </h4> */}
+      <h4>
+        {`My Expected Portfolio Return is: ${props.state.users[0].portfolioreturn}`}{" "}
+      </h4>
 
       <PieChart width={550} height={350}>
         <Pie
@@ -111,7 +111,7 @@ function BriefPortfolio(props) {
           dataKey="value"
           nameKey="name"
           cx="41%"
-          cy="49%"
+          cy="52%"
           outerRadius={135}
           fill="#8884d8"
           label

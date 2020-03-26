@@ -18,7 +18,7 @@ export default function Show(props) {
 
   return (
     <article
-      className={"goal" + (click ? " goalClick" : "")}
+      className={`goal${click ? " goalClick" : ""} goalCard`}
       onClick={() => setClick(!click)}
     >
       <div className="header">
@@ -30,7 +30,9 @@ export default function Show(props) {
         <div className="content">
           <div>Goal Type: {typeDetailer(props.type)}</div>
           <div>$: {props.amount}</div>
-          <div>Date: {`${props.date.split("-")[1]}-${props.date.split("-")[2]}`}</div>
+          <div>
+            Date: {`${props.date.split("-")[1]}-${props.date.split("-")[2]}`}
+          </div>
         </div>
       </div>
       <div className="description">
