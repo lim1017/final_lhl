@@ -4,22 +4,22 @@
   justify-content: space-between;
 }
 
-.add-1expense-div{
-  width:100%;
-  display:flex;
-  margin-top:15px;
+.add-1expense-div {
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
 }
 
-#add-expense-id{
-  width:100%;
-  display:flex;
-  justify-content:space-around;
+#add-expense-id {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.inside-1expense-div{
-  width:100%;
-  display:flex;
-  justify-content:space-between;
+.inside-1expense-div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .file-upload {
@@ -95,4 +95,8 @@
 
 .mdb {
   width: 60em;
+}
+
+.page-link.page-link {
+  background-color: red;
 }

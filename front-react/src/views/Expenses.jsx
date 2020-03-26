@@ -38,7 +38,6 @@ function Dashboard(props) {
   const [fileUploaded, setFileUploaded] = useState(false);
   const [user, setUser] = useState(false);
 
-  
   const COLORS = [
     "#ffe7ea",
     "#fffbcf",
@@ -53,18 +52,16 @@ function Dashboard(props) {
   useEffect(() => {
     console.log(state);
     setUser(localStorage.getItem("id"));
-    refreshExpenses(state.date)
+    refreshExpenses(state.date);
   }, []);
 
-
-  function doDispatch(date, data){
-
+  function doDispatch(date, data) {
     let datez = `${date.month}+${date.year}+${user}`;
 
-  console.log(date, 'date')
-  console.log(data, 'data')
-  
-  Promise.all([
+    console.log(date, "date");
+    console.log(data, "data");
+
+    Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
@@ -80,7 +77,6 @@ function Dashboard(props) {
       .catch(error => {
         console.log(error);
       });
-
   }
 
   function handleFile(event) {
@@ -117,8 +113,6 @@ function Dashboard(props) {
             scoreUp
           })
           .then(res => {
-
-
             axios
               .get(`http://localhost:8001/api/users/${userId}`)
               .then(resz => {
@@ -129,10 +123,8 @@ function Dashboard(props) {
                   users: resz.data
                 });
 
-                doDispatch(state.date, resz.data)
-
+                doDispatch(state.date, resz.data);
               });
-
           });
       };
 
@@ -166,15 +158,13 @@ function Dashboard(props) {
   function refreshExpenses(date) {
     let datez = `${date.month}+${date.year}+${user}`;
 
-
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
-
         console.log("before dispatch single expense");
-        console.log(state, 'before dispatch single expense')
+        console.log(state, "before dispatch single expense");
 
         dispatch({
           ...state,
@@ -264,29 +254,29 @@ function Dashboard(props) {
                       sendFileBack={sendFileBack}
                     />
                   </div>
-                    <div className='add-1expense-div'>
+                  <div className="add-1expense-div">
                     {addExpense ? (
-                        <ExpenseUpdater1
-                          doDispatch={doDispatch}
-                          state={state}
-                          date={state.date}
-                          onExpenseSubmit={refreshExpenses}
-                        />
-                      ) : null}
-                    </div>
+                      <ExpenseUpdater1
+                        doDispatch={doDispatch}
+                        state={state}
+                        date={state.date}
+                        onExpenseSubmit={refreshExpenses}
+                      />
+                    ) : null}
+                  </div>
                 </div>
               }
             />
           </div>
-        {/* <div className='both-expense-tables'> */}
+          {/* <div className='both-expense-tables'> */}
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
               <Card
-                style={{ width: 700 }}
+                style={{ maxWidth: 430 }}
                 statsIcon="fa fa-clock-o"
                 title="Expense Breakdown By Type (in $)"
                 content={
-                  <PieChart width={450} height={350}>
+                  <PieChart width={400} height={350}>
                     <Tooltip />
                     <Pie
                       data={createPie(state.totalExpenses)}
@@ -298,7 +288,6 @@ function Dashboard(props) {
                       fill="#8884d8"
                       label
                     >
-                      
                       {createPie(state.totalExpenses).map((entry, index) => (
                         <Cell
                           key={index}
@@ -310,7 +299,7 @@ function Dashboard(props) {
                       verticalAlign="bottom"
                       layout="horizontal"
                       height={55}
-                      width={480}
+                      width={400}
                     />
                   </PieChart>
                 }
@@ -320,10 +309,11 @@ function Dashboard(props) {
           <div className="expenses-table3">
             {state.expenses.length !== 0 ? (
               <Card
+                style={{ maxWidth: 530 }}
                 statsIcon="fa fa-clock-o"
                 title={
                   <p>
-                   Personal Expense Comparison To{" "}
+                    Personal Expense Comparison To{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -335,7 +325,7 @@ function Dashboard(props) {
                 }
                 content={
                   <BarChart
-                    width={650}
+                    width={500}
                     height={350}
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
@@ -343,14 +333,14 @@ function Dashboard(props) {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Legend verticalAlign="bottom" height={16} />
+                    <Legend verticalAlign="bottom" height={6} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
                 }
               />
             ) : null}
-          {/* </div> */}
+            {/* </div> */}
           </div>
         </div>
       </div>
