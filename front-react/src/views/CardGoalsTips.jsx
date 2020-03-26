@@ -4,7 +4,7 @@ import Card from "@material-ui/core/Card";
 
 function CardGoalsTips(props) {
   const [localState, setLocalState] = useState({
-    outputTips: 0
+    outputTips: 1
   });
 
   return (

@@ -9,8 +9,12 @@ export default function Form(props) {
   const [type, setType] = useState(props.type || "");
   const [amount, setAmount] = useState(props.amount || "");
   const [description, setDescription] = useState(props.description || "");
-  const [month, setMonth] = useState(props.date.split("-")[1] || new Date().getMonth() + 1);
-  const [year, setYear] = useState(props.date.split("-")[2] || new Date().getFullYear() + 1);
+  const [month, setMonth] = useState(
+    props.date.split("-")[1] || new Date().getMonth() + 1
+  );
+  const [year, setYear] = useState(
+    props.date.split("-")[2] || new Date().getFullYear() + 1
+  );
   const [error, setError] = useState("");
 
   const typeCheck = function(value) {
@@ -49,7 +53,6 @@ export default function Form(props) {
     let newMonth = month;
     let newYear = year;
 
-
     if (chgDate.month) {
       if (chgDate.month < 1) newMonth = 1;
       else if (chgDate.month > 12) newMonth = 12;
@@ -79,14 +82,14 @@ export default function Form(props) {
   return (
     <>
       <Grid item xs={12}>
-        <article className="goalForm">
+        <article className="goalForm goalCard">
           <form>
             <div className="goalWrapper">
               <textarea
                 className="inputName"
                 value={name}
                 onChange={e => {
-                  e.target.value = e.target.value.slice(0,30);
+                  e.target.value = e.target.value.slice(0, 30);
                   setName(e.target.value);
                   // e.target.style.height = 25 + "px"
                   // e.target.style.height = e.target.scrollHeight + "px"
@@ -210,9 +213,7 @@ export default function Form(props) {
                   />
                 </div>
               </div>
-              <div className="errorMessage">
-                {error}
-              </div>
+              <div className="errorMessage">{error}</div>
               <div className="buttons">
                 <CustomButton
                   className="button"

@@ -1,6 +1,6 @@
 .goal {
-  width: 96%;
-  margin: auto;
+  // width: 96%;
+  margin: 0 0 20px;
   border: solid;
   border-radius: 20px;
   border-color: #ffe7ea;
@@ -58,7 +58,7 @@
 }
 
 .goalForm {
-  width: 96%;
+  // width: 96%;
   margin: auto;
   border-radius: 20px;
   border: 2px solid;
@@ -87,7 +87,6 @@
   .inputDescription {
     font-size: 20px;
     width: 100%;
-    height: 200px;
     border-color: #ffe7ea;
     border-radius: 10px;
     resize: none;
@@ -138,7 +137,7 @@
     position: relative;
     text-align: right;
     grid-column: 1/3;
-    grid-row: 3/4; 
+    grid-row: 3/4;
   }
 
   .buttons {
@@ -156,8 +155,7 @@
 }
 
 .goalNew {
-  width: 96%;
-  margin: auto;
+  // width: 96%;
   border: solid;
   border-radius: 20px;
   border-color: #ffe7ea;
@@ -187,3 +185,34 @@
   background: url("../../img/Nepal.jpg");
   background-size: cover;
 }
+
+.goalCard {
+  background: white;
+}
+
+.goal-wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  height: 500px;
+}
+
+.goal-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.goal-text {
+  color: #727570;
+  font-size: 3rem;
+}
+.MuiGrid-grid-xs-12.MuiGrid-item {
+  margin: 15px;
+}
+// "#ffe7ea",
+// "#fffbcf",
+// "#dbf0ff",
+// "#D0FFDE",
+// "#e5dbff",
+// "#FAEEC5",
+// "#defafa",
+// "#dffbd4"

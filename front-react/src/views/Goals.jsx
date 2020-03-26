@@ -7,53 +7,49 @@ import CardGoalsTips from "./CardGoalsTips";
 import CardGoals from "./CardGoals";
 import reducerz, { SET_USER } from "../hooks/reducers/app";
 
-
 function Goals(props) {
   const { state, dispatch } = useContext(appDataContext);
 
-
-
   const setGoal = (id, goal) => {
     const user = localStorage.getItem("id");
-    
-    var scoreUp=false
-    console.log(state.goals.length, 'goals length')
 
-    if (state.goals.length === 0){
-      scoreUp=true
+    var scoreUp = false;
+    console.log(state.goals.length, "goals length");
+
+    if (state.goals.length === 0) {
+      scoreUp = true;
     }
 
     return new Promise((res, rej) => {
       axios
-        .put(`http://localhost:8001/api/goals/${id}`, {goal, scoreUp})
-        .then( x =>{
-          axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
-            console.log("goal get", res2.data);
-            dispatch({
-              ...state,
-              type: "SET_DATA",
-              goals: res2.data
+        .put(`http://localhost:8001/api/goals/${id}`, { goal, scoreUp })
+        .then(x => {
+          axios
+            .get(`http://localhost:8001/api/goals/${user}`)
+            .then(res2 => {
+              console.log("goal get", res2.data);
+              dispatch({
+                ...state,
+                type: "SET_DATA",
+                goals: res2.data
+              });
+              res(res2);
+
+              axios
+                .get(`http://localhost:8001/api/users/${user}`)
+                .then(res2 => {
+                  console.log("goal get", res2.data);
+                  dispatch({
+                    type: "SET_USER",
+                    users: res2.data
+                  });
+                  res(res2);
+                });
+            })
+            .catch(error => {
+              rej(error);
             });
-            res(res2);
-
-
-          axios.get(`http://localhost:8001/api/users/${user}`).then(res2 => {
-
-    
-            console.log("goal get", res2.data);
-            dispatch({
-              type: "SET_USER",
-              users: res2.data
-            });
-            res(res2);
-          });
-        
-
-        }).catch(error => {
-  
-          rej(error);
         });
-      })
     });
   };
 
@@ -64,8 +60,7 @@ function Goals(props) {
         .delete(`http://localhost:8001/api/goals/${id}`)
         .then(res1 => {
           axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
-
-            console.log(res2.data, 'from goals')
+            console.log(res2.data, "from goals");
 
             dispatch({
               type: SET_USER,
@@ -98,15 +93,14 @@ function Goals(props) {
 
   return (
     <Grid className="goals-background-image" container spacing={1}>
-      <Grid item xs={5}>
-        <h2> Set Some Goals!</h2>
+      <Grid item xs={4}>
         <CardGoals
           state={state}
           setGoal={setGoal}
           GoalsInList={GoalsInList}
         ></CardGoals>
       </Grid>
-      <Grid item xs={7}>
+      <Grid item xs={8}>
         <CardGoalsTips></CardGoalsTips>
       </Grid>
     </Grid>
