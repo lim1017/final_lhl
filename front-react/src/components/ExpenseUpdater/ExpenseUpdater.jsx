@@ -17,14 +17,14 @@ function ExpenseUpdater(props) {
       <Form.Group widths='equal'>
         <Form.Field label='Name' control='input' />
         <Form.Field label='Type' control='select'>
-          <option value='food'>Food</option>
-          <option value='transporation'>Transporation</option>
-          <option value='home'>Home</option>
-          <option value='utilities'>Utilities</option>
-          <option value='entertainment'>Entertainment</option>
-          <option value='medical'>Medical</option>
-          <option value='debt'>Debt</option>
-          <option value='misc'>Misc</option>
+          <option value='Food'>Food</option>
+          <option value='Transportation'>Transportation</option>
+          <option value='Home'>Home</option>
+          <option value='Utilities'>Utilities</option>
+          <option value='Entertainment'>Entertainment</option>
+          <option value='Medical'>Medical</option>
+          <option value='Debt'>Debt</option>
+          <option value='Misc'>Misc</option>
 
         </Form.Field>
         <Form.Field label='Amount' control='input' />

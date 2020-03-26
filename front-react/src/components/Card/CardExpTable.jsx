@@ -6,7 +6,16 @@ export class CardExpTable extends Component {
       <div className={"card" + (this.props.plain ? " card-plain" : "")}>
         <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
           <h3 className="title">
-            {this.props.category} {this.props.title}
+            {this.props.category} {this.props.title} 
+                <img
+                  src={require("../../assets/img/budget_quit.png")}
+                  alt="quit"
+                  height="20"
+                  width="20"
+                  onClick={() => {
+                    console.log('clicked')
+                  }}
+                />
           </h3>
         </div>
         <div className="category" style={{ paddingLeft: 10 }}>
