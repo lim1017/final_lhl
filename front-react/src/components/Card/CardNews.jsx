@@ -21,7 +21,9 @@ export default function CardNews(props) {
         {/* <CardActionArea> */}
         <CardContent>
           <Typography gutterBottom variant="h3">
-            <a href={props.link}>{props.title}</a>
+            <a target="_blank" href={props.link}>
+              {props.title}
+            </a>
           </Typography>
         </CardContent>
         <CardMedia
