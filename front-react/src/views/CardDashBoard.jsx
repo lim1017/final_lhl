@@ -89,7 +89,6 @@ function CardDashBoard(props) {
     "#defafa",
     "#dffbd4"
   ];
-
   const formatDataForPVAT = function(state) {
     const Budgeted = { name: "Budgeted" };
     const Actual = { name: "Actual" };
@@ -215,7 +214,7 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "#cacaca"
+            backgroundColor: "#3D4849"
           }}
         >
           {props.state.expenses.length === 0 ? (
@@ -257,6 +256,7 @@ function CardDashBoard(props) {
                   layout="horizontal"
                   height={20}
                   width={450}
+                  textColor="white"
                 />
               </PieChart>
             </div>

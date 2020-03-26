@@ -18,7 +18,10 @@ const returnMonthText = function(number) {
       return "Febuary";
     case 3:
       return "March";
-
+    case 4:
+      return "April";
+    case 5:
+      return "May";
     default:
     // code block
   }

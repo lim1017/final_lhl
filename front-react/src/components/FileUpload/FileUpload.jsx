@@ -36,7 +36,7 @@ function FileUpload(props) {
           style={{
             marginLeft: "1.5rem",
             marginRight: "1.5em",
-            backgroundColor: "#c4d2c7",
+            backgroundColor: "#61A05D",
             color: "black",
             fontWeight: "bold",
             height: "50px"
