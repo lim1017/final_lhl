@@ -93,8 +93,17 @@ export default function BudgetGoals(props) {
       size={props.size}
       dispatch={props.dispatch}
       dispatchType="GOAL"
+      dispatchInfo={props.dispatchInfo}
       content={
         <div>
+          {props.info.goal ?
+            <div>
+              <p>On this card, goals you set up in Goals tab can be viewed. Clicking checkbox for a specific goal will display relevant information displayed on one of the graphs, based on type of the goal.</p>
+              <p>SFP: Save for Purchase type of goal will be displayed on Power of Investing graph.</p>
+              <p>SPM: Save per Month type of goal will be displayed on Budgeted vs Actual Monthly Saving graph.</p>
+              <p>LE: Limit Expenses type of goal will be displayed on Budgeted vs Actual Expenses graph.</p>
+              <p>Press ? icon to go back to Goals.</p>
+            </div> :
           <TableContainer component={Paper}>
             <Table
               className={classes.table}
@@ -113,6 +122,7 @@ export default function BudgetGoals(props) {
               <TableBody>{GoalsInList}</TableBody>
             </Table>
           </TableContainer>
+          }
         </div>
       }
     />
