@@ -273,10 +273,11 @@ function Dashboard(props) {
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
               <Card
-                style={{ backgroundColor: "#ececec" }}
+                className='expcard2'
                 statsIcon="fa fa-clock-o"
                 title="Expense Breakdown By Type (in $)"
                 content={
+                <ResponsiveContainer width="90%" height={350}>
                   <PieChart width={400} height={350}>
                     <Tooltip />
                     <Pie
@@ -303,6 +304,8 @@ function Dashboard(props) {
                       width={400}
                     />
                   </PieChart>
+                </ResponsiveContainer>
+
                 }
               />
             ) : null}
