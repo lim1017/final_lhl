@@ -32,8 +32,9 @@
 }
 
 .content-wrapper {
-  height: 115vh;
+  height: 100%;
   width: 100%;
+  overflow:hidden;
 }
 
 .content1 {
@@ -48,6 +49,9 @@
 //     grid-column: 1/2;
 
 // }
+.expcard2{
+  background-color:red;
+}
 
 .contentExpenses1 {
   width: 100%;
@@ -63,7 +67,7 @@
 
   display: grid;
   grid-template-columns: auto;
-  grid-template-rows: 2fr 3fr;
+  grid-template-rows: 1.5fr 1fr;
 }
 
 .expenses-table1 {
@@ -86,6 +90,7 @@
   margin-top: 0px;
   margin-bottom: 0px;
   max-height:450px;
+  
 }
 
 .expenses-table3 {

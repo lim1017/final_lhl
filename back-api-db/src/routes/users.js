@@ -25,15 +25,15 @@ module.exports = db => {
       return;
     }
 
-    const { userId } = request.body;
+    const { userId, lit } = request.body;
 
     db.query(
       `
       UPDATE users
-      SET literacy = literacy + 5 
+      SET literacy = literacy + $2 
       WHERE id = $1
       `,
-      [parseInt(userId)]
+      [parseInt(userId), lit]
     )
       .then(x => {
         setTimeout(() => {

@@ -3,10 +3,19 @@ const SELECT = "SELECT";
 export default function budgetGoals(state, action) {
   switch (action.type) {
     case SELECT:
-      const id = state.id;
-      const select = state.select;
+      // allow multiple goals selection
+      // const id = state.id;
+      // const select = state.select;
+
+      //only allow one goal at given time
+      let id = state.id;
+      let select = state.select;
 
       if (!id.includes(action.id)) {
+      //only allow one goal at given time
+        id = [];
+        select = [];
+
         id.push(action.id)
         select.push(action.goal)
       } else {

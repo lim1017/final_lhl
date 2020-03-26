@@ -63,7 +63,8 @@ function Goals(props) {
             console.log(res2.data, "from goals");
 
             dispatch({
-              type: SET_USER,
+              ...state,
+              type: "SET_DATA",
               goals: res2.data
             });
             res(res2);

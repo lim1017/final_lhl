@@ -206,7 +206,37 @@ function Budget(props) {
             type: "SET_DATA",
             budget: res2.data
           });
+
+          if(state.budget.length === 0){
+            updateLit()
+          }
+          
+
         });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
+  function updateLit(){
+    const userId = localStorage.getItem('id');
+
+    Promise.all([
+      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId, lit:25}),
+    ])
+      .then(res => {
+        
+        axios.get((`http://localhost:8001/api/users/${userId}`))
+            .then(resz =>{
+              console.log(resz, 'after file upload')
+              console.log(resz.data[0])
+              dispatch({
+                type: "SET_USER",
+                users: resz.data
+              });
+            })
       })
       .catch(error => {
         console.log(error);
@@ -440,22 +470,48 @@ function Budget(props) {
     }
   });
 
-  const BOTGreferenceLinesX = goal.select.map(g => {
-    if (g.type === "SFP") {
-      const d = g.date.split("-");
-      return (
-        <ReferenceLine
-          key={g.id * 100 + 2}
-          x={`${d[1]} / ${d[2]}`}
-          stroke="red"
-        />
-      );
+  const BOTGreferenceLinesX = budgetSetGraphData(budget, range, portfolio, goal.select).goalCheck.map(g => {
+    if (g.goal.type === "SFP") {
+      if (g.type === 'AWOI') {
+        return (
+          <ReferenceLine
+            key={g.goal.id + 1000}
+            x={g.x}
+            stroke="green"
+            strokeDasharray="3 3"
+          />
+        );
+      } else if (g.type === 'AAWI') {
+        return (
+          <ReferenceLine
+            key={g.goal.id + 1100}
+            x={g.x}
+            stroke="blue"
+            strokeDasharray="3 3"
+          />
+        );
+      } else if (g.type === 'DATE') {
+        return (
+          <ReferenceLine
+            key={g.goal.id + 1200}
+            x={g.x}
+            stroke="red"
+          />
+        );
+      }
     }
   });
 
   const PVATdata = expenseKey.map((value, i) => {
     return <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} />;
   });
+
+  const formatNumbers = function(t) {
+    if (t >= 1000000) return `$${Math.round(t / 100000) / 10}M`;
+    if (t >= 1000 || t <= -1000) return `$${Math.round(t / 100) / 10}K`;
+    if (t <= -1000000) return `$${Math.round(t / 100000) / 10}M`;
+    return t;
+  }
 
   console.log("check", state, budget);
 
@@ -795,6 +851,11 @@ function Budget(props) {
                     <Bar dataKey="Plan" fill="#ffe7ea" />
                     <Bar dataKey="Actual" fill="#c4d2c7" />
                     {PVASreferenceLinesY}
+                    <ReferenceLine
+                      key={999}
+                      y={0}
+                      stroke="black"
+                    />
                   </BarChart>
                 </ResponsiveContainer>
               }
@@ -812,6 +873,7 @@ function Budget(props) {
               size={cardSize(winWidth).card}
               dispatch={onDispatchToggle}
               dispatchType="BOTG"
+              goalTrack={budgetSetGraphData(budget, range, portfolio, goal.select).goalCheck}
               content={
                 <ResponsiveContainer
                   minWidth="100%"
@@ -820,30 +882,48 @@ function Budget(props) {
                 >
                   <AreaChart
                     height={cardSize(winWidth).graphY}
-                    data={budgetSetGraphData(budget, range, portfolio)}
+                    data={budgetSetGraphData(budget, range, portfolio, goal.select).data}
                     margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid
+                      strokeDasharray="3"
+                      vertical={false}
+                    />
                     <XAxis
                       dataKey="name"
                       tickFormatter={t => {
-                        return t;
+                        if (parseInt(t.split(" ")[0]) === range) {
+                          return `${t.split(" ")[1]} ${t.split(" ")[2]}`;
+                        }
+                        return ``;
                       }}
-                      interval="preserveStartEnd"
+                      tickLine={false}
                     />
                     <YAxis
                       tickFormatter={t => {
-                        if (t >= 1000000)
-                          return `$${Math.round(t / 100000) / 10}M`;
-                        if (t >= 1000) return `$${Math.round(t / 100) / 10}K`;
-                        return t;
+                        return formatNumbers(t);
                       }}
                       domain={[
                         setDisplayForBOTG(budget, goal.select).yMin,
                         setDisplayForBOTG(budget, goal.select).yMax
                       ]}
                     />
-                    <Tooltip />
+                    <Tooltip
+                      content={({label, payload}) => {
+                        return (
+                          <div className="BOTGtooltip">
+                            <div className="BOTGtooltipTitle">{label ? `${label.split(" ")[1]} ${label.split(" ")[2]}` : null}</div>
+                            <div>Asset w/o Investing : {payload[0] ? formatNumbers(payload[0].value) : null}</div>
+                            {payload[1] ?
+                            <>
+                              <div>Asset from Investing : {formatNumbers(payload[1].value)}</div>
+                              <div>Total Asset : {formatNumbers(payload[0].value + payload[1].value)}</div>
+                            </>
+                            : null}
+                          </div>
+                        )
+                      }}
+                    />
                     <Legend />
                     <Area
                       type="monotone"
@@ -854,7 +934,7 @@ function Budget(props) {
                     />
                     <Area
                       type="monotone"
-                      dataKey="Assets with Investing"
+                      dataKey="Additional Assets with Investing"
                       stackId="1"
                       stroke="#ffe7ea"
                       fill="#ffe7ea"
