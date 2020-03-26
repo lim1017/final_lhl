@@ -206,7 +206,34 @@ function Budget(props) {
             type: "SET_DATA",
             budget: res2.data
           });
+
+          updateLit()
+
         });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+
+  function updateLit(){
+    const userId = localStorage.getItem('id');
+
+    Promise.all([
+      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId, lit:25}),
+    ])
+      .then(res => {
+        
+        axios.get((`http://localhost:8001/api/users/${userId}`))
+            .then(resz =>{
+              console.log(resz, 'after file upload')
+              console.log(resz.data[0])
+              dispatch({
+                type: "SET_USER",
+                users: resz.data
+              });
+            })
       })
       .catch(error => {
         console.log(error);

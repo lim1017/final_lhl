@@ -165,7 +165,7 @@ function Sidebar(props) {
                       frameStyle={perc => (
                           perc === 100 ? {} : {backgroundColor: '#fcfcfc'}
                       )}
-                      duration={1200}
+                      duration={1000}
                       formatValue={n => n.toFixed(0)}
                       />
                       </h4>
