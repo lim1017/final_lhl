@@ -22,7 +22,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-import { Card } from "components/Card/Card.jsx";
+import Card from "@material-ui/core/Card";
 import { CardExpTable } from "components/Card/CardExpTable.jsx";
 import FileUpload from "components/FileUpload/FileUpload.jsx";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
@@ -195,12 +195,13 @@ function Dashboard(props) {
               }
               content={
                 <div>
+                
                   <MDBDataTable
                     className="mdb"
                     searching={false}
                     displayEntries={false}
                     scrollY
-                    maxHeight="225px"
+                    maxHeight="170px"
                     striped
                     bordered
                     small
@@ -272,52 +273,55 @@ function Dashboard(props) {
           {/* <div className='both-expense-tables'> */}
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
-              <Card
-                className='expcard2'
-                statsIcon="fa fa-clock-o"
-                title="Expense Breakdown By Type (in $)"
-                content={
-                <ResponsiveContainer width="90%" height={350}>
-                  <PieChart width={400} height={350}>
-                    <Tooltip />
-                    <Pie
-                      data={createPie(state.totalExpenses)}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="55%"
-                      cy="50%"
-                      outerRadius={120}
-                      fill="#8884d8"
-                      label
-                    >
-                      {createPie(state.totalExpenses).map((entry, index) => (
-                        <Cell
-                          key={index}
-                          fill={COLORS[index % COLORS.length]}
-                        />
-                      ))}
-                    </Pie>
-                    <Legend
-                      verticalAlign="bottom"
-                      layout="horizontal"
-                      height={55}
-                      width={400}
-                    />
-                  </PieChart>
-                </ResponsiveContainer>
+              
+        <Card
+          style={{
+            backgroundColor: "#cacaca"
+          }}
+        >
+        <h4>Expense Breakdown By Type (in $)</h4>
+        <ResponsiveContainer width="90%" height={350}>
+          <PieChart width={400} height={350}>
+            <Tooltip />
+            <Pie
+              data={createPie(state.totalExpenses)}
+              dataKey="value"
+              nameKey="name"
+              cx="55%"
+              cy="50%"
+              outerRadius={120}
+              fill="#8884d8"
+              label
+            >
+              {createPie(state.totalExpenses).map((entry, index) => (
+                <Cell
+                  key={index}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+            <Legend
+              verticalAlign="bottom"
+              layout="horizontal"
+              height={55}
+              width={400}
+            />
+          </PieChart>
+        </ResponsiveContainer>
 
-                }
-              />
-            ) : null}
+        </Card>
+        ) : null}
           </div>
           <div className="expenses-table3">
             {state.expenses.length !== 0 ? (
+             
               <Card
-                style={{ maxWidth: 530 }}
-                statsIcon="fa fa-clock-o"
-                title={
-                  <p>
-                    Personal Expense Comparison To{" "}
+                style={{
+                
+                  backgroundColor: "#cacaca"
+                }}
+              >
+                <h4>Personal Expense Comparison To{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"
@@ -325,10 +329,8 @@ function Dashboard(props) {
                     >
                       National Average
                     </a>
-                  </p>
-                }
-                content={
-                  <ResponsiveContainer width="95%" height={350}>
+                  </h4>
+                <ResponsiveContainer width="95%" height={350}>
 
                   <BarChart
                     // width={800}
@@ -344,10 +346,12 @@ function Dashboard(props) {
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
                   
-                  </ResponsiveContainer>
+                </ResponsiveContainer>  
+              
+              
+              
+              </Card>
 
-                }
-              />
             ) : null}
             {/* </div> */}
           </div>
