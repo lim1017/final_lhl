@@ -56,7 +56,7 @@ export default function BudgetPlannerB(props) {
               <TableBody>
                 <TableRow key={1}>
                   <TableCell component="th" scope="row" className={classes.tableCell}>
-                    {'Base'}
+                    {'Initial Capital'}
                   </TableCell>
                   <TableCell align="right">
                     {
@@ -75,7 +75,7 @@ export default function BudgetPlannerB(props) {
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" className={classes.tableCell}>
-                    {'Income'}
+                    {'Monthly Income'}
                   </TableCell>
                   <TableCell align="right">
                     {
@@ -93,7 +93,7 @@ export default function BudgetPlannerB(props) {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className={classes.tableHead}>Expenses</TableCell>
+                  <TableCell className={classes.tableHead}>Budgeted Expenses</TableCell>
                   <TableCell className={classes.tableHead} align="right"></TableCell>
                 </TableRow>
                 <TableRow key={2}>
@@ -249,7 +249,7 @@ export default function BudgetPlannerB(props) {
                     </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className={classes.tableHead}>Total</TableCell>
+                  <TableCell className={classes.tableHead}>Surplus (Deficit)</TableCell>
                   <TableCell className={classes.tableHead} align="right">{budgetCalc(props.budget)}</TableCell>
                 </TableRow>
               </TableBody>

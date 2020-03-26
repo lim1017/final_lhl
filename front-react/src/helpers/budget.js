@@ -55,12 +55,14 @@ const budgetCalcPortfolio = function(def, inc, port, period) {
   return Math.floor(end);
 };
 
-const budgetSetGraphData = function(budget, range, port) {
-  let result = {
-    labels: [],
-    series: [[], []]
-  };
+const budgetSetGraphData = function(budget, range, port, goal) {
   let data = [];
+  let goalCheck = [];
+  for (const g of goal) {
+    goalCheck.push({goal: g, type: 'AWOI', x: '', checked: false, month: 0});
+    goalCheck.push({goal: g, type: 'AAWI', x: '', checked: false, month: 0});
+    goalCheck.push({goal: g, type: 'DATE', x: ''});
+  }
 
   let monthlyGain = budgetCalc(budget);
   let currentDate = new Date();
@@ -74,16 +76,44 @@ const budgetSetGraphData = function(budget, range, port) {
     let number = Math.floor(parseInt(base) + monthlyGain * month);
     const dataNode = {};
 
-    dataNode.name = `${monthName[node]} ${yearNode}`;
+    dataNode.name = `${month} ${monthName[node]} ${yearNode}`;
     dataNode["Assets without Investing"] = parseInt(number);
     if (portCheck)
-      dataNode["Assets with Investing"] =
+      dataNode["Additional Assets with Investing"] =
         budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) -
         parseInt(number);
     data.push(dataNode);
+
+    for (const gc of goalCheck) {
+      if (gc.goal.type === "SFP" && gc.goal.amount < parseInt(number)) {
+        if (gc.type === 'AWOI' && gc.checked === false) {
+          gc.x = `${month} ${monthName[node]} ${yearNode}`;
+          gc.month = month;
+          gc.checked = true;
+        }
+      }
+      if (
+        gc.goal.type === "SFP" &&
+        gc.goal.amount < budgetCalcPortfolio(parseInt(base), monthlyGain, port, month)
+      ) {
+        if (gc.type === 'AAWI' && gc.checked === false) {
+          gc.x = `${month} ${monthName[node]} ${yearNode}`;
+          gc.month = month;
+          gc.checked = true;
+        }
+      }
+      if (
+        gc.type === "DATE" &&
+        gc.goal.date.split("-")[1] === monthName[node] &&
+        parseInt(gc.goal.date.split("-")[2]) === yearNode
+      ) {
+        console.log('passed!')
+        gc.x = `${month} ${monthName[node]} ${yearNode}`;
+      }
+    }
   }
 
-  return data;
+  return {data, goalCheck};
 };
 
 const findUserBudget = function(state, id) {
