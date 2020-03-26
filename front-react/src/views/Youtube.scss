@@ -1,19 +1,14 @@
+.youtube-review-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("../assets/img/Nepal.jpg");
+  background-size: cover;
+  min-width: 100%;
+}
 .youtube-video-buttons-container {
   display: flex;
   justify-content: space-between;
-}
-
-.youtube-background-image {
-  height: 100%;
-  width: 100%;
-  background: url("../assets/img/Iceland.jpg");
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
 }
 
 .youtube-button {
