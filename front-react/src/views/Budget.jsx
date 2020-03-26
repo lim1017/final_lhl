@@ -35,7 +35,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  ResponsiveContainer
+  ResponsiveContainer,
+  Label
 } from "recharts";
 
 /* --------------- */
@@ -54,7 +55,8 @@ function Budget(props) {
   );
   const [goal, dispatchGoal] = useReducer(budgetGoalsReducer, {
     id: [],
-    select: []
+    select: [],
+    range: 1
   });
   const [toggle, dispatchToggle] = useReducer(budgetToggleReducer, {
     planner: true,
@@ -306,6 +308,13 @@ function Budget(props) {
   /* Chart Data Prep */
   /* --------------- */
 
+  const formatNumbers = function(t) {
+    if (t >= 1000000) return `$${Math.round(t / 100000) / 10}M`;
+    if (t >= 1000 || t <= -1000) return `$${Math.round(t / 100) / 10}K`;
+    if (t <= -1000000) return `$${Math.round(t / 100000) / 10}M`;
+    return t;
+  }
+
   const formatDataForPVAT = function(budgetKey, totalExpenses) {
     const result = [];
     const Budgeted = { name: "Budgeted" };
@@ -453,20 +462,27 @@ function Budget(props) {
 
   const PVATreferenceLinesY = goal.select.map(g => {
     if (g.type === "LE") {
-      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" />;
+      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" label={{ position: 'left',  value: `${formatNumbers(g.amount)}`, fontSize: 10 }} />;
     }
   });
 
   const PVASreferenceLinesY = goal.select.map(g => {
     if (g.type === "SPM") {
-      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" />;
+      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" label={{ position: 'left',  value: `${formatNumbers(g.amount)}`, fontSize: 10 }} />;
     }
   });
 
   const BOTGreferenceLinesY = goal.select.map(g => {
     if (g.type === "SFP") {
       const d = g.date.split("-");
-      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" />;
+      return (
+        <ReferenceLine
+          key={g.id * 100 + 1}
+          y={g.amount}
+          stroke="red"
+          label={{ position: 'left',  value: `${formatNumbers(g.amount)}`, fontSize: 10 }}
+        />
+      );
     }
   });
 
@@ -479,6 +495,7 @@ function Budget(props) {
             x={g.x}
             stroke="green"
             strokeDasharray="3 3"
+            label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
       } else if (g.type === 'AAWI') {
@@ -488,6 +505,7 @@ function Budget(props) {
             x={g.x}
             stroke="blue"
             strokeDasharray="3 3"
+            label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
       } else if (g.type === 'DATE') {
@@ -496,6 +514,7 @@ function Budget(props) {
             key={g.goal.id + 1200}
             x={g.x}
             stroke="red"
+            label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
       }
@@ -506,14 +525,7 @@ function Budget(props) {
     return <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} />;
   });
 
-  const formatNumbers = function(t) {
-    if (t >= 1000000) return `$${Math.round(t / 100000) / 10}M`;
-    if (t >= 1000 || t <= -1000) return `$${Math.round(t / 100) / 10}K`;
-    if (t <= -1000000) return `$${Math.round(t / 100000) / 10}M`;
-    return t;
-  }
-
-  console.log("check", state, budget);
+  console.log("check", state, goal, range);
 
   /* ---------------------- */
   /* Cards Size Adjustments */
@@ -724,6 +736,7 @@ function Budget(props) {
                 updateBudgetLocal={dispatchBudget}
                 size={cardSize(winWidth).card}
                 dispatch={onDispatchToggle}
+                setRange={setRange}
               />
             ) : null}
           </div>

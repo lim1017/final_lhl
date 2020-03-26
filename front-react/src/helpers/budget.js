@@ -61,7 +61,7 @@ const budgetSetGraphData = function(budget, range, port, goal) {
   for (const g of goal) {
     goalCheck.push({goal: g, type: 'AWOI', x: '', checked: false, month: 0});
     goalCheck.push({goal: g, type: 'AAWI', x: '', checked: false, month: 0});
-    goalCheck.push({goal: g, type: 'DATE', x: ''});
+    goalCheck.push({goal: g, type: 'DATE', x: '', checked: false, month: 0});
   }
 
   let monthlyGain = budgetCalc(budget);
@@ -70,19 +70,21 @@ const budgetSetGraphData = function(budget, range, port, goal) {
   let searchRange = range || 12;
   let portCheck = port > 1;
 
-  for (let month = 0; month <= searchRange; month++) {
+  for (let month = 0; month <= 600; month++) {
     let node = (currentDate.getMonth() + month) % 12;
     let yearNode = currentDate.getFullYear() + Math.floor(month / 12);
     let number = Math.floor(parseInt(base) + monthlyGain * month);
     const dataNode = {};
 
-    dataNode.name = `${month} ${monthName[node]} ${yearNode}`;
-    dataNode["Assets without Investing"] = parseInt(number);
-    if (portCheck)
-      dataNode["Additional Assets with Investing"] =
-        budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) -
-        parseInt(number);
-    data.push(dataNode);
+    if (month <= searchRange) {
+      dataNode.name = `${month} ${monthName[node]} ${yearNode}`;
+      dataNode["Assets without Investing"] = parseInt(number);
+      if (portCheck)
+        dataNode["Additional Assets with Investing"] =
+          budgetCalcPortfolio(parseInt(base), monthlyGain, port, month) -
+          parseInt(number);
+      data.push(dataNode);
+    }
 
     for (const gc of goalCheck) {
       if (gc.goal.type === "SFP" && gc.goal.amount < parseInt(number)) {
@@ -105,10 +107,12 @@ const budgetSetGraphData = function(budget, range, port, goal) {
       if (
         gc.type === "DATE" &&
         gc.goal.date.split("-")[1] === monthName[node] &&
-        parseInt(gc.goal.date.split("-")[2]) === yearNode
+        parseInt(gc.goal.date.split("-")[2]) === yearNode &&
+        gc.checked === false
       ) {
-        console.log('passed!')
         gc.x = `${month} ${monthName[node]} ${yearNode}`;
+        gc.month = month;
+        gc.checked = true;
       }
     }
   }
