@@ -88,7 +88,7 @@ function Maps({ ...prop }) {
     const userId = localStorage.getItem('id');
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId}),
+      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId, lit:5}),
     ])
       .then(res => {
         
