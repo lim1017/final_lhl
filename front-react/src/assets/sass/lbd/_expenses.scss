@@ -4,6 +4,20 @@
   justify-content: space-between;
 }
 
+#exp-table-header{
+  display:flex;
+}
+
+.exp-question-span{
+  background-color:black;
+  margin-left:1em;
+}
+
+.title-exp-table{
+  // display:flex;
+  // justify-content:center;
+}
+
 .add-1expense-div {
   width: 100%;
   display: flex;

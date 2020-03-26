@@ -23,7 +23,7 @@ import {
 } from "recharts";
 
 import Card from "@material-ui/core/Card";
-import { CardExpTable } from "components/Card/CardExpTable.jsx";
+import CardExpTable from "components/Card/CardExpTable.jsx";
 import FileUpload from "components/FileUpload/FileUpload.jsx";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
