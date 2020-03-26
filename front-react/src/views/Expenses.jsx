@@ -18,7 +18,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  LabelList
+  LabelList,
+  ResponsiveContainer
 } from "recharts";
 
 import { Card } from "components/Card/Card.jsx";
@@ -324,9 +325,11 @@ function Dashboard(props) {
                   </p>
                 }
                 content={
+                  <ResponsiveContainer width="95%" height={350}>
+
                   <BarChart
-                    width={500}
-                    height={350}
+                    // width={800}
+                    // height={350}
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
@@ -337,6 +340,9 @@ function Dashboard(props) {
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
+                  
+                  </ResponsiveContainer>
+
                 }
               />
             ) : null}
