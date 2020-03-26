@@ -272,7 +272,7 @@ function Dashboard(props) {
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
               <Card
-                style={{ maxWidth: 430 }}
+                style={{ backgroundColor: "#ececec" }}
                 statsIcon="fa fa-clock-o"
                 title="Expense Breakdown By Type (in $)"
                 content={
