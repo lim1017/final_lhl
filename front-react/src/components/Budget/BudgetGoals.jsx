@@ -25,8 +25,39 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+const monthName = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC"
+];
+
 export default function BudgetGoals(props) {
   const classes = useStyles();
+  const changeRange = function(goal) {
+
+    let range = 0;
+    let sm = new Date().getMonth() + 1;
+    let em = 0;
+    for (let i = 0; i < monthName.length; i++) {
+      if (goal.date.split('-')[1] === monthName[i]) em = i + 1;
+    }
+    range = (parseInt(goal.date.split('-')[2]) - new Date().getFullYear()) * 12 + em - sm;
+
+    if (range < 12) {props.setRange(12)}
+    if (range < 60 && range >= 12) {props.setRange(60)}
+    if (range < 120 && range >= 60) {props.setRange(120)}
+    if (range < 240 && range >= 240) {props.setRange(240)}
+    if (range >= 240) {props.setRange(600)}
+  }
 
   const GoalsInList = props.goals.map(goal => {
     return (
@@ -34,9 +65,10 @@ export default function BudgetGoals(props) {
         <TableCell component="th" scope="row" className={classes.tableCell}>
           <Checkbox
             checked={props.goal.id.includes(goal.id)}
-            onChange={() =>
+            onChange={() => {
               props.selectGoal({ type: "SELECT", id: goal.id, goal })
-            }
+              changeRange(goal);
+            }}
           />
         </TableCell>
         <TableCell component="th" scope="row" className={classes.tableCell}>

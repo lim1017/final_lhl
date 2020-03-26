@@ -193,6 +193,12 @@
       display: grid;
       grid-column: 1/2;
       grid-row: 2/3;
+      font-size: 10px;
+
+      .red {color: red;}
+      .blue {color: blue;}
+      .green {color: green;}
+
     }
 
     .textAlignRight {
@@ -247,6 +253,15 @@
 // small screens
 
 @media only screen and (max-width: 1275px) {
+  .budgetGraphCardGrid {
+    .budgetGraphHeader {
+      .category {
+        font-size: 10px;
+        overflow: auto;
+      }
+    }
+  }
+
   .budgetBG {
     background-image: url("../../img/Banff.jpg");
     background-size: auto 120%;
