@@ -30,27 +30,32 @@ export const BudgetGraphCard = function(props) {
   };
 
   const setCategoryMessage = function(goalCheck) {
-    let aCheck = -1;
-    let iCheck = -1;
+    const sc = {aCheck: -1, ax: "", iCheck: -1, ix: "", dCheck: -1, dx: "" }
 
     for (const g of goalCheck) {
-      if (g.type === 'AWOI' && g.x !== "") aCheck = g.month;
-      if (g.type === 'AAWI' && g.x !== "") iCheck = g.month;
-    }
-    if (goalCheck.length !== 0) {
-      if (aCheck >= 0) {
-        return (
-          <p className="category">Your goal can be met by investing or saving.</p>
-        )
-      } else if (iCheck >= 0) {
-        return (
-          <p className="category">Your goal can be met by investing with your assets.</p>
-        )
-      } else {
-        return (
-          <p className="category">Your goal cannot be met in {props.range / 12} {props.range > 12 ? 'years.' : 'year.'}</p>
-        )
+      if (g.type === 'AWOI' && g.x !== "") {
+        sc.aCheck = g.month;
+        sc.ax = g.x;
       }
+      if (g.type === 'AAWI' && g.x !== "") {
+        sc.iCheck = g.month;
+        sc.ix = g.x;
+      }
+      if (g.type === 'DATE' && g.x !== "") {
+        sc.dCheck = g.month;
+        sc.dx = g.x;
+      }
+    }
+
+    if (goalCheck.length !== 0) {
+      return (
+        <div className="category">
+          {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck ? <p>Your goal cannot be met by <span className="red">deadline</span> of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.</p> : null}
+          {sc.aCheck < sc.dCheck || sc.iCheck < sc.dCheck ? <p>Your goal can be met by deadline of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.</p> : null}
+          {sc.iCheck >= 0 ? <p>Your goal can be met by <span className="blue">investing</span> with your assets by {`${sc.ix.split(" ")[1]} ${sc.ix.split(" ")[2]}`}.</p> : null}
+          {sc.aCheck >= 0 >= 0 ? <p>Your goal can be met by <span className="green">saving</span> by {`${sc.ax.split(" ")[1]} ${sc.ax.split(" ")[2]}`}.</p> : null}
+        </div>
+      )
     }
   }
 

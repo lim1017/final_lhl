@@ -1,4 +1,18 @@
 const SELECT = "SELECT";
+const monthName = [
+  "JAN",
+  "FEB",
+  "MAR",
+  "APR",
+  "MAY",
+  "JUN",
+  "JUL",
+  "AUG",
+  "SEP",
+  "OCT",
+  "NOV",
+  "DEC"
+];
 
 export default function budgetGoals(state, action) {
   switch (action.type) {
@@ -31,9 +45,18 @@ export default function budgetGoals(state, action) {
         }
       }
 
+      let range = 0;
+      let sm = new Date().getMonth() + 1;
+      let em = 0;
+      for (let i = 0; i < monthName.length; i++) {
+        if (action.goal.date.split('-')[1] === monthName[i]) em = i + 1;
+      }
+      range = (parseInt(action.goal.date.split('-')[2]) - new Date().getFullYear()) * 12 + em - sm;
+
       return {
         id: id.sort((a, b) => (a.id > b.id) ? 1 : -1),
-        select: select.sort((a, b) => (a.id > b.id) ? 1 : -1)
+        select: select.sort((a, b) => (a.id > b.id) ? 1 : -1),
+        range
       }
     default:
       throw new Error(
