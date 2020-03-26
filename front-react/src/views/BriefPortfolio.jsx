@@ -125,11 +125,12 @@ function BriefPortfolio(props) {
         </Pie>
         <Legend
           verticalAlign="bottom"
-          layout="vertical"
-          height={45}
-          width={250}
+          layout="horizontal"
+          height={5}
+          width={450}
         />
       </PieChart>
+
     </div>
   );
 }

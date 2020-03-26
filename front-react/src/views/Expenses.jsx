@@ -47,8 +47,7 @@ function Dashboard(props) {
     "#e5dbff",
     "#FAEEC5",
     "#defafa",
-    "#dffbd4"
-  ];
+    "#dffbd4"  ];
 
   useEffect(() => {
     console.log(state);
@@ -58,9 +57,6 @@ function Dashboard(props) {
 
   function doDispatch(date, data) {
     let datez = `${date.month}+${date.year}+${user}`;
-
-    console.log(date, "date");
-    console.log(data, "data");
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
@@ -164,8 +160,6 @@ function Dashboard(props) {
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
-        console.log("before dispatch single expense");
-        console.log(state, "before dispatch single expense");
 
         dispatch({
           ...state,
@@ -276,10 +270,11 @@ function Dashboard(props) {
               
         <Card
           style={{
-            backgroundColor: "#cacaca"
+            backgroundColor: "#cacaca",
+            opacity:1
           }}
         >
-        <h4>Expense Breakdown By Type (in $)</h4>
+        <h4 style={{textAlign:"center"}}>Expense Breakdown By Type (in $)</h4>
         <ResponsiveContainer width="90%" height={350}>
           <PieChart width={400} height={350}>
             <Tooltip />
@@ -302,9 +297,9 @@ function Dashboard(props) {
             </Pie>
             <Legend
               verticalAlign="bottom"
-              layout="horizontal"
-              height={55}
-              width={400}
+              height={45}
+              width={350}
+
             />
           </PieChart>
         </ResponsiveContainer>
@@ -317,11 +312,11 @@ function Dashboard(props) {
              
               <Card
                 style={{
-                
-                  backgroundColor: "#cacaca"
+                backgroundColor: "#cacaca",
+                opacity:1
                 }}
               >
-                <h4>Personal Expense Comparison To{" "}
+                <h4 style={{textAlign:"center"}} >Personal Expense Comparison To{" "}
                     <a
                       target="_blank"
                       rel="noopener noreferrer"

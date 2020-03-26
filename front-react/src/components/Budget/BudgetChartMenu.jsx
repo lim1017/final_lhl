@@ -94,7 +94,7 @@ export default function BudgetChartMenu(props) {
                       }}
                     >
                       <Checkbox checked={props.toggle.botg} />
-                      Budget Plan Summary
+                      Power of Investing
                     </MenuItem>
                     <MenuItem
                       onClick={() => {

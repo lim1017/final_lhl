@@ -19,49 +19,47 @@ const Youtube = () => {
   return (
     <>
       <div className="youtube-review-container">
-        <div className="youtube-background-image">
-          <div className="youtube-video-container">
-            <div className="youtube-video">
-              <YouTube videoId={youtubeVideo} opts={opts} onReady={_onReady} />
-            </div>
-            <div className="youtube-video-buttons-container">
-              <button
-                onClick={() => setYoutubeVideo("PHe0bXAIuk0")}
-                className="youtube-button"
-              >
-                How The Economy Works - Ray Dalio
-              </button>
-              <button
-                onClick={() => setYoutubeVideo("F3QpgXBtDeo")}
-                className="youtube-button"
-              >
-                How The Stock Market Works - Kurzgesagt
-              </button>
-              <button
-                onClick={() => setYoutubeVideo("Dugn51K_6WA")}
-                className="youtube-button"
-              >
-                Money & Finance - Crash Course
-              </button>
-              <button
-                onClick={() => setYoutubeVideo("EfBSN0xTBo0")}
-                className="youtube-button"
-              >
-                Financial Wisdom - Kevin Hart
-              </button>
-              <button
-                onClick={() => setYoutubeVideo("svbkVpeuwE4")}
-                className="youtube-button"
-              >
-                Compound Interest - Warren Buffet
-              </button>
-              <button
-                onClick={() => setYoutubeVideo("kpjZZBPQvDM")}
-                className="youtube-button"
-              >
-                Financial Advice - Tony Robbins
-              </button>
-            </div>
+        <div className="youtube-video-container">
+          <div className="youtube-video">
+            <YouTube videoId={youtubeVideo} opts={opts} onReady={_onReady} />
+          </div>
+          <div className="youtube-video-buttons-container">
+            <button
+              onClick={() => setYoutubeVideo("PHe0bXAIuk0")}
+              className="youtube-button"
+            >
+              How The Economy Works - Ray Dalio
+            </button>
+            <button
+              onClick={() => setYoutubeVideo("F3QpgXBtDeo")}
+              className="youtube-button"
+            >
+              How The Stock Market Works - Kurzgesagt
+            </button>
+            <button
+              onClick={() => setYoutubeVideo("Dugn51K_6WA")}
+              className="youtube-button"
+            >
+              Money & Finance - Crash Course
+            </button>
+            <button
+              onClick={() => setYoutubeVideo("EfBSN0xTBo0")}
+              className="youtube-button"
+            >
+              Financial Wisdom - Kevin Hart
+            </button>
+            <button
+              onClick={() => setYoutubeVideo("svbkVpeuwE4")}
+              className="youtube-button"
+            >
+              Compound Interest - Warren Buffet
+            </button>
+            <button
+              onClick={() => setYoutubeVideo("kpjZZBPQvDM")}
+              className="youtube-button"
+            >
+              Financial Advice - Tony Robbins
+            </button>
           </div>
         </div>
       </div>

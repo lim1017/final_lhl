@@ -14,7 +14,7 @@ const News = () => {
 
   // UNCOMMENT STOCKTICKERS TO RENDER TICKETS,
   // COMMENTED OUT BECAUSE WERE OVER OUR API LIMIT
-  // const [stockTickers, setStockTickers] = useState();
+  const [stockTickers, setStockTickers] = useState();
 
   const fetchFeed = () => {
     const req = unirest(
@@ -43,63 +43,63 @@ const News = () => {
     });
   };
 
-  // const fetchTickers = () => {
-  //   const req = unirest(
-  //     "GET",
-  //     "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary"
-  //   );
+  const fetchTickers = () => {
+    const req = unirest(
+      "GET",
+      "https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/get-summary"
+    );
 
-  //   req.query({
-  //     region: "US",
-  //     lang: "en"
-  //   });
+    req.query({
+      region: "US",
+      lang: "en"
+    });
 
-  //   req.headers({
-  //     "X-RapidAPI-Host": API_URL,
-  //     "X-RapidAPI-Key": API_KEY
-  //   });
+    req.headers({
+      "X-RapidAPI-Host": API_URL,
+      "X-RapidAPI-Key": API_KEY
+    });
 
-  //   req.end(res => {
-  //     if (res.error) throw new Error(res.error);
+    req.end(res => {
+      if (res.error) throw new Error(res.error);
 
-  //     setStockTickers(res.body.marketSummaryResponse.result);
-  //   });
-  // };
+      setStockTickers(res.body.marketSummaryResponse.result);
+    });
+  };
 
   useEffect(() => {
     fetchFeed();
-    // fetchTickers();
+    fetchTickers();
   }, []);
 
-  // const renderTicker = delayed => {
-  //   return (
-  //     <div className={`ticker-wrapper ${delayed ? delayed : ""}`}>
-  //       {stockTickers &&
-  //         stockTickers.map((stockTicker, index) => {
-  //           return (
-  //             <div key={index} className="ticker">
-  //               {stockTicker.shortName || stockTicker.symbol} -{" "}
-  //               {stockTicker.regularMarketPrice.fmt}
-  //               <div
-  //                 className={
-  //                   stockTicker.regularMarketChangePercent.raw >= 0
-  //                     ? "stock-direction stock-up"
-  //                     : "stock-direction stock-down"
-  //                 }
-  //               />
-  //             </div>
-  //           );
-  //         })}
-  //     </div>
-  //   );
-  // };
+  const renderTicker = delayed => {
+    return (
+      <div className={`ticker-wrapper ${delayed ? delayed : ""}`}>
+        {stockTickers &&
+          stockTickers.map((stockTicker, index) => {
+            return (
+              <div key={index} className="ticker">
+                {stockTicker.shortName || stockTicker.symbol} -{" "}
+                {stockTicker.regularMarketPrice.fmt}
+                <div
+                  className={
+                    stockTicker.regularMarketChangePercent.raw >= 0
+                      ? "stock-direction stock-up"
+                      : "stock-direction stock-down"
+                  }
+                />
+              </div>
+            );
+          })}
+      </div>
+    );
+  };
 
   return (
     <>
-      {/* <div className="ticker-wrapper-outer">
+      <div className="ticker-wrapper-outer">
         {renderTicker()}
         {renderTicker("delayed")}
-      </div> */}
+      </div>
 
       <div className="card-news-wrapper">
         <Grid container spacing={3}>
