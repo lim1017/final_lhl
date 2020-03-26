@@ -282,11 +282,11 @@ function Dashboard(props) {
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
               <Card
-                style={{ width: 700 }}
+                style={{ backgroundColor: "#ececec" }}
                 statsIcon="fa fa-clock-o"
                 title="Expense Breakdown By Type (in $)"
                 content={
-                  <PieChart width={450} height={350}>
+                  <PieChart width={400} height={350}>
                     <Tooltip />
                     <Pie
                       data={createPie(state.totalExpenses)}
@@ -310,7 +310,7 @@ function Dashboard(props) {
                       verticalAlign="bottom"
                       layout="horizontal"
                       height={55}
-                      width={480}
+                      width={400}
                     />
                   </PieChart>
                 }
@@ -343,7 +343,7 @@ function Dashboard(props) {
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
-                    <Legend verticalAlign="bottom" height={16} />
+                    <Legend verticalAlign="bottom" height={6} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
