@@ -66,6 +66,14 @@ function Budget(props) {
     pvas: true,
     botg: true
   });
+  const [info, dispatchInfo] = useReducer(budgetToggleReducer, {
+    planner: false,
+    goal: false,
+    pvat: false,
+    pvac: false,
+    pvas: false,
+    botg: false
+  });
   const [range, setRange] = useState(12);
   const [portfolio, setPortfolio] = useState(1);
   const { width: winWidth } = useWindowDimensions();
@@ -312,7 +320,7 @@ function Budget(props) {
     if (t >= 1000000) return `$${Math.round(t / 100000) / 10}M`;
     if (t >= 1000 || t <= -1000) return `$${Math.round(t / 100) / 10}K`;
     if (t <= -1000000) return `$${Math.round(t / 100000) / 10}M`;
-    return t;
+    return `$${t}`;
   }
 
   const formatDataForPVAT = function(budgetKey, totalExpenses) {
@@ -495,7 +503,7 @@ function Budget(props) {
             x={g.x}
             stroke="green"
             strokeDasharray="3 3"
-            label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
+            // label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
       } else if (g.type === 'AAWI') {
@@ -505,7 +513,6 @@ function Budget(props) {
             x={g.x}
             stroke="blue"
             strokeDasharray="3 3"
-            label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
       } else if (g.type === 'DATE') {
@@ -514,7 +521,6 @@ function Budget(props) {
             key={g.goal.id + 1200}
             x={g.x}
             stroke="red"
-            label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
       }
@@ -713,6 +719,9 @@ function Budget(props) {
                   error={error}
                   size={cardSize(winWidth).card}
                   dispatch={onDispatchToggle}
+                  dispatchInfo={dispatchInfo}
+                  dispatchType="PLANNER"
+                  info={info}
                 />
               ) : (
                 <BudgetPlannerB
@@ -722,6 +731,9 @@ function Budget(props) {
                   error={error}
                   size={cardSize(winWidth).card}
                   dispatch={onDispatchToggle}
+                  dispatchInfo={dispatchInfo}
+                  dispatchType="PLANNER"
+                  info={info}
                 />
               )
             ) : null}
@@ -736,6 +748,9 @@ function Budget(props) {
                 updateBudgetLocal={dispatchBudget}
                 size={cardSize(winWidth).card}
                 dispatch={onDispatchToggle}
+                dispatchInfo={dispatchInfo}
+                dispatchType="GOAL"
+                info={info}
                 setRange={setRange}
               />
             ) : null}
@@ -744,11 +759,12 @@ function Budget(props) {
         <div
           className={"budgetContent" + cardLoc(toggle, "D", winWidth >= 1276)}
         >
-          {toggle.pvat ? (
+          {toggle.pvat ?
             <CardBudget
               title="Budgeted vs Actual Expenses"
               size={cardSize(winWidth).card}
               dispatch={onDispatchToggle}
+              dispatchInfo={dispatchInfo}
               dispatchType="PVAT"
               content={
                 <ResponsiveContainer
@@ -756,6 +772,12 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
+                  {info.pvat ?
+                  <div>
+                    <p>This graph compares your monthly expenses from Budget Planner card and your actual expenses for given month, from the Expenses tab. The graph is displayed with all expenses categories stacked together, which makes it easier to compare total expenses. To change specific month to compare, use Change Month on the left side of top Navigation bar.</p>
+                    <p>When a Limit Expenses type of goal is checked from Goals card, the goal's amount will be displayed on graph.</p>
+                    <p>Press ? icon to go back to Budgeted vs Actual Expenses graph.</p>
+                  </div> :
                   <BarChart
                     height={cardSize(winWidth).graphY}
                     data={formatDataForPVAT(budgetKey, state.totalExpenses)}
@@ -772,16 +794,20 @@ function Budget(props) {
                           goal.select
                         )
                       ]}
+                      tickFormatter={t => {
+                        return formatNumbers(t);
+                      }}
                     />
                     <Tooltip />
                     <Legend />
                     {PVATdata}
                     {PVATreferenceLinesY}
                   </BarChart>
+                  }
                 </ResponsiveContainer>
               }
             />
-          ) : null}
+          : null}
         </div>
         <div
           className={"budgetContent" + cardLoc(toggle, "E", winWidth >= 1276)}
@@ -791,6 +817,7 @@ function Budget(props) {
               title="Budgeted vs Actual Expenses by Category"
               size={cardSize(winWidth).card}
               dispatch={onDispatchToggle}
+              dispatchInfo={dispatchInfo}
               dispatchType="PVAC"
               content={
                 <ResponsiveContainer
@@ -798,6 +825,11 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
+                  {info.pvac ?
+                  <div>
+                    <p>This graph compares your monthly expenses from Budget Planner card and your actual expenses for given month, from the Expenses tab. The graph is displayed with each expenses categories on separate pair of bars, which makes it easier to compare specific type of expenses. To change specific month to compare, use Change Month on the left side of top Navigation bar.</p>
+                    <p>Press ? icon to go back to Budgeted vs Actual Expenses by Category graph.</p>
+                  </div> :
                   <BarChart
                     height={cardSize(winWidth).graphY}
                     data={formatDataForPVAC(budgetKey, state.totalExpenses)}
@@ -810,12 +842,16 @@ function Budget(props) {
                         0,
                         setDisplayForPVAC(budgetKey, state.totalExpenses)
                       ]}
+                      tickFormatter={t => {
+                        return formatNumbers(t);
+                      }}
                     />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="Budgeted" fill="#ffe7ea" />
                     <Bar dataKey="Actual" fill="#c4d2c7" />
                   </BarChart>
+                  }
                 </ResponsiveContainer>
               }
             />
@@ -829,6 +865,7 @@ function Budget(props) {
               title="Budgeted vs Actual Monthly Saving"
               size={cardSize(winWidth).card}
               dispatch={onDispatchToggle}
+              dispatchInfo={dispatchInfo}
               dispatchType="PVAS"
               content={
                 <ResponsiveContainer
@@ -836,6 +873,12 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
+                  {info.pvas ?
+                  <div>
+                    <p>This graph compares monthly surplus from Budget Planner card and monthly surplus from actual expenses from Expenses tab, calculated by subtracting actual expenses from budgeted monthly income.</p>
+                    <p>When a Save per Month type of goal is checked from Goals card, the goal's amount will be displayed on graph.</p>
+                    <p>Press ? icon to go back to Budgeted vs Actual Monthly Saving graph.</p>
+                  </div> :
                   <BarChart
                     height={cardSize(winWidth).graphY}
                     data={formatDataForPVAS(budgetKey, state.totalExpenses)}
@@ -858,6 +901,9 @@ function Budget(props) {
                           goal.select
                         ).yMax
                       ]}
+                      tickFormatter={t => {
+                        return formatNumbers(t);
+                      }}
                     />
                     <Tooltip />
                     <Legend />
@@ -870,6 +916,7 @@ function Budget(props) {
                       stroke="black"
                     />
                   </BarChart>
+                  }
                 </ResponsiveContainer>
               }
             />
@@ -880,11 +927,13 @@ function Budget(props) {
         >
           {toggle.botg ? (
             <BudgetGraphCard
-              title="Budget Plan summary"
+              title="Power of Investing"
               range={range}
               setRange={setRange}
               size={cardSize(winWidth).card}
               dispatch={onDispatchToggle}
+              dispatchInfo={dispatchInfo}
+              info={info}
               dispatchType="BOTG"
               goalTrack={budgetSetGraphData(budget, range, portfolio, goal.select).goalCheck}
               content={
@@ -893,6 +942,14 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
+                  {info.botg ?
+                  <div>
+                    <p>This graph displays your assets over time based on your budget from Budget Planner card.</p>
+                    <p>Green area represesnt your assets without investing, only including initial capital and monthly surplus.</p>
+                    <p>If you have completed Risk Assessment from Portfolio tab, the graph will also calculate gains from investment based on the portfolio return, which will be displayed as pink area.</p>
+                    <p>When a Save for Purchase type of goal is checked from Goals card, the goal's amount, deadline, and when the goal can be met with or without investing, if they can be met, will be displayed on graph.</p>
+                    <p>Press ? icon to go back to Power of Investing graph.</p>
+                  </div> :
                   <AreaChart
                     height={cardSize(winWidth).graphY}
                     data={budgetSetGraphData(budget, range, portfolio, goal.select).data}
@@ -955,6 +1012,7 @@ function Budget(props) {
                     {BOTGreferenceLinesY}
                     {BOTGreferenceLinesX}
                   </AreaChart>
+                  }
                 </ResponsiveContainer>
               }
             />

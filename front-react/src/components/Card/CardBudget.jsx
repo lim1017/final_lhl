@@ -1,10 +1,6 @@
 import React, {useState} from "react";
 
 export const Card = function(props) {
-  const [info, setInfo] = useState(false);
-  const information = function() {
-    
-  }
 
     return (
       <div
@@ -23,7 +19,7 @@ export const Card = function(props) {
                   height="20"
                   width="20"
                   onClick={() => {
-                    setInfo(!info);
+                    props.dispatchInfo({type: props.dispatchType});
                   }}
                 />
               </div>
@@ -43,9 +39,7 @@ export const Card = function(props) {
           <p className="category">{props.category}</p>
         </div>
         <div className={"content"}>
-          {!info ?
-            props.content
-          : null}
+          {props.content}
         </div>
 
         <div className="footer">
