@@ -29,6 +29,31 @@ export const BudgetGraphCard = function(props) {
     props.setRange(event.target.value);
   };
 
+  const setCategoryMessage = function(goalCheck) {
+    let aCheck = -1;
+    let iCheck = -1;
+
+    for (const g of goalCheck) {
+      if (g.type === 'AWOI' && g.x !== "") aCheck = g.month;
+      if (g.type === 'AAWI' && g.x !== "") iCheck = g.month;
+    }
+    if (goalCheck.length !== 0) {
+      if (aCheck >= 0) {
+        return (
+          <p className="category">Your goal can be met by investing or saving.</p>
+        )
+      } else if (iCheck >= 0) {
+        return (
+          <p className="category">Your goal can be met by investing with your assets.</p>
+        )
+      } else {
+        return (
+          <p className="category">Your goal cannot be met in {props.range / 12} {props.range > 12 ? 'years.' : 'year.'}</p>
+        )
+      }
+    }
+  }
+
   return (
     <div
       className={"cardBudget budgetGraphCardGrid" +
@@ -37,7 +62,7 @@ export const BudgetGraphCard = function(props) {
     >
       <div className={"budgetGraphHeader" + (props.hCenter ? " text-center" : "")}>
         <h4 className="title">{props.title}</h4>
-        <p className="category">{props.category}</p>
+        {setCategoryMessage(props.goalTrack)}
         <div className="budgetIcons">
           <div className="budgetIconsList">
             <div className="iconQuestion">
