@@ -207,7 +207,10 @@ function Budget(props) {
             budget: res2.data
           });
 
-          updateLit()
+          if(state.budget.length === 0){
+            updateLit()
+          }
+          
 
         });
       })
