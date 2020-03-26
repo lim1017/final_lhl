@@ -17,7 +17,8 @@ import {
   XAxis,
   YAxis,
   CartesianGrid,
-  Tooltip
+  Tooltip,
+  ResponsiveContainer
 } from "recharts";
 import { createPie, returnMonthText } from "helpers/expenseHelper";
 
@@ -214,7 +215,7 @@ function CardDashBoard(props) {
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "#3D4849"
+            backgroundColor: "#cacaca"
           }}
         >
           {props.state.expenses.length === 0 ? (
@@ -231,6 +232,7 @@ function CardDashBoard(props) {
               <DashExpenses state={props.state}></DashExpenses>
             </>
           ) : (
+            <ResponsiveContainer width={700} height="80%">
             <div>
               <h4>
                 My Expenses for{" "}
@@ -260,6 +262,8 @@ function CardDashBoard(props) {
                 />
               </PieChart>
             </div>
+            </ResponsiveContainer>
+
           )}
         </Card>
       </div>
@@ -293,7 +297,11 @@ function CardDashBoard(props) {
               <DashPortfolio></DashPortfolio>
             </>
           ) : (
-            <BriefPortfolio state={props.state}></BriefPortfolio>
+            // <ResponsiveContainer width={700} height="80%">
+
+              <BriefPortfolio state={props.state}></BriefPortfolio>
+            // </ResponsiveContainer>
+
           )}
         </Card>
       </div>

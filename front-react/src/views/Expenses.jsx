@@ -40,7 +40,14 @@ function Dashboard(props) {
   const [user, setUser] = useState(false);
 
   const COLORS = [
-"#41A279","#AB84B2","#878FBB","#61A05D","#379FAB","#2AA294","#C67A9F","#5E98B9"  ];
+    "#ffe7ea",
+    "#fffbcf",
+    "#dbf0ff",
+    "#D0FFDE",
+    "#e5dbff",
+    "#FAEEC5",
+    "#defafa",
+    "#dffbd4"  ];
 
   useEffect(() => {
     console.log(state);
@@ -227,7 +234,7 @@ function Dashboard(props) {
                       variant="contained"
                       // color="primary"
                       style={{
-                        backgroundColor: "#61A05D",
+                        backgroundColor: "#c4d2c7",
                         color: "black",
                         fontWeight: "bold",
                         height: "50px",
@@ -330,8 +337,8 @@ function Dashboard(props) {
                     <YAxis />
                     <Tooltip />
                     <Legend verticalAlign="bottom" height={6} />
-                    <Bar dataKey="Personal" fill="#61A05D" />
-                    <Bar dataKey="Average" fill="#C67A9F" />
+                    <Bar dataKey="Personal" fill="#c4d2c7" />
+                    <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
                   
                 </ResponsiveContainer>  
