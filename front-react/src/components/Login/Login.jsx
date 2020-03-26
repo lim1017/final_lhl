@@ -94,7 +94,7 @@ function Login(props) {
         />
 
         <Button
-          style={{ width: "10rem" }}
+          style={{ width: "10rem", background: "#ffe7ea" }}
           variant="outline-success"
           onClick={() => login()}
         >
@@ -113,7 +113,7 @@ function Login(props) {
         />
 
         <Button
-          style={{ width: "10rem" }}
+          style={{ width: "10rem", background: "#ffe7ea" }}
           variant="outline-success"
           onClick={() => register()}
         >
