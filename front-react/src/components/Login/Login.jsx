@@ -7,32 +7,6 @@ import MUButton from '@material-ui/core/Button';
 
 import { Redirect, Route } from "react-router-dom";
 
-// button styling for Material Ui
-
-const style = {
-  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-  ['&:hover']: { background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' },
-  borderRadius: 3,
-  border: 0,
-  color: 'white',
-  height: 40,
-  width: 105,
-  padding: '0 30px',
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-};
-
-const style2 = {
-  background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-  ['&:hover']: { background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' },
-  borderRadius: 3,
-  border: 0,
-  color: 'white',
-  height: 40,
-  width: 105,
-  padding: '0 30px',
-  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-};
-
 // exported function
 function Login(props) {
   const [loggedIn, setLoggedIn] = useState({ name: null, id: null });
@@ -43,6 +17,21 @@ function Login(props) {
 
   const [userExists, setUserExists] = useState(true);
   const [userExistsRegister, setUserExistsRegister] = useState(false);
+
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+  const [button2, setButton2] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+
+  const style = {
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 40,
+    width: 105,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px #4a148c 30%',
+    marginLeft: 0,
+  };
 
   // //prevents refresh from logging you out.  updates local state everytime with local storage
   // useEffect(() => {
@@ -123,13 +112,40 @@ function Login(props) {
           onChange={handleChangeName}
         />
 
-        <Button
+        {/* <Button
           style={{ width: "10rem", background: "#ffe7ea" }}
           variant="outline-success"
           onClick={() => login()}
         >
           Login
-        </Button>
+        </Button> */}
+        <MUButton
+          style={{
+            ...style,
+            background: button1.color,
+            width: 105 - button1.x,
+            marginLeft: button1.x,
+          }}
+          onMouseLeave={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+          })}
+          onMouseOver={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+          })}
+          onMouseUp={() => setButton1({
+            ...button1,
+            x: 0
+          })}
+          onMouseDown={() => setButton1({
+            ...button1,
+            x: 2
+          })}
+          onClick={() => login()}
+        >
+          Login
+        </MUButton>
       </Form>
       <br></br>
 
@@ -143,8 +159,28 @@ function Login(props) {
         />
 
         <MUButton
-          style={style}
-          onMouseOver={() => style={style2}}
+          style={{
+            ...style,
+            background: button2.color,
+            width: 105 - button2.x,
+            marginLeft: button2.x,
+          }}
+          onMouseLeave={() => setButton2({
+            ...button2,
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+          })}
+          onMouseOver={() => setButton2({
+            ...button2,
+            color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+          })}
+          onMouseUp={() => setButton2({
+            ...button2,
+            x: 0
+          })}
+          onMouseDown={() => setButton2({
+            ...button2,
+            x: 2
+          })}
           onClick={() => register()}
         >
           Register
