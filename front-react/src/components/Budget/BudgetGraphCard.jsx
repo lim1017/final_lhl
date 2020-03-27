@@ -63,26 +63,26 @@ export const BudgetGraphCard = function(props) {
         <div className="category">
           {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck || sc.aCheck < 0 && sc.iCheck < 0 ? (
             <p>
-              Your goal cannot be met by <span className="red">deadline</span>{" "}
+              Your goal cannot be met by <span className="redText">deadline</span>{" "}
               of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
           ) : null}
           {sc.aCheck < sc.dCheck && sc.aCheck > 0 || sc.iCheck < sc.dCheck && sc.iCheck > 0 ? (
             <p>
-              Your goal can be met by <span className="red">deadline</span> of{" "}
+              Your goal can be met by <span className="redText">deadline</span> of{" "}
               {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
           ) : null}
           {sc.iCheck >= 0 && sc.iCheck < 600 ? (
             <p>
-              Your goal can be met <span className="blue">investing</span> by{" "}
+              Your goal can be met <span className="blueText">investing</span> by{" "}
               {`${sc.ix.split(" ")[1]} ${sc.ix.split(" ")[2]}`}.
             </p>
           ) : null}
           {sc.aCheck >= 0 && sc.aCheck < 600 ? (
             <p>
               Your goal can be met{" "}
-              <span className="green">without investing</span> by{" "}
+              <span className="greenText">without investing</span> by{" "}
               {`${sc.ax.split(" ")[1]} ${sc.ax.split(" ")[2]}`}.
             </p>
           ) : null}

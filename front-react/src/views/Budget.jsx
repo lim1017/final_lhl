@@ -1033,7 +1033,7 @@ function Budget(props) {
                       </p>
                     </div>
                   ) : ( 
-                    budgetCalc(budget) >= 0 ?
+                    budgetCalc(budget) > 0 ?
                     <AreaChart
                       height={cardSize(winWidth).graphY}
                       data={
@@ -1123,7 +1123,7 @@ function Budget(props) {
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
                     </AreaChart>
-                  : <div></div>
+                  : <div className="budgetBOTGcontentText">You can't invest with negative cashflow!</div>
                   )}
                 </ResponsiveContainer>
               }
