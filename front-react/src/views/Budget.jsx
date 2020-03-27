@@ -167,8 +167,6 @@ function Budget(props) {
       }
     }
 
-    console.log(state.budget)
-
   }, state.budget);
 
   function chgMonth(date) {
@@ -891,7 +889,7 @@ function Budget(props) {
                       margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis stroke="#e7e7e7" dataKey="name" />
+                      <XAxis stroke="#e7e7e7" dataKey="name" angle={-45} interval={0} height={80} textAnchor="end" />
                       <YAxis
                         stroke="#e7e7e7"
                         domain={[
@@ -1038,7 +1036,7 @@ function Budget(props) {
                       </p>
                     </div>
                   ) : ( 
-                    budgetCalc(budget) > 0 ?
+                    budgetCalc(budget) >= 0 ?
                     <AreaChart
                       height={cardSize(winWidth).graphY}
                       data={
@@ -1128,7 +1126,7 @@ function Budget(props) {
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
                     </AreaChart>
-                  : <div className="budgetBOTGcontentText">You can't invest with negative cashflow!</div>
+                  : <div></div>
                   )}
                 </ResponsiveContainer>
               }
