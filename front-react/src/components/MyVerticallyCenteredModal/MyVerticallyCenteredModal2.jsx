@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import Button from '@material-ui/core/Button';
+import MUButton from '@material-ui/core/Button';
 
 
 function MyVerticallyCenteredModal2(props) {
+
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+
+  const style = {
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 40,
+    width: 105,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px #4a148c 30%',
+    marginLeft: 0,
+  };
+
+
   return (
     <Modal
       {...props}
@@ -27,21 +43,34 @@ function MyVerticallyCenteredModal2(props) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-      <Button 
-                style={{ 
-                  marginTop:'1rem',
-                  backgroundColor:"#c4d2c7",
-                  color:'black',
-                  fontWeight:'bold',
-                  height:'30px',
-                  marginLeft:'2rem'
-                  }}
-                variant="contained" 
-                color="primary"  
+      <MUButton
+         style={{
+          ...style,
+          background: button1.color,
+          marginRight:'1em',
+          marginLeft:'1em',
+          marginTop:'4px'
+        }}
+          onMouseLeave={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+          })}
+          onMouseOver={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+          })}
+          onMouseUp={() => setButton1({
+            ...button1,
+            x: 0
+          })}
+          onMouseDown={() => setButton1({
+            ...button1,
+            x: 2
+          })}
                 onClick={props.onHide}
                 
         >
-        Close</Button>      
+        Close</MUButton>      
       
       </Modal.Footer>
     </Modal>
