@@ -73,7 +73,7 @@ export default function CardImg(props) {
 
 
           {props.allAnswers[`${props.id}`] ? (
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQEb-I72D8063lA3rsK57jiHw6Ted5iJpJ0aTW3ZxdBYF9rUXiZ" width="40" height="40" alt="Smart Pig"></img>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQEb-I72D8063lA3rsK57jiHw6Ted5iJpJ0aTW3ZxdBYF9rUXiZ" width="55" height="40" alt="Smart Pig"></img>
                   ) : null}
 
 
