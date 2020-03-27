@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+import MUButton from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 // import appDataContext from "../../hooks/reducers/useContext";
 
@@ -11,9 +11,25 @@ import Typography from '@material-ui/core/Typography';
 
 export default function CardImg(props) {
 
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+
+  const style = {
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 35,
+    width: 80,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px #4a148c 30%',
+    marginLeft: 0,
+  };
+
+
+
   return (
      
-    <Card style={{maxWidth: 345}}>
+    <Card id='education' style={{maxWidth: 345}}>
       {/* <CardActionArea> */}
         <CardMedia
           component="img"
@@ -28,20 +44,32 @@ export default function CardImg(props) {
           </Typography>
           
           
-          <Button
-            style={{ 
-            marginTop:'1rem',
-            backgroundColor:"#c4d2c7",
-            color:'black',
-            fontWeight:'bold',
-            height:'30px'
-            }}
-            variant="contained"
-            color="primary"
+          <MUButton
+         style={{
+          ...style,
+          background: button1.color,
+          marginTop:'4px'
+        }}
+          onMouseLeave={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+          })}
+          onMouseOver={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+          })}
+          onMouseUp={() => setButton1({
+            ...button1,
+            x: 0
+          })}
+          onMouseDown={() => setButton1({
+            ...button1,
+            x: 2
+          })}
             onClick={() => props.readArticle()}
           >
             Mark Read
-          </Button>
+          </MUButton>
 
 
           {props.allAnswers[`${props.id}`] ? (

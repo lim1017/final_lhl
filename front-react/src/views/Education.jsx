@@ -56,33 +56,6 @@ function Maps({ ...prop }) {
       });
   }, []);
 
-  
-  // useEffect(() => {
-  //   const userId = localStorage.getItem('id');
-
-
-  //   Promise.all([
-  //     axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId}),
-  //   ])
-  //     .then(res => {
-        
-  //       axios.get((`http://localhost:8001/api/users/${userId}`))
-  //           .then(resz =>{
-  //             console.log(resz, 'after file upload')
-  //             console.log(resz.data[0])
-  //             dispatch({
-  //               type: SET_USER,
-  //               users: resz.data
-  //             });
-  //           })
-
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-
-  // }, [state.eduProgress]);
-
 
   function updateLit(){
     const userId = localStorage.getItem('id');
@@ -108,14 +81,11 @@ function Maps({ ...prop }) {
   }
 
 
-
-
   function recieveAnswer(answer, id){
     setSelectedAnswers({...selectedAnswers, [`${id}`]:parseInt(answer)})
  
   }
 
-  // console.log(state.educationAnswers[1][2], 'shoukd be false')
 
   function verifyAnswer(id) {
     console.log(selectedAnswers, "from verified answer");
@@ -174,14 +144,7 @@ function Maps({ ...prop }) {
     <div className="img-wrapper">
       <div className="img-container">
         <h1 className="edu-title">
-          {/* {" "}
-          {state.eduProgress === 100 ? (
-            <img
-              src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg"
-              width="40"
-              height="40"
-            ></img>
-          ) : null} */}
+         
         </h1>
 
         <div className="article-list">
