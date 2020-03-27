@@ -1,7 +1,29 @@
 import React, { useState } from "react";
 import YouTube from "react-youtube";
+import MUButton from "@material-ui/core/Button";
+
 
 const Youtube = () => {
+  
+  const [button1, setButton1] = useState({
+    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    x: 0
+  });
+
+  const style = {
+    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    borderRadius: 3,
+    border: 0,
+    color: "white",
+    height: 40,
+    width: 163,
+    padding: "0 30px",
+    boxShadow: "0 3px 5px 2px #4a148c 30%",
+    marginLeft: 0
+  };
+  
+  
+  
   const [youtubeVideo, setYoutubeVideo] = useState("PZBWI5vz2Hg");
 
   const opts = {
@@ -16,6 +38,7 @@ const Youtube = () => {
     event.target.pauseVideo();
   };
 
+
   return (
     <>
       <div className="youtube-review-container">
@@ -24,42 +47,240 @@ const Youtube = () => {
             <YouTube videoId={youtubeVideo} opts={opts} onReady={_onReady} />
           </div>
           <div className="youtube-video-buttons-container">
-            <button
+          <MUButton
+            style={{
+              ...style,
+              background: button1.color,
+              marginRight: "1em",
+              marginLeft: "1em",
+              marginTop: "4px"
+            }}
+            onMouseLeave={() =>
+              setButton1({
+                ...button1,
+                color:
+                  "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+              })
+            }
+            onMouseOver={() =>
+              setButton1({
+                ...button1,
+                color:
+                  "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+              })
+            }
+            onMouseUp={() =>
+              setButton1({
+                ...button1,
+                x: 0
+              })
+            }
+            onMouseDown={() =>
+              setButton1({
+                ...button1,
+                x: 2
+              })
+            }
               onClick={() => setYoutubeVideo("PHe0bXAIuk0")}
               className="youtube-button"
             >
               How The Economy Works - Ray Dalio
-            </button>
-            <button
+            </MUButton>
+            <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
               onClick={() => setYoutubeVideo("F3QpgXBtDeo")}
               className="youtube-button"
             >
               How The Stock Market Works - Kurzgesagt
-            </button>
-            <button
+            </MUButton>
+            <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
               onClick={() => setYoutubeVideo("Dugn51K_6WA")}
               className="youtube-button"
             >
               Money & Finance - Crash Course
-            </button>
-            <button
+            </MUButton>
+            <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
               onClick={() => setYoutubeVideo("EfBSN0xTBo0")}
               className="youtube-button"
             >
               Financial Wisdom - Kevin Hart
-            </button>
-            <button
+            </MUButton>
+            <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
               onClick={() => setYoutubeVideo("svbkVpeuwE4")}
               className="youtube-button"
             >
               Compound Interest - Warren Buffet
-            </button>
-            <button
+            </MUButton>
+            <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
               onClick={() => setYoutubeVideo("kpjZZBPQvDM")}
               className="youtube-button"
             >
               Financial Advice - Tony Robbins
-            </button>
+            </MUButton>
           </div>
         </div>
       </div>

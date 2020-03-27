@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+
 import CardWrapper from "components/Card/CardWrapper.jsx";
+import MUButton from '@material-ui/core/Button';
+
 
 function Questionnaire(props) {
+
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+
+  const style = {
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    borderRadius: 30,
+    border: 0,
+    color: 'white',
+    fontSize: 20,
+  };
+
+
   return (
     <div className="risk-assessment-questionnaire-container">
       <div className="questionnaire-background-image">
@@ -341,7 +356,7 @@ function Questionnaire(props) {
                 <li>
                   <label>
                     <input
-                      className="risk-assessment-input"
+                      className="risk-assessment-input" 
                       name="q5"
                       type="radio"
                       value="4"
@@ -358,14 +373,37 @@ function Questionnaire(props) {
         </CardWrapper>
         {/* SUBMIT QUESTIONNAIRE */}
         <div className="risk-assessment-submission">
-          <button
-            rel="Submit"
-            href="#"
+        <MUButton
+          style={{
+            ...style,
+            background: button1.color,
+            height: 70 - button1.x,
+            width: 550 - button1.x,
+            marginBottom: '1em',
+
+          }}
+          onMouseLeave={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+            x: 0
+          })}
+          onMouseOver={() => setButton1({
+            ...button1,
+            color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+          })}
+          onMouseUp={() => setButton1({
+            ...button1,
+            x: 0
+          })}
+          onMouseDown={() => setButton1({
+            ...button1,
+            x: 5
+          })}
             className="risk-assessment-submit-button"
             onClick={e => props.onSubmit(e)}
           >
             Submit and view my investment portfolio
-          </button>
+          </MUButton>
         </div>
       </div>
     </div>

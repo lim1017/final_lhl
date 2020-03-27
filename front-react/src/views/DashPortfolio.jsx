@@ -6,7 +6,7 @@ function DashPortfolio(props) {
   const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
 
   const style = {
-    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',//
     borderRadius: 30,
     border: 0,
     color: 'white',
