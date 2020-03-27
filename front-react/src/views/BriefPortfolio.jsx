@@ -1,5 +1,5 @@
 import React from "react";
-import { PieChart, Pie, Legend, Cell } from "recharts";
+import { PieChart, Pie, Legend, Cell, Tooltip } from "recharts";
 
 function portfolioDistribution(riskScore) {
   //renders portfolio based on questionnaire response of user
@@ -103,6 +103,9 @@ function BriefPortfolio(props) {
       </h4>
 
       <PieChart width={550} height={350}>
+      <Tooltip itemStyle={{ color: '#e7e7e7' }}
+                contentStyle={{ backgroundColor: "#272727" }} />
+
         <Pie
           data={createPie(
             portfolioDistribution(props.state.users[0].riskscore)
