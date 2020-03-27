@@ -22,12 +22,13 @@ function RenderPortfolio(props) {
                 xs={12}
                 style={{
                   maxWidth: 650,
-                  opacity: 0.9,
+                  opacity: 0.95,
                   margin: "auto",
                   marginBottom: 20,
                   marginTop: 20,
                   padding: 20,
-                  backgroundColor: "white"
+                  backgroundColor: "#272727",
+                  color: "#e7e7e7"
                 }}
               >
                 <CardPortfolio

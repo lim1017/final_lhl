@@ -18,7 +18,7 @@
   background-color: rgba(#000, 0.9);
   padding: 0 0 0 100%;
   box-sizing: content-box;
-
+  z-index: 1;
   .ticker-wrapper {
     position: absolute;
     display: flex;

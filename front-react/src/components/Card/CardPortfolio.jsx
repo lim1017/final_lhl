@@ -41,7 +41,7 @@ function CardPortfolio(props) {
           dataKey="value"
           nameKey="name"
           cx="40%"
-          cy="40%"
+          cy="45%"
           outerRadius={150}
           fill="#8884d8"
           label

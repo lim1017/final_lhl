@@ -217,14 +217,22 @@ export default function Form(props) {
               <div className="buttons">
                 <CustomButton
                   className="button"
-                  style={{ color: "#9cb389", borderColor: "#9cb389" }}
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    borderColor: "#ffe7ea"
+                  }}
                   onClick={() => cancel()}
                 >
                   Cancel
                 </CustomButton>
                 <CustomButton
                   className="button"
-                  style={{ color: "#9cb389", borderColor: "#9cb389" }}
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    borderColor: "#ffe7ea"
+                  }}
                   onClick={() => validate()}
                 >
                   Save
