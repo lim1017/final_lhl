@@ -1109,15 +1109,15 @@ function Budget(props) {
                         type="monotone"
                         dataKey="Assets without Investing"
                         stackId="1"
-                        stroke="#c4d2c7"
-                        fill="#c4d2c7"
+                        stroke="#f0f0f0"
+                        fill="#f0f0f0"
                       />
                       <Area
                         type="monotone"
                         dataKey="Additional Assets with Investing"
                         stackId="1"
-                        stroke="#ffe7ea"
-                        fill="#ffe7ea"
+                        stroke="#b8f69c"
+                        fill="#b8f69c"
                       />
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
