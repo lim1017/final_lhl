@@ -135,7 +135,10 @@ function Maps({ ...prop }) {
       ])
         .then(response => {
           console.log("axios data recieved: ", response);
-          updateLit()
+          if (allAnswers[id]===0){
+            updateLit()
+          }
+          
         })
         .catch(error => {
           console.log("no go");
