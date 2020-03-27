@@ -379,7 +379,7 @@ function Dashboard(props) {
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis stroke="#e7e7e7" dataKey="name" />
+                    <XAxis stroke="#e7e7e7" dataKey="name" angle={-45} interval={0} height={70} textAnchor="end" />
                     <YAxis stroke="#e7e7e7" />
                     <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
                     <Legend verticalAlign="bottom" height={6} />
