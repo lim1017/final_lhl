@@ -79,11 +79,12 @@
 .budgetNav {
   height: 65px;
   width: calc(100% - 260px);
-  background-color: white;
+  background-color: #272727;
   border-top: solid;
   border-bottom: solid;
   border-width: 1px;
-  border-color: rgb(160, 160, 160);
+  border-color: #e7e7e7;
+  color: #e7e7e7;
   position: fixed;
   z-index: 1;
 
@@ -130,7 +131,6 @@
 }
 
 .budgetGraphCardGrid {
-
   .budgetGraphHeader {
     padding: 15px;
     display: grid;
@@ -144,14 +144,14 @@
       grid-row: 1/2;
     }
 
-    .budgetIcons{
+    .budgetIcons {
       display: grid;
       grid-column: 3/4;
       grid-row: 1/2;
       display: inline-block;
       overflow: hidden;
 
-      .budgetIconsList{
+      .budgetIconsList {
         display: flex;
         justify-content: space-between;
 
@@ -164,7 +164,7 @@
             background-color: rgb(188, 45, 45);
             transition: background-color 0.2s;
           }
-    
+
           img {
             position: relative;
             top: -1px;
@@ -179,7 +179,7 @@
             background-color: rgb(188, 45, 45);
             transition: background-color 0.2s;
           }
-    
+
           img {
             position: relative;
             top: -1px;
@@ -195,10 +195,15 @@
       grid-row: 2/3;
       font-size: 10px;
 
-      .red {color: red;}
-      .blue {color: blue;}
-      .green {color: green;}
-
+      .red {
+        color: red;
+      }
+      .blue {
+        color: #5f7cff;
+      }
+      .green {
+        color: #019e0e;
+      }
     }
 
     .textAlignRight {
@@ -219,6 +224,7 @@
 }
 
 .budgetPlannerButtons {
+  padding-top: 1rem;
   width: 100%;
   text-align: right;
 
@@ -250,6 +256,25 @@
   background-color: rgb(248, 238, 209);
 }
 
+.MuiButton-label {
+  color: #e7e7e7;
+}
+
+.MuiInputBase-input.MuiInput-input {
+  color: black;
+}
+
+.MuiInputLabel-outlined.MuiInputLabel-shrink {
+  color: white;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-formControl {
+  padding-top: 1rem;
+}
+
+.MuiSelect-outlined.MuiSelect-outlined {
+  background: white;
+}
 // small screens
 
 @media only screen and (max-width: 1275px) {

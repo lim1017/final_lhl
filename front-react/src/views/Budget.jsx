@@ -530,7 +530,7 @@ function Budget(props) {
           <ReferenceLine
             key={g.goal.id + 1000}
             x={g.x}
-            stroke="green"
+            stroke="#019e0e"
             strokeDasharray="3 3"
             // label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
@@ -540,7 +540,7 @@ function Budget(props) {
           <ReferenceLine
             key={g.goal.id + 1100}
             x={g.x}
-            stroke="blue"
+            stroke="#496aff"
             strokeDasharray="3 3"
           />
         );
@@ -822,8 +822,9 @@ function Budget(props) {
                       margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
+                      <XAxis stroke="#e7e7e7" dataKey="name" />
                       <YAxis
+                        stroke="#e7e7e7"
                         domain={[
                           0,
                           setDisplayForPVAT(
@@ -836,7 +837,7 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip />
+                      <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
                       <Legend />
                       {PVATdata}
                       {PVATreferenceLinesY}
@@ -886,8 +887,9 @@ function Budget(props) {
                       margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
+                      <XAxis stroke="#e7e7e7" dataKey="name" />
                       <YAxis
+                        stroke="#e7e7e7"
                         domain={[
                           0,
                           setDisplayForPVAC(budgetKey, state.totalExpenses)
@@ -896,7 +898,7 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip />
+                      <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
                       <Legend />
                       <Bar dataKey="Budgeted" fill="#ffe7ea" />
                       <Bar dataKey="Actual" fill="#c4d2c7" />
@@ -947,8 +949,9 @@ function Budget(props) {
                       margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="name" />
+                      <XAxis stroke="#e7e7e7" dataKey="name" />
                       <YAxis
+                        stroke="#e7e7e7"
                         domain={[
                           -setDisplayForPVAS(
                             budgetKey,
@@ -967,7 +970,7 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip />
+                      <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
                       <Legend />
                       <Bar dataKey="Plan" fill="#ffe7ea" />
                       <Bar dataKey="Actual" fill="#c4d2c7" />
@@ -1044,6 +1047,7 @@ function Budget(props) {
                     >
                       <CartesianGrid strokeDasharray="3" vertical={false} />
                       <XAxis
+                        stroke="#e7e7e7"
                         dataKey="name"
                         tickFormatter={t => {
                           if (parseInt(t.split(" ")[0]) === range) {
@@ -1054,6 +1058,7 @@ function Budget(props) {
                         tickLine={false}
                       />
                       <YAxis
+                        stroke="#e7e7e7"
                         tickFormatter={t => {
                           return formatNumbers(t);
                         }}
@@ -1063,54 +1068,56 @@ function Budget(props) {
                         ]}
                       />
                       <Tooltip
-                        content={({ label, payload }) => {
-                          return (
-                            <div className="BOTGtooltip">
-                              <div className="BOTGtooltipTitle">
-                                {label
-                                  ? `${label.split(" ")[1]} ${
-                                      label.split(" ")[2]
-                                    }`
-                                  : null}
-                              </div>
-                              <div>
-                                Asset w/o Investing :{" "}
-                                {payload[0]
-                                  ? formatNumbers(payload[0].value)
-                                  : null}
-                              </div>
-                              {payload[1] ? (
-                                <>
-                                  <div>
-                                    Asset from Investing :{" "}
-                                    {formatNumbers(payload[1].value)}
-                                  </div>
-                                  <div>
-                                    Total Asset :{" "}
-                                    {formatNumbers(
-                                      payload[0].value + payload[1].value
-                                    )}
-                                  </div>
-                                </>
-                              ) : null}
-                            </div>
-                          );
-                        }}
+                        // content={({ label, payload }) => {
+                        //   return (
+                        //     <div className="BOTGtooltip">
+                        //       <div className="BOTGtooltipTitle">
+                        //         {label
+                        //           ? `${label.split(" ")[1]} ${
+                        //               label.split(" ")[2]
+                        //             }`
+                        //           : null}
+                        //       </div>
+                        //       <div>
+                        //         Asset w/o Investing :{" "}
+                        //         {payload[0]
+                        //           ? formatNumbers(payload[0].value)
+                        //           : null}
+                        //       </div>
+                        //       {payload[1] ? (
+                        //         <>
+                        //           <div>
+                        //             Asset from Investing :{" "}
+                        //             {formatNumbers(payload[1].value)}
+                        //           </div>
+                        //           <div>
+                        //             Total Asset :{" "}
+                        //             {formatNumbers(
+                        //               payload[0].value + payload[1].value
+                        //             )}
+                        //           </div>
+                        //         </>
+                        //       ) : null}
+                        //     </div>
+                        //   );
+                        // }}
+                        contentStyle={{ backgroundColor: "#272727" }}
                       />
+
                       <Legend />
                       <Area
                         type="monotone"
                         dataKey="Assets without Investing"
                         stackId="1"
-                        stroke="#c4d2c7"
-                        fill="#c4d2c7"
+                        stroke="#f0f0f0"
+                        fill="#f0f0f0"
                       />
                       <Area
                         type="monotone"
                         dataKey="Additional Assets with Investing"
                         stackId="1"
-                        stroke="#ffe7ea"
-                        fill="#ffe7ea"
+                        stroke="#b8f69c"
+                        fill="#b8f69c"
                       />
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
