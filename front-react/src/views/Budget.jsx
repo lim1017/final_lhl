@@ -20,7 +20,7 @@ import BudgetPlannerB from "components/Budget/BudgetPlannerB";
 import BudgetGoals from "components/Budget/BudgetGoals";
 import BudgetInputMenu from "components/Budget/BudgetInputMenu";
 import BudgetChartMenu from "components/Budget/BudgetChartMenu";
-import { budgetSetGraphData, findUserBudget } from "helpers/budget";
+import { budgetSetGraphData, findUserBudget, budgetCalc } from "helpers/budget";
 import useWindowDimensions from "helpers/windowDimensions";
 
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
@@ -511,7 +511,8 @@ function Budget(props) {
           label={{
             position: "left",
             value: `${formatNumbers(g.amount)}`,
-            fontSize: 10
+            fontSize: 10,
+            fill: 'rgba(255, 255, 255, 1)'
           }}
         />
       );
@@ -530,8 +531,7 @@ function Budget(props) {
           <ReferenceLine
             key={g.goal.id + 1000}
             x={g.x}
-            stroke="#019e0e"
-            strokeDasharray="3 3"
+            stroke="#FFFF00"
             // label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
@@ -541,7 +541,6 @@ function Budget(props) {
             key={g.goal.id + 1100}
             x={g.x}
             stroke="#496aff"
-            strokeDasharray="3 3"
           />
         );
       } else if (g.type === "DATE") {
@@ -1000,6 +999,7 @@ function Budget(props) {
                 budgetSetGraphData(budget, range, portfolio, goal.select)
                   .goalCheck
               }
+              budgetCalc={budgetCalc(budget)}
               content={
                 <ResponsiveContainer
                   minWidth="100%"
@@ -1013,13 +1013,13 @@ function Budget(props) {
                         budget from Budget Planner card.
                       </p>
                       <p>
-                        Green area represesnt your assets without investing,
-                        only including initial capital and monthly surplus.
+                        Green area represent your assets without investing,
+                        only including Initial Capital and monthly surplus.
                       </p>
                       <p>
                         If you have completed Risk Assessment from Portfolio
                         tab, the graph will also calculate gains from investment
-                        based on the portfolio return, which will be displayed
+                        based on the portfolio return, which is displayed
                         as pink area.
                       </p>
                       <p>
@@ -1032,7 +1032,8 @@ function Budget(props) {
                         Press ? icon to go back to Power of Investing graph.
                       </p>
                     </div>
-                  ) : (
+                  ) : ( 
+                    budgetCalc(budget) >= 0 ?
                     <AreaChart
                       height={cardSize(winWidth).graphY}
                       data={
@@ -1122,6 +1123,7 @@ function Budget(props) {
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
                     </AreaChart>
+                  : <div></div>
                   )}
                 </ResponsiveContainer>
               }
