@@ -195,8 +195,8 @@ function CardDashBoard(props) {
                 margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <Tooltip />
+                <XAxis stroke="#e7e7e7" dataKey="name" />
+                <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
                 <Legend />
                 {PVATdata}
               </BarChart>

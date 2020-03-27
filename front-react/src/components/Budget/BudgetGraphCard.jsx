@@ -1,19 +1,18 @@
-
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { makeStyles } from "@material-ui/core/styles";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 120
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+    marginTop: theme.spacing(2)
+  }
 }));
 
 export const BudgetGraphCard = function(props) {
@@ -30,20 +29,20 @@ export const BudgetGraphCard = function(props) {
   };
 
   const setCategoryMessage = function(goalCheck) {
-    const sc = {aCheck: -1, ax: "", iCheck: -1, ix: "", dCheck: -1, dx: "" }
+    const sc = { aCheck: -1, ax: "", iCheck: -1, ix: "", dCheck: -1, dx: "" };
     let typeCheck = true;
 
     for (const g of goalCheck) {
       if (g.goal.type === "SFP") {
-        if (g.type === 'AWOI' && g.x !== "") {
+        if (g.type === "AWOI" && g.x !== "") {
           sc.aCheck = g.month;
           sc.ax = g.x;
         }
-        if (g.type === 'AAWI' && g.x !== "") {
+        if (g.type === "AAWI" && g.x !== "") {
           sc.iCheck = g.month;
           sc.ix = g.x;
         }
-        if (g.type === 'DATE' && g.x !== "") {
+        if (g.type === "DATE" && g.x !== "") {
           sc.dCheck = g.month;
           sc.dx = g.x;
         }
@@ -53,44 +52,69 @@ export const BudgetGraphCard = function(props) {
     if (typeCheck && goalCheck.length !== 0 && !props.info.botg) {
       return (
         <div className="category">
-          {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck ? <p>Your goal cannot be met by <span className="red">deadline</span> of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.</p> : null}
-          {sc.aCheck < sc.dCheck || sc.iCheck < sc.dCheck ? <p>Your goal can be met by <span className="red">deadline</span> of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.</p> : null}
-          {sc.iCheck >= 0 ? <p>Your goal can be met <span className="blue">investing</span> by {`${sc.ix.split(" ")[1]} ${sc.ix.split(" ")[2]}`}.</p> : null}
-          {sc.aCheck >= 0 >= 0 ? <p>Your goal can be met <span className="green">without investing</span> by {`${sc.ax.split(" ")[1]} ${sc.ax.split(" ")[2]}`}.</p> : null}
+          {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck ? (
+            <p>
+              Your goal cannot be met by <span className="red">deadline</span>{" "}
+              of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
+            </p>
+          ) : null}
+          {sc.aCheck < sc.dCheck || sc.iCheck < sc.dCheck ? (
+            <p>
+              Your goal can be met by <span className="red">deadline</span> of{" "}
+              {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
+            </p>
+          ) : null}
+          {sc.iCheck >= 0 ? (
+            <p>
+              Your goal can be met <span className="blue">investing</span> by{" "}
+              {`${sc.ix.split(" ")[1]} ${sc.ix.split(" ")[2]}`}.
+            </p>
+          ) : null}
+          {sc.aCheck >= 0 >= 0 ? (
+            <p>
+              Your goal can be met{" "}
+              <span className="green">without investing</span> by{" "}
+              {`${sc.ax.split(" ")[1]} ${sc.ax.split(" ")[2]}`}.
+            </p>
+          ) : null}
         </div>
-      )
+      );
     }
-  }
+  };
 
   return (
     <div
-      className={"cardBudget budgetGraphCardGrid" +
-      (props.plain ? " card-plain" : "") +
-      (props.size ? ` cardBudgetSize${props.size}` : "")}
+      className={
+        "cardBudget budgetGraphCardGrid" +
+        (props.plain ? " card-plain" : "") +
+        (props.size ? ` cardBudgetSize${props.size}` : "")
+      }
     >
-      <div className={"budgetGraphHeader" + (props.hCenter ? " text-center" : "")}>
+      <div
+        className={"budgetGraphHeader" + (props.hCenter ? " text-center" : "")}
+      >
         <h4 className="title">{props.title}</h4>
         {setCategoryMessage(props.goalTrack)}
         <div className="budgetIcons">
           <div className="budgetIconsList">
             <div className="iconQuestion">
               <img
-                src={require("../../assets/img/budget_question.png")}
+                src={require("../../assets/img/budget_question2.png")}
                 alt="question"
                 height="20"
                 width="20"
                 onClick={() => {
-                  props.dispatchInfo({type: props.dispatchType});
+                  props.dispatchInfo({ type: props.dispatchType });
                 }}
               />
             </div>
             <div className="iconQuit">
               <img
-                src={require("../../assets/img/budget_quit.png")}
+                src={require("../../assets/img/budget_quit4.png")}
                 alt="quit"
                 height="20"
                 width="20"
-                onClick={() => props.dispatch({type: props.dispatchType})}
+                onClick={() => props.dispatch({ type: props.dispatchType })}
               />
             </div>
           </div>
@@ -116,10 +140,8 @@ export const BudgetGraphCard = function(props) {
           </FormControl>
         </div>
       </div>
- 
-      <div
-        className={"content budgetGraphCardGraph"}
-      >
+
+      <div className={"content budgetGraphCardGraph"}>
         {props.content}
 
         <div className="footer">
@@ -132,6 +154,6 @@ export const BudgetGraphCard = function(props) {
       </div>
     </div>
   );
-}
+};
 
 export default BudgetGraphCard;
