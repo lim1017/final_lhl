@@ -7,6 +7,8 @@ import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVe
 import appDataContext from "../hooks/reducers/useContext";
 import reducerz, { SET_EDU_PROGRESS, SET_USER } from "../hooks/reducers/app";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function Maps({ ...prop }) {
   const userId = localStorage.getItem("id");
@@ -56,33 +58,6 @@ function Maps({ ...prop }) {
       });
   }, []);
 
-  
-  // useEffect(() => {
-  //   const userId = localStorage.getItem('id');
-
-
-  //   Promise.all([
-  //     axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId}),
-  //   ])
-  //     .then(res => {
-        
-  //       axios.get((`http://localhost:8001/api/users/${userId}`))
-  //           .then(resz =>{
-  //             console.log(resz, 'after file upload')
-  //             console.log(resz.data[0])
-  //             dispatch({
-  //               type: SET_USER,
-  //               users: resz.data
-  //             });
-  //           })
-
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-
-  // }, [state.eduProgress]);
-
 
   function updateLit(){
     const userId = localStorage.getItem('id');
@@ -108,14 +83,11 @@ function Maps({ ...prop }) {
   }
 
 
-
-
   function recieveAnswer(answer, id){
     setSelectedAnswers({...selectedAnswers, [`${id}`]:parseInt(answer)})
  
   }
 
-  // console.log(state.educationAnswers[1][2], 'shoukd be false')
 
   function verifyAnswer(id) {
     console.log(selectedAnswers, "from verified answer");
@@ -170,18 +142,21 @@ function Maps({ ...prop }) {
     border: "solid 5px"
   };
 
+  function score(){
+    let score1=null
+      
+      if (state.eduProgress>0){
+        score1=state.eduProgress.toFixed(2)
+      }
+
+    return score1
+  }
+
   return (
     <div className="img-wrapper">
       <div className="img-container">
         <h1 className="edu-title">
-          {/* {" "}
-          {state.eduProgress === 100 ? (
-            <img
-              src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg"
-              width="40"
-              height="40"
-            ></img>
-          ) : null} */}
+         
         </h1>
 
         <div className="article-list">
@@ -241,9 +216,12 @@ function Maps({ ...prop }) {
 
         <div>
           <ProgressBar
+            animated
             style={progressBar}
             now={state.eduProgress}
-            label={state.eduProgress.toFixed(2)}
+            variant="custom"
+            striped variant="danger" 
+            label={score()}
           />
         </div>
       </div>
