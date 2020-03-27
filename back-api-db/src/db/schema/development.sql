@@ -1,6 +1,6 @@
 INSERT INTO users (name, riskScore, portfolioReturn, literacy, eduScores, eduIsAnswered, isNew)
 VALUES
-    ('bob', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":1, "6":0}', '{"1":0, "2":0, "3":0, "4":0, "5":1, "6":0}', false),
+    ('bob', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":0, "6":0}', '{"1":0, "2":0, "3":0, "4":0, "5":0, "6":0}', false),
     ('joe', 0, 1, 0, '{"1":0, "2":0, "3":0, "4":0, "5":0, "6":0}', '{"1":0, "2":0, "3":0, "4":0, "5":0, "6":0}', false);
 
 
@@ -79,19 +79,5 @@ VALUES (1, 100000, 5000, 2000, 200, 800, 400, 200, 100, 100, 300);
   
 INSERT INTO goals (name, user_id, type, amount, description, date)
 VALUES
-    ('goal01 save for purchase', 1, 'SFP', 500000, 'description', '01/5/2027'),
-    ('goal02 long name example + save per month -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------',
-    1, 'SPM', 500,
-    'description description description description description description description description description description description description description description description description description description description description description description description description description description description',
-    '01/5/2020'),
-    ('goal03 limit expenses', 1, 'LE', 400, 'description', '01/5/2020'),
-    ('goal04 limit expenses high value', 1, 'LE', 10000, 'description', '01/5/2020'),
-    ('someone elses goal 1', 2, 'LE', 10000, 'description', '01/5/2020'),
-    ('someone elses goal 2', 2, 'LE', 10000, 'description', '01/5/2020');
-
-  -- id SERIAL PRIMARY KEY NOT NULL,
-  -- name VARCHAR(255) NOT NULL,
-  -- user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
-  -- amount INTEGER NOT NULL,
-  -- type VARCHAR(255) NOT NULL,
-  -- date DATE NOT NULL
+    ('goal01 save for purchase', 1, 'SFP', 200000, 'description', '01/5/2027'),
+    

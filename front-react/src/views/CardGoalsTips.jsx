@@ -49,7 +49,7 @@ function CardGoalsTips(props) {
                 </h5>{" "}
                 <a
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-save-money"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   style={{
                     color: "black",
                     backgroundColor: "white",

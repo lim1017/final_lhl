@@ -40,7 +40,7 @@ function Goals(props) {
                 .then(res2 => {
                   console.log("goal get", res2.data);
                   dispatch({
-                    type: "SET_USER",
+                    type: SET_USER,
                     users: res2.data
                   });
                   res(res2);
@@ -94,14 +94,14 @@ function Goals(props) {
 
   return (
     <Grid className="goals-background-image" container spacing={1}>
-      <Grid item xs={4}>
+      <Grid item xs={5}>
         <CardGoals
           state={state}
           setGoal={setGoal}
           GoalsInList={GoalsInList}
         ></CardGoals>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={7}>
         <CardGoalsTips></CardGoalsTips>
       </Grid>
     </Grid>
