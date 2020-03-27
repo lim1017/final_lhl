@@ -51,9 +51,16 @@ function CardGoalsTips(props) {
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-save-money"
                   className="btn btn-primary"
                   style={{
-                    color: "black",
-                    backgroundColor: "white",
-                    borderColor: "#c4d2c7"
+                    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                    borderRadius: 3,
+                    border: 0,
+                    color: "white",
+                    height: 30,
+                    width: 90,
+                    padding: "8px 10px",
+                    boxShadow: "0 3px 5px 2px #4a148c 30%",
+                    marginLeft: 0,
+                    fontSize: '10px'
                   }}
                   target="_blank"
                 >
@@ -73,9 +80,16 @@ function CardGoalsTips(props) {
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-save-for-a-house"
                   class="btn btn-primary"
                   style={{
-                    color: "black",
-                    backgroundColor: "white",
-                    borderColor: "#c4d2c7"
+                    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                    borderRadius: 3,
+                    border: 0,
+                    color: "white",
+                    height: 30,
+                    width: 90,
+                    padding: "8px 10px",
+                    boxShadow: "0 3px 5px 2px #4a148c 30%",
+                    marginLeft: 0,
+                    fontSize: '10px'
                   }}
                   target="_blank"
                 >
@@ -96,9 +110,16 @@ function CardGoalsTips(props) {
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-manage-money"
                   class="btn btn-primary"
                   style={{
-                    color: "black",
-                    backgroundColor: "white",
-                    borderColor: "#c4d2c7"
+                    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                    borderRadius: 3,
+                    border: 0,
+                    color: "white",
+                    height: 30,
+                    width: 90,
+                    padding: "8px 10px",
+                    boxShadow: "0 3px 5px 2px #4a148c 30%",
+                    marginLeft: 0,
+                    fontSize: '10px'
                   }}
                   target="_blank"
                 >
@@ -119,9 +140,16 @@ function CardGoalsTips(props) {
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-retire-early"
                   class="btn btn-primary"
                   style={{
-                    color: "black",
-                    backgroundColor: "white",
-                    borderColor: "#c4d2c7"
+                    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                    borderRadius: 3,
+                    border: 0,
+                    color: "white",
+                    height: 30,
+                    width: 90,
+                    padding: "8px 10px",
+                    boxShadow: "0 3px 5px 2px #4a148c 30%",
+                    marginLeft: 0,
+                    fontSize: '10px'
                   }}
                   target="_blank"
                 >
