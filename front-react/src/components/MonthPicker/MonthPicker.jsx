@@ -75,7 +75,7 @@ class List extends Component {
 
         return (
            <div className="edit">
-                    <h4>Change Month</h4>
+                    <h4 >Change Month</h4>
                     
                         <Picker
                             ref="pickAMonth"

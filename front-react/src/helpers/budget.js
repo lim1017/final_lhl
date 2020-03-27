@@ -126,14 +126,14 @@ const findUserBudget = function(state, id) {
     user_id: 0,
     base: 0,
     income: 0,
-    c_hous: state.totalExpenses[4] ? state.totalExpenses[4].sum : 0,
+    c_hous: state.totalExpenses[3] ? state.totalExpenses[3].sum : 0,
     c_tran: state.totalExpenses[6] ? state.totalExpenses[6].sum : 0,
     c_food: state.totalExpenses[5] ? state.totalExpenses[5].sum : 0,
     c_util: state.totalExpenses[0] ? state.totalExpenses[0].sum : 0,
     c_entr: state.totalExpenses[1] ? state.totalExpenses[1].sum : 0,
     c_medi: state.totalExpenses[2] ? state.totalExpenses[2].sum : 0,
     c_debt: state.totalExpenses[7] ? state.totalExpenses[7].sum : 0,
-    c_misc: state.totalExpenses[3] ? state.totalExpenses[3].sum : 0
+    c_misc: state.totalExpenses[4] ? state.totalExpenses[4].sum : 0
   };
 
   if (state.budget) {
