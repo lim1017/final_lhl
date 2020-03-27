@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import BriefPortfolio from "./BriefPortfolio";
 import DashPortfolio from "./DashPortfolio";
@@ -15,49 +15,14 @@ import {
   Bar,
   Cell,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer
 } from "recharts";
 import { createPie, returnMonthText } from "helpers/expenseHelper";
 
-//props is = to state
 function CardDashBoard(props) {
-  // const [isUserNew, setIsUserNew] = useState(true);
-  // const userId = localStorage.getItem('id');
-
-  // useEffect(() => {
-
-  //   Promise.all([
-  //     axios.get(`http://localhost:8001/api/users/${userId}`)
-  //   ])
-  //     .then(response => {
-  //       console.log(response, 'from dashboard')
-  //       console.log(response[0].data[0].isnew)
-  //       setIsUserNew(response[0].data[0].isnew)
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // function oldUser(){
-  //   console.log(isUserNew)
-
-  // Promise.all([
-  //     axios.put(`http://localhost:8001/api/users/update/newuser`, {userId})
-  //   ])
-  //     .then(response => {
-  //       console.log("axios data recieved: ", response);
-  //       setIsUserNew(false)
-
-  //     })
-  //     .catch(error => {
-  //       console.log("no go");
-  //     });
-
-  // }
+ 
 
   const expenseKey = [
     "Entertainment",
@@ -208,7 +173,6 @@ function CardDashBoard(props) {
       <div className="dash-card2">
         <Card
           style={{
-            width: "500px",
             width: "500px",
             maxWidth: 500,
             maxHeight: 500,

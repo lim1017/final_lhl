@@ -11,7 +11,7 @@ function Questionnaire(props) {
           <ol className="risk-assessment-questions" start="1" tabIndex="0">
             <li>
               <h4>How would you best describe your personality?</h4>
-              <ul style={{ "list-style-type": "none" }}>
+              <ul style={{ "listStyleType": "none" }}>
                 <li>
                   <label>
                     <input
@@ -79,7 +79,7 @@ function Questionnaire(props) {
           <ol className="risk-assessment-questions" start="2" tabIndex="0">
             <li>
               <h4>Hypothetically, how would you invest $10,000?</h4>
-              <ul style={{ "list-style-type": "none" }}>
+              <ul style={{ "listStyleType": "none" }}>
                 <li>
                   <label>
                     <input
@@ -151,7 +151,7 @@ function Questionnaire(props) {
                 How comfortable are you with fluctuations in the value of your
                 investments?
               </h4>
-              <ul style={{ "list-style-type": "none" }}>
+              <ul style={{ "listStyleType": "none" }}>
                 <li>
                   <label>
                     <input
@@ -224,7 +224,7 @@ function Questionnaire(props) {
                 Will you need access to a large portion of this money earlier
                 than expected?
               </h4>
-              <ul style={{ "list-style-type": "none" }}>
+              <ul style={{ "listStyleType": "none" }}>
                 <li>
                   <label>
                     <input
@@ -293,7 +293,7 @@ function Questionnaire(props) {
                 Coronavirus!!
                 <br /> Your investments drop by 25% - how do you react?
               </h4>
-              <ul style={{ "list-style-type": "none" }}>
+              <ul style={{ "listStyleType": "none" }}>
                 <li>
                   <label>
                     <input

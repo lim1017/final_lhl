@@ -1,15 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-
 import { NavLink, Link } from "react-router-dom";
-
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 import CardSidebar from "../Card/CardSidebar.jsx";
 import appDataContext from "../../hooks/reducers/useContext";
-
 import logo from "assets/img/piggylogo2.png";
 import { Button } from "react-bootstrap";
-
-
 import AnimatedNumber from 'react-animated-number';
 
 
@@ -29,7 +24,6 @@ function Sidebar(props) {
   function logout() {
     localStorage.clear();
 
-    // this.setState({ isLoggedIn: false });
     setIsLoggedIn(false)
   }
 
@@ -38,33 +32,18 @@ function Sidebar(props) {
   }
 
   function updateDimensions() {
-    // this.setState({ width: window.innerWidth });
     setWidth(window.innerWidth)
   }
 
-  // componentDidMount() {
-  //   this.updateDimensions();
-  //   window.addEventListener("resize", this.updateDimensions.bind(this));
-
-  //   const userId = localStorage.getItem("id");
-  //   const user = localStorage.getItem("username");
-
-  //   if (userId !== null) {
-  //     this.setState({ isLoggedIn: true });
-  //     this.setState({ loggedInUser: user });
-  //   }
-  // }
+  
 
   useEffect(() => {
     updateDimensions();
-    // window.addEventListener("resize", this.updateDimensions.bind(this));
 
     const userId = localStorage.getItem("id");
     const user = localStorage.getItem("username");
 
     if (userId !== null) {
-      // this.setState({ isLoggedIn: true });
-      // this.setState({ loggedInUser: user });
 
       setIsLoggedIn(true)
       setLoggedInUser(user)
@@ -98,7 +77,6 @@ function Sidebar(props) {
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">
-            {/* {width <= 991 ? <AdminNavbarLinks /> : null} */}
             {props.routes.map((prop, key) => {
               if (!prop.redirect)
                 return (

@@ -138,9 +138,10 @@ export default function Form(props) {
                           min: "0",
                           max: "1000000000",
                           step: "100",
-                          width: "100px"
+                          width: "100px",
+                          height: '50px'
                         }}
-                        style={{ width: 80 }}
+                        style={{ width: 80, borderBottom: '1.5px solid white'}}
                         defaultValue={amount}
                         onInput={e => {
                           e.target.value = parseInt(
@@ -162,9 +163,11 @@ export default function Form(props) {
                           min: "1",
                           max: "12",
                           step: "1",
-                          width: "100px"
+                          width: "100px",
+                          size:'small'
                         }}
-                        style={{ width: 50 }}
+                        
+                        style={{ width: 50, borderBottom: '1.5px solid white' }}
                         defaultValue={getMonthNum(month)}
                         onInput={e => {
                           e.target.value = parseInt(
@@ -186,7 +189,7 @@ export default function Form(props) {
                           step: "1",
                           width: "100px"
                         }}
-                        style={{ width: 50 }}
+                        style={{ width: 50, borderBottom: '1.5px solid white' }}
                         defaultValue={year}
                         onInput={e => {
                           e.target.value = parseInt(

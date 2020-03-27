@@ -5,7 +5,6 @@ import Portfolio from "views/Portfolio.jsx";
 import Youtube from "views/Youtube.jsx";
 import News from "views/News.jsx";
 import Education from "views/Education.jsx";
-import Notifications from "views/Notifications.jsx";
 import Dashboard from "views/Dashboard.jsx";
 
 const dashboardRoutes = [
