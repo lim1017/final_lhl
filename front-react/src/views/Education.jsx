@@ -7,8 +7,7 @@ import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVe
 import appDataContext from "../hooks/reducers/useContext";
 import reducerz, { SET_EDU_PROGRESS, SET_USER } from "../hooks/reducers/app";
 import axios from "axios";
-import 'bootstrap/dist/css/bootstrap.min.css';
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Maps({ ...prop }) {
   const userId = localStorage.getItem("id");
@@ -58,36 +57,33 @@ function Maps({ ...prop }) {
       });
   }, []);
 
-
-  function updateLit(){
-    const userId = localStorage.getItem('id');
+  function updateLit() {
+    const userId = localStorage.getItem("id");
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId, lit:5}),
+      axios.put(`http://localhost:8001/api/users/updateliteracy`, {
+        userId,
+        lit: 5
+      })
     ])
       .then(res => {
-        
-        axios.get((`http://localhost:8001/api/users/${userId}`))
-            .then(resz =>{
-              console.log(resz, 'after file upload')
-              console.log(resz.data[0])
-              dispatch({
-                type: SET_USER,
-                users: resz.data
-              });
-            })
+        axios.get(`http://localhost:8001/api/users/${userId}`).then(resz => {
+          console.log(resz, "after file upload");
+          console.log(resz.data[0]);
+          dispatch({
+            type: SET_USER,
+            users: resz.data
+          });
+        });
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-
-  function recieveAnswer(answer, id){
-    setSelectedAnswers({...selectedAnswers, [`${id}`]:parseInt(answer)})
- 
+  function recieveAnswer(answer, id) {
+    setSelectedAnswers({ ...selectedAnswers, [`${id}`]: parseInt(answer) });
   }
-
 
   function verifyAnswer(id) {
     console.log(selectedAnswers, "from verified answer");
@@ -107,10 +103,9 @@ function Maps({ ...prop }) {
       ])
         .then(response => {
           console.log("axios data recieved: ", response);
-          if (allAnswers[id]===0){
-            updateLit()
+          if (allAnswers[id] === 0) {
+            updateLit();
           }
-          
         })
         .catch(error => {
           console.log("no go");
@@ -127,7 +122,6 @@ function Maps({ ...prop }) {
 
     const score = (totalScore / totalQuestions) * 100;
 
-
     dispatch({
       type: SET_EDU_PROGRESS,
       eduProgress: score
@@ -142,22 +136,20 @@ function Maps({ ...prop }) {
     border: "solid 5px"
   };
 
-  function score(){
-    let score1=null
-      
-      if (state.eduProgress>0){
-        score1=state.eduProgress.toFixed(2)
-      }
+  function score() {
+    let score1 = null;
 
-    return score1
+    if (state.eduProgress > 0) {
+      score1 = state.eduProgress.toFixed(2);
+    }
+
+    return score1;
   }
 
   return (
     <div className="img-wrapper">
       <div className="img-container">
-        <h1 className="edu-title">
-         
-        </h1>
+        <h1 className="edu-title"></h1>
 
         <div className="article-list">
           {articles.map(element => {
@@ -220,7 +212,8 @@ function Maps({ ...prop }) {
             style={progressBar}
             now={state.eduProgress}
             variant="custom"
-            striped variant="danger" 
+            striped
+            variant="danger"
             label={score()}
           />
         </div>
