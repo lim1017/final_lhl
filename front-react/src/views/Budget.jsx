@@ -420,9 +420,10 @@ function Budget(props) {
   };
 
   const setDisplayForPVAS = function(budgetKey, totalExpenses, inc, goal) {
-    let height,
-      plan,
-      actual = 0;
+    let minHeight = 0;
+    let maxHeight = 0;
+    let plan = 0;
+    let actual = 0;
 
     for (const budget of budgetKey) {
       plan += parseInt(budget);
@@ -432,22 +433,40 @@ function Budget(props) {
       actual += parseInt(expense.sum);
     }
 
-    plan = Math.abs(inc - plan);
-    actual = Math.abs(actual - inc);
+    // plan = Math.abs(inc - plan);
+    // actual = Math.abs(actual - inc);
 
-    if (plan > actual) height = plan;
-    else height = actual;
+    if (plan > actual) {
+      maxHeight = inc - actual;
+      minHeight = inc - plan;
+    } else {
+      minHeight = inc - actual;
+      maxHeight = inc - plan;
+    }
 
     for (const g of goal) {
       if (g.type === "SPM") {
-        if (parseInt(g.amount) > height) height = g.amount;
+        if (parseInt(g.amount) > maxHeight) maxHeight = g.amount;
       }
     }
 
+    // if both values are below 0
+    if (maxHeight <= 0 && minHeight <= 0) maxHeight = 0;
+    else if (minHeight >= 0) minHeight = 0;
+    else {
+      if (Math.abs(minHeight) < Math.abs(maxHeight)) minHeight = -maxHeight;
+      else maxHeight = -minHeight;
+    }
+
+    console.log('stage three', maxHeight, minHeight)
+
     const result = {
-      yMax: Math.floor(height * 1.25),
-      yMin: Math.floor(-height * 1.25)
+      yMax: Math.floor(maxHeight * 1.25),
+      yMin: Math.floor(minHeight * 1.25)
     };
+
+    console.log('stage four', result.yMax, result.yMin)
+
     return result;
   };
 
@@ -955,12 +974,12 @@ function Budget(props) {
                       <YAxis
                         stroke="#e7e7e7"
                         domain={[
-                          -setDisplayForPVAS(
+                          setDisplayForPVAS(
                             budgetKey,
                             state.totalExpenses,
                             budget.income,
                             goal.select
-                          ).yMax,
+                          ).yMin,
                           setDisplayForPVAS(
                             budgetKey,
                             state.totalExpenses,
