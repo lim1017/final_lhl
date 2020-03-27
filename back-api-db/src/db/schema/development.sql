@@ -79,5 +79,5 @@ VALUES (1, 100000, 5000, 2000, 200, 800, 400, 200, 100, 100, 300);
   
 INSERT INTO goals (name, user_id, type, amount, description, date)
 VALUES
-    ('goal01 save for purchase', 1, 'SFP', 200000, 'description', '01/5/2027'),
+    ('goal01 save for purchase', 1, 'SFP', 200000, 'description', '01/5/2027')
     
