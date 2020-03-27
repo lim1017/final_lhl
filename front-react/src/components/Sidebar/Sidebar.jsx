@@ -158,6 +158,7 @@ function Sidebar(props) {
                     </div>
                     <div className="sidebar-content">
                       <Link to={`/welcome`} onClick={() => logout()}>
+
                       <MUButton
                         style={{
                           ...style,

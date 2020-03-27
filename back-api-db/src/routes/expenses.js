@@ -195,6 +195,7 @@ module.exports = db => {
 
     
     date= req.params.date.split('+')
+    console.log(date, 'date from expenses')
 
   db.query(
     `

@@ -29,15 +29,30 @@ import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
 import appDataContext from "../hooks/reducers/useContext";
 import { MDBDataTable } from "mdbreact";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
 import reducerz, { SET_DATA, SET_DATE, SET_USER } from "../hooks/reducers/app";
+import MUButton from '@material-ui/core/Button';
+
 
 function Dashboard(props) {
   const { state, dispatch } = useContext(appDataContext);
   const [addExpense, setAddExpense] = useState(false);
   const [fileUploaded, setFileUploaded] = useState(false);
   const [user, setUser] = useState(false);
+
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+
+  const style = {
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    borderRadius: 3,
+    border: 0,
+    color: 'white',
+    height: 40,
+    width: 105,
+    padding: '0 30px',
+    boxShadow: '0 3px 5px 2px #4a148c 30%',
+    marginLeft: 0,
+  };
 
   const COLORS = [
     "#ffe7ea",
@@ -51,13 +66,17 @@ function Dashboard(props) {
   ];
 
   useEffect(() => {
-    console.log(state);
-    setUser(localStorage.getItem("id"));
     refreshExpenses(state.date);
+
+    console.log('runing exp')
+    const userz=localStorage.getItem("id")
+    setUser(userz);
   }, []);
 
   function doDispatch(date, data) {
-    let datez = `${date.month}+${date.year}+${user}`;
+    const userz=localStorage.getItem("id")
+
+    let datez = `${date.month}+${date.year}+${userz}`;
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
@@ -154,7 +173,9 @@ function Dashboard(props) {
   }
 
   function refreshExpenses(date) {
-    let datez = `${date.month}+${date.year}+${user}`;
+    const userz=localStorage.getItem("id")
+
+    let datez = `${date.month}+${date.year}+${userz}`;
 
     Promise.all([
       axios.get(`http://localhost:8001/api/expenses/${datez}`),
@@ -229,20 +250,34 @@ function Dashboard(props) {
                     }}
                   />
                   <div className="addExpenseDiv">
-                    <Button
-                      variant="contained"
-                      // color="primary"
-                      style={{
-                        backgroundColor: "#272727",
-                        color: "#e7e7e7",
-                        fontWeight: "bold",
-                        height: "50px",
-                        marginLeft: "3em"
-                      }}
+                  <MUButton
+                    style={{
+                      ...style,
+                      background: button1.color,
+                      marginRight:'1em',
+                      marginLeft:'1em',
+                      marginTop:'4px'
+                    }}
+                      onMouseLeave={() => setButton1({
+                        ...button1,
+                        color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+                      })}
+                      onMouseOver={() => setButton1({
+                        ...button1,
+                        color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+                      })}
+                      onMouseUp={() => setButton1({
+                        ...button1,
+                        x: 0
+                      })}
+                      onMouseDown={() => setButton1({
+                        ...button1,
+                        x: 2
+                      })}
                       onClick={() => toggleState()}
                     >
                       Add an expense
-                    </Button>
+                    </MUButton>
 
                     <FileUpload
                       handleFile={handleFile}
@@ -328,8 +363,9 @@ function Dashboard(props) {
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
+                    <XAxis dataKey="name" tick={{ fill: 'white' }} />
+
+                    <YAxis tick={{ fill: 'white' }} />
                     <Tooltip />
                     <Legend verticalAlign="bottom" height={6} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
