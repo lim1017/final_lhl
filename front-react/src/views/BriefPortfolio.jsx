@@ -130,7 +130,6 @@ function BriefPortfolio(props) {
           width={450}
         />
       </PieChart>
-
     </div>
   );
 }

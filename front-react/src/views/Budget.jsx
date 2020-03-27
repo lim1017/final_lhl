@@ -217,11 +217,9 @@ function Budget(props) {
             budget: res2.data
           });
 
-          if(state.budget.length === 0){
-            updateLit()
+          if (state.budget.length === 0) {
+            updateLit();
           }
-          
-
         });
       })
       .catch(error => {
@@ -229,24 +227,24 @@ function Budget(props) {
       });
   }
 
-
-  function updateLit(){
-    const userId = localStorage.getItem('id');
+  function updateLit() {
+    const userId = localStorage.getItem("id");
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/updateliteracy`, {userId, lit:25}),
+      axios.put(`http://localhost:8001/api/users/updateliteracy`, {
+        userId,
+        lit: 25
+      })
     ])
       .then(res => {
-        
-        axios.get((`http://localhost:8001/api/users/${userId}`))
-            .then(resz =>{
-              console.log(resz, 'after file upload')
-              console.log(resz.data[0])
-              dispatch({
-                type: "SET_USER",
-                users: resz.data
-              });
-            })
+        axios.get(`http://localhost:8001/api/users/${userId}`).then(resz => {
+          console.log(resz, "after file upload");
+          console.log(resz.data[0]);
+          dispatch({
+            type: "SET_USER",
+            users: resz.data
+          });
+        });
       })
       .catch(error => {
         console.log(error);
@@ -321,7 +319,7 @@ function Budget(props) {
     if (t >= 1000 || t <= -1000) return `$${Math.round(t / 100) / 10}K`;
     if (t <= -1000000) return `$${Math.round(t / 100000) / 10}M`;
     return `$${t}`;
-  }
+  };
 
   const formatDataForPVAT = function(budgetKey, totalExpenses) {
     const result = [];
@@ -470,13 +468,35 @@ function Budget(props) {
 
   const PVATreferenceLinesY = goal.select.map(g => {
     if (g.type === "LE") {
-      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" label={{ position: 'left',  value: `${formatNumbers(g.amount)}`, fontSize: 10 }} />;
+      return (
+        <ReferenceLine
+          key={g.id * 100 + 1}
+          y={g.amount}
+          stroke="red"
+          label={{
+            position: "left",
+            value: `${formatNumbers(g.amount)}`,
+            fontSize: 10
+          }}
+        />
+      );
     }
   });
 
   const PVASreferenceLinesY = goal.select.map(g => {
     if (g.type === "SPM") {
-      return <ReferenceLine key={g.id * 100 + 1} y={g.amount} stroke="red" label={{ position: 'left',  value: `${formatNumbers(g.amount)}`, fontSize: 10 }} />;
+      return (
+        <ReferenceLine
+          key={g.id * 100 + 1}
+          y={g.amount}
+          stroke="red"
+          label={{
+            position: "left",
+            value: `${formatNumbers(g.amount)}`,
+            fontSize: 10
+          }}
+        />
+      );
     }
   });
 
@@ -488,15 +508,24 @@ function Budget(props) {
           key={g.id * 100 + 1}
           y={g.amount}
           stroke="red"
-          label={{ position: 'left',  value: `${formatNumbers(g.amount)}`, fontSize: 10 }}
+          label={{
+            position: "left",
+            value: `${formatNumbers(g.amount)}`,
+            fontSize: 10
+          }}
         />
       );
     }
   });
 
-  const BOTGreferenceLinesX = budgetSetGraphData(budget, range, portfolio, goal.select).goalCheck.map(g => {
+  const BOTGreferenceLinesX = budgetSetGraphData(
+    budget,
+    range,
+    portfolio,
+    goal.select
+  ).goalCheck.map(g => {
     if (g.goal.type === "SFP") {
-      if (g.type === 'AWOI') {
+      if (g.type === "AWOI") {
         return (
           <ReferenceLine
             key={g.goal.id + 1000}
@@ -506,7 +535,7 @@ function Budget(props) {
             // label={{ position: 'bottom',  value: `${g.x.split(' ')[1]} ${g.x.split(' ')[2]}`, fontSize: 10 }}
           />
         );
-      } else if (g.type === 'AAWI') {
+      } else if (g.type === "AAWI") {
         return (
           <ReferenceLine
             key={g.goal.id + 1100}
@@ -515,14 +544,8 @@ function Budget(props) {
             strokeDasharray="3 3"
           />
         );
-      } else if (g.type === 'DATE') {
-        return (
-          <ReferenceLine
-            key={g.goal.id + 1200}
-            x={g.x}
-            stroke="red"
-          />
-        );
+      } else if (g.type === "DATE") {
+        return <ReferenceLine key={g.goal.id + 1200} x={g.x} stroke="red" />;
       }
     }
   });
@@ -613,7 +636,7 @@ function Budget(props) {
         toggle.pvat === false
       )
         return ` budgetContentCD`;
-      else if (toggle.botg === false) return ' budgetContentF';
+      else if (toggle.botg === false) return " budgetContentF";
       return ` budgetContentC`;
     }
     if (loc === "D") {
@@ -630,7 +653,7 @@ function Budget(props) {
       else if (toggle.botg === false && toggle.pvas === false)
         return ` budgetContentC`;
       else if (toggle.botg === false) return ` budgetContentC`;
-      else if (toggle.pvat === false) return ' budgetContentF';
+      else if (toggle.pvat === false) return " budgetContentF";
       return ` budgetContentD`;
     }
     if (loc === "E") {
@@ -759,7 +782,7 @@ function Budget(props) {
         <div
           className={"budgetContent" + cardLoc(toggle, "D", winWidth >= 1276)}
         >
-          {toggle.pvat ?
+          {toggle.pvat ? (
             <CardBudget
               title="Budgeted vs Actual Expenses"
               size={cardSize(winWidth).card}
@@ -772,42 +795,57 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
-                  {info.pvat ?
-                  <div>
-                    <p>This graph compares your monthly expenses from Budget Planner card and your actual expenses for given month, from the Expenses tab. The graph is displayed with all expenses categories stacked together, which makes it easier to compare total expenses. To change specific month to compare, use Change Month on the left side of top Navigation bar.</p>
-                    <p>When a Limit Expenses type of goal is checked from Goals card, the goal's amount will be displayed on graph.</p>
-                    <p>Press ? icon to go back to Budgeted vs Actual Expenses graph.</p>
-                  </div> :
-                  <BarChart
-                    height={cardSize(winWidth).graphY}
-                    data={formatDataForPVAT(budgetKey, state.totalExpenses)}
-                    margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis
-                      domain={[
-                        0,
-                        setDisplayForPVAT(
-                          budgetKey,
-                          state.totalExpenses,
-                          goal.select
-                        )
-                      ]}
-                      tickFormatter={t => {
-                        return formatNumbers(t);
-                      }}
-                    />
-                    <Tooltip />
-                    <Legend />
-                    {PVATdata}
-                    {PVATreferenceLinesY}
-                  </BarChart>
-                  }
+                  {info.pvat ? (
+                    <div>
+                      <p>
+                        This graph compares your monthly expenses from Budget
+                        Planner card and your actual expenses for given month,
+                        from the Expenses tab. The graph is displayed with all
+                        expenses categories stacked together, which makes it
+                        easier to compare total expenses. To change specific
+                        month to compare, use Change Month on the left side of
+                        top Navigation bar.
+                      </p>
+                      <p>
+                        When a Limit Expenses type of goal is checked from Goals
+                        card, the goal's amount will be displayed on graph.
+                      </p>
+                      <p>
+                        Press ? icon to go back to Budgeted vs Actual Expenses
+                        graph.
+                      </p>
+                    </div>
+                  ) : (
+                    <BarChart
+                      height={cardSize(winWidth).graphY}
+                      data={formatDataForPVAT(budgetKey, state.totalExpenses)}
+                      margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis
+                        domain={[
+                          0,
+                          setDisplayForPVAT(
+                            budgetKey,
+                            state.totalExpenses,
+                            goal.select
+                          )
+                        ]}
+                        tickFormatter={t => {
+                          return formatNumbers(t);
+                        }}
+                      />
+                      <Tooltip />
+                      <Legend />
+                      {PVATdata}
+                      {PVATreferenceLinesY}
+                    </BarChart>
+                  )}
                 </ResponsiveContainer>
               }
             />
-          : null}
+          ) : null}
         </div>
         <div
           className={"budgetContent" + cardLoc(toggle, "E", winWidth >= 1276)}
@@ -825,33 +863,45 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
-                  {info.pvac ?
-                  <div>
-                    <p>This graph compares your monthly expenses from Budget Planner card and your actual expenses for given month, from the Expenses tab. The graph is displayed with each expenses categories on separate pair of bars, which makes it easier to compare specific type of expenses. To change specific month to compare, use Change Month on the left side of top Navigation bar.</p>
-                    <p>Press ? icon to go back to Budgeted vs Actual Expenses by Category graph.</p>
-                  </div> :
-                  <BarChart
-                    height={cardSize(winWidth).graphY}
-                    data={formatDataForPVAC(budgetKey, state.totalExpenses)}
-                    margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis
-                      domain={[
-                        0,
-                        setDisplayForPVAC(budgetKey, state.totalExpenses)
-                      ]}
-                      tickFormatter={t => {
-                        return formatNumbers(t);
-                      }}
-                    />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="Budgeted" fill="#ffe7ea" />
-                    <Bar dataKey="Actual" fill="#c4d2c7" />
-                  </BarChart>
-                  }
+                  {info.pvac ? (
+                    <div>
+                      <p>
+                        This graph compares your monthly expenses from Budget
+                        Planner card and your actual expenses for given month,
+                        from the Expenses tab. The graph is displayed with each
+                        expenses categories on separate pair of bars, which
+                        makes it easier to compare specific type of expenses. To
+                        change specific month to compare, use Change Month on
+                        the left side of top Navigation bar.
+                      </p>
+                      <p>
+                        Press ? icon to go back to Budgeted vs Actual Expenses
+                        by Category graph.
+                      </p>
+                    </div>
+                  ) : (
+                    <BarChart
+                      height={cardSize(winWidth).graphY}
+                      data={formatDataForPVAC(budgetKey, state.totalExpenses)}
+                      margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis
+                        domain={[
+                          0,
+                          setDisplayForPVAC(budgetKey, state.totalExpenses)
+                        ]}
+                        tickFormatter={t => {
+                          return formatNumbers(t);
+                        }}
+                      />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="Budgeted" fill="#ffe7ea" />
+                      <Bar dataKey="Actual" fill="#c4d2c7" />
+                    </BarChart>
+                  )}
                 </ResponsiveContainer>
               }
             />
@@ -873,50 +923,58 @@ function Budget(props) {
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
-                  {info.pvas ?
-                  <div>
-                    <p>This graph compares monthly surplus from Budget Planner card and monthly surplus from actual expenses from Expenses tab, calculated by subtracting actual expenses from budgeted monthly income.</p>
-                    <p>When a Save per Month type of goal is checked from Goals card, the goal's amount will be displayed on graph.</p>
-                    <p>Press ? icon to go back to Budgeted vs Actual Monthly Saving graph.</p>
-                  </div> :
-                  <BarChart
-                    height={cardSize(winWidth).graphY}
-                    data={formatDataForPVAS(budgetKey, state.totalExpenses)}
-                    margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
-                  >
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis
-                      domain={[
-                        -setDisplayForPVAS(
-                          budgetKey,
-                          state.totalExpenses,
-                          budget.income,
-                          goal.select
-                        ).yMax,
-                        setDisplayForPVAS(
-                          budgetKey,
-                          state.totalExpenses,
-                          budget.income,
-                          goal.select
-                        ).yMax
-                      ]}
-                      tickFormatter={t => {
-                        return formatNumbers(t);
-                      }}
-                    />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="Plan" fill="#ffe7ea" />
-                    <Bar dataKey="Actual" fill="#c4d2c7" />
-                    {PVASreferenceLinesY}
-                    <ReferenceLine
-                      key={999}
-                      y={0}
-                      stroke="black"
-                    />
-                  </BarChart>
-                  }
+                  {info.pvas ? (
+                    <div>
+                      <p>
+                        This graph compares monthly surplus from Budget Planner
+                        card and monthly surplus from actual expenses from
+                        Expenses tab, calculated by subtracting actual expenses
+                        from budgeted monthly income.
+                      </p>
+                      <p>
+                        When a Save per Month type of goal is checked from Goals
+                        card, the goal's amount will be displayed on graph.
+                      </p>
+                      <p>
+                        Press ? icon to go back to Budgeted vs Actual Monthly
+                        Saving graph.
+                      </p>
+                    </div>
+                  ) : (
+                    <BarChart
+                      height={cardSize(winWidth).graphY}
+                      data={formatDataForPVAS(budgetKey, state.totalExpenses)}
+                      margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="name" />
+                      <YAxis
+                        domain={[
+                          -setDisplayForPVAS(
+                            budgetKey,
+                            state.totalExpenses,
+                            budget.income,
+                            goal.select
+                          ).yMax,
+                          setDisplayForPVAS(
+                            budgetKey,
+                            state.totalExpenses,
+                            budget.income,
+                            goal.select
+                          ).yMax
+                        ]}
+                        tickFormatter={t => {
+                          return formatNumbers(t);
+                        }}
+                      />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="Plan" fill="#ffe7ea" />
+                      <Bar dataKey="Actual" fill="#c4d2c7" />
+                      {PVASreferenceLinesY}
+                      <ReferenceLine key={999} y={0} stroke="black" />
+                    </BarChart>
+                  )}
                 </ResponsiveContainer>
               }
             />
@@ -927,7 +985,7 @@ function Budget(props) {
         >
           {toggle.botg ? (
             <BudgetGraphCard
-              title="Power of Investing"
+              title="Discover the Power of Investing"
               range={range}
               setRange={setRange}
               size={cardSize(winWidth).card}
@@ -935,84 +993,129 @@ function Budget(props) {
               dispatchInfo={dispatchInfo}
               info={info}
               dispatchType="BOTG"
-              goalTrack={budgetSetGraphData(budget, range, portfolio, goal.select).goalCheck}
+              goalTrack={
+                budgetSetGraphData(budget, range, portfolio, goal.select)
+                  .goalCheck
+              }
               content={
                 <ResponsiveContainer
                   minWidth="100%"
                   minHeight={cardSize(winWidth).graphY}
                   maxHeight={cardSize(winWidth).graphY}
                 >
-                  {info.botg ?
-                  <div>
-                    <p>This graph displays your assets over time based on your budget from Budget Planner card.</p>
-                    <p>Green area represesnt your assets without investing, only including initial capital and monthly surplus.</p>
-                    <p>If you have completed Risk Assessment from Portfolio tab, the graph will also calculate gains from investment based on the portfolio return, which will be displayed as pink area.</p>
-                    <p>When a Save for Purchase type of goal is checked from Goals card, the goal's amount, deadline, and when the goal can be met with or without investing, if they can be met, will be displayed on graph.</p>
-                    <p>Press ? icon to go back to Power of Investing graph.</p>
-                  </div> :
-                  <AreaChart
-                    height={cardSize(winWidth).graphY}
-                    data={budgetSetGraphData(budget, range, portfolio, goal.select).data}
-                    margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
-                  >
-                    <CartesianGrid
-                      strokeDasharray="3"
-                      vertical={false}
-                    />
-                    <XAxis
-                      dataKey="name"
-                      tickFormatter={t => {
-                        if (parseInt(t.split(" ")[0]) === range) {
-                          return `${t.split(" ")[1]} ${t.split(" ")[2]}`;
-                        }
-                        return ``;
-                      }}
-                      tickLine={false}
-                    />
-                    <YAxis
-                      tickFormatter={t => {
-                        return formatNumbers(t);
-                      }}
-                      domain={[
-                        setDisplayForBOTG(budget, goal.select).yMin,
-                        setDisplayForBOTG(budget, goal.select).yMax
-                      ]}
-                    />
-                    <Tooltip
-                      content={({label, payload}) => {
-                        return (
-                          <div className="BOTGtooltip">
-                            <div className="BOTGtooltipTitle">{label ? `${label.split(" ")[1]} ${label.split(" ")[2]}` : null}</div>
-                            <div>Asset w/o Investing : {payload[0] ? formatNumbers(payload[0].value) : null}</div>
-                            {payload[1] ?
-                            <>
-                              <div>Asset from Investing : {formatNumbers(payload[1].value)}</div>
-                              <div>Total Asset : {formatNumbers(payload[0].value + payload[1].value)}</div>
-                            </>
-                            : null}
-                          </div>
-                        )
-                      }}
-                    />
-                    <Legend />
-                    <Area
-                      type="monotone"
-                      dataKey="Assets without Investing"
-                      stackId="1"
-                      stroke="#c4d2c7"
-                      fill="#c4d2c7"
-                    />
-                    <Area
-                      type="monotone"
-                      dataKey="Additional Assets with Investing"
-                      stackId="1"
-                      stroke="#ffe7ea"
-                      fill="#ffe7ea"
-                    />
-                    {BOTGreferenceLinesY}
-                    {BOTGreferenceLinesX}
-                  </AreaChart>
-                  }
+                  {info.botg ? (
+                    <div>
+                      <p>
+                        This graph displays your assets over time based on your
+                        budget from Budget Planner card.
+                      </p>
+                      <p>
+                        Green area represesnt your assets without investing,
+                        only including initial capital and monthly surplus.
+                      </p>
+                      <p>
+                        If you have completed Risk Assessment from Portfolio
+                        tab, the graph will also calculate gains from investment
+                        based on the portfolio return, which will be displayed
+                        as pink area.
+                      </p>
+                      <p>
+                        When a Save for Purchase type of goal is checked from
+                        Goals card, the goal's amount, deadline, and when the
+                        goal can be met with or without investing, if they can
+                        be met, will be displayed on graph.
+                      </p>
+                      <p>
+                        Press ? icon to go back to Power of Investing graph.
+                      </p>
+                    </div>
+                  ) : (
+                    <AreaChart
+                      height={cardSize(winWidth).graphY}
+                      data={
+                        budgetSetGraphData(
+                          budget,
+                          range,
+                          portfolio,
+                          goal.select
+                        ).data
+                      }
+                      margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
+                    >
+                      <CartesianGrid strokeDasharray="3" vertical={false} />
+                      <XAxis
+                        dataKey="name"
+                        tickFormatter={t => {
+                          if (parseInt(t.split(" ")[0]) === range) {
+                            return `${t.split(" ")[1]} ${t.split(" ")[2]}`;
+                          }
+                          return ``;
+                        }}
+                        tickLine={false}
+                      />
+                      <YAxis
+                        tickFormatter={t => {
+                          return formatNumbers(t);
+                        }}
+                        domain={[
+                          setDisplayForBOTG(budget, goal.select).yMin,
+                          setDisplayForBOTG(budget, goal.select).yMax
+                        ]}
+                      />
+                      <Tooltip
+                        content={({ label, payload }) => {
+                          return (
+                            <div className="BOTGtooltip">
+                              <div className="BOTGtooltipTitle">
+                                {label
+                                  ? `${label.split(" ")[1]} ${
+                                      label.split(" ")[2]
+                                    }`
+                                  : null}
+                              </div>
+                              <div>
+                                Asset w/o Investing :{" "}
+                                {payload[0]
+                                  ? formatNumbers(payload[0].value)
+                                  : null}
+                              </div>
+                              {payload[1] ? (
+                                <>
+                                  <div>
+                                    Asset from Investing :{" "}
+                                    {formatNumbers(payload[1].value)}
+                                  </div>
+                                  <div>
+                                    Total Asset :{" "}
+                                    {formatNumbers(
+                                      payload[0].value + payload[1].value
+                                    )}
+                                  </div>
+                                </>
+                              ) : null}
+                            </div>
+                          );
+                        }}
+                      />
+                      <Legend />
+                      <Area
+                        type="monotone"
+                        dataKey="Assets without Investing"
+                        stackId="1"
+                        stroke="#c4d2c7"
+                        fill="#c4d2c7"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="Additional Assets with Investing"
+                        stackId="1"
+                        stroke="#ffe7ea"
+                        fill="#ffe7ea"
+                      />
+                      {BOTGreferenceLinesY}
+                      {BOTGreferenceLinesX}
+                    </AreaChart>
+                  )}
                 </ResponsiveContainer>
               }
             />
