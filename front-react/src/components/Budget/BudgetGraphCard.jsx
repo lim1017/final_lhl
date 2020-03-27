@@ -4,6 +4,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { Scatter } from "recharts";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -49,32 +50,45 @@ export const BudgetGraphCard = function(props) {
       } else typeCheck = false;
     }
 
-    if (typeCheck && goalCheck.length !== 0 && !props.info.botg) {
+    if (props.budgetCalc <= 0) {
       return (
         <div className="category">
-          {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck ? (
+           <p>
+            Please save a positive amount in order to invest.
+            </p>
+        </div>
+      )
+    } else if (typeCheck && goalCheck.length !== 0 && !props.info.botg) {
+      return (
+        <div className="category">
+          {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck || sc.aCheck < 0 && sc.iCheck < 0 ? (
             <p>
               Your goal cannot be met by <span className="red">deadline</span>{" "}
               of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
           ) : null}
-          {sc.aCheck < sc.dCheck || sc.iCheck < sc.dCheck ? (
+          {sc.aCheck < sc.dCheck && sc.aCheck > 0 || sc.iCheck < sc.dCheck && sc.iCheck > 0 ? (
             <p>
               Your goal can be met by <span className="red">deadline</span> of{" "}
               {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
           ) : null}
-          {sc.iCheck >= 0 ? (
+          {sc.iCheck >= 0 && sc.iCheck < 600 ? (
             <p>
               Your goal can be met <span className="blue">investing</span> by{" "}
               {`${sc.ix.split(" ")[1]} ${sc.ix.split(" ")[2]}`}.
             </p>
           ) : null}
-          {sc.aCheck >= 0 >= 0 ? (
+          {sc.aCheck >= 0 && sc.aCheck < 600 ? (
             <p>
               Your goal can be met{" "}
               <span className="green">without investing</span> by{" "}
               {`${sc.ax.split(" ")[1]} ${sc.ax.split(" ")[2]}`}.
+            </p>
+          ) : null}
+          {sc.aCheck < 600 && sc.iCheck < 600 ? (
+            <p>
+              Your goal cannot be met within 50 years.
             </p>
           ) : null}
         </div>
@@ -134,6 +148,7 @@ export const BudgetGraphCard = function(props) {
               <MenuItem value={12}>1 Year</MenuItem>
               <MenuItem value={60}>5 Years</MenuItem>
               <MenuItem value={120}>10 Years</MenuItem>
+              <MenuItem value={180}>15 Years</MenuItem>
               <MenuItem value={240}>20 Years</MenuItem>
               <MenuItem value={600}>50 Years</MenuItem>
             </Select>

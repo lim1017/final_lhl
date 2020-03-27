@@ -55,6 +55,7 @@ export default function BudgetGoals(props) {
     if (range < 12) {props.setRange(12)}
     if (range < 60 && range >= 12) {props.setRange(60)}
     if (range < 120 && range >= 60) {props.setRange(120)}
+    if (range < 180 && range >= 120) {props.setRange(180)}
     if (range < 240 && range >= 240) {props.setRange(240)}
     if (range >= 240) {props.setRange(600)}
   }
