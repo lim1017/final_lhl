@@ -3,6 +3,8 @@ import CustomButton from "../CustomButton/CustomButton";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import { getMonthNum } from "../../helpers/goal";
+import MUButton from "@material-ui/core/Button";
+
 
 export default function Form(props) {
   const [name, setName] = useState(props.name || "");
@@ -16,6 +18,24 @@ export default function Form(props) {
     props.date.split("-")[2] || new Date().getFullYear() + 1
   );
   const [error, setError] = useState("");
+
+  const [button1, setButton1] = useState({
+    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    x: 0
+  });
+
+  const style = {
+    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    borderRadius: 3,
+    border: 0,
+    color: "white",
+    height: 35,
+    width: 85,
+    padding: "0 30px",
+    boxShadow: "0 3px 5px 2px #4a148c 30%",
+    marginLeft: 0
+  };
+
 
   const typeCheck = function(value) {
     if (value !== type) {
@@ -67,17 +87,6 @@ export default function Form(props) {
     }
   }
 
-  // function onlyNumberKey(evt) {
-
-  //   // Only ASCII charactar in that range allowed
-  //   var ASCIICode = (evt.which) ? evt.which : evt.keyCode
-  //   if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
-  //       return false;
-  //   return true;
-  // }
-
-  console.log("goal edit props date: ", props.date, month, year);
-  console.log("current date: ", new Date(`${month}/1/${year}`));
 
   return (
     <>
@@ -218,28 +227,82 @@ export default function Form(props) {
               </div>
               <div className="errorMessage">{error}</div>
               <div className="buttons">
-                <CustomButton
-                  className="button"
-                  style={{
-                    color: "black",
-                    backgroundColor: "white",
-                    borderColor: "#ffe7ea"
-                  }}
+              <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
                   onClick={() => cancel()}
                 >
                   Cancel
-                </CustomButton>
-                <CustomButton
-                  className="button"
-                  style={{
-                    color: "black",
-                    backgroundColor: "white",
-                    borderColor: "#ffe7ea"
-                  }}
+                </MUButton>
+                <MUButton
+                      style={{
+                        ...style,
+                        background: button1.color,
+                        marginRight: "1em",
+                        marginLeft: "1em",
+                        marginTop: "4px"
+                      }}
+                      onMouseLeave={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+                        })
+                      }
+                      onMouseOver={() =>
+                        setButton1({
+                          ...button1,
+                          color:
+                            "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                        })
+                      }
+                      onMouseUp={() =>
+                        setButton1({
+                          ...button1,
+                          x: 0
+                        })
+                      }
+                      onMouseDown={() =>
+                        setButton1({
+                          ...button1,
+                          x: 2
+                        })
+                      }
                   onClick={() => validate()}
                 >
                   Save
-                </CustomButton>
+                </MUButton>
               </div>
             </div>
           </form>
