@@ -1,5 +1,5 @@
 import React from "react";
-import { PieChart, Pie, Legend, Cell } from "recharts";
+import { PieChart, Pie, Legend, Cell, Tooltip } from "recharts";
 
 function createPie(portfolioTypes) {
   console.log("dashboard", portfolioTypes);
@@ -33,6 +33,9 @@ function CardPortfolio(props) {
         {`My expected return is ${props.state.users[0].portfolioreturn}`}{" "}
       </div>
       <PieChart width={730} height={500}>
+      <Tooltip itemStyle={{ color: '#e7e7e7' }}
+                contentStyle={{ backgroundColor: "#272727" }} />
+
         <Pie
           data={createPie(
             props.portfolioDistribution(props.state.users[0].riskscore)

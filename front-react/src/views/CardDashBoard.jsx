@@ -206,6 +206,10 @@ function CardDashBoard(props) {
                   {returnMonthText(parseInt(props.state.date.month))}:
                 </h4>
                 <PieChart width={550} height={350}>
+                <Tooltip
+                itemStyle={{ color: '#e7e7e7' }}
+                contentStyle={{ backgroundColor: "#272727" }} />
+
                   <Pie
                     data={createPie(props.state.totalExpenses)}
                     dataKey="value"
