@@ -5,6 +5,7 @@ import Questionnaire from "./Questionnaire";
 import RenderPortfolio from "./RenderPortfolio";
 import axios from "axios";
 import { SET_DATA, SET_USER } from "hooks/reducers/app";
+import MUButton from '@material-ui/core/Button';
 
 
 function portfolioDistribution(riskScore) {
@@ -89,6 +90,18 @@ function Portfolio(props) {
     questionFive: 0,
     portfolioReturn: 1
   });
+
+  //for the big button
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+
+  const style = {
+    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+    borderRadius: 30,
+    border: 0,
+    color: 'white',
+    fontSize: 20,
+  };
+
 
   // RENDER CHART IF USER ALREADY SUBMITTED ASSESSMENT
 
@@ -183,13 +196,35 @@ function Portfolio(props) {
           <div className="risk-assessment-button-image-container">
             <div className="risk-assessment-background-image"></div>
             <Link to={`${match.url}/questionnaire`}>
-              <button
-                rel="Submit"
-                href="#"
-                className="risk-assessment-start-button"
-              >
-                Start Risk Assessment
-              </button>
+            <MUButton
+           className="risk-assessment-start-button"
+           style={{
+            ...style,
+            background: button1.color,
+            height: 70 - button1.x,
+            width: 350 - button1.x,
+            margin: button1.x/2
+          }}
+            onMouseLeave={() => setButton1({
+              ...button1,
+              color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+              x: 0
+            })}
+            onMouseOver={() => setButton1({
+              ...button1,
+              color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
+            })}
+            onMouseUp={() => setButton1({
+              ...button1,
+              x: 0
+            })}
+            onMouseDown={() => setButton1({
+              ...button1,
+              x: 5
+            })} 
+          >
+          Start Risk Assessment          
+          </MUButton>
             </Link>
           </div>
         </Route>

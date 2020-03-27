@@ -41,7 +41,7 @@ function DashBudget(props) {
             onMouseDown={() => setButton1({
               ...button1,
               x: 5
-            })}
+            })} 
           >
             Start Budget
           </MUButton>
