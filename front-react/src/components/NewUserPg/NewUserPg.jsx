@@ -9,14 +9,10 @@ function NewUserPg(props) {
 
   const style = {
     background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-    borderRadius: 25,
+    borderRadius: 30,
     border: 0,
     color: 'white',
-    fontSize: 16,
-    height: 100,
-    padding: '0 50px 0 50px',
-    boxShadow: '0 3px 5px 2px #4a148c 30%',
-    marginLeft: 0,
+    fontSize: 18,
   };
 
   return (
@@ -58,12 +54,14 @@ function NewUserPg(props) {
           style={{
             ...style,
             background: button1.color,
+            height: 100 - button1.x,
             width: 270 - button1.x,
-            marginLeft: button1.x,
+            margin: button1.x/2
           }}
           onMouseLeave={() => setButton1({
             ...button1,
-            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+            x: 0
           })}
           onMouseOver={() => setButton1({
             ...button1,
@@ -75,7 +73,7 @@ function NewUserPg(props) {
           })}
           onMouseDown={() => setButton1({
             ...button1,
-            x: 1
+            x: 5
           })}
           onClick={() => {
             console.log("clicked");
@@ -84,17 +82,6 @@ function NewUserPg(props) {
         >
           Get Started Now
         </MUButton>
-
-        <button
-          className="new-user-button"
-          onClick={() => {
-            console.log("clicked");
-            props.oldUser();
-            // localStorage.setItem("newUser", false);
-          }}
-        >
-          Get Started Now
-        </button>
       </div>
 
       {/* <div className='welcome-quote'>

@@ -167,7 +167,8 @@ function Login(props) {
           }}
           onMouseLeave={() => setButton2({
             ...button2,
-            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)'
+            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
+            x: 0
           })}
           onMouseOver={() => setButton2({
             ...button2,
