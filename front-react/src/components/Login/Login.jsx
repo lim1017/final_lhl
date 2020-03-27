@@ -1,9 +1,39 @@
+// imports & initialization
 import React, { useState } from "react";
 import { Form, Button, FormControl } from "react-bootstrap";
 import axios from "axios";
 
+import MUButton from '@material-ui/core/Button';
+
 import { Redirect, Route } from "react-router-dom";
 
+// button styling for Material Ui
+
+const style = {
+  background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+  ['&:hover']: { background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' },
+  borderRadius: 3,
+  border: 0,
+  color: 'white',
+  height: 40,
+  width: 105,
+  padding: '0 30px',
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+};
+
+const style2 = {
+  background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+  ['&:hover']: { background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)' },
+  borderRadius: 3,
+  border: 0,
+  color: 'white',
+  height: 40,
+  width: 105,
+  padding: '0 30px',
+  boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+};
+
+// exported function
 function Login(props) {
   const [loggedIn, setLoggedIn] = useState({ name: null, id: null });
 
@@ -112,13 +142,13 @@ function Login(props) {
           onChange={handleChangeName}
         />
 
-        <Button
-          style={{ width: "10rem", background: "#ffe7ea" }}
-          variant="outline-success"
+        <MUButton
+          style={style}
+          onMouseOver={() => style={style2}}
           onClick={() => register()}
         >
           Register
-        </Button>
+        </MUButton>
       </Form>
 
       {userExists === false ? (
