@@ -10,12 +10,6 @@ const app = express();
 
 const db = require("./db");
 
-
-
-
-// const days = require("./routes/days");
-// const appointments = require("./routes/appointments");
-// const interviewers = require("./routes/interviewers");
 const users = require("./routes/users");
 const expenses = require("./routes/expenses");
 const goals = require("./routes/goals");

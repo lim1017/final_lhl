@@ -1,20 +1,12 @@
 import React, { useState, useContext, useEffect } from "react";
-
 import { NavLink, Link } from "react-router-dom";
-
 import AdminNavbarLinks from "../Navbars/AdminNavbarLinks.jsx";
 import CardSidebar from "../Card/CardSidebar.jsx";
 import appDataContext from "../../hooks/reducers/useContext";
-
 import logo from "assets/img/piggylogo2.png";
 import { Button } from "react-bootstrap";
-
-
 import AnimatedNumber from 'react-animated-number';
-
-
-
-
+import MUButton from '@material-ui/core/Button';
 
 function Sidebar(props) {
   
@@ -22,6 +14,16 @@ function Sidebar(props) {
   const [width, setWidth] = useState(window.innerWidth);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState("");
+  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #dd2c00 30%, #ff9e80 90%)', x: 0});
+
+
+  const style = {
+    background: 'linear-gradient(45deg, #dd2c00 30%, #ff9e80 90%)',
+    borderRadius: 30,
+    border: 0,
+    color: 'white',
+    fontSize: 12,
+  };
 
   console.log(state)
 
@@ -29,7 +31,6 @@ function Sidebar(props) {
   function logout() {
     localStorage.clear();
 
-    // this.setState({ isLoggedIn: false });
     setIsLoggedIn(false)
   }
 
@@ -38,33 +39,18 @@ function Sidebar(props) {
   }
 
   function updateDimensions() {
-    // this.setState({ width: window.innerWidth });
     setWidth(window.innerWidth)
   }
 
-  // componentDidMount() {
-  //   this.updateDimensions();
-  //   window.addEventListener("resize", this.updateDimensions.bind(this));
-
-  //   const userId = localStorage.getItem("id");
-  //   const user = localStorage.getItem("username");
-
-  //   if (userId !== null) {
-  //     this.setState({ isLoggedIn: true });
-  //     this.setState({ loggedInUser: user });
-  //   }
-  // }
+  
 
   useEffect(() => {
     updateDimensions();
-    // window.addEventListener("resize", this.updateDimensions.bind(this));
 
     const userId = localStorage.getItem("id");
     const user = localStorage.getItem("username");
 
     if (userId !== null) {
-      // this.setState({ isLoggedIn: true });
-      // this.setState({ loggedInUser: user });
 
       setIsLoggedIn(true)
       setLoggedInUser(user)
@@ -98,7 +84,6 @@ function Sidebar(props) {
         </div>
         <div className="sidebar-wrapper">
           <ul className="nav">
-            {/* {width <= 991 ? <AdminNavbarLinks /> : null} */}
             {props.routes.map((prop, key) => {
               if (!prop.redirect)
                 return (
@@ -173,9 +158,35 @@ function Sidebar(props) {
                     </div>
                     <div className="sidebar-content">
                       <Link to={`/welcome`} onClick={() => logout()}>
-                        <Button variant="outline-success">
-                          Logout
-                        </Button>
+
+                      <MUButton
+                        style={{
+                          ...style,
+                          background: button1.color,
+                          height: 40 - button1.x,
+                          width: 90 - button1.x,
+                          margin: button1.x/2
+                        }}
+                        onMouseLeave={() => setButton1({
+                          ...button1,
+                          color: 'linear-gradient(45deg, #dd2c00 30%, #ff9e80 90%)',
+                          x: 0
+                        })}
+                        onMouseOver={() => setButton1({
+                          ...button1,
+                          color: 'linear-gradient(45deg, #ff3d00 30%, #ff9e80 90%)'
+                        })}
+                        onMouseUp={() => setButton1({
+                          ...button1,
+                          x: 0
+                        })}
+                        onMouseDown={() => setButton1({
+                          ...button1,
+                          x: 2
+                        })}
+                      >
+                        Logout
+                      </MUButton>
                       </Link>
                     </div>
                   </div>

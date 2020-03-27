@@ -1,9 +1,26 @@
 import React, { useState } from "react";
-import Button from "@material-ui/core/Button";
+import MUButton from "@material-ui/core/Button";
 
 function FileUpload(props) {
   const [fileName, setFileName] = useState(null);
   const [fileTypeError, setFileTypeError] = useState(false);
+
+  const [button1, setButton1] = useState({
+    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    x: 0
+  });
+
+  const style = {
+    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    borderRadius: 3,
+    border: 0,
+    color: "white",
+    height: 40,
+    width: 105,
+    padding: "0 30px",
+    boxShadow: "0 3px 5px 2px #4a148c 30%",
+    marginLeft: 0
+  };
 
   return (
     <div>
@@ -11,12 +28,19 @@ function FileUpload(props) {
         <label style={{ marginBottom: "0" }}>
           <div
             type="button"
-            className="btn btn-success"
+            className="btn"
             style={{
-              height: "50px",
-              backgroundColor: "#272727",
-              color: "#e7e7e7",
-              borderColor: "black"
+              background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+              borderRadius: 3,
+              border: 0,
+              color: "white",
+              height: 40,
+              width: 105,
+              padding: "5px 30px",
+              boxShadow: "0 3px 5px 2px #4a148c 30%",
+              marginLeft: 0,
+              marginBottom: "15px",
+              fontSize: 11
             }}
           >
             Select File
@@ -37,28 +61,45 @@ function FileUpload(props) {
             }}
           />
         </label>
-        <Button
+        <MUButton
           style={{
-            marginLeft: "2rem",
-            marginRight: "2em",
-            backgroundColor: "#272727",
-            color: "#e7e7e7",
-            fontWeight: "bold",
-            height: "50px"
+            ...style,
+            background: button1.color,
+            marginRight: "1em",
+            marginLeft: "1em",
+            marginTop: "4px"
           }}
-          variant="contained"
-          color="primary"
+          onMouseLeave={() =>
+            setButton1({
+              ...button1,
+              color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)"
+            })
+          }
+          onMouseOver={() =>
+            setButton1({
+              ...button1,
+              color: "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+            })
+          }
+          onMouseUp={() =>
+            setButton1({
+              ...button1,
+              x: 0
+            })
+          }
+          onMouseDown={() =>
+            setButton1({
+              ...button1,
+              x: 2
+            })
+          }
           onClick={() => {
             props.sendFileBack();
             setFileName(null);
           }}
         >
           Upload File
-        </Button>
-        {/* <button type="button" className="btn btn-success btn-block upload-btn" onClick={()=>{
-         props.sendFileBack()
-         setFileName(null) 
-        }}>Upload</button>  */}
+        </MUButton>
       </div>
       {fileTypeError ? (
         <div style={{ color: "red" }}>Please upload a .csv</div>
@@ -69,31 +110,5 @@ function FileUpload(props) {
   );
 }
 
-// class FileUpload extends React.Component{
-//   constructor(props){
-//     super(props);
-//     this.myRef= React.createRef()
-//   }
-
-//   render() {
-
-//     return (
-//       <div className='file-upload'>
-
-//         <button type="button" class="btn btn-success btn-block" onClick={()=>{handleClick()}}>Select File</button>
-//         {showFile ? (
-//                   <input ref={input => this.inputElement = input}  className='file-upload-btn' type="file" name="file" onChange={props.handleFile}/>
-//                     ) : null}
-
-//         <button type="button" class="btn btn-success btn-block" onClick={props.sendFileBack}>Upload</button>
-//       </div>
-//     );
-
-//   }
-
-//   function handleClick(){
-//     this.inputElement.click();
-//   }
-// }
 
 export default FileUpload;
