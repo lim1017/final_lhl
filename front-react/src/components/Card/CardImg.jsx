@@ -8,15 +8,8 @@ import Typography from '@material-ui/core/Typography';
 // import appDataContext from "../../hooks/reducers/useContext";
 
 
-const useStyles = makeStyles({
-
-});
-
-
 
 export default function CardImg(props) {
-  const classes = useStyles();
-  // const { state, dispatch } = useContext(appDataContext);
 
   return (
      
@@ -52,7 +45,7 @@ export default function CardImg(props) {
 
 
           {props.allAnswers[`${props.id}`] ? (
-            <img src="https://previews.123rf.com/images/yuliaglam/yuliaglam1403/yuliaglam140300046/26366894-vector-gold-star.jpg" width="40" height="40"></img>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQEb-I72D8063lA3rsK57jiHw6Ted5iJpJ0aTW3ZxdBYF9rUXiZ" width="40" height="40" alt="Smart Pig"></img>
                   ) : null}
 
 

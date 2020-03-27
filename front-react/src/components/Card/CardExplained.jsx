@@ -11,12 +11,13 @@ export default function CardExplained(props) {
           style={{
             maxWidth: 500,
             minHeight: 200,
-            opacity: 0.8,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           <TextField>
@@ -37,12 +38,13 @@ export default function CardExplained(props) {
           style={{
             maxWidth: 500,
             minHeight: 200,
-            opacity: 0.8,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           <TextField>
@@ -63,12 +65,13 @@ export default function CardExplained(props) {
           style={{
             maxWidth: 500,
             minHeight: 200,
-            opacity: 0.8,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           <TextField>
@@ -89,12 +92,13 @@ export default function CardExplained(props) {
           style={{
             maxWidth: 500,
             minHeight: 200,
-            opacity: 0.8,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           <TextField>
@@ -114,12 +118,13 @@ export default function CardExplained(props) {
           style={{
             maxWidth: 500,
             minHeight: 200,
-            opacity: 0.8,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           <TextField>
@@ -141,12 +146,13 @@ export default function CardExplained(props) {
             maxWidth: 500,
             minHeight: 200,
 
-            opacity: 0.8,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "white"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           <TextField>

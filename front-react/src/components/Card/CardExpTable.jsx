@@ -1,48 +1,59 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import MyVerticallyCenteredModal2 from "../MyVerticallyCenteredModal/MyVerticallyCenteredModal2.jsx";
 
-export class CardExpTable extends Component {
-  render() {
-    return (
-      <div className={"card" + (this.props.plain ? " card-plain" : "")}>
-        <div className={"header" + (this.props.hCenter ? " text-center" : "")}>
-          <h3 className="title">
-            {this.props.category} {this.props.title} 
-                <img
-                  src={require("../../assets/img/budget_quit.png")}
-                  alt="quit"
-                  height="20"
-                  width="20"
-                  onClick={() => {
-                    console.log('clicked')
-                  }}
-                />
-          </h3>
-        </div>
-        <div className="category" style={{ paddingLeft: 10 }}>
-          {this.props.content2}
-        </div>
-        <div
-          className={
-            "content" +
-            (this.props.ctAllIcons ? " all-icons" : "") +
-            (this.props.ctTableFullWidth ? " table-full-width" : "") +
-            (this.props.ctTableResponsive ? " table-responsive" : "") +
-            (this.props.ctTableUpgrade ? " table-upgrade" : "")
-          }
-        >
-          {this.props.content}
+function CardExpTable(props) {
+  const [modalShow, setModalShow] = useState(false);
 
-          <div className="footer">
-            {this.props.legend}
-            {this.props.stats != null ? <hr /> : ""}
-            <div className="stats">
-              <i className={this.props.statsIcon} /> {this.props.stats}
-            </div>
-          </div>
-        </div>
+  return (
+    <div className={"card" + (props.plain ? " card-plain" : "")}>
+      <div
+        id="exp-table-header"
+        className={"header" + (props.hCenter ? " text-center" : "")}
+      >
+        <h3 className="title">
+          {props.category} {props.title}
+        </h3>
+        <span className="exp-question-span">
+          <img
+            src={require("../../assets/img/budget_question.png")}
+            alt="quit"
+            height="28"
+            width="26"
+            onClick={() => {
+              setModalShow(true);
+            }}
+          />
+        </span>
       </div>
-    );
-  }
+      <div className="category" style={{ paddingLeft: 10 }}>
+        {props.content2}
+      </div>
+      <div
+        className={
+          "content" +
+          (props.ctAllIcons ? " all-icons" : "") +
+          (props.ctTableFullWidth ? " table-full-width" : "") +
+          (props.ctTableResponsive ? " table-responsive" : "") +
+          (props.ctTableUpgrade ? " table-upgrade" : "")
+        }
+      >
+        {props.content}
+
+        {/* <div className="footer">
+          {props.legend}
+          {props.stats != null ? <hr /> : ""}
+          <div className="stats">
+            <i className={props.statsIcon} /> {props.stats}
+          </div>
+        </div> */}
+      </div>
+
+      <MyVerticallyCenteredModal2
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
+    </div>
+  );
 }
 
 export default CardExpTable;

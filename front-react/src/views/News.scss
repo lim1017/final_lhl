@@ -18,7 +18,7 @@
   background-color: rgba(#000, 0.9);
   padding: 0 0 0 100%;
   box-sizing: content-box;
-
+  z-index: 1;
   .ticker-wrapper {
     position: absolute;
     display: flex;
@@ -35,7 +35,7 @@
     animation-duration: 50s;
 
     &.delayed {
-      animation-delay: 25s;
+      animation-delay: 29s;
     }
 
     .ticker {

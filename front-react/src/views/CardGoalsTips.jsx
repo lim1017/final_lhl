@@ -20,7 +20,7 @@ function CardGoalsTips(props) {
               marginBottom: 20,
               marginTop: 20,
               padding: 20,
-              backgroundColor: "transparent"
+              backgroundColor: "#272727"
             }}
           ></Card>
         ) : (
@@ -28,12 +28,14 @@ function CardGoalsTips(props) {
             style={{
               maxWidth: 500,
               minHeight: 500,
-              opacity: 0.8,
+              opacity: 0.95,
+              borderRadius: 20,
               margin: "auto",
               marginBottom: 20,
               marginTop: 20,
               padding: 20,
-              backgroundColor: "white"
+              backgroundColor: "#272727",
+              color: "#e7e7e7"
             }}
           >
             {localState.outputTips === 1 ? (
@@ -47,9 +49,10 @@ function CardGoalsTips(props) {
                 </h5>{" "}
                 <a
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-save-money"
-                  class="btn btn-primary"
+                  className="btn btn-primary"
                   style={{
                     color: "black",
+                    backgroundColor: "white",
                     borderColor: "#c4d2c7"
                   }}
                   target="_blank"
@@ -69,7 +72,11 @@ function CardGoalsTips(props) {
                 <a
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-save-for-a-house"
                   class="btn btn-primary"
-                  style={{ color: "black", borderColor: "#c4d2c7" }}
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    borderColor: "#c4d2c7"
+                  }}
                   target="_blank"
                 >
                   Go to Article
@@ -88,7 +95,11 @@ function CardGoalsTips(props) {
                 <a
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-manage-money"
                   class="btn btn-primary"
-                  style={{ color: "black", borderColor: "#c4d2c7" }}
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    borderColor: "#c4d2c7"
+                  }}
                   target="_blank"
                 >
                   Go to Article
@@ -107,7 +118,11 @@ function CardGoalsTips(props) {
                 <a
                   href="https://www.wealthsimple.com/en-ca/learn/how-to-retire-early"
                   class="btn btn-primary"
-                  style={{ color: "black", borderColor: "#c4d2c7" }}
+                  style={{
+                    color: "black",
+                    backgroundColor: "white",
+                    borderColor: "#c4d2c7"
+                  }}
                   target="_blank"
                 >
                   Go to Article

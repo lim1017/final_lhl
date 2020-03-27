@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Card from "@material-ui/core/Card";
 import BriefPortfolio from "./BriefPortfolio";
 import DashPortfolio from "./DashPortfolio";
@@ -15,49 +15,14 @@ import {
   Bar,
   Cell,
   XAxis,
-  YAxis,
   CartesianGrid,
   Tooltip,
   ResponsiveContainer
 } from "recharts";
 import { createPie, returnMonthText } from "helpers/expenseHelper";
 
-//props is = to state
 function CardDashBoard(props) {
-  // const [isUserNew, setIsUserNew] = useState(true);
-  // const userId = localStorage.getItem('id');
-
-  // useEffect(() => {
-
-  //   Promise.all([
-  //     axios.get(`http://localhost:8001/api/users/${userId}`)
-  //   ])
-  //     .then(response => {
-  //       console.log(response, 'from dashboard')
-  //       console.log(response[0].data[0].isnew)
-  //       setIsUserNew(response[0].data[0].isnew)
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  // function oldUser(){
-  //   console.log(isUserNew)
-
-  // Promise.all([
-  //     axios.put(`http://localhost:8001/api/users/update/newuser`, {userId})
-  //   ])
-  //     .then(response => {
-  //       console.log("axios data recieved: ", response);
-  //       setIsUserNew(false)
-
-  //     })
-  //     .catch(error => {
-  //       console.log("no go");
-  //     });
-
-  // }
+ 
 
   const expenseKey = [
     "Entertainment",
@@ -88,7 +53,7 @@ function CardDashBoard(props) {
     "#e5dbff",
     "#FAEEC5",
     "#defafa",
-    "#dffbd4"
+    "#e7e7e7"
   ];
   const formatDataForPVAT = function(state) {
     const Budgeted = { name: "Budgeted" };
@@ -121,12 +86,13 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             minHeight: 500,
-            opacity: 1,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "#ececec"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           {props.state.goals.length === 0 ? (
@@ -158,12 +124,13 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             maxHeight: 500,
-            opacity: 1,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "#ececec"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           {props.state.budget.length === 0 ? (
@@ -207,15 +174,15 @@ function CardDashBoard(props) {
         <Card
           style={{
             width: "500px",
-            width: "500px",
             maxWidth: 500,
             maxHeight: 500,
-            opacity: 1,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "#cacaca"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           {props.state.expenses.length === 0 ? (
@@ -233,37 +200,41 @@ function CardDashBoard(props) {
             </>
           ) : (
             <ResponsiveContainer width={700} height="80%">
-            <div>
-              <h4>
-                My Expenses for{" "}
-                {returnMonthText(parseInt(props.state.date.month))}:
-              </h4>
-              <PieChart width={550} height={350}>
-                <Pie
-                  data={createPie(props.state.totalExpenses)}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="41%"
-                  cy="49%"
-                  outerRadius={135}
-                  fill="#8884d8"
-                  label
-                >
-                  {createPie(props.state.totalExpenses).map((entry, index) => (
-                    <Cell key={index} fill={colors[index % colors.length]} />
-                  ))}
-                </Pie>
-                <Legend
-                  verticalAlign="bottom"
-                  layout="horizontal"
-                  height={20}
-                  width={450}
-                  textColor="white"
-                />
-              </PieChart>
-            </div>
+              <div>
+                <h4>
+                  My Expenses for{" "}
+                  {returnMonthText(parseInt(props.state.date.month))}:
+                </h4>
+                <PieChart width={550} height={350}>
+                  <Pie
+                    data={createPie(props.state.totalExpenses)}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="41%"
+                    cy="49%"
+                    outerRadius={135}
+                    fill="#8884d8"
+                    label
+                  >
+                    {createPie(props.state.totalExpenses).map(
+                      (entry, index) => (
+                        <Cell
+                          key={index}
+                          fill={colors[index % colors.length]}
+                        />
+                      )
+                    )}
+                  </Pie>
+                  <Legend
+                    verticalAlign="bottom"
+                    layout="horizontal"
+                    height={20}
+                    width={450}
+                    textColor="#e7e7e7"
+                  />
+                </PieChart>
+              </div>
             </ResponsiveContainer>
-
           )}
         </Card>
       </div>
@@ -274,12 +245,13 @@ function CardDashBoard(props) {
             width: "500px",
             maxWidth: 500,
             minHeight: 500,
-            opacity: 1,
+            opacity: 0.95,
             margin: "auto",
             marginBottom: 20,
             marginTop: 20,
             padding: 20,
-            backgroundColor: "#cacaca"
+            backgroundColor: "#272727",
+            color: "#e7e7e7"
           }}
         >
           {props.state.users[0].riskscore === 0 ? (
@@ -299,9 +271,8 @@ function CardDashBoard(props) {
           ) : (
             // <ResponsiveContainer width={700} height="80%">
 
-              <BriefPortfolio state={props.state}></BriefPortfolio>
+            <BriefPortfolio state={props.state}></BriefPortfolio>
             // </ResponsiveContainer>
-
           )}
         </Card>
       </div>

@@ -7,7 +7,7 @@ import axios from "axios";
 
 
 function Dashboard(props) {
-  const { state, dispatch } = useContext(appDataContext);
+  const { state } = useContext(appDataContext);
 
 
   const [isUserNew, setIsUserNew] = useState(true);
@@ -21,31 +21,26 @@ function Dashboard(props) {
       axios.get(`http://localhost:8001/api/users/${userId}`)
     ])
       .then(response => {
-        console.log(response, 'from dashboard')
-        console.log(response[0].data[0].isnew)
         setIsUserNew(response[0].data[0].isnew)
       })
       .catch(error => {
         console.log(error);
       });
-  }, []);
+  });
 
 
 
   function isOldUser(){
-    console.log(isUserNew)
+    Promise.all([
+        axios.put(`http://localhost:8001/api/users/update/newuser`, {userId})
+      ])
+        .then(response => {
+          setIsUserNew(false)
 
-  Promise.all([
-      axios.put(`http://localhost:8001/api/users/update/newuser`, {userId})
-    ])
-      .then(response => {
-        console.log("axios data recieved: ", response);
-        setIsUserNew(false)
-
-      })
-      .catch(error => {
-        console.log("no go");
-      });
+        })
+        .catch(error => {
+          console.log("no go");
+        });
 
   }
 

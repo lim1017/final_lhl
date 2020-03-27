@@ -23,7 +23,7 @@ import {
 } from "recharts";
 
 import Card from "@material-ui/core/Card";
-import { CardExpTable } from "components/Card/CardExpTable.jsx";
+import CardExpTable from "components/Card/CardExpTable.jsx";
 import FileUpload from "components/FileUpload/FileUpload.jsx";
 import MonthPicker from "components/MonthPicker/MonthPicker.jsx";
 import ExpenseUpdater1 from "components/ExpenseUpdater/ExpenseUpdater1.jsx";
@@ -47,7 +47,8 @@ function Dashboard(props) {
     "#e5dbff",
     "#FAEEC5",
     "#defafa",
-    "#dffbd4"  ];
+    "#dffbd4"
+  ];
 
   useEffect(() => {
     console.log(state);
@@ -160,7 +161,6 @@ function Dashboard(props) {
       axios.get(`http://localhost:8001/api/expensestotal/${datez}`)
     ])
       .then(response => {
-
         dispatch({
           ...state,
           type: SET_DATA,
@@ -189,7 +189,6 @@ function Dashboard(props) {
               }
               content={
                 <div>
-                
                   <MDBDataTable
                     className="mdb"
                     searching={false}
@@ -234,11 +233,11 @@ function Dashboard(props) {
                       variant="contained"
                       // color="primary"
                       style={{
-                        backgroundColor: "#c4d2c7",
-                        color: "black",
+                        backgroundColor: "#272727",
+                        color: "#e7e7e7",
                         fontWeight: "bold",
                         height: "50px",
-                        marginLeft: "1.5em"
+                        marginLeft: "3em"
                       }}
                       onClick={() => toggleState()}
                     >
@@ -267,66 +266,62 @@ function Dashboard(props) {
           {/* <div className='both-expense-tables'> */}
           <div className="expenses-table2">
             {state.expenses.length !== 0 ? (
-              
-        <Card
-          style={{
-            backgroundColor: "#cacaca",
-            opacity:1
-          }}
-        >
-        <h4 style={{textAlign:"center"}}>Expense Breakdown By Type (in $)</h4>
-        <ResponsiveContainer width="90%" height={350}>
-          <PieChart width={400} height={350}>
-            <Tooltip />
-            <Pie
-              data={createPie(state.totalExpenses)}
-              dataKey="value"
-              nameKey="name"
-              cx="55%"
-              cy="50%"
-              outerRadius={120}
-              fill="#8884d8"
-              label
-            >
-              {createPie(state.totalExpenses).map((entry, index) => (
-                <Cell
-                  key={index}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Legend
-              verticalAlign="bottom"
-              height={45}
-              width={350}
-
-            />
-          </PieChart>
-        </ResponsiveContainer>
-
-        </Card>
-        ) : null}
+              <Card
+                style={{
+                  backgroundColor: "#272727",
+                  color: "#e7e7e7",
+                  opacity: 0.95
+                }}
+              >
+                <h4 style={{ textAlign: "center" }}>
+                  Expense Breakdown By Type (in $)
+                </h4>
+                <ResponsiveContainer width="90%" height={350}>
+                  <PieChart width={400} height={350}>
+                    <Tooltip />
+                    <Pie
+                      data={createPie(state.totalExpenses)}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="55%"
+                      cy="50%"
+                      outerRadius={110}
+                      fill="#8884d8"
+                      label
+                    >
+                      {createPie(state.totalExpenses).map((entry, index) => (
+                        <Cell
+                          key={index}
+                          fill={COLORS[index % COLORS.length]}
+                        />
+                      ))}
+                    </Pie>
+                    <Legend verticalAlign="bottom" height={45} width={350} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </Card>
+            ) : null}
           </div>
           <div className="expenses-table3">
             {state.expenses.length !== 0 ? (
-             
               <Card
                 style={{
-                backgroundColor: "#cacaca",
-                opacity:1
+                  backgroundColor: "#272727",
+                  color: "#e7e7e7",
+                  opacity: 0.95
                 }}
               >
-                <h4 style={{textAlign:"center"}} >Personal Expense Comparison To{" "}
-                    <a
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201"
-                    >
-                      National Average
-                    </a>
-                  </h4>
+                <h4 style={{ textAlign: "center" }}>
+                  Personal Expense Comparison To{" "}
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110022201"
+                  >
+                    National Average
+                  </a>
+                </h4>
                 <ResponsiveContainer width="95%" height={350}>
-
                   <BarChart
                     // width={800}
                     // height={350}
@@ -340,13 +335,8 @@ function Dashboard(props) {
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
                   </BarChart>
-                  
-                </ResponsiveContainer>  
-              
-              
-              
+                </ResponsiveContainer>
               </Card>
-
             ) : null}
             {/* </div> */}
           </div>

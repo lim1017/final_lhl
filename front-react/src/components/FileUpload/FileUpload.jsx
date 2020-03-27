@@ -12,7 +12,12 @@ function FileUpload(props) {
           <div
             type="button"
             className="btn btn-success"
-            style={{ height: "50px" }}
+            style={{
+              height: "50px",
+              backgroundColor: "#272727",
+              color: "#e7e7e7",
+              borderColor: "black"
+            }}
           >
             Select File
           </div>
@@ -34,10 +39,10 @@ function FileUpload(props) {
         </label>
         <Button
           style={{
-            marginLeft: "1.5rem",
-            marginRight: "1.5em",
-            backgroundColor: "#c4d2c7",
-            color: "black",
+            marginLeft: "2rem",
+            marginRight: "2em",
+            backgroundColor: "#272727",
+            color: "#e7e7e7",
             fontWeight: "bold",
             height: "50px"
           }}
