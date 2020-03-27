@@ -15,7 +15,7 @@ function CardExpTable(props) {
         </h3>
         <span className="exp-question-span">
           <img
-            src={require("../../assets/img/budget_question2.png")}
+            src={require("../../assets/img/budget_question.png")}
             alt="quit"
             height="28"
             width="26"
