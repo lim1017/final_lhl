@@ -7,6 +7,8 @@ import MyVerticallyCenteredModal from "components/MyVerticallyCenteredModal/MyVe
 import appDataContext from "../hooks/reducers/useContext";
 import reducerz, { SET_EDU_PROGRESS, SET_USER } from "../hooks/reducers/app";
 import axios from "axios";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 function Maps({ ...prop }) {
   const userId = localStorage.getItem("id");
@@ -140,6 +142,16 @@ function Maps({ ...prop }) {
     border: "solid 5px"
   };
 
+  function score(){
+    let score1=null
+      
+      if (state.eduProgress>0){
+        score1=state.eduProgress.toFixed(2)
+      }
+
+    return score1
+  }
+
   return (
     <div className="img-wrapper">
       <div className="img-container">
@@ -204,9 +216,12 @@ function Maps({ ...prop }) {
 
         <div>
           <ProgressBar
+            animated
             style={progressBar}
             now={state.eduProgress}
-            label={state.eduProgress.toFixed(2)}
+            variant="custom"
+            striped variant="danger" 
+            label={score()}
           />
         </div>
       </div>
