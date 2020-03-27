@@ -84,7 +84,7 @@ function Budget(props) {
     "Medical",
     "Debt",
     "Misc",
-    "Transporation",
+    "Transportation",
     "Home",
     "Food",
     "Utilities"
@@ -127,6 +127,8 @@ function Budget(props) {
   }
 
   useEffect(() => {
+
+
     const user = localStorage.getItem("id");
     let datez = `${state.date.month}+${state.date.year}+${user}`;
 
@@ -164,6 +166,9 @@ function Budget(props) {
         });
       }
     }
+
+    console.log(state.budget)
+
   }, state.budget);
 
   function chgMonth(date) {
