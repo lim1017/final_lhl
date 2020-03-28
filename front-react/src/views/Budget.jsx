@@ -800,7 +800,9 @@ function Budget(props) {
               // if two of left side is open and all of right side is open
               (toggle.planner &&
                 toggle.goal &&
-                toggle.pvat && toggle.pvac && toggle.botg)) ? (
+                toggle.pvat &&
+                toggle.pvac &&
+                toggle.botg)) ? (
               <CardBudget
                 title="Budgeted vs Actual Monthly Saving"
                 size={cardSize(winWidth).card}
@@ -1242,7 +1244,6 @@ function Budget(props) {
                     </AreaChart>
                   ) : (
                     <div>You can't invest with negative cashflow!</div>
-                  )}
                   )}
                 </ResponsiveContainer>
               }
