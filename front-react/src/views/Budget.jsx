@@ -707,7 +707,7 @@ function Budget(props) {
     }
   };
 
-  console.log('winWidth', winWidth)
+  console.log("winWidth", winWidth);
 
   /* --------------- */
   /* Render Contents */
@@ -789,12 +789,18 @@ function Budget(props) {
             ) : null}
           </div>
           <div>
-            {
-             toggle.pvas && winWidth >= 1276 &&
-             // if one of left side is open and two + of right side is onpen
-             ((toggle.planner && !toggle.goal || !toggle.planner && toggle.goal) && (toggle.pvat && toggle.pvac || toggle.pvat && toggle.botg || toggle.pvac && toggle.botg) ||
-             // if two of left side is open and all of right side is open
-             (toggle.planner && toggle.goal) && (toggle.pvat && toggle.pvac && toggle.botg)) ? (
+            {toggle.pvas &&
+            winWidth >= 1276 &&
+            // if one of left side is open and two + of right side is onpen
+            ((((toggle.planner && !toggle.goal) ||
+              (!toggle.planner && toggle.goal)) &&
+              ((toggle.pvat && toggle.pvac) ||
+                (toggle.pvat && toggle.botg) ||
+                (toggle.pvac && toggle.botg))) ||
+              // if two of left side is open and all of right side is open
+              (toggle.planner &&
+                toggle.goal &&
+                toggle.pvat && toggle.pvac && toggle.botg)) ? (
               <CardBudget
                 title="Budgeted vs Actual Monthly Saving"
                 size={cardSize(winWidth).card}
@@ -810,14 +816,15 @@ function Budget(props) {
                     {info.pvas ? (
                       <div>
                         <p>
-                          This graph compares monthly surplus from Budget Planner
-                          card and monthly surplus from actual expenses from
-                          Expenses tab, calculated by subtracting actual expenses
-                          from budgeted monthly income.
+                          This graph compares monthly surplus from Budget
+                          Planner card and monthly surplus from actual expenses
+                          from Expenses tab, calculated by subtracting actual
+                          expenses from budgeted monthly income.
                         </p>
                         <p>
-                          When a Save per Month type of goal is checked from Goals
-                          card, the goal's amount will be displayed on graph.
+                          When a Save per Month type of goal is checked from
+                          Goals card, the goal's amount will be displayed on
+                          graph.
                         </p>
                         <p>
                           Press ? icon to go back to Budgeted vs Actual Monthly
@@ -852,8 +859,8 @@ function Budget(props) {
                             return formatNumbers(t);
                           }}
                         />
-                        <Tooltip                     
-                          cursor={{fill: 'transparent'}}
+                        <Tooltip
+                          cursor={{ fill: "transparent" }}
                           contentStyle={{ backgroundColor: "#272727" }}
                         />
                         <Legend />
@@ -926,7 +933,6 @@ function Budget(props) {
 
                       <Tooltip
                         cursor={{ fill: "transparent" }}
-
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
                       <Legend />
@@ -993,9 +999,7 @@ function Budget(props) {
                         }}
                       />
                       <Tooltip
-
                         cursor={{ fill: "transparent" }}
-
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
                       <Legend />
@@ -1011,14 +1015,20 @@ function Budget(props) {
         <div
           className={"budgetContent" + cardLoc(toggle, "F", winWidth >= 1276)}
         >
-          {
-          toggle.pvas && winWidth < 1276 || toggle.pvas &&
-          // if two of left side open and less than all of right side is open
-          ((toggle.planner && toggle.goal) && (!toggle.pvat || !toggle.pvac || !toggle.botg) ||
-          // if one of left side is open and less than two of right side is open
-          (toggle.planner && !toggle.goal || !toggle.planner && toggle.goal) && (!toggle.pvat && !toggle.pvac || !toggle.pvat && !toggle.botg || !toggle.pvac && !toggle.botg) ||
-          // if both right side of closed
-          (!toggle.planner && !toggle.goal)) ? (
+          {(toggle.pvas && winWidth < 1276) ||
+          (toggle.pvas &&
+            // if two of left side open and less than all of right side is open
+            ((toggle.planner &&
+              toggle.goal &&
+              (!toggle.pvat || !toggle.pvac || !toggle.botg)) ||
+              // if one of left side is open and less than two of right side is open
+              (((toggle.planner && !toggle.goal) ||
+                (!toggle.planner && toggle.goal)) &&
+                ((!toggle.pvat && !toggle.pvac) ||
+                  (!toggle.pvat && !toggle.botg) ||
+                  (!toggle.pvac && !toggle.botg))) ||
+              // if both right side of closed
+              (!toggle.planner && !toggle.goal))) ? (
             <CardBudget
               title="Budgeted vs Actual Monthly Saving"
               size={cardSize(winWidth).card}
@@ -1077,7 +1087,6 @@ function Budget(props) {
 
                       <Tooltip
                         cursor={{ fill: "transparent" }}
-
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
                       <Legend />
@@ -1176,7 +1185,7 @@ function Budget(props) {
                         ]}
                       />
                       <Tooltip
-                        cursor={{fill: 'transparent'}}
+                        cursor={{ fill: "transparent" }}
                         // content={({ label, payload }) => {
                         //   return (
                         //     <div className="BOTGtooltip">
@@ -1231,9 +1240,9 @@ function Budget(props) {
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
                     </AreaChart>
-
-                  : <div>You can't invest with negative cashflow!</div>
-
+                  ) : (
+                    <div>You can't invest with negative cashflow!</div>
+                  )}
                   )}
                 </ResponsiveContainer>
               }
