@@ -75,9 +75,6 @@ function Dashboard(props) {
     setUser(userz);
   }, []);
 
-
-  
-
   function doDispatch(date, data) {
     const userz = localStorage.getItem("id");
 
@@ -253,7 +250,7 @@ function Dashboard(props) {
                       ],
                       rows: formatDataForExpenseTable(state.expenses)
                     }}
-                  /> 
+                  />
                   <div className="addExpenseDiv">
                     <MUButton
                       style={{
@@ -328,8 +325,10 @@ function Dashboard(props) {
                 </h4>
                 <ResponsiveContainer width="90%" height={350}>
                   <PieChart width={400} height={350}>
-                    <Tooltip itemStyle={{ color: '#e7e7e7' }}
-                contentStyle={{ backgroundColor: "#272727" }} />
+                    <Tooltip
+                      itemStyle={{ color: "#e7e7e7" }}
+                      contentStyle={{ backgroundColor: "#272727" }}
+                    />
                     <Pie
                       data={createPie(state.totalExpenses)}
                       dataKey="value"
@@ -379,7 +378,14 @@ function Dashboard(props) {
                     data={formatDataForBarChart(state.totalExpenses)}
                   >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis stroke="#e7e7e7" dataKey="name" angle={-45} interval={0} height={70} textAnchor="end" />
+                    <XAxis
+                      stroke="#e7e7e7"
+                      dataKey="name"
+                      angle={-45}
+                      interval={0}
+                      height={70}
+                      textAnchor="end"
+                    />
                     <YAxis stroke="#e7e7e7" />
                     <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
                     <Legend verticalAlign="bottom" height={6} />

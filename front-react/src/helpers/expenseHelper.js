@@ -41,8 +41,17 @@ const formatDataForExpenseTable = function(data) {
 
 const formatDataForBarChart = function(data) {
   const finalOP = [];
-  const avg2 = {Debt:315, Entertainment:180, Food:533, Home:1700, Medical:79, Misc:172, Transportation:458, Utilities:320};
-  
+  const avg2 = {
+    Debt: 315,
+    Entertainment: 180,
+    Food: 533,
+    Home: 1700,
+    Medical: 79,
+    Misc: 172,
+    Transportation: 458,
+    Utilities: 320
+  };
+
   let i = 0;
   data.forEach(ele => {
     const bar = {
@@ -53,8 +62,6 @@ const formatDataForBarChart = function(data) {
     finalOP.push(bar);
     i++;
   });
-
-  
 
   return finalOP;
 };
