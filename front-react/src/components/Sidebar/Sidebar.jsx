@@ -25,7 +25,7 @@ function Sidebar(props) {
     fontSize: 12,
   };
 
-  console.log(state)
+  // console.log(state)
 
 
   function logout() {
