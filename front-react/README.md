@@ -4,19 +4,17 @@ PiggyBank is an all inclusive financial literacy app.
 
 You will be able to set financial goals, track your expenses, obtain a customized investment portfolio, and create a state of the art budget to help meet your goals. In addition, PiggyBank also has a built in news component, youtube channel, and education section.
 
-Everything is customizable based on your inputs!
+Everything is customizable based on your inputs. Get started today!
 
 ## Screenshots
 
-!["Main Page"](https://github.com/TylerZhang00/LighthouseEats/blob/master/docs/Main%20Page.png?raw=true)
+!["Login Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBLogin.png?raw=true)
 
-!["Summary Page"](https://github.com/TylerZhang00/LighthouseEats/blob/master/docs/Order%20Summary%20Page.png?raw=true)
+!["Dashboard Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBDashboard.png?raw=true)
 
-!["Title Page"](https://github.com/TylerZhang00/LighthouseEats/blob/master/docs/Title%20Page.png?raw=true)
+!["Budget Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBBudget.png?raw=true)
 
-## Setup
-
-Install dependencies with `npm install`
+!["News Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBNews.png?raw=true)
 
 ## Dependencies
 
