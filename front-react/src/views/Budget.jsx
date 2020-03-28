@@ -498,7 +498,8 @@ function Budget(props) {
           label={{
             position: "left",
             value: `${formatNumbers(g.amount)}`,
-            fontSize: 10
+            fontSize: 10,
+            fill: 'rgba(255, 255, 255, 1)'
           }}
         />
       );
@@ -515,7 +516,8 @@ function Budget(props) {
           label={{
             position: "left",
             value: `${formatNumbers(g.amount)}`,
-            fontSize: 10
+            fontSize: 10,
+            fill: 'rgba(255, 255, 255, 1)'
           }}
         />
       );
