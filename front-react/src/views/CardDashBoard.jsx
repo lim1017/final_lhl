@@ -215,7 +215,7 @@ function CardDashBoard(props) {
                     nameKey="name"
                     cx="41%"
                     cy="49%"
-                    outerRadius={135}
+                    outerRadius={125}
                     fill="#8884d8"
                     label
                   >
