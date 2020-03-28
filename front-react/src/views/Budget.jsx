@@ -127,8 +127,6 @@ function Budget(props) {
   }
 
   useEffect(() => {
-
-
     const user = localStorage.getItem("id");
     let datez = `${state.date.month}+${state.date.year}+${user}`;
 
@@ -166,7 +164,6 @@ function Budget(props) {
         });
       }
     }
-
   }, state.budget);
 
   function chgMonth(date) {
@@ -493,7 +490,7 @@ function Budget(props) {
             position: "left",
             value: `${formatNumbers(g.amount)}`,
             fontSize: 10,
-            fill: 'rgba(255, 255, 255, 1)'
+            fill: "rgba(255, 255, 255, 1)"
           }}
         />
       );
@@ -511,7 +508,7 @@ function Budget(props) {
             position: "left",
             value: `${formatNumbers(g.amount)}`,
             fontSize: 10,
-            fill: 'rgba(255, 255, 255, 1)'
+            fill: "rgba(255, 255, 255, 1)"
           }}
         />
       );
@@ -530,7 +527,7 @@ function Budget(props) {
             position: "left",
             value: `${formatNumbers(g.amount)}`,
             fontSize: 10,
-            fill: 'rgba(255, 255, 255, 1)'
+            fill: "rgba(255, 255, 255, 1)"
           }}
         />
       );
@@ -555,11 +552,7 @@ function Budget(props) {
         );
       } else if (g.type === "AAWI") {
         return (
-          <ReferenceLine
-            key={g.goal.id + 1100}
-            x={g.x}
-            stroke="#496aff"
-          />
+          <ReferenceLine key={g.goal.id + 1100} x={g.x} stroke="#496aff" />
         );
       } else if (g.type === "DATE") {
         return <ReferenceLine key={g.goal.id + 1200} x={g.x} stroke="red" />;
@@ -895,22 +888,18 @@ function Budget(props) {
                   {info.pvat ? (
                     <div>
                       <p>
-                        This graph compares your monthly expenses from Budget
-                        Planner card and your actual expenses for given month,
-                        from the Expenses tab. The graph is displayed with all
-                        expenses categories stacked together, which makes it
-                        easier to compare total expenses. To change specific
-                        month to compare, use Change Month on the left side of
-                        top Navigation bar.
+                        This graph compares your monthly budgeted expenses to
+                        your actual expenses for a given month.
                       </p>
                       <p>
-                        When a Limit Expenses type of goal is checked from Goals
-                        card, the goal's amount will be displayed on graph.
+                        When a "Limit Expenses" goal is checked, the goal's
+                        amount will be displayed on graph.
                       </p>
                       <p>
-                        Press ? icon to go back to Budgeted vs Actual Expenses
-                        graph.
+                        You can change the month on the left side of top
+                        Navigation bar.
                       </p>
+                      <p>Press ? to go back.</p>
                     </div>
                   ) : (
                     <BarChart
@@ -934,8 +923,10 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip 
-                        cursor={{fill: 'transparent'}}
+
+                      <Tooltip
+                        cursor={{ fill: "transparent" }}
+
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
                       <Legend />
@@ -967,18 +958,14 @@ function Budget(props) {
                   {info.pvac ? (
                     <div>
                       <p>
-                        This graph compares your monthly expenses from Budget
-                        Planner card and your actual expenses for given month,
-                        from the Expenses tab. The graph is displayed with each
-                        expenses categories on separate pair of bars, which
-                        makes it easier to compare specific type of expenses. To
-                        change specific month to compare, use Change Month on
-                        the left side of top Navigation bar.
+                        This graph compares your monthly budgeted expenses and
+                        your actual expenses for a given month.
                       </p>
                       <p>
-                        Press ? icon to go back to Budgeted vs Actual Expenses
-                        by Category graph.
+                        You can change the month on the left side of top
+                        Navigation bar.
                       </p>
+                      <p>Press ? to go back.</p>
                     </div>
                   ) : (
                     <BarChart
@@ -987,7 +974,14 @@ function Budget(props) {
                       margin={{ top: 15, right: 40, left: 0, bottom: 0 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis stroke="#e7e7e7" dataKey="name" angle={-45} interval={0} height={80} textAnchor="end" />
+                      <XAxis
+                        stroke="#e7e7e7"
+                        dataKey="name"
+                        angle={-45}
+                        interval={0}
+                        height={80}
+                        textAnchor="end"
+                      />
                       <YAxis
                         stroke="#e7e7e7"
                         domain={[
@@ -999,7 +993,9 @@ function Budget(props) {
                         }}
                       />
                       <Tooltip
-                        cursor={{fill: 'transparent'}}
+
+                        cursor={{ fill: "transparent" }}
+
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
                       <Legend />
@@ -1038,19 +1034,17 @@ function Budget(props) {
                   {info.pvas ? (
                     <div>
                       <p>
-                        This graph compares monthly surplus from Budget Planner
-                        card and monthly surplus from actual expenses from
-                        Expenses tab, calculated by subtracting actual expenses
-                        from budgeted monthly income.
+                        This graph compares your monthly surplus (Budget
+                        Planner) and monthly surplus from your expenses
+                        (Expenses Tab). It is calculated by subtracting your
+                        actual expenses from yourbudgeted monthly income.
                       </p>
                       <p>
-                        When a Save per Month type of goal is checked from Goals
-                        card, the goal's amount will be displayed on graph.
+                        When a "Saving per Month" type of goal is checked from
+                        the Goals card, the goal's amount will be displayed on
+                        this graph.
                       </p>
-                      <p>
-                        Press ? icon to go back to Budgeted vs Actual Monthly
-                        Saving graph.
-                      </p>
+                      <p>Press ? to go back.</p>
                     </div>
                   ) : (
                     <BarChart
@@ -1080,8 +1074,10 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip                     
-                        cursor={{fill: 'transparent'}}
+
+                      <Tooltip
+                        cursor={{ fill: "transparent" }}
+
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
                       <Legend />
@@ -1125,30 +1121,26 @@ function Budget(props) {
                     <div>
                       <p>
                         This graph displays your assets over time based on your
-                        budget from Budget Planner card.
+                        budgeted surplus/deficit and your expected investment
+                        return.
                       </p>
                       <p>
-                        Green area represent your assets without investing,
-                        only including Initial Capital and monthly surplus.
+                        The gray area represents your assets without investing
+                        (initial capital and monthly surplus).
                       </p>
                       <p>
-                        If you have completed Risk Assessment from Portfolio
-                        tab, the graph will also calculate gains from investment
-                        based on the portfolio return, which is displayed
-                        as pink area.
+                        If you have completed your Risk Assessment, the graph
+                        will also calculate your expected gains from investing ,
+                        which is displayed as the green area.
                       </p>
                       <p>
-                        When a Save for Purchase type of goal is checked from
-                        Goals card, the goal's amount, deadline, and when the
-                        goal can be met with or without investing, if they can
-                        be met, will be displayed on graph.
+                        When a "Saving for Purchase" goal is checked, the goal's
+                        amount, deadline, and whether or not the goal can be met
+                        will be displayed on this graph.
                       </p>
-                      <p>
-                        Press ? icon to go back to Power of Investing graph.
-                      </p>
+                      <p>Press ? to go back.</p>
                     </div>
-                  ) : ( 
-                    budgetCalc(budget) >= 0 ?
+                  ) : budgetCalc(budget) >= 0 ? (
                     <AreaChart
                       height={cardSize(winWidth).graphY}
                       data={
@@ -1239,7 +1231,9 @@ function Budget(props) {
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
                     </AreaChart>
+
                   : <div>You can't invest with negative cashflow!</div>
+
                   )}
                 </ResponsiveContainer>
               }

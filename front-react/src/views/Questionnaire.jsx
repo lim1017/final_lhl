@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 
 import CardWrapper from "components/Card/CardWrapper.jsx";
-import MUButton from '@material-ui/core/Button';
-
+import MUButton from "@material-ui/core/Button";
 
 function Questionnaire(props) {
-
-  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+  const [button1, setButton1] = useState({
+    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    x: 0
+  });
 
   const style = {
-    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-    borderRadius: 30,
+    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    borderRadius: 15,
     border: 0,
-    color: 'white',
-    fontSize: 20,
+    color: "white",
+    fontSize: 20
   };
-
 
   return (
     <div className="risk-assessment-questionnaire-container">
@@ -26,7 +26,7 @@ function Questionnaire(props) {
           <ol className="risk-assessment-questions" start="1" tabIndex="0">
             <li>
               <h4>How would you best describe your personality?</h4>
-              <ul style={{ "listStyleType": "none" }}>
+              <ul style={{ listStyleType: "none" }}>
                 <li>
                   <label>
                     <input
@@ -94,7 +94,7 @@ function Questionnaire(props) {
           <ol className="risk-assessment-questions" start="2" tabIndex="0">
             <li>
               <h4>Hypothetically, how would you invest $10,000?</h4>
-              <ul style={{ "listStyleType": "none" }}>
+              <ul style={{ listStyleType: "none" }}>
                 <li>
                   <label>
                     <input
@@ -166,7 +166,7 @@ function Questionnaire(props) {
                 How comfortable are you with fluctuations in the value of your
                 investments?
               </h4>
-              <ul style={{ "listStyleType": "none" }}>
+              <ul style={{ listStyleType: "none" }}>
                 <li>
                   <label>
                     <input
@@ -239,7 +239,7 @@ function Questionnaire(props) {
                 Will you need access to a large portion of this money earlier
                 than expected?
               </h4>
-              <ul style={{ "listStyleType": "none" }}>
+              <ul style={{ listStyleType: "none" }}>
                 <li>
                   <label>
                     <input
@@ -308,7 +308,7 @@ function Questionnaire(props) {
                 Coronavirus!!
                 <br /> Your investments drop by 25% - how do you react?
               </h4>
-              <ul style={{ "listStyleType": "none" }}>
+              <ul style={{ listStyleType: "none" }}>
                 <li>
                   <label>
                     <input
@@ -356,7 +356,7 @@ function Questionnaire(props) {
                 <li>
                   <label>
                     <input
-                      className="risk-assessment-input" 
+                      className="risk-assessment-input"
                       name="q5"
                       type="radio"
                       value="4"
@@ -373,32 +373,39 @@ function Questionnaire(props) {
         </CardWrapper>
         {/* SUBMIT QUESTIONNAIRE */}
         <div className="risk-assessment-submission">
-        <MUButton
-          style={{
-            ...style,
-            background: button1.color,
-            height: 70 - button1.x,
-            width: 550 - button1.x,
-            marginBottom: '1em',
-
-          }}
-          onMouseLeave={() => setButton1({
-            ...button1,
-            color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-            x: 0
-          })}
-          onMouseOver={() => setButton1({
-            ...button1,
-            color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
-          })}
-          onMouseUp={() => setButton1({
-            ...button1,
-            x: 0
-          })}
-          onMouseDown={() => setButton1({
-            ...button1,
-            x: 5
-          })}
+          <MUButton
+            style={{
+              ...style,
+              background: button1.color,
+              height: 70 - button1.x,
+              width: 550 - button1.x,
+              marginBottom: "1em"
+            }}
+            onMouseLeave={() =>
+              setButton1({
+                ...button1,
+                color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                x: 0
+              })
+            }
+            onMouseOver={() =>
+              setButton1({
+                ...button1,
+                color: "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+              })
+            }
+            onMouseUp={() =>
+              setButton1({
+                ...button1,
+                x: 0
+              })
+            }
+            onMouseDown={() =>
+              setButton1({
+                ...button1,
+                x: 5
+              })
+            }
             className="risk-assessment-submit-button"
             onClick={e => props.onSubmit(e)}
           >
