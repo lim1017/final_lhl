@@ -86,7 +86,6 @@ module.exports = db => {
         ) .then(x => {
               response.status(200).send(x)
               
-              console.log(x, 'done updating single file')
         })
         .catch(error => console.log(error));
 
@@ -110,7 +109,6 @@ module.exports = db => {
           return res.status(500).json(err)
       }
 
-      console.log(req.body, 'from upload@@!!')
 
       if (req.body.scoreUp){
         score = 15;
@@ -131,8 +129,6 @@ module.exports = db => {
           
       })).then(x => {
         // res.status(200)
-        console.log('done file upload')
-        console.log(score, 'the score is')
         db.query(
           `
           UPDATE users
@@ -143,53 +139,13 @@ module.exports = db => {
         ) .then(x => {
               res.status(200).send(req.file)
               
-              console.log(x, 'done updating literacy')
         })
         .catch(error => console.log(error));
         
       })
       .catch(error => console.log(error));
     });
-      // return res.status(200).send(req.file)
     })
-    
-  //   if (!req.body.scoreUp) score = 10;
-  //   datez = req.body.date.year + '/' + req.body.date.month + '/' + dd;
-
-  //   Promise.all(formatExpenses(req.body).map(element =>{
-  //      return db.query(
-  //       `
-  //       INSERT INTO expenses (name, user_id, amount, type, date)
-  //       VALUES
-  //       ($1, $2, $3, $4, $5)
-  
-  //       `,
-  //       [element[0], req.body.userId, element[1], element[2], datez]
-  //       //name/userid/amount/type
-  //     )
-        
-  //   })).then(x => {
-  //     // res.status(200)
-  //     console.log('done file upload')
-  //     console.log(score, 'the score is')
-  //     db.query(
-  //       `
-  //       UPDATE users
-  //       SET literacy = $1 
-  //       WHERE id = $2
-  //       `,
-  //       [score, parseInt(req.body.userId)]
-  //     ) .then(x => {
-  //           res.status(200)
-            
-  //           console.log(x, 'done updating literacy')
-  //     })
-  //     .catch(error => console.log(error));
-      
-  //   })
-  //   .catch(error => console.log(error));
-  // });
-
 
   router.get("/expenses/:date", (req, response) => {
 

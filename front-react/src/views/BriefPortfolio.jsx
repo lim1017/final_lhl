@@ -115,7 +115,7 @@ function BriefPortfolio(props) {
           nameKey="name"
           cx="41%"
           cy="52%"
-          outerRadius={135}
+          outerRadius={130}
           fill="#8884d8"
           label
         >

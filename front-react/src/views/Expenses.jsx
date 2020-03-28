@@ -70,7 +70,6 @@ function Dashboard(props) {
   useEffect(() => {
     refreshExpenses(state.date);
 
-    console.log("runing exp");
     const userz = localStorage.getItem("id");
     setUser(userz);
   }, []);
@@ -109,14 +108,13 @@ function Dashboard(props) {
     const userId = localStorage.getItem("id");
 
     var scoreUp = false;
-    console.log(state.expenses.length, "expense length");
 
     if (state.expenses.length === 0) {
       scoreUp = true;
     }
 
     if (fileUploaded && fileUploaded.selectedFile.name.includes(".csv")) {
-      console.log(fileUploaded);
+      // console.log(fileUploaded);
       const data = new FormData();
       data.append("file", fileUploaded);
 
@@ -135,8 +133,6 @@ function Dashboard(props) {
             axios
               .get(`http://localhost:8001/api/users/${userId}`)
               .then(resz => {
-                console.log(resz, "after file upload");
-                console.log(resz.data[0]);
                 dispatch({
                   type: SET_USER,
                   users: resz.data
@@ -152,7 +148,7 @@ function Dashboard(props) {
       // console.log("this is file uploaded", fileUploaded)
       // console.log("this is the data from expenses", data)
     } else {
-      console.log("upload a csv file");
+      // console.log("upload a csv file");
     }
   }
 
@@ -387,7 +383,10 @@ function Dashboard(props) {
                       textAnchor="end"
                     />
                     <YAxis stroke="#e7e7e7" />
-                    <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
+                    <Tooltip
+                      cursor={{ fill: "transparent" }}
+                      contentStyle={{ backgroundColor: "#272727" }}
+                    />
                     <Legend verticalAlign="bottom" height={6} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />

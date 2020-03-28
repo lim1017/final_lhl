@@ -47,7 +47,6 @@ function Maps({ ...prop }) {
 
     Promise.all([axios.get(`http://localhost:8001/api/users/${userId}`)])
       .then(response => {
-        console.log(response[0].data[0]);
         setAllAnswers(response[0].data[0].eduscores);
         setAnswerYet(response[0].data[0].eduisanswered);
         updateProgressBar(response[0].data[0].eduscores);
@@ -68,8 +67,6 @@ function Maps({ ...prop }) {
     ])
       .then(res => {
         axios.get(`http://localhost:8001/api/users/${userId}`).then(resz => {
-          console.log(resz, "after file upload");
-          console.log(resz.data[0]);
           dispatch({
             type: SET_USER,
             users: resz.data
@@ -86,8 +83,6 @@ function Maps({ ...prop }) {
   }
 
   function verifyAnswer(id) {
-    console.log(selectedAnswers, "from verified answer");
-
     if (articles[id - 1].answer === selectedAnswers[id]) {
       const isCorrect = { ...allAnswers, [`${id}`]: 1 };
 
@@ -102,7 +97,6 @@ function Maps({ ...prop }) {
         axios.put(`http://localhost:8001/api//users/updateedu`, eduUpdate)
       ])
         .then(response => {
-          console.log("axios data recieved: ", response);
           if (allAnswers[id] === 0) {
             updateLit();
           }

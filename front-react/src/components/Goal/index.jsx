@@ -23,16 +23,13 @@ export default function Goal(props) {
       date
     };
 
-    // transition(SAVE, true);
 
     props
       .setGoal(props.id, goal)
       .then(response => {
-        console.log("success ", response);
         transition(SHOW);
       })
       .catch(error => {
-        // transition(ERROR, true);
         console.log("failure ", error);
       });
   }
@@ -86,5 +83,4 @@ export default function Goal(props) {
       />
     );
   }
- 
 }

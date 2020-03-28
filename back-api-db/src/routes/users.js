@@ -1,10 +1,7 @@
 const router = require("express").Router();
 
 module.exports = db => {
-
   router.get("/users/:id", (request, response) => {
-    console.log('id route')
-    console.log("get", request.params);
     db.query(
       `
       SELECT * FROM users 
@@ -17,9 +14,6 @@ module.exports = db => {
   });
 
   router.put("/users/updateliteracy", (request, response) => {
-
-    console.log('answering question!')
-
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
@@ -44,13 +38,12 @@ module.exports = db => {
   });
 
   router.put("/users/updateedu", (request, response) => {
-
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
 
-    const { eduscores , userId } = request.body;
+    const { eduscores, userId } = request.body;
 
     db.query(
       `
@@ -69,15 +62,12 @@ module.exports = db => {
   });
 
   router.put("/users/update/newuser", (request, response) => {
-
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
 
     const { userId } = request.body;
-    console.log('updaing newuser status to false')
-    console.log(request.body, 'the user id is')
 
     db.query(
       `
@@ -95,38 +85,6 @@ module.exports = db => {
       .catch(error => console.log(error));
   });
 
-  // router.put("/users/add", (request, response) => {
-  //   if (process.env.TEST_ERROR) {
-  //     setTimeout(() => response.status(500).json({}), 1000);
-  //     return;
-  //   }
-
-  //   console.log(request.body)
-
-  //   const { username } = request.body;
-
-  //   db.query(
-  //     `
-  //     INSERT INTO users (name, riskScore, portfolioReturn)
-  //     VALUES
-  //     ($1, 1, 1)
-
-  //     `,
-  //     [username]
-  //   )
-  //     .then(x => {
-  //       console.log(x, 'after add')
-  //       setTimeout(() => {
-  //         response.status(204).json({x});
-  //       }, 1000);
-  //     })
-  //     .catch(error =>{
-  //       console.log(error, 'erring in add');
-  //       response.json({error});
-  //     })
-
-  // });
-
   router.put("/users/update", (request, response) => {
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
@@ -134,11 +92,10 @@ module.exports = db => {
     }
     const { user, riskScore, portfolioReturn } = request.body.userPortfolio;
 
-    console.log(request.body, 'from user update!!')
 
-    if (request.body.scoreUp){
+    if (request.body.scoreUp) {
       score = 15;
-    } 
+    }
 
     db.query(
       `
@@ -150,7 +107,6 @@ module.exports = db => {
       [user, riskScore, portfolioReturn]
     )
       .then(x => {
-      
         db.query(
           `
           UPDATE users
@@ -158,26 +114,20 @@ module.exports = db => {
           WHERE id = $2
           `,
           [score, user]
-        ) .then(x => {
-              response.status(200).send(request.file)
-              
-              console.log(x, 'done updating literacy in user/update')
-        })
-        .catch(error => console.log(error));
-
-
+        )
+          .then(x => {
+            response.status(200).send(request.file);
+          })
+          .catch(error => console.log(error));
       })
       .catch(error => console.log(error));
   });
 
   router.get("/users/:username", (request, response) => {
-    console.log('backend login')
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
-
-    console.log(request.params.username)
 
     db.query(
       `
@@ -186,9 +136,9 @@ module.exports = db => {
       `,
       [request.params.username]
     )
-    .then(({ rows: user }) => {
-      response.json(user);
-    })
+      .then(({ rows: user }) => {
+        response.json(user);
+      })
       .catch(error => console.log(error));
   });
 

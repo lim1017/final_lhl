@@ -14,7 +14,6 @@ module.exports = db => {
 
   router.put("/budget/:id", (request, response) => {
 
-    console.log(request)
     const { user_id, base, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc } = request.body;
 
     db.query(
@@ -25,7 +24,6 @@ module.exports = db => {
     )
     .then(({ rows: result }) => {
       if (result.length !== 0) {
-        console.log('running if')
         db.query(
           `
           UPDATE budget SET 
@@ -46,8 +44,6 @@ module.exports = db => {
           response.json(`database: budget for user ${user_id} updated`);
         }).catch(error => console.log(error));
       } else {
-        console.log('running else')
-        console.log(request.params.id)
         db.query(
           `
           INSERT INTO budget (base, income, c_hous, c_tran, c_food, c_util, c_entr, c_medi, c_debt, c_misc, user_id)
