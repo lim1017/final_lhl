@@ -14,7 +14,7 @@ Everything is customizable based on your inputs. Get started today!
 
 !["Budget Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBBudget.png?raw=true)
 
-!["News Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBNews.png?raw=true)
+!["News Page"](https://github.com/lim1017/final_lhl/blob/master/front-react/docs/PBNews2.png?raw=true)
 
 ## Dependencies
 
