@@ -241,8 +241,6 @@ function Budget(props) {
     ])
       .then(res => {
         axios.get(`http://localhost:8001/api/users/${userId}`).then(resz => {
-          console.log(resz, "after file upload");
-          console.log(resz.data[0]);
           dispatch({
             type: "SET_USER",
             users: resz.data
@@ -458,14 +456,10 @@ function Budget(props) {
       else maxHeight = -minHeight;
     }
 
-    console.log('stage three', maxHeight, minHeight)
-
     const result = {
       yMax: Math.floor(maxHeight * 1.25),
       yMin: Math.floor(minHeight * 1.25)
     };
-
-    console.log('stage four', result.yMax, result.yMin)
 
     return result;
   };
@@ -576,8 +570,6 @@ function Budget(props) {
   const PVATdata = expenseKey.map((value, i) => {
     return <Bar key={i} dataKey={expenseKey[i]} stackId="a" fill={colors[i]} />;
   });
-
-  console.log("check", state, goal, range);
 
   /* ---------------------- */
   /* Cards Size Adjustments */
