@@ -50,6 +50,8 @@ export const BudgetGraphCard = function(props) {
       } else typeCheck = false;
     }
 
+    console.log('acheck', sc.aCheck, 'icheck', sc.iCheck, 'dCheck', sc.dCheck)
+
     if (props.budgetCalc <= 0) {
       return (
         <div className="category">
@@ -61,14 +63,14 @@ export const BudgetGraphCard = function(props) {
     } else if (typeCheck && goalCheck.length !== 0 && !props.info.botg) {
       return (
         <div className="category">
-          {sc.aCheck > sc.dCheck && sc.iCheck > sc.dCheck || sc.aCheck < 0 && sc.iCheck < 0 ? (
-            <p className='power-of-investing-text'>
-              Your goal cannot be met by your <span className="redText">deadline</span>{" "}
+          {(sc.aCheck > sc.dCheck || sc.aCheck === -1) && (sc.iCheck > sc.dCheck || sc.iCheck === -1) ? (
+            <p>
+              Your goal cannot be met by <span className="redText">deadline</span>{" "}
               of {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
           ) : null}
-          {sc.aCheck < sc.dCheck && sc.aCheck > 0 || sc.iCheck < sc.dCheck && sc.iCheck > 0 ? (
-            <p className='power-of-investing-text'>
+          {0 < sc.aCheck && sc.aCheck < sc.dCheck || 0 < sc.iCheck && sc.iCheck < sc.dCheck ? (
+            <p>
               Your goal can be met by <span className="redText">deadline</span> of{" "}
               {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
@@ -86,11 +88,14 @@ export const BudgetGraphCard = function(props) {
               {`${sc.ax.split(" ")[1]} ${sc.ax.split(" ")[2]}`}.
             </p>
           ) : null}
-          {/* {sc.aCheck < 600 && sc.iCheck < 600 ? ( */}
+          {sc.aCheck === -1 && sc.iCheck === -1 ? (
+            <p>
+              Your goal cannot be met within 50 years.
+            </p>
+          ) : null}
             <p className='power-of-investing-text3'>
              <strong> Investment Growth Rate: <u>{props.portfolioR}</u>%  </strong>.
             </p>
-          {/* ) : null} */}
         </div>
       );
     }
