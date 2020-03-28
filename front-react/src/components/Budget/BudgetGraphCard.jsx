@@ -73,7 +73,7 @@ export const BudgetGraphCard = function(props) {
             </p>
           ) : null}
           {0 < sc.aCheck && sc.aCheck < sc.dCheck || 0 < sc.iCheck && sc.iCheck < sc.dCheck ? (
-            <p>
+            <p className='power-of-investing-text'>
               Your goal can be met by <span className="redText">deadline</span> of{" "}
               {`${sc.dx.split(" ")[1]} ${sc.dx.split(" ")[2]}`}.
             </p>
