@@ -63,6 +63,9 @@ export const BudgetGraphCard = function(props) {
     } else if (typeCheck && goalCheck.length !== 0 && !props.info.botg) {
       return (
         <div className="category">
+            <p className='power-of-investing-text3'>
+              <strong> Investment Growth Rate: <u>{props.portfolioR}</u>%  </strong>.
+            </p>
           {(sc.aCheck > sc.dCheck || sc.aCheck === -1) && (sc.iCheck > sc.dCheck || sc.iCheck === -1) ? (
             <p>
               Your goal cannot be met by <span className="redText">deadline</span>{" "}
@@ -93,9 +96,6 @@ export const BudgetGraphCard = function(props) {
               Your goal cannot be met within 50 years.
             </p>
           ) : null}
-            <p className='power-of-investing-text3'>
-             <strong> Investment Growth Rate: <u>{props.portfolioR}</u>%  </strong>.
-            </p>
         </div>
       );
     }

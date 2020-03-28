@@ -934,14 +934,10 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-<<<<<<< HEAD
-                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
-=======
                       <Tooltip 
                         cursor={{fill: 'transparent'}}
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
->>>>>>> b
                       <Legend />
                       {PVATdata}
                       {PVATreferenceLinesY}
@@ -1002,14 +998,10 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-<<<<<<< HEAD
-                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
-=======
                       <Tooltip
                         cursor={{fill: 'transparent'}}
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
->>>>>>> b
                       <Legend />
                       <Bar dataKey="Budgeted" fill="#ffe7ea" />
                       <Bar dataKey="Actual" fill="#c4d2c7" />
@@ -1088,14 +1080,10 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-<<<<<<< HEAD
-                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
-=======
                       <Tooltip                     
                         cursor={{fill: 'transparent'}}
                         contentStyle={{ backgroundColor: "#272727" }}
                       />
->>>>>>> b
                       <Legend />
                       <Bar dataKey="Plan" fill="#ffe7ea" />
                       <Bar dataKey="Actual" fill="#c4d2c7" />
@@ -1251,7 +1239,7 @@ function Budget(props) {
                       {BOTGreferenceLinesY}
                       {BOTGreferenceLinesX}
                     </AreaChart>
-                  : <div></div>
+                  : <div>You can't invest with negative cashflow!</div>
                   )}
                 </ResponsiveContainer>
               }
