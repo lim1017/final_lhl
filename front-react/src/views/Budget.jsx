@@ -1011,6 +1011,7 @@ function Budget(props) {
               dispatchInfo={dispatchInfo}
               info={info}
               dispatchType="BOTG"
+              portfolioR={portfolio}
               goalTrack={
                 budgetSetGraphData(budget, range, portfolio, goal.select)
                   .goalCheck
