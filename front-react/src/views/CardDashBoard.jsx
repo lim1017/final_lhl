@@ -161,7 +161,7 @@ function CardDashBoard(props) {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis stroke="#e7e7e7" dataKey="name" />
-                <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
+                <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
                 <Legend />
                 {PVATdata}
               </BarChart>
