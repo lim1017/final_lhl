@@ -852,7 +852,7 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
+                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
                       <Legend />
                       {PVATdata}
                       {PVATreferenceLinesY}
@@ -913,7 +913,7 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
+                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
                       <Legend />
                       <Bar dataKey="Budgeted" fill="#ffe7ea" />
                       <Bar dataKey="Actual" fill="#c4d2c7" />
@@ -985,7 +985,7 @@ function Budget(props) {
                           return formatNumbers(t);
                         }}
                       />
-                      <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
+                      <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
                       <Legend />
                       <Bar dataKey="Plan" fill="#ffe7ea" />
                       <Bar dataKey="Actual" fill="#c4d2c7" />

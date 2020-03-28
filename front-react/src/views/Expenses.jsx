@@ -387,7 +387,7 @@ function Dashboard(props) {
                       textAnchor="end"
                     />
                     <YAxis stroke="#e7e7e7" />
-                    <Tooltip contentStyle={{ backgroundColor: "#272727" }} />
+                    <Tooltip cursor={{fill: 'transparent'}} contentStyle={{ backgroundColor: "#272727" }} />
                     <Legend verticalAlign="bottom" height={6} />
                     <Bar dataKey="Personal" fill="#c4d2c7" />
                     <Bar dataKey="Average" fill="#ffe7ea" />
