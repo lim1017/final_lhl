@@ -5,8 +5,7 @@ import Questionnaire from "./Questionnaire";
 import RenderPortfolio from "./RenderPortfolio";
 import axios from "axios";
 import { SET_DATA, SET_USER } from "hooks/reducers/app";
-import MUButton from '@material-ui/core/Button';
-
+import MUButton from "@material-ui/core/Button";
 
 function portfolioDistribution(riskScore) {
   //renders portfolio based on questionnaire response of user
@@ -92,16 +91,18 @@ function Portfolio(props) {
   });
 
   //for the big button
-  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+  const [button1, setButton1] = useState({
+    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    x: 0
+  });
 
   const style = {
-    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-    borderRadius: 30,
+    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    borderRadius: 15,
     border: 0,
-    color: 'white',
-    fontSize: 20,
+    color: "white",
+    fontSize: 20
   };
-
 
   // RENDER CHART IF USER ALREADY SUBMITTED ASSESSMENT
 
@@ -138,15 +139,13 @@ function Portfolio(props) {
       parseInt(localState.questionFive);
 
     const userid = localStorage.getItem("id");
-    
-    
-    var scoreUp=false
-    console.log(state.users[0].riskscore, 'riskscore')
 
-    if (state.users[0].riskscore === 0){
-      scoreUp=true
+    var scoreUp = false;
+    console.log(state.users[0].riskscore, "riskscore");
+
+    if (state.users[0].riskscore === 0) {
+      scoreUp = true;
     }
-    
 
     const userPortfolio = {
       user: userid,
@@ -163,7 +162,10 @@ function Portfolio(props) {
     });
 
     Promise.all([
-      axios.put(`http://localhost:8001/api/users/update`, {userPortfolio, scoreUp})
+      axios.put(`http://localhost:8001/api/users/update`, {
+        userPortfolio,
+        scoreUp
+      })
     ]).then(() => {
       dispatch({
         ...state,
@@ -171,16 +173,14 @@ function Portfolio(props) {
         type: SET_DATA
       });
 
-      axios.get((`http://localhost:8001/api/users/${userid}`))
-            .then(resz =>{
-              console.log(resz, 'after file upload')
-              console.log(resz.data[0])
-              dispatch({
-                type: SET_USER,
-                users: resz.data
-              });
-            })
-
+      axios.get(`http://localhost:8001/api/users/${userid}`).then(resz => {
+        console.log(resz, "after file upload");
+        console.log(resz.data[0]);
+        dispatch({
+          type: SET_USER,
+          users: resz.data
+        });
+      });
 
       // force redirect
       window.location.href = "/admin/portfolio/review";
@@ -196,35 +196,43 @@ function Portfolio(props) {
           <div className="risk-assessment-button-image-container">
             <div className="risk-assessment-background-image"></div>
             <Link to={`${match.url}/questionnaire`}>
-            <MUButton
-           className="risk-assessment-start-button"
-           style={{
-            ...style,
-            background: button1.color,
-            height: 70 - button1.x,
-            width: 350 - button1.x,
-            margin: button1.x/2
-          }}
-            onMouseLeave={() => setButton1({
-              ...button1,
-              color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-              x: 0
-            })}
-            onMouseOver={() => setButton1({
-              ...button1,
-              color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
-            })}
-            onMouseUp={() => setButton1({
-              ...button1,
-              x: 0
-            })}
-            onMouseDown={() => setButton1({
-              ...button1,
-              x: 5
-            })} 
-          >
-          Start Risk Assessment          
-          </MUButton>
+              <MUButton
+                className="risk-assessment-start-button"
+                style={{
+                  ...style,
+                  background: button1.color,
+                  height: 70 - button1.x,
+                  width: 350 - button1.x,
+                  margin: button1.x / 2
+                }}
+                onMouseLeave={() =>
+                  setButton1({
+                    ...button1,
+                    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                    x: 0
+                  })
+                }
+                onMouseOver={() =>
+                  setButton1({
+                    ...button1,
+                    color: "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                  })
+                }
+                onMouseUp={() =>
+                  setButton1({
+                    ...button1,
+                    x: 0
+                  })
+                }
+                onMouseDown={() =>
+                  setButton1({
+                    ...button1,
+                    x: 5
+                  })
+                }
+              >
+                Start Risk Assessment
+              </MUButton>
             </Link>
           </div>
         </Route>

@@ -22,8 +22,6 @@ import {
 import { createPie, returnMonthText } from "helpers/expenseHelper";
 
 function CardDashBoard(props) {
- 
-
   const expenseKey = [
     "Entertainment",
     "Medical",
@@ -139,7 +137,7 @@ function CardDashBoard(props) {
                 Step 4:
                 <br></br>
                 <br></br>
-                The best way to stick to My budget is to start one
+                The best way to stick to a budget is to start one
               </h1>
               <br></br>
               <br></br>
@@ -206,9 +204,10 @@ function CardDashBoard(props) {
                   {returnMonthText(parseInt(props.state.date.month))}:
                 </h4>
                 <PieChart width={550} height={350}>
-                <Tooltip
-                itemStyle={{ color: '#e7e7e7' }}
-                contentStyle={{ backgroundColor: "#272727" }} />
+                  <Tooltip
+                    itemStyle={{ color: "#e7e7e7" }}
+                    contentStyle={{ backgroundColor: "#272727" }}
+                  />
 
                   <Pie
                     data={createPie(props.state.totalExpenses)}

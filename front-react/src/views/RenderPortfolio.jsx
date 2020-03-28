@@ -4,22 +4,21 @@ import { Link, useRouteMatch } from "react-router-dom";
 
 import CardExplained from "components/Card/CardExplained";
 import CardPortfolio from "components/Card/CardPortfolio";
-import MUButton from '@material-ui/core/Button';
-
+import MUButton from "@material-ui/core/Button";
 
 function RenderPortfolio(props) {
-  
-
-  const [button1, setButton1] = useState({color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)', x: 0});
+  const [button1, setButton1] = useState({
+    color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    x: 0
+  });
 
   const style = {
-    background: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-    borderRadius: 30,
+    background: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+    borderRadius: 15,
     border: 0,
-    color: 'white',
-    fontSize: 20,
+    color: "white",
+    fontSize: 20
   };
-
 
   return (
     <div className="risk-assessment-review-container">
@@ -55,31 +54,38 @@ function RenderPortfolio(props) {
             </Grid>
             <div className="review-start-button-div">
               <Link to={`/admin/portfolio/start`}>
-              <MUButton
+                <MUButton
                   style={{
                     ...style,
                     background: button1.color,
                     height: 70 - button1.x,
                     width: 350 - button1.x
-
                   }}
-                  onMouseLeave={() => setButton1({
-                    ...button1,
-                    color: 'linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)',
-                    x: 0
-                  })}
-                  onMouseOver={() => setButton1({
-                    ...button1,
-                    color: 'linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)'
-                  })}
-                  onMouseUp={() => setButton1({
-                    ...button1,
-                    x: 0
-                  })}
-                  onMouseDown={() => setButton1({
-                    ...button1,
-                    x: 5
-                  })}
+                  onMouseLeave={() =>
+                    setButton1({
+                      ...button1,
+                      color: "linear-gradient(45deg, #ec407a 30%, #f48fb1 90%)",
+                      x: 0
+                    })
+                  }
+                  onMouseOver={() =>
+                    setButton1({
+                      ...button1,
+                      color: "linear-gradient(45deg, #f06292 30%, #f8bbd0 90%)"
+                    })
+                  }
+                  onMouseUp={() =>
+                    setButton1({
+                      ...button1,
+                      x: 0
+                    })
+                  }
+                  onMouseDown={() =>
+                    setButton1({
+                      ...button1,
+                      x: 5
+                    })
+                  }
                   className="risk-assessment-start-button"
                 >
                   Re-Do Risk Assessment
