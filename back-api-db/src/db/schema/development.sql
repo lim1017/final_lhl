@@ -60,17 +60,7 @@ VALUES
     ('Movies', 1, 550, 'Entertainment', '02/11/2020'),
     ('Viagara', 1, 1000, 'Medical', '02/5/2020'),
     ('Debt', 1, 666, 'Debt', '02/5/2020'),
-    ('Flying Pony', 1, 1250, 'Misc', '02/5/2020'),
-
-
-    ('Auto Lease', 1, 0, 'Transportation', '03/5/2020'),
-    ('Fancy Sushi', 1, 0, 'Food', '03/11/2020'),
-    ('Hydro', 1, 0, 'Utilities', '03/5/2020'),
-    ('Movies', 1, 0, 'Entertainment', '03/11/2020'),
-    ('Viagara', 1, 0, 'Medical', '03/5/2020'),
-    ('Debt', 1, 0, 'Debt', '03/5/2020'),
-    ('Flying Pony', 1, 0, 'Misc', '03/5/2020'),
-    ('Home', 1, 0, 'Home', '03/5/2020');
+    ('Flying Pony', 1, 1250, 'Misc', '02/5/2020');
 
 
 

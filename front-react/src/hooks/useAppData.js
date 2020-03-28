@@ -65,7 +65,7 @@ export default function useAppData() {
       axios.get(`http://localhost:8001/api/users/${user}`)
     ])
       .then(response => {
-        console.log(response[4].data, 'data to update user')
+        // console.log(response[4].data, 'data to update user')
         dispatch({
           type: SET_DATA,
           expenses: response[0].data,

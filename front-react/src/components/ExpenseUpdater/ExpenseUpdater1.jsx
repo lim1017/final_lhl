@@ -101,13 +101,15 @@ function ExpenseUpdater1(props) {
           <TextField
             id="standard-helperText"
             label="Name"
+            type="text"
             defaultValue=""
             onChange={handleChangeName}
           />
 
           <TextField
             id="standard-helperText"
-            label="Amount"
+            type="number"
+            label="Amount $"
             defaultValue=""
             onChange={handleChangeAmt}
           />
