@@ -31,9 +31,8 @@ module.exports = db => {
      `,
      [request.params.id]
     ).then(({ rows: result }) => {
-      console.log(result)
       if (result.length !== 0) {
-        console.log('running if')
+
         db.query(
           `
           UPDATE goals SET 
@@ -50,7 +49,6 @@ module.exports = db => {
           response.json(`database:goal ${request.params.id} updated`);
         }).catch(error => console.log(error));
       } else {
-        console.log('running else')
         db.query(
           `
           INSERT INTO goals (name, user_id, type, amount, description, date)
@@ -58,7 +56,6 @@ module.exports = db => {
           `,
           [name, user_id, type, amount, description, date]
         ).then(() => {
-          console.log(score, user_id, 'score and user id')
           response.json(`database:goal ${request.params.id} updated`);
 
           db.query(
@@ -70,7 +67,6 @@ module.exports = db => {
             [score, user_id]
           ).then(x => {
             response.status(200)
-                console.log(x, 'done updating literacy in goals')
           })
 
           

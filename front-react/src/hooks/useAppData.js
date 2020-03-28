@@ -3,13 +3,9 @@ import axios from "axios";
 import reducerz, { SET_DATA } from "./reducers/app";
 
 export default function useAppData() {
-
-  const today=new Date();
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  const today = new Date();
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   var yyyy = today.getFullYear();
-
-  // console.log(today)
-  // console.log(mm)
 
   const [state, dispatch] = useReducer(reducerz, {
     expenses: [{ id: 0, name: "", user_id: 0, amount: 0, type: "", date: "" }],
@@ -44,7 +40,7 @@ export default function useAppData() {
         date: ""
       }
     ],
-    users: [{literacy:0}],
+    users: [{ literacy: 0 }],
     date: { month: mm, year: yyyy },
     educationAnswers: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 },
     educationAnsweredYet: { 1: false, 2: false, 3: false, 4: false, 5: false },
@@ -52,7 +48,6 @@ export default function useAppData() {
   });
 
   useEffect(() => {
-    // console.log('use effect running')
     const user = localStorage.getItem("id");
 
     let datez = `${state.date.month}+${state.date.year}+${user}`;
@@ -65,7 +60,6 @@ export default function useAppData() {
       axios.get(`http://localhost:8001/api/users/${user}`)
     ])
       .then(response => {
-        // console.log(response[4].data, 'data to update user')
         dispatch({
           type: SET_DATA,
           expenses: response[0].data,

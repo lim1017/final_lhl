@@ -7,7 +7,6 @@ module.exports = db => {
       return;
     }
 
-    console.log(request.body);
 
     const { username } = request.body;
 
@@ -21,25 +20,22 @@ module.exports = db => {
       [username]
     )
       .then(x => {
-        console.log(x, "after add");
         setTimeout(() => {
           response.status(204).json({ x });
         }, 1000);
       })
       .catch(error => {
-        console.log(error, "erring in add");
+        console.log(error);
         response.json({ error });
       });
   });
 
   router.get("/account/:username", (request, response) => {
-    console.log("backend login");
     if (process.env.TEST_ERROR) {
       setTimeout(() => response.status(500).json({}), 1000);
       return;
     }
 
-    console.log(request.params.username);
 
     db.query(
       `

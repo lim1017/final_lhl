@@ -65,7 +65,6 @@ function ExpenseUpdater1(props) {
     const expenseObj = { amount, name, type, userId, date: props.date };
 
     var scoreUp = false;
-    console.log(props.state.expenses.length, "expense length");
 
     if (props.state.expenses.length === 0) {
       scoreUp = true;
@@ -78,14 +77,12 @@ function ExpenseUpdater1(props) {
       })
     ])
       .then(response => {
-        console.log("after adding one exp");
-
         axios.get(`http://localhost:8001/api/users/${userId}`).then(resz => {
           props.doDispatch(props.state.date, resz.data);
         });
       })
       .catch(error => {
-        console.log("no go");
+        console.log(error);
       });
   }
 

@@ -39,25 +39,16 @@ function Login(props) {
     marginLeft: 0
   };
 
-  // //prevents refresh from logging you out.  updates local state everytime with local storage
-  // useEffect(() => {
-  //   const user = localStorage.getItem("username");
-  //   const userId = localStorage.getItem("id");
-  //   console.log(userId);
-  //   // setLoggedIn({name:user, id:userId})
-  // }, []);
 
   function logout() {
     localStorage.clear();
     setUsername(null);
-    // setLoggedIn({name:null, id:null})
   }
 
   function login() {
     Promise.all([axios.get(`http://localhost:8001/api/account/${username}`)])
       .then(response => {
         if (response[0].data.length === 0) {
-          console.log("user doesnt exist");
           setUserExists(false);
         } else {
           setUserExists(true);
@@ -65,7 +56,6 @@ function Login(props) {
           localStorage.setItem("username", userz.name);
           localStorage.setItem("id", userz.id);
           setLoggedIn({ name: userz.name, id: userz.id });
-          // this.props.history.push('/admin/expens
         }
       })
       .catch(error => {
@@ -74,12 +64,10 @@ function Login(props) {
   }
 
   function register() {
-    console.log(username);
     Promise.all([
       axios.put(`http://localhost:8001/api/account/register`, { username })
     ])
       .then(response => {
-        console.log(response);
         if (response[0].status === 200) {
           setUserExistsRegister(true);
         } else {

@@ -50,7 +50,6 @@ export const BudgetGraphCard = function(props) {
       } else typeCheck = false;
     }
 
-    console.log('acheck', sc.aCheck, 'icheck', sc.iCheck, 'dCheck', sc.dCheck)
 
     if (props.budgetCalc <= 0) {
       return (

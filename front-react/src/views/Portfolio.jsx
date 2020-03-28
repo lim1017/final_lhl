@@ -141,7 +141,6 @@ function Portfolio(props) {
     const userid = localStorage.getItem("id");
 
     var scoreUp = false;
-    console.log(state.users[0].riskscore, "riskscore");
 
     if (state.users[0].riskscore === 0) {
       scoreUp = true;
@@ -174,8 +173,6 @@ function Portfolio(props) {
       });
 
       axios.get(`http://localhost:8001/api/users/${userid}`).then(resz => {
-        console.log(resz, "after file upload");
-        console.log(resz.data[0]);
         dispatch({
           type: SET_USER,
           users: resz.data

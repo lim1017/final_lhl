@@ -14,7 +14,6 @@ function Goals(props) {
     const user = localStorage.getItem("id");
 
     var scoreUp = false;
-    console.log(state.goals.length, "goals length");
 
     if (state.goals.length === 0) {
       scoreUp = true;
@@ -27,7 +26,6 @@ function Goals(props) {
           axios
             .get(`http://localhost:8001/api/goals/${user}`)
             .then(res2 => {
-              console.log("goal get", res2.data);
               dispatch({
                 ...state,
                 type: "SET_DATA",
@@ -38,7 +36,6 @@ function Goals(props) {
               axios
                 .get(`http://localhost:8001/api/users/${user}`)
                 .then(res2 => {
-                  console.log("goal get", res2.data);
                   dispatch({
                     type: SET_USER,
                     users: res2.data
@@ -60,7 +57,6 @@ function Goals(props) {
         .delete(`http://localhost:8001/api/goals/${id}`)
         .then(res1 => {
           axios.get(`http://localhost:8001/api/goals/${user}`).then(res2 => {
-            console.log(res2.data, "from goals");
 
             dispatch({
               ...state,

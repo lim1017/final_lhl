@@ -86,7 +86,6 @@ function NewUserPg(props) {
             })
           }
           onClick={() => {
-            console.log("clicked");
             props.oldUser();
           }}
         >
